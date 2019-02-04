@@ -10,5 +10,21 @@
       <auth-required>false</auth-required>
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
+    <data-source name="Rails SPP300: production" uuid="516537d3-1735-4ec4-a5f7-7f0b959a3974">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <auth-required>false</auth-required>
+    </data-source>
+    <data-source name="Rails SPP300: development" uuid="164fc09e-7470-4c7c-8afc-899b9efb2002">
+      <database-info product="SQLite" version="3.25.1" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.25.1" family="SQLITE" exact-version="3.25.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <auth-required>false</auth-required>
+      <introspection-schemas>*:@</introspection-schemas>
+    </data-source>
+    <data-source name="Rails SPP300: test" uuid="fed492c6-bb34-463b-918d-2b123c371e78">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+      <auth-required>false</auth-required>
+    </data-source>
   </component>
 </project>
