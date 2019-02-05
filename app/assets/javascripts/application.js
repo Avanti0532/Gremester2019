@@ -16,13 +16,6 @@
 //= require_tree .
 //= require angular-devise
 
-angular.module('myModule', ['Devise']).
-config(function(AuthProvider) {
-    // Configure Auth service with AuthProvider
-}).
-controller('myCtrl', function(Auth) {
-    // Use your configured Auth service.
-});
 
 var app = angular.module('gremester', ['ui.router', 'templates', 'Devise'])
     .config([
