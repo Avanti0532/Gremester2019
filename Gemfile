@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
+gem 'angular-rails-templates'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
