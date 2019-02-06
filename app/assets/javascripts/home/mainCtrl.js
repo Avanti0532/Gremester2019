@@ -1,5 +1,6 @@
-.controller('MainCtrl', [
-    '$scope',
-    function($scope){
-        $scope.test = 'Hello world!';
-    }]);
+
+function MainCtrl() {
+}
+angular
+    .module('gremester')
+    .controller("MainCtrl", MainCtrl);

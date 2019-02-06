@@ -1,9 +1,8 @@
-angular.module('gremester', ['ui.router', 'templates', 'Devise'] )
+angular.module('gremester', ['ui.router', 'templates'] )
     .config([
         '$stateProvider',
         '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
-
             $stateProvider
                 .state('home', {
                     url: '/home',
