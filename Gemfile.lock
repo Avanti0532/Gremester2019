@@ -21,11 +21,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.8)
-      actionpack (>= 4.1, < 6)
-      activemodel (>= 4.1, < 6)
-      case_transform (>= 0.2)
-      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (4.2.10)
       activesupport (= 4.2.10)
       globalid (>= 0.3.0)
@@ -43,17 +38,15 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    angular-rails-templates (1.0.2)
+      railties (>= 4.2, < 6)
+      sprockets (>= 3.0, < 5)
+      tilt
     arel (6.0.4)
-    autoprefixer-rails (9.4.7)
-      execjs
     backports (3.11.4)
     bcrypt (3.1.12)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
-    bower-rails (0.11.0)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (3.13.2)
@@ -64,8 +57,6 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.2)
       xpath (~> 3.2)
-    case_transform (0.2)
-      activesupport
     coderay (1.1.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -137,12 +128,6 @@ GEM
       tilt
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    jasmine (3.3.0)
-      jasmine-core (~> 3.3.0)
-      phantomjs
-      rack (>= 1.2.1)
-      rake
-    jasmine-core (3.3.0)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -153,7 +138,6 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (1.8.6)
-    jsonapi-renderer (0.2.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -196,7 +180,6 @@ GEM
       shellany (~> 0.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
-    phantomjs (2.1.1.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -341,10 +324,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  angular-rails-templates
   bcrypt
-  bootstrap-sass (~> 3.3.6)
-  bower-rails
   byebug
   capybara
   coffee-rails (~> 4.1.0)
@@ -353,7 +334,6 @@ DEPENDENCIES
   devise (~> 3.4.0)
   guard-rspec
   haml
-  jasmine
   jbuilder (~> 2.0)
   jquery-rails
   launchy
@@ -379,4 +359,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.5
+   1.16.6

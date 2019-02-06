@@ -35,6 +35,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v4.2.10, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v4.2.10, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.6.0, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="angular-rails-templates (v1.0.2, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="arel (v6.0.4, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="autoprefixer-rails (v9.4.7, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="backports (v3.11.4, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
@@ -43,7 +44,6 @@
     <orderEntry type="library" scope="PROVIDED" name="bootstrap-sass (v3.3.7, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bower-rails (v0.11.0, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.3, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="bundler (v1.16.5, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="byebug (v10.0.2, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara (v3.13.2, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="case_transform (v0.2, Remote-rbenv: ruby-2.4.4-p296) [gem]" level="application" />
