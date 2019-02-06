@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
-  get 'homepage/new'
-
-  get 'homepage/create'
-
-  devise_for :users
   devise_for :students
-  root to: 'homepage#index'
+  root to: 'application#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
