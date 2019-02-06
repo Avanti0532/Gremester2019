@@ -14,6 +14,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use devise for storing password and authentication
+gem 'bower-rails'
+gem 'active_model_serializers'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
@@ -29,6 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"
 end
+gem 'jasmine'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
