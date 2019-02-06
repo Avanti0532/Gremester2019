@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :students
+  Rails.application.routes.draw do
+    devise_for :students
+
+  end
+
   root to: 'application#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

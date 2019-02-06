@@ -4,6 +4,11 @@ angular.module('gremester', ['ui.router', 'templates', 'Devise'] )
         '$urlRouterProvider',
         'AuthProvider',
         function($stateProvider, $urlRouterProvider, AuthProvider ) {
+            AuthProvider.loginPath('/students/sign_in.json');
+            AuthProvider.logoutPath('/students/sign_out.json');
+            AuthProvider.resourceName('student');
+            AuthProvider.registerPath('/students.json');
+            AuthProvider
             $stateProvider
                 .state('home', {
                     url: '/home',

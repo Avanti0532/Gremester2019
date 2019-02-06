@@ -9,6 +9,6 @@
 students = [{:first_name => 'test_first_name', :last_name => 'test_last_name', :email => 'admin@account.com', :username => 'testaccount', :password => '12345678'}]
 
 
-students.each do |user|
-  Student.create!(user)
+students.each do |student|
+  Student.create!(student)
 end
