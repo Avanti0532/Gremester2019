@@ -1,5 +1,5 @@
 
-function AuthCtrl($scope, $state, Auth) {
+function AuthCtrl($scope, $state, $rootScope, Auth) {
     $scope.login = function() {
         console.log('Getting here');
         var credentials = {
@@ -19,29 +19,38 @@ function AuthCtrl($scope, $state, Auth) {
     };
 
     $scope.register = function() {
-        var credentials = {
-            email: 'user@domain.com2',
-            username: 'test2',
-            first_name: 'linh',
-            last_name: 'pham',
-            password: 'password1',
-            password_confirmation: 'password1'
-        };
+        console.log("register");
+        //console.log($scope.student);
+        //console.log($scope.student.config.student.email);
+        Auth.register($scope.student, config).then(function (student) {
+            //console.log(student);
+            //console.log(student.config.student.email);
+            $rootScope.student = student
+            alert("Thanks for signing up, " + student.username);
+            $state.go('home');
+        }, function (response) {
+            alert(response.data.error)
+        });
+    }
         var config = {
             headers: {
                 'X-HTTP-Method-Override': 'POST'
             }
         };
 
-        Auth.register(credentials, config).then(function(registeredUser) {
-            console.log(registeredUser); // => {id: 1, ect: '...'}
-        }, function(error) {
-           console.log('registration failed');
-        });
+        $scope.login = function() {
+            Auth.login($scope.student, config).then(function (student) {
+                $rootScope.student = student
+                alert("You're signed in, " + student.username);
+                $state.go('home');
+            }, function (response) {
+                alert(response.data.error)
+            });
 
-        $scope.$on('devise:new-registration', function(event, user) {
+
+        //$scope.$on('devise:new-registration', function(event, user) {
             // ...
-        });
+        //});
     };
 };
 angular

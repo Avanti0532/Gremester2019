@@ -19,6 +19,7 @@ gem 'devise', '~> 3.4.0'
 gem 'bcrypt'
 gem 'angular-rails-templates'
 gem 'angular_rails_csrf'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
