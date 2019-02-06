@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
+gem 'angular-rails-templates'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -47,7 +48,7 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'simplecov', :require=>false
-  gem 'sqlite3'
+  gem 'sqlite3', '~>1.3.6'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'shoulda-matchers', '~> 3.1'
@@ -71,3 +72,4 @@ group :production do
   gem 'pg', '~> 0.21'
   gem 'rails_12factor'
 end
+
