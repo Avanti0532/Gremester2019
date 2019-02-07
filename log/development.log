@@ -5668,3 +5668,61 @@ Processing by Devise::SessionsController#destroy as JSON
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  commit transaction
 Completed 204 No Content in 16ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2019-02-06 17:58:53 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 30ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for 127.0.0.1 at 2019-02-06 17:58:53 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (4.0ms)
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (113.5ms)
+Completed 200 OK in 7402ms (Views: 7383.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/students/sign_in" for 127.0.0.1 at 2019-02-06 17:59:00 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.3ms)
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (11.9ms)
+Completed 200 OK in 128ms (Views: 126.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/auth/_register.self-8351e1fd2f2f22d678a0848304ee03a93369296a0f585602671bfd5d53203248.js?body=1" for 127.0.0.1 at 2019-02-06 17:59:01 -0600
+
+
+Started POST "/students/sign_in.json" for 127.0.0.1 at 2019-02-06 17:59:01 -0600
+Processing by Devise::SessionsController#create as JSON
+  Parameters: {"student"=>{}, "session"=>{"student"=>{}}}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/students.json" for 127.0.0.1 at 2019-02-06 17:59:17 -0600
+Processing by Devise::RegistrationsController#create as JSON
+  Parameters: {"student"=>{"first_name"=>"avti", "last_name"=>"kjjdfskj", "username"=>"jksdfj", "password"=>"[FILTERED]"}, "registration"=>{"student"=>{"first_name"=>"avti", "last_name"=>"kjjdfskj", "username"=>"jksdfj", "password"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Completed 422 Unprocessable Entity in 77ms (Views: 0.2ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/assets/angular-ui-router/release/angular-ui-router.js.map" for 127.0.0.1 at 2019-02-06 17:59:36 -0600
+
+
+Started GET "/" for 127.0.0.1 at 2019-02-06 19:41:27 -0600
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for 127.0.0.1 at 2019-02-06 19:41:27 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.4ms)
+  Rendered /root/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (17.7ms)
+Completed 200 OK in 221ms (Views: 216.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/students/sign_in.json" for 127.0.0.1 at 2019-02-06 19:41:28 -0600
+Processing by Devise::SessionsController#create as JSON
+  Parameters: {"student"=>{}, "session"=>{"student"=>{}}}
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)
