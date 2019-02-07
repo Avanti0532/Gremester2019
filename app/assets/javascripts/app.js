@@ -9,7 +9,6 @@ angular.module('gremester', ['ui.router', 'templates', 'Devise'] )
             AuthProvider.logoutPath('/students/sign_out.json');
             AuthProvider.resourceName('student');
             AuthProvider.registerPath('/students.json');
-            AuthProvider
             $stateProvider
                 .state('home', {
                     url: '/home',
