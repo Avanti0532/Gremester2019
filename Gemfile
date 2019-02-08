@@ -22,6 +22,7 @@ gem 'angular_rails_csrf'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
+gem "shrine", "~> 2.0"
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -50,7 +51,7 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'simplecov', :require=>false
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'shoulda-matchers', '~> 3.1'
