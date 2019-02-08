@@ -5668,3 +5668,410 @@ Processing by Devise::SessionsController#destroy as JSON
   [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
   [1m[35m (0.1ms)[0m  commit transaction
 Completed 204 No Content in 16ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:14:28 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 15ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:14:28 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (22.8ms)
+Completed 500 Internal Server Error in 541ms (ActiveRecord: 0.6ms)
+
+ActionView::Template::Error (File to import not found or unreadable: bootstrap-sprockets.
+Load paths:
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/vendor/assets/stylesheets):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/stylesheets/application.scss:1
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___923472710373231467_70314066305220'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.0ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.5ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.6ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (100.4ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:19:14 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 14ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:19:14 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (22.7ms)
+Completed 500 Internal Server Error in 431ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (File to import not found or unreadable: bootstrap-sprockets.
+Load paths:
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/vendor/assets/stylesheets):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/stylesheets/application.scss:1
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___3730926518502744087_70186969057320'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.5ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (101.8ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:21:15 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 16ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:21:15 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (23.3ms)
+Completed 500 Internal Server Error in 614ms (ActiveRecord: 1.1ms)
+
+ActionView::Template::Error (couldn't find file 'angular-ui-router' with type 'application/javascript'
+Checked in these paths: 
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/images):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/javascripts/application.js:18
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb__4299656630759670223_70172785341380'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.6ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (100.5ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:21:58 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 20ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:21:58 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (22.7ms)
+Completed 500 Internal Server Error in 556ms (ActiveRecord: 0.6ms)
+
+ActionView::Template::Error (couldn't find file 'angular-ui-router' with type 'application/javascript'
+Checked in these paths: 
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/images):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/javascripts/application.js:18
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___3752312576737126752_70256127526060'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (8.0ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.2ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.5ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (153.8ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:25:08 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (0.8ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (27.5ms)
+Completed 500 Internal Server Error in 535ms (ActiveRecord: 0.9ms)
+
+ActionView::Template::Error (couldn't find file 'angular-ui-router' with type 'application/javascript'
+Checked in these paths: 
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/images):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/javascripts/application.js:18
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb___2865565582723777579_70318867218440'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.4ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.7ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (105.0ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:25:30 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 14ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:25:30 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (1.7ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (35.9ms)
+Completed 500 Internal Server Error in 551ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (couldn't find file 'angular-ui-router' with type 'application/javascript'
+Checked in these paths: 
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/images
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/app/assets/stylesheets
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/javascripts
+  /Users/hpitawela/uiowa/SEP/SPP300/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-devise-1.3.0/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails-assets-angular-1.7.5/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/rails_admin-1.4.2/vendor/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/remotipart-1.4.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/nested_form-0.3.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/images
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-ui-rails-6.0.1/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/jquery-rails-4.3.3/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/font-awesome-rails-4.7.0.4/app/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/angular-rails-templates-1.0.2/vendor/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/coffee-rails-4.1.1/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/turbolinks-source-5.2.0/lib/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/stylesheets
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/javascripts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/fonts
+  /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/bootstrap-sass-3.3.7/assets/images):
+    2: <html >
+    3: <head>
+    4:   <title>Gremester</title>
+    5:   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    6:   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    7:   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    8:   <%= csrf_meta_tags %>
+  app/assets/javascripts/application.js:18
+  app/views/layouts/application.html.erb:5:in `_app_views_layouts_application_html_erb__4165660299585262977_70296730322560'
+
+
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (10.9ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.2ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (157.0ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 11:27:31 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 22ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 11:27:32 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (1.0ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (23.5ms)
+Completed 200 OK in 7060ms (Views: 7041.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.self-257835f25a878dbeaf5a90bdf97a7183521065627cf85ad56ea088e7a97cb15b.css?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/angular/angular.self-cfc44f35828c9257f563d8435a7df0eed613870b67541d9679e4e87ac19a5b59.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/angular-ui-router/release/angular-ui-router.self-40abf51f407a41579a71170402b04eb030555beb0ee4eab7d94eab70e90b6366.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/angular-devise/devise.self-633c6de0b47e944b4aab238ff501621349023b511d73dd13f10a376b89ea1a1b.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/angular-rails-templates.self-4e7b2e92a855018be25a23ed3b12bf3a71ad9b91f58c585c62c087e8c0f84f89.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/angular-devise.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/app.self-bb120add2dd4be1b6f98d6e0a2bdfb0df467da157c90ce3bebc797fa5bfb0cdb.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/auth/_login.self-b8057e761794ab36bb3e69bd4bcc872b7625aa0a5daee98b30ca1f6fbb38322a.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/auth/_register.self-693f7c017bea78ec218be56acd68c7452b15638531e59eba252d0fe0c04aa20d.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/auth/authCtrl.self-331a883f20f4233948f623a53a01b2c2016742f672eef3fffed78b91d34a3b48.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/home/_home.self-e75e3a67aeba1f190dab08402f9ee2df51afb5c6236936814cbd78c2e6d9a25d.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/home/mainCtrl.self-c0972c314cc5ef2d98ec8b463216f89b3ae73c23eb351c8503502727f679c37d.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/nav/_nav.self-55ec78e00be770779c68687864b492361132c03b786911283a37e9729a7700b8.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/nav/navCtrl.self-3c0be8a96b3fd435242c4c1a9b5844f4d001ae94ef90ebf51150489805141f5f.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started GET "/assets/application.self-10ad0916cf31256fe71785e8dc9cc297a96b1cdf7b74aeb61711199b9a3d003f.js?body=1" for ::1 at 2019-02-07 11:27:39 -0600
+
+
+Started POST "/students/sign_in.json" for ::1 at 2019-02-07 11:27:39 -0600
+Processing by Devise::SessionsController#create as JSON
+  Parameters: {"student"=>{}, "session"=>{"student"=>{}}}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
