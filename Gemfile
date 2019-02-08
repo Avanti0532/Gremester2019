@@ -17,7 +17,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
-<<<<<<< HEAD
 gem 'angular-rails-templates'
 gem 'angular_rails_csrf'
 gem 'bootstrap-sass', '~> 3.3.6'
