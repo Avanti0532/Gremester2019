@@ -6075,3 +6075,22 @@ Started POST "/students/sign_in.json" for ::1 at 2019-02-07 11:27:39 -0600
 Processing by Devise::SessionsController#create as JSON
   Parameters: {"student"=>{}, "session"=>{"student"=>{}}}
 Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2019-02-07 20:25:54 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ApplicationController#home as HTML
+Completed 401 Unauthorized in 19ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/students/sign_in" for ::1 at 2019-02-07 20:25:54 -0600
+Processing by Devise::SessionsController#new as HTML
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/shared/_links.html.erb (1.8ms)
+  Rendered /Users/hpitawela/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/devise-3.4.1/app/views/devise/sessions/new.html.erb within layouts/application (50.1ms)
+Completed 200 OK in 1666ms (Views: 1648.8ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/students/sign_in.json" for ::1 at 2019-02-07 20:25:56 -0600
+Processing by Devise::SessionsController#create as JSON
+  Parameters: {"student"=>{}, "session"=>{"student"=>{}}}
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms)

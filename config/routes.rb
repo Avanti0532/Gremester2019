@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :faculties
   Rails.application.routes.draw do
+  devise_for :faculties
     devise_for :students
 
   end
