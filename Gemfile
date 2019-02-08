@@ -1,4 +1,3 @@
-
 ruby '2.4.4'
 source 'https://rubygems.org'
 
@@ -19,6 +18,8 @@ gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
 gem 'angular-rails-templates'
+gem 'angular_rails_csrf'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -49,7 +50,7 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'simplecov', :require=>false
-  gem 'sqlite3', '~>1.3.6'
+  gem 'sqlite3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'shoulda-matchers', '~> 3.1'
