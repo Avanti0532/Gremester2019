@@ -8,6 +8,16 @@
   </div>
 
   <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name%>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name%>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email%>
   </div>
@@ -29,7 +39,7 @@
     <h3>Testing</h3>
     <%= f.label :id_card %><br />
     <%#= f.hidden_field :id_card, :class => 'upload-hidden' %>
-    <%= f.file_field :id_card, autocomplete: "off" %>
+    <%= f.file_field :id_card_data, autocomplete: "off" %>
     <img class="upload-preview">
   </div>
 

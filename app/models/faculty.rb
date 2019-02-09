@@ -5,5 +5,5 @@ class Faculty < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :email, :password, :username, presence: true
+  validates :first_name, :last_name, :email, :password, :username, presence: true
 end
