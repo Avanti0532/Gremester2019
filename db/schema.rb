@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190209205855) do
+ActiveRecord::Schema.define(version: 20190209213824) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 20190209205855) do
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved"
   end
 
+  add_index "faculties", ["approved"], name: "index_faculties_on_approved"
   add_index "faculties", ["confirmation_token"], name: "index_faculties_on_confirmation_token", unique: true
   add_index "faculties", ["email"], name: "index_faculties_on_email", unique: true
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true

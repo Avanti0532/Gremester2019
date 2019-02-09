@@ -1,5 +1,17 @@
 RailsAdmin.config do |config|
 
+
+  module RailsAdmin
+    module Config
+      module Actions
+        class ApproveFaculty < RailsAdmin::Config::Actions::Base
+          RailsAdmin::Config::Actions.register(self)
+        end
+      end
+    end
+  end
+
+    require Rails.root.join('lib', 'rails_admin_approve_faculty.rb')
   ### Popular gems integration
 
   ## == Devise ==
@@ -29,6 +41,9 @@ RailsAdmin.config do |config|
     new
     export
     bulk_delete
+    approve_faculty do
+      except ['Student', 'Admin']
+    end
     show
     edit
     delete
