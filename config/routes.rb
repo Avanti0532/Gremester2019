@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   Rails.application.routes.draw do
     devise_for :students
     match '/sign-in' => "devise/sessions#new", via: :get
 
   end
   root to: 'application#home'
+=======
+  devise_for :students
+>>>>>>> 7f72aae37f8661230d2cf4fa71888a36513eb217
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
