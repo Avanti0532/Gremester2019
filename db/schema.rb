@@ -29,15 +29,19 @@ ActiveRecord::Schema.define(version: 20190208022636) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "faculties", ["confirmation_token"], name: "index_faculties_on_confirmation_token", unique: true
   add_index "faculties", ["email"], name: "index_faculties_on_email", unique: true
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
-  add_index "faculties", [nil], name: "index_faculties_on_confirmation_token", unique: true
 
   create_table "students", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
