@@ -17,8 +17,10 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
+gem "shrine", "~> 2.0"
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -28,9 +30,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'travis'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-source "https://rails-assets.org" do
-  gem "rails-assets-angular-devise"
-end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -49,7 +48,7 @@ group :development, :test do
   gem 'rspec', '~>3.5'
   gem 'rspec-rails'
   gem 'simplecov', :require=>false
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.6'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'shoulda-matchers', '~> 3.1'

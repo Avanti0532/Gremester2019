@@ -1,0 +1,100 @@
+<h2>Sign upppppp</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name%>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email%>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @validatable %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :id_card %><br />
+    <%= f.file_field :id_card, autocomplete: "off" %>
+    <img id="upload-preview">
+  </div>
+
+  <div class="field">
+    <%= f.label :weblink %><br />
+    <%= f.text_field :weblink%>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+<script>
+
+    function fileUpload(fileInput) {
+        var imagePreview = document.querySelector('.upload-preview')
+
+        fileInput.style.display = 'none' // uppy will add its own file input
+
+        var uppy = Uppy.Core({
+            id: fileInput.id,
+            autoProceed: true,
+        })
+            .use(Uppy.FileInput, {
+                target: fileInput.parentNode,
+            })
+            .use(Uppy.Informer, {
+                target: fileInput.parentNode,
+            })
+            .use(Uppy.ProgressBar, {
+                target: imagePreview.parentNode,
+            })
+
+        uppy.use(Uppy.XHRUpload, {
+            endpoint: '/images/upload', // Shrine's upload endpoint
+            fieldName: 'file',
+        })
+
+        uppy.on('upload-success', function (file, data) {
+            // show image preview
+            imagePreview.src = URL.createObjectURL(file.data)
+
+            // read uploaded file data from the upload endpoint response
+            var uploadedFileData = JSON.stringify(data)
+
+            // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+            var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
+            hiddenInput.value = uploadedFileData
+        })
+
+        return uppy
+    }
+
+    document.querySelectorAll('.upload-file').forEach(function (fileInput) {
+        fileUpload(fileInput)
+    })
+</script>

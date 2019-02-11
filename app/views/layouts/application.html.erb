@@ -1,10 +1,18 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Masterapp</title>
+  <title>Gremester</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
+  <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
+
+  <link href="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.css" rel="stylesheet" />
+
   <%= csrf_meta_tags %>
+
+  <%= render "share/nav" %>
 </head>
 <body>
 <p class="notice"><%= notice %></p>
@@ -13,5 +21,7 @@
 <%= yield %>
 
 
+
 </body>
 </html>
+
