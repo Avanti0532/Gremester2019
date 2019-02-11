@@ -17,8 +17,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
-gem 'angular-rails-templates'
-gem 'angular_rails_csrf'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails_admin'
 # Use jquery as the JavaScript library
@@ -28,11 +26,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
+# travis for continous integration setup
+gem 'travis'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-source "https://rails-assets.org" do
-  gem "rails-assets-angular-devise"
-end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
