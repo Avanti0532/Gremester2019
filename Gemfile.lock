@@ -1,6 +1,5 @@
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.org/
   specs:
     actionmailer (4.2.10)
       actionpack (= 4.2.10)
@@ -38,17 +37,13 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    angular-rails-templates (1.0.2)
-      railties (>= 4.2, < 6)
-      sprockets (>= 3.0, < 5)
-      tilt
-    angular_rails_csrf (3.2.0)
-      railties (>= 3, < 6)
     arel (6.0.4)
     autoprefixer-rails (9.4.7)
       execjs
     backports (3.11.4)
     bcrypt (3.1.12)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -71,11 +66,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.4)
-<<<<<<< HEAD
-    content_disposition (1.0.0)
-=======
     connection_pool (2.2.2)
->>>>>>> 576040fcf2c83ba008024b1115308dbcd7a91ffc
+    content_disposition (1.0.0)
     crass (1.0.4)
     cucumber (3.1.2)
       builder (>= 2.1.2)
@@ -234,9 +226,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.10)
       sprockets-rails
-    rails-assets-angular (1.7.5)
-    rails-assets-angular-devise (1.3.0)
-      rails-assets-angular (>= 1.2.0, < 2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.9)
@@ -359,19 +348,12 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
       rack (>= 1.0)
-<<<<<<< HEAD
-    web-console (3.3.0)
-      activemodel (>= 4.2)
-      debug_inspector
-      railties (>= 4.2)
-=======
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.8)
->>>>>>> 576040fcf2c83ba008024b1115308dbcd7a91ffc
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -379,8 +361,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angular-rails-templates
-  angular_rails_csrf
   bcrypt
   bootstrap-sass (~> 3.3.6)
   byebug
@@ -396,7 +376,6 @@ DEPENDENCIES
   launchy
   pg (~> 0.21)
   rails (= 4.2.10)
-  rails-assets-angular-devise!
   rails_12factor
   rails_admin
   rspec (~> 3.5)
@@ -408,12 +387,8 @@ DEPENDENCIES
   shrine (~> 2.0)
   simplecov
   spring
-<<<<<<< HEAD
   sqlite3 (~> 1.3.6)
-=======
-  sqlite3
   travis
->>>>>>> 576040fcf2c83ba008024b1115308dbcd7a91ffc
   turbolinks
   uglifier (>= 2.7.0)
   web-console
