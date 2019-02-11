@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20190209205855) do
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
 
-ActiveRecord::Schema.define(version: 20190208011958) do
   create_table "students", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
