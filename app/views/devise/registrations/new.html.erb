@@ -36,11 +36,14 @@
   </div>
 
   <div class="field">
-    <h3>Testing</h3>
     <%= f.label :id_card %><br />
-    <%#= f.hidden_field :id_card, :class => 'upload-hidden' %>
-    <%= f.file_field :id_card_data, autocomplete: "off" %>
-    <img class="upload-preview">
+    <%= f.file_field :id_card, autocomplete: "off" %>
+    <img id="upload-preview">
+  </div>
+
+  <div class="field">
+    <%= f.label :weblink %><br />
+    <%= f.text_field :weblink%>
   </div>
 
   <div class="actions">
