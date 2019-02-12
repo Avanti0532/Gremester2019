@@ -8,6 +8,7 @@ class DeviseCreateFaculties < ActiveRecord::Migration
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.text :id_card_data
+      t.string :weblink, null: false
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at

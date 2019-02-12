@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20190209213824) do
+=======
+ActiveRecord::Schema.define(version: 20190209205855) do
+>>>>>>> fade3fc5bcd5a90e44ea3a3f0f4596e1ef1ae547
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +44,7 @@ ActiveRecord::Schema.define(version: 20190209213824) do
     t.string   "first_name",                          null: false
     t.string   "last_name",                           null: false
     t.text     "id_card_data"
+    t.string   "weblink",                             null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

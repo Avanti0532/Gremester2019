@@ -1,5 +1,6 @@
 class Faculty < ActiveRecord::Base
-  include ImageUploader::Attachment.new(:mime_types)
+  include ImageUploader::Attachment.new(:id_card)
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -13,4 +14,7 @@ class Faculty < ActiveRecord::Base
   def inactive_message
     approved? ? super : :not_approved
   end
+
 end
+
+
