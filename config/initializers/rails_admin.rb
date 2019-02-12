@@ -1,5 +1,17 @@
 RailsAdmin.config do |config|
 
+
+  module RailsAdmin
+    module Config
+      module Actions
+        class ApproveFaculty < RailsAdmin::Config::Actions::Base
+          RailsAdmin::Config::Actions.register(self)
+        end
+      end
+    end
+  end
+
+    require Rails.root.join('lib', 'rails_admin_approve_faculty.rb')
   ### Popular gems integration
 
   ## == Devise ==
@@ -22,6 +34,15 @@ RailsAdmin.config do |config|
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
+  config.authorize_with do |controller|
+    if current_admin.nil?
+      redirect_to main_app.root_path
+    elsif !current_admin
+      redirect_to main_app.root_path
+    end
+  end
+
+  config.current_user_method(&:current_admin)
 
   config.actions do
     dashboard                     # mandatory
@@ -29,6 +50,9 @@ RailsAdmin.config do |config|
     new
     export
     bulk_delete
+    approve_faculty do
+      except ['Student', 'Admin']
+    end
     show
     edit
     delete
