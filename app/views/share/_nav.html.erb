@@ -2,7 +2,7 @@
   <h1> Gremester</h1>
   <ul class="nav navbar-nav">
           <%= link_to "Log out", destroy_faculty_session_path, :method => :delete, class: "nav-link"%>
-          <%= link_to "Log in", log_in_path, :method => :get, class: "nav-link"%>
+          <%= link_to "Log in", new_faculty_session_path, :method => :get, class: "nav-link"%>
     <%= link_to "Sign up",  new_faculty_registration_path, :method => :get, class: "nav-link"%>
   </ul>
 </div>
