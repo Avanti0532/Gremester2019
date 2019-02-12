@@ -1,3 +1,4 @@
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -13,3 +14,4 @@ class ApplicationController < ActionController::Base
     @current_admin ||= Admin.find(session[:admin_id]) if session[:admin_id]
   end
 end
+

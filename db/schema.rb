@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20190209213824) do
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
 
+
   create_table "students", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -81,6 +82,10 @@ ActiveRecord::Schema.define(version: 20190209213824) do
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "students", ["email"], name: "index_students_on_email", unique: true
