@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin/dashboard', as: 'rails_admin'
   devise_for :admins
@@ -61,9 +61,7 @@ end
 #     # (app/controllers/admin/products_controller.rb)
 #     resources :products
 #   endend
-=======
-Rails.application.routes.draw do
-  devise_for :students
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -118,5 +116,3 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
->>>>>>> 576040fcf2c83ba008024b1115308dbcd7a91ffc
