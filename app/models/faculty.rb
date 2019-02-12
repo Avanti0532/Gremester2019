@@ -1,6 +1,5 @@
 class Faculty < ActiveRecord::Base
   include ImageUploader::Attachment.new(:id_card)
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -16,5 +15,3 @@ class Faculty < ActiveRecord::Base
   end
 
 end
-
-
