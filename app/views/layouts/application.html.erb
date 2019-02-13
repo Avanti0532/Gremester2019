@@ -1,10 +1,11 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Gremester</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'yeti'%>
+  <%= javascript_include_tag 'yeti' %>
   <script src="https://unpkg.com/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
   <script src="https://transloadit.edgly.net/releases/uppy/v0.28.0/dist/uppy.min.js"></script>
 
@@ -15,7 +16,11 @@
   <%= render "share/nav" %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
+<p style= "padding-left: 15px; margin: 0px 0px; color: #31708f; background-color: #d9edf7;
+    text-align: center; font-family: Helvetica, sans-serif;
+font-size: 15px;" class="notice"><%= notice %></p>
+
+
 <p class="alert"><%= alert %></p>
 
 <%= yield %>
@@ -24,4 +29,5 @@
 
 </body>
 </html>
+
 
