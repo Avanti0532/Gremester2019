@@ -1,10 +1,10 @@
-<h2>Sign up</h2>
-
+<div style="padding-left: 50px;">
+<legend>Sign Up</legend>
 <% if resource_name == :faculty %>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
     <div class="field">
-      <%= f.label :username %><br />
+      <%= f.label :username %><br/>
       <%= f.text_field :username, autofocus: true %>
     </div>
 
@@ -38,17 +38,17 @@
 
     <div class="field">
       <%= f.label :id_card %><br />
-      <%= f.file_field :id_card, autocomplete: "off" %>
+      <%= f.file_field :id_card, autocomplete: "off" , :class=>"form-control-file" %>
       <img id="upload-preview">
     </div>
 
     <div class="field">
-      <%= f.label :weblink %><br />
+      <label>Link to Faculty Website</label></br>
       <%= f.text_field :weblink %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <%= f.submit "Sign up" , :class=>"btn btn-primary"%>
     </div>
   <% end %>
 
@@ -137,8 +137,10 @@
 
 
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <%= f.submit "Sign up" , :class=>"btn btn-primary"%>
     </div>
     <%= render "devise/shared/links" %>
   <% end %>
 <% end %>
+
+</div>

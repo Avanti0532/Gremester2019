@@ -18,6 +18,9 @@ gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'twitter-bootswatch-rails', '~> 3.3.4'
+gem 'twitter-bootswatch-rails-helpers'
+gem "therubyracer"
 gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
