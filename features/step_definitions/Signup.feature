@@ -45,3 +45,21 @@ Feature: Allow faculties and students to sign up
   Scenario: Students sign up without password
     When I sign up with blank password
     Then I should see a blank password error message
+
+  Scenario: Faculties sign up with email not ends with edu
+    When I sign up with an email doesn't end with edu
+    Then I should see an email error message
+
+  Scenario: Faculties sign up with id card and faculty web page link
+    When I sign up without id card and faculty web page link
+    Then I should see an error for faculty authentication
+
+  Scenario: Faculty sign up with id card keeping faculty web page link blank
+    When I sign up with id card keeping faculty web page link blank
+    Then I should see a message saying my account is pending for admin approval
+
+
+  Scenario: Faculty sign up with faculty web page link keeping id card blank
+    When I sign up with faculty web page link keeping id card blank
+    Then I should see a message saying my account is pending for admin approval
+

@@ -8,10 +8,10 @@ Feature: Allow students, faculties or admin to log out
       | Frank       | Robert     | frank@gmail.com | 345678    |   frank_robert    |
 
     And the following faculties have been added to Faculty Database:
-      | first_name  | last_name   | email             | password    |   username          |
-      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         |
-      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            |
-      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      |
+      | first_name  | last_name   | email             | password    |   username          | weblink |
+      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         | alice@uiowa.edu |
+      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            | lily@uiowa.edu |
+      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | hazel@uiowa.edu |
 
     And the following admins have been added to Admin Database:
       | first_name  | last_name   | email             | password    |   username         |

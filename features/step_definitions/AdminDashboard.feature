@@ -1,6 +1,6 @@
 Feature: Admin can look at all user but cannot edit their information
 
-  Background: I am on the Welcome to WordPower page
+  Background: I am on the Welcome to Gremester page
     Given the following students have been added to Student Database:
       | first_name  | last_name  | email          | password  | username          |
       | Robin       | Hood       | robin@gmail.com  | 123456    |   robin_hood      |
@@ -8,10 +8,10 @@ Feature: Admin can look at all user but cannot edit their information
       | Frank       | Robert     | frank@gmail.com | 345678    |   frank_robert    |
 
     And the following faculties have been added to Faculty Database:
-      | first_name  | last_name   | email             | password    |   username          |
-      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         |
-      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            |
-      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      |
+      | first_name  | last_name   | email             | password    |   username          | weblink |
+      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         | alice@uiowa.edu |
+      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            | lily@uiowa.edu |
+      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | hazel@uiowa.edu |
 
     And the following admins have been added to Admin Database:
       | first_name  | last_name   | email             | password    |   username         |
@@ -20,11 +20,11 @@ Feature: Admin can look at all user but cannot edit their information
 
   Scenario: Admin can see all faculties in the database
     When I log in as an admin
-    Then I can see all the question in the database
+    Then I can see all faculties in the database
 
   Scenario: Admin can see all students in the database
     When I log in as an admin
-    Then I can see all the student in the database
+    Then I can see all students in the database
 
   Scenario: Admin cannot edit any student or faculty information
     When I log in as an admin
@@ -46,5 +46,8 @@ Feature: Admin can look at all user but cannot edit their information
     When I log in as an admin
     Then I can create account for another admin
 
+  Scenario: Admin can open weblink to validate faculty's credential
+    When I log in as an admin
+    Then I can open weblink to validate faculty's credential
 
 
