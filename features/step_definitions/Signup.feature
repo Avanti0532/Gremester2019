@@ -50,9 +50,13 @@ Feature: Allow faculties and students to sign up
     When I sign up with an email doesn't end with edu
     Then I should see an email error message
 
-  Scenario: Faculties sign up with id card and faculty web page link
+  Scenario: Faculties sign up without id card and faculty web page link
     When I sign up without id card and faculty web page link
     Then I should see an error for faculty authentication
+
+  Scenario: Faculties sign up with id card and faculty web page link
+    When I sign up with both id card and faculty web page link
+    Then I should see a message saying my account is pending for admin approval
 
   Scenario: Faculty sign up with id card keeping faculty web page link blank
     When I sign up with id card keeping faculty web page link blank
