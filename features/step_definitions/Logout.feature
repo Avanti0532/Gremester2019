@@ -9,9 +9,9 @@ Feature: Allow students, faculties or admin to log out
 
     And the following faculties have been added to Faculty Database:
       | first_name  | last_name   | email             | password    |   username          | weblink |
-      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         | alice@uiowa.edu |
-      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            | lily@uiowa.edu |
-      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | hazel@uiowa.edu |
+      | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         | http://homepage.cs.uiowa.edu/~alicem/ |
+      | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            | http://homepage.cs.uiowa.edu/~lily12/ |
+      | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | http://homepage.cs.uiowa.edu/~hzel/ |
 
     And the following admins have been added to Admin Database:
       | first_name  | last_name   | email             | password    |   username         |
