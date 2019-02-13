@@ -6,6 +6,7 @@ class Faculty < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :first_name, :last_name, :email, :password, :username, presence: true
+  validates_format_of :email, :with => /.*\.edu\Z/, :message => "Please provide an university email"
   def active_for_authentication?
     super && approved?
   end
