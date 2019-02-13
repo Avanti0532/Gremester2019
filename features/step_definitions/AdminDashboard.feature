@@ -50,4 +50,14 @@ Feature: Admin can look at all user but cannot edit their information
     When I log in as an admin
     Then I can open weblink to validate faculty's credential
 
+  Scenario: Admin cannot export student data
+    When I log in as an admin
+    Then I cannot export student information
+
+  Scenario: Admin cannot export faculty data
+    When I log in as an admin
+    Then I cannot export faculty information
+
+
+
 
