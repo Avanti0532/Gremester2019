@@ -37,6 +37,7 @@
 
   <div class="field">
     <%= f.label :id_card %><br />
+    <%= f.hidden_field :id_card, value: f.object.cached_id_card_data%>
     <%= f.file_field :id_card, autocomplete: "off" %>
     <img id="upload-preview">
   </div>
