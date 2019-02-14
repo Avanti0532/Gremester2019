@@ -6,36 +6,21 @@ require "./config/credentials"
 require "./jobs/promote_job"
 require "./jobs/delete_job"
 
-# Shrine.plugin :upload_endpoint
-#
-# Shrine.storages = {
-#     cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"), # temporary
-#     store: Shrine::Storage::FileSystem.new("public", prefix: "uploads"),       # permanent
-# }
-
-# Shrine.plugin :activerecord # or :activerecord
-# Shrine.plugin :direct_upload, presign: true
-# Shrine.plugin :cached_attachment_data # for retaining the cached file across form redisplays
-# Shrine.plugin :restore_cached_data # re-extract metadata when attaching a cached file
 
 
-# Shrine.plugin :rack_file # for non-Rails apps
-# use S3 for production and local file for other environments
 if ENV["RACK_ENV"] == "production"
+  require "google/cloud/storage"
   require "shrine/storage/google_cloud_storage"
 
-  # Shrine::Storage::GoogleCloudStorage.new(
-  #     bucket: "store",
-  #     default_acl: 'publicRead',
-  #     object_options: {
-  #         cache_control: 'public, max-age: 7200'
-  #     },
-  #     )
-
-  # both `cache` and `store` storages are needed
   Shrine.storages = {
-      cache: Shrine::Storage::GoogleCloudStorage.new(bucket: "cache-faculty-id-card"),
-      store: Shrine::Storage::GoogleCloudStorage.new(bucket: "store-faculty-id-card"),
+      cache: Shrine::Storage::GoogleCloudStorage.new(
+          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
+          private_key: ENV['GOOGLE_CLOUD_KEY'],
+          bucket: "cache-faculty-id-card"),
+      store: Shrine::Storage::GoogleCloudStorage.new(
+          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
+          private_key: ENV['GOOGLE_CLOUD_KEY'],
+          bucket: "store-faculty-id-card"),
   }
 else
   require "shrine/storage/file_system"
