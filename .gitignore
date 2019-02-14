@@ -40,3 +40,6 @@ node_modules/
 log/development.log
 log/
 log
+input.txt
+travis.log
+db/development.sqlite3

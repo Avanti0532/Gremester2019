@@ -19,7 +19,7 @@ en:
       not_approved: "Your account hasn't been approved by site admin."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Gremester confirmation instructions"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:

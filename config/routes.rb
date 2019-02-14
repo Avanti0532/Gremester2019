@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :faculties
   devise_for :students
+  resources :students do
+    member do
+      get :confirm_email
+    end
+  end
     root to: 'homepage#index'
 
   match '/log_in', to: 'login#index', via: :get
