@@ -2,6 +2,8 @@ Feature: Allow faculties and students to sign up
 
   Background: I am on the homepage of Gremester
 
+    Given I am on homepage of Gremester
+
   Scenario: Students sign up with valid details
     When I sign up with valid student details
     Then I should get a message saying confirmation email has been sent
