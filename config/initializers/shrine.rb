@@ -1,7 +1,6 @@
 require "shrine"
 
 if ENV["RACK_ENV"] == "production"
-  require "google/cloud/storage"
   require "shrine/storage/google_cloud_storage"
 
   $storages = {
