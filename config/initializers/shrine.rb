@@ -1,32 +1,22 @@
 require "shrine"
-
-require "./config/credentials"
-
-# needed by `backgrounding` plugin
-require "./jobs/promote_job"
-require "./jobs/delete_job"
-
-
-
 if ENV["RACK_ENV"] == "production"
-  require "google/cloud/storage"
   require "shrine/storage/google_cloud_storage"
 
-  $storages = {
+  Google::Cloud::Storage.configure do |config|
+    config.project_id  = ENV["GOOGLE_CLOUD_PROJECT"]
+    config.credentials = JSON.parse(ENV['GOOGLE_CLOUD_CREDENTIALS'])
+  end
+  Shrine.storages = {
       cache: Shrine::Storage::GoogleCloudStorage.new(
-          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
-          credentials: ENV['CREDENTIALS'],
-          bucket: ENV['CACHE_BUCKET']),
+          bucket: 'cache-faculty-id-card'),
       store: Shrine::Storage::GoogleCloudStorage.new(
-          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
-          credentials: ENV['CREDENTIALS'],
-          bucket: ENV['STORE_BUCKET'])
+          bucket: 'store-faculty-id-card')
   }
 else
   require "shrine/storage/file_system"
 
   # both `cache` and `store` storages are needed
-  $storages = {
+  Shrine.storages = {
       cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
       store: Shrine::Storage::FileSystem.new("public", prefix: "uploads"),
   }
@@ -54,7 +44,3 @@ if ENV["RACK_ENV"] == "production"
 else
   Shrine.plugin :upload_endpoint
 end
-
-# delay promoting and deleting files to a background job (`backgrounding` plugin)
-Shrine::Attacher.promote { |data| PromoteJob.perform_async(data) }
-Shrine::Attacher.delete { |data| DeleteJob.perform_async(data) }
