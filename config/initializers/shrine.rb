@@ -1,11 +1,5 @@
 require "shrine"
 
-# needed by `backgrounding` plugin
-require "./jobs/promote_job"
-require "./jobs/delete_job"
-
-
-
 if ENV["RACK_ENV"] == "production"
   require "google/cloud/storage"
   require "shrine/storage/google_cloud_storage"
