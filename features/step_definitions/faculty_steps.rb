@@ -8,10 +8,22 @@ def create_another_faculty
                 password: 'mike1234', password_confirmation: 'mike1234', weblink: 'http://homepage.cs.uiowa.edu/~mike/'}
 end
 
+def saved_faculty_data
+  @save_faculty = {email: 'alicen@uiowa.edu', password: '12345689' }
+
+end
+
 def sign_up_faculty
   visit '/faculties/sign_up'
   page.attach_file "faculty[id_card_data]", Rails.root + 'public/favicon.ico'
   fill_data
+end
+
+def log_in_faculty
+  visit new_faculty_session_path
+  fill_in 'Email', with: @save_faculty[:email]
+  fill_in 'Password', with: @save_faculty[:password]
+  click_button 'Log in'
 end
 
 def fill_data
@@ -23,6 +35,11 @@ def fill_data
   fill_in 'faculty_password_confirmation', with: @faculty[:password_confirmation]
   fill_in 'faculty_weblink', with: @faculty[:weblink]
   click_button 'Sign up'
+end
+
+When /^I log in as a faculty/ do
+  saved_faculty_data
+  log_in_faculty
 end
 
 When /^I sign up with valid faculties details/ do

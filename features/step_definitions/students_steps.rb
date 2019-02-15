@@ -8,6 +8,18 @@ def create_another_student
                 password: 'mike1234', password_confirmation: 'mike1234'}
 end
 
+
+def saved_student_data
+  @saved_student_data = {email: 'robin@gmail.com', password: '12345678'}
+end
+
+def log_in_student
+  visit new_student_session_path
+  fill_in 'Email', with: @saved_student_data[:email]
+  fill_in 'Password', with: @saved_student_data[:password]
+  click_button 'Log in'
+end
+
 def sign_up
   visit '/students/sign_up'
   fill_in 'student_username', with: @student[:username]
@@ -85,4 +97,9 @@ Then /^I should see a duplicate (.*?) message$/ do |field|
   when 'email'
     page.should have_content "Email has already been taken"
   end
+end
+
+When /^I log in as a student/ do
+  saved_student_data
+  log_in_student
 end

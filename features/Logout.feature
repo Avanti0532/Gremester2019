@@ -3,9 +3,9 @@ Feature: Allow students, faculties or admin to log out
   Background: User is logged in
     Given the following students have been added to Student Database:
       | first_name  | last_name  | email          | password  | username          |
-      | Robin       | Hood       | robin@gmail.com  | 123456    |   robin_hood      |
-      | Thomas      | Edison     | thomas@gmail.com  | 234567    |   thomas_edison   |
-      | Frank       | Robert     | frank@gmail.com | 345678    |   frank_robert    |
+      | Robin       | Hood       | robin@gmail.com  | 12345678    |   robin_hood      |
+      | Thomas      | Edison     | thomas@gmail.com  | 23456789    |   thomas_edison   |
+      | Frank       | Robert     | frank@gmail.com | 34567890    |   frank_robert    |
 
     And the following faculties have been added to Faculty Database:
       | first_name  | last_name   | email             | password    |   username          | weblink |
@@ -14,9 +14,9 @@ Feature: Allow students, faculties or admin to log out
       | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | http://homepage.cs.uiowa.edu/~hzel/ |
 
     And the following admins have been added to Admin Database:
-      | first_name  | last_name   | email             | password    |   username         |
-      | Linh        | Pham         | linh@gmail.com    | 12345689    |   linh_pham       |
-      | Jordan        | Peterson      | jordan@gmail.com   | 23456789    |   lily12      |
+      | first_name  | last_name   | email             | password    | password_confirmation |
+      | Linh        | Pham         | linh@gmail.com    | 12345689    |  12345689            |
+      | Jordan        | Peterson      | jordan@gmail.com   | 23456789    | 23456789         |
 
   Scenario: Student logs out
     When I log in as a student
