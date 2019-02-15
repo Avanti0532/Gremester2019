@@ -1,8 +1,6 @@
 require "shrine"
 
 if ENV["RACK_ENV"] == "production"
-  require "shrine/storage/google_cloud_storage"
-
   $storages = {
       cache: Shrine::Storage::GoogleCloudStorage.new(
           project_id: ENV['GOOGLE_CLOUD_PROJECT'],
