@@ -1,23 +1,27 @@
 require "shrine"
 
 if ENV["RACK_ENV"] == "production"
-  $storages = {
+  require "shrine/storage/google_cloud_storage"
+  Shrine.storages = {
       cache: Shrine::Storage::GoogleCloudStorage.new(
-          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
-          credentials: ENV['CREDENTIALS'],
           bucket: ENV['CACHE_BUCKET']),
       store: Shrine::Storage::GoogleCloudStorage.new(
-          project_id: ENV['GOOGLE_CLOUD_PROJECT'],
-          credentials: ENV['CREDENTIALS'],
           bucket: ENV['STORE_BUCKET'])
   }
 else
   require "shrine/storage/file_system"
 
   # both `cache` and `store` storages are needed
-  $storages = {
+  Shrine.storages = {
       cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
       store: Shrine::Storage::FileSystem.new("public", prefix: "uploads"),
+  }
+  # require "shrine/storage/google_cloud_storage"
+  # Shrine.storages = {
+  #     cache: Shrine::Storage::GoogleCloudStorage.new(
+  #         bucket: 'cache-faculty-id-card'),
+  #     store: Shrine::Storage::GoogleCloudStorage.new(
+  #         bucket: 'store-faculty-id-card')
   }
 end
 

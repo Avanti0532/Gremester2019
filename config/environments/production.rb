@@ -87,4 +87,11 @@ Rails.application.configure do
       :user_name            => ENV['MAIL_HOST'],
       :password             => ENV['EMAIL_PASSWORD']
   }
+
+  require "google/cloud/storage"
+
+  Google::Cloud::Storage.configure do |config|
+    config.project_id  = ENV['GOOGLE_CLOUD_PROJECT'],
+    config.credentials = ENV['CREDENTIALS']
+  end
 end
