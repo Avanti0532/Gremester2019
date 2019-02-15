@@ -52,7 +52,3 @@ if ENV["RACK_ENV"] == "production"
 else
   Shrine.plugin :upload_endpoint
 end
-
-# delay promoting and deleting files to a background job (`backgrounding` plugin)
-Shrine::Attacher.promote { |data| PromoteJob.perform_async(data) }
-Shrine::Attacher.delete { |data| DeleteJob.perform_async(data) }
