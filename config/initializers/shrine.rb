@@ -1,7 +1,5 @@
 require "shrine"
 
-require "./config/credentials"
-
 # needed by `backgrounding` plugin
 require "./jobs/promote_job"
 require "./jobs/delete_job"
