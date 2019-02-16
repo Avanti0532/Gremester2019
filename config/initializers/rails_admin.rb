@@ -47,14 +47,14 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
-    export
+    new do
+      except ['Faculty', 'Student']
+    end
     bulk_delete
     approve_faculty do
       except ['Student', 'Admin']
     end
     show
-    edit
     delete
     show_in_app
 

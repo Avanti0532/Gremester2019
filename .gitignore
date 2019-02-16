@@ -43,3 +43,4 @@ log
 input.txt
 travis.log
 db/development.sqlite3
+coverage
