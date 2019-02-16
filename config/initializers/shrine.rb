@@ -11,6 +11,12 @@ if ENV["RACK_ENV"] == "production"
 else
   require "shrine/storage/file_system"
 
+  require "google/cloud/storage"
+
+  Google::Cloud::Storage.configure do |config|
+    config.project_id  = ENV['GOOGLE_CLOUD_PROJECT'],
+        config.credentials = ENV['CREDENTIALS']
+  end
   # both `cache` and `store` storages are needed
   Shrine.storages = {
       cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
