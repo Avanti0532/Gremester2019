@@ -37,7 +37,7 @@ gem 'travis'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
+gem 'shrine-google_cloud_storage'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -76,5 +76,6 @@ group :production do
   # Note rails prior to 5.15 do not support the pg 1.0.0 module
   gem 'pg', '~> 0.21'
   gem 'rails_12factor'
+  gem 'shrine-google_cloud_storage'
 end
 
