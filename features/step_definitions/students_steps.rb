@@ -103,3 +103,49 @@ When /^I log in as a student/ do
   saved_student_data
   log_in_student
 end
+
+Then /^I should see a successful login message/ do
+  page.should have_content "You are logged in"
+end
+
+When /^I log in with wrong (.*?) email/ do |field|
+  case field
+  when 'student'
+    saved_student_data
+    @saved_student_data = @saved_student_data.merge(email: 'robindeb@gmail.com')
+    log_in_student
+  when 'faculty'
+    saved_faculty_data
+    @save_faculty = @save_faculty.merge(email: 'alice@uiowa.edu')
+    log_in_faculty
+  when 'admin'
+    create_admin
+    @admin = @admin.merge(email: 'linh123@gmail.com')
+    log_in_admin
+  end
+end
+
+Then /^I should see an invalid login message/ do
+  page.should have_content "Invalid email or password"
+end
+
+When /^I log in with wrong (.*?) password/ do |field|
+  case field
+  when 'student'
+    saved_student_data
+    @saved_student_data = @saved_student_data.merge(password: 'robin123450')
+    log_in_student
+  when 'faculty'
+    saved_faculty_data
+    @save_faculty = @save_faculty.merge(password: 'alice98705')
+    log_in_faculty
+  when 'admin'
+    create_admin
+    @admin = @admin.merge(password: 'linh563782')
+    log_in_admin
+  end
+end
+
+And /^I click on log out as a student/ do
+  page.find_link("Log Out", visible: false).click
+end

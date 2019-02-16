@@ -1,3 +1,4 @@
+
 def create_admin
   @admin ||= {email: 'linh@gmail.com', password: '12345689'}
 end
@@ -178,4 +179,8 @@ end
 
 And(/^I got redirected to homepage$/) do
   expect(current_path).to eq(root_path)
+end
+
+And(/^I click on log out as an admin$/) do
+  click_link 'Log out'
 end
