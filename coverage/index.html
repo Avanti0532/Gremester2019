@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-02-16T15:44:18-06:00">2019-02-16T15:44:18-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-02-16T17:02:07-06:00">2019-02-16T17:02:07-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.23
+         6.39
        </span>
     </span> hits/line)
   </h2>
@@ -77,7 +77,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>30.4</td>
+        <td>31.4</td>
       </tr>
       
       <tr>
@@ -87,7 +87,7 @@
         <td>14</td>
         <td>14</td>
         <td>0</td>
-        <td>27.1</td>
+        <td>27.9</td>
       </tr>
       
       <tr>
@@ -223,7 +223,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         14.19
+         14.61
        </span>
     </span> hits/line)
   </h2>
@@ -275,7 +275,7 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>30.4</td>
+        <td>31.4</td>
       </tr>
       
       <tr>
@@ -285,7 +285,7 @@
         <td>14</td>
         <td>14</td>
         <td>0</td>
-        <td>27.1</td>
+        <td>27.9</td>
       </tr>
       
       <tr>
@@ -799,8 +799,8 @@
           <code class="ruby">  def configure_permitted_parameters</code>
         </li>
       
-        <li class="covered" data-hits="144" data-linenumber="9">
-          <span class="hits">144</span>
+        <li class="covered" data-hits="149" data-linenumber="9">
+          <span class="hits">149</span>
           
           <code class="ruby">    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :id_card_data, :weblink) }</code>
         </li>
@@ -896,26 +896,26 @@
           <code class="ruby">  def check_user</code>
         </li>
       
-        <li class="covered" data-hits="118" data-linenumber="9">
-          <span class="hits">118</span>
+        <li class="covered" data-hits="122" data-linenumber="9">
+          <span class="hits">122</span>
           
           <code class="ruby">    if current_admin</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="10">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="20" data-linenumber="10">
+          <span class="hits">20</span>
           
           <code class="ruby">      flash.clear</code>
         </li>
       
-        <li class="covered" data-hits="19" data-linenumber="11">
-          <span class="hits">19</span>
+        <li class="covered" data-hits="20" data-linenumber="11">
+          <span class="hits">20</span>
           
           <code class="ruby">      redirect_to rails_admin_path, notice: &quot;You are logged in&quot;</code>
         </li>
       
-        <li class="covered" data-hits="99" data-linenumber="12">
-          <span class="hits">99</span>
+        <li class="covered" data-hits="102" data-linenumber="12">
+          <span class="hits">102</span>
           
           <code class="ruby">    elsif current_faculty</code>
         </li>
@@ -926,8 +926,8 @@
           <code class="ruby">      redirect_to root_path, notice: &quot;You are logged in&quot;</code>
         </li>
       
-        <li class="covered" data-hits="92" data-linenumber="14">
-          <span class="hits">92</span>
+        <li class="covered" data-hits="95" data-linenumber="14">
+          <span class="hits">95</span>
           
           <code class="ruby">    elsif current_student</code>
         </li>

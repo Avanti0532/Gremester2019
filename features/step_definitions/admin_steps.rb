@@ -35,6 +35,20 @@ When(/^I log in as an admin/) do
   log_in_admin
 end
 
+Then(/^administrator can log in to verify faculty/) do
+  create_admin
+  log_in_admin
+end
+
+Then(/^I can approve the faculty/) do
+  click_on('Faculties', :match => :first)
+  click_on('Approve faculty', :match => :first)
+end
+
+Then(/^I can see successful approval message/) do
+  page.should have_content 'You have approved the faculty titled'
+end
+
 Then(/^I will see message saying that I logged in to the system/) do
   page.should have_content 'You are logged in'
 end

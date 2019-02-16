@@ -97,3 +97,4 @@ Feature: Allow faculties and students to sign up
     When I sign up with faculty web page link keeping id card blank
     Then I should see a message saying my account is pending for admin approval
 
+
