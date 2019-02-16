@@ -20,7 +20,6 @@ gem 'bcrypt'
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use dotenv-rails to include .env file
 gem 'dotenv-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
 gem 'twitter-bootswatch-rails', '~> 3.3.4'
 gem 'twitter-bootswatch-rails-helpers'
 gem "therubyracer"
