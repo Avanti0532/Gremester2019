@@ -9,6 +9,7 @@ class Faculty < ActiveRecord::Base
   validates_uniqueness_of :username
   validates_format_of :email, :with => /.*\.edu\Z/, :message => "Please provide an university email"
   validate :id_or_link
+  before_create :skip_confirmation_notification!
 
   def id_or_link
     if id_card_data.blank? && weblink.blank?

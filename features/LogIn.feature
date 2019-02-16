@@ -19,16 +19,17 @@ Feature: Allow students, faculties and admins to login
       | Linh        | Pham         | linh@gmail.com    | 12345689    |  12345689            |
       | Jordan        | Peterson      | jordan@gmail.com   | 23456789    | 23456789         |
 
+
   Scenario: Student logs in with valid credentials
-    When I log in with valid student credentials
+    When I log in as a student
     Then I should see a successful login message
 
   Scenario: Faculty logs in with valid credentials
-    When I log in with valid faculty credentials
+    When I log in as a faculty
     Then I should see a successful login message
 
   Scenario: Admin logs in with valid credentials
-    When I log in with valid admin credentials
+    When I log in as an admin
     Then I should see a successful login message
 
   Scenario: Student logs in with wrong email

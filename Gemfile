@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
+gem 'bootstrap-sass', '~> 3.3.6'
 # Use dotenv-rails to include .env file
 gem 'dotenv-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -77,3 +78,4 @@ group :production do
   gem 'pg', '~> 0.21'
   gem 'rails_12factor'
 end
+

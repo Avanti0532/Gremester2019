@@ -24,7 +24,8 @@ module RailsAdmin
           Proc.new do
             @object.update_attribute(:approved, true)
             flash[:notice] = "You have approved the faculty titled: #{@object.first_name}."
-            # TODO: Send user email confirmation once the account has been approved
+            faculty = Faculty.find_by_email(@object.email)
+            faculty.send_confirmation_instructions
             redirect_to back_or_index
           end
         end

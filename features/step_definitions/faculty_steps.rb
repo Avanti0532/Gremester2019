@@ -137,4 +137,15 @@ Then /^I should see an invalid password message/ do
   page.should have_content 'Password is too short (minimum is 8 characters)'
 end
 
+And /^I click on log out as a faculty/ do
+  page.find_link("Log Out", visible: false).click
+end
+
+Then(/^I should see a sign out message/) do
+  page.should have_content 'Signed out successfully.'
+end
+
+And (/^I should see a log in button/) do
+  expect(page).to have_link("Login", visible: false)
+end
 
