@@ -11,6 +11,7 @@ if ENV["RACK_ENV"] == "production"
           bucket: 'cache-faculty-id-card'),
       store: Shrine::Storage::GoogleCloudStorage.new(
           bucket: 'store-faculty-id-card')
+
   }
 else
   require "shrine/storage/file_system"
