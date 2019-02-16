@@ -37,6 +37,11 @@ bower.json
 node_modules/
 .idea/
 .idea
+log/development.log
+log/
+log
 input.txt
 travis.log
+db/development.sqlite3
+coverage
 
