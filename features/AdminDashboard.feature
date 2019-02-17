@@ -67,5 +67,10 @@ Feature: Admin can look at all user but cannot edit their information
     Then I will go to homepage of Gremester if I click on Home button on the navigation bar
 
 
-
+  Scenario: Admin approves faculty once faculty signs up
+    When I sign up with valid faculties details
+    Then I should see a message saying my account is pending for admin approval
+    Then administrator can log in to verify faculty
+    Then I can approve the faculty
+    Then I can see successful approval message
 
