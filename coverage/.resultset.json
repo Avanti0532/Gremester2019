@@ -106,7 +106,6 @@
         null,
         0,
         0,
-        null,
         0,
         0,
         0,
@@ -148,15 +147,14 @@
         0,
         0,
         0,
-        0,
-        0,
-        0,
         null,
-        0,
         null,
-        0,
-        0,
-        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         0
       ],
       "/mnt/c/Home/SELT_REPOS/SPP300/lib/rails_admin_approve_faculty.rb": [
@@ -197,7 +195,7 @@
         0
       ]
     },
-    "timestamp": 1550358127
+    "timestamp": 1550364580
   },
   "RSpec": {
     "coverage": {
@@ -246,14 +244,13 @@
         1,
         1,
         1,
-        1,
-        0,
-        0,
         null,
-        0,
         null,
-        0,
-        0,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null
       ],
@@ -274,7 +271,6 @@
         null,
         null,
         1,
-        null,
         null,
         1,
         1,
@@ -397,6 +393,6 @@
         0
       ]
     },
-    "timestamp": 1550358091
+    "timestamp": 1550358968
   }
 }
