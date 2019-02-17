@@ -17,7 +17,7 @@ class Faculty < ActiveRecord::Base
   end
 
   def active_for_authentication?
-    super && approved?
+    approved?
   end
 
   def inactive_message

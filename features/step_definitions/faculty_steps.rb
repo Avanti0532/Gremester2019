@@ -15,7 +15,7 @@ end
 
 def sign_up_faculty
   visit '/faculties/sign_up'
-  page.attach_file "faculty[id_card_data]", Rails.root + 'public/favicon.ico'
+  page.attach_file "faculty[id_card]", Rails.root + 'public/favicon.ico'
   fill_data
 end
 
