@@ -2,7 +2,7 @@ ruby '2.4.4'
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11'
 # Added haml file
 gem 'haml'
 # Use SCSS for stylesheets
