@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190220023828) do
+ActiveRecord::Schema.define(version: 20190220155754) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(version: 20190220023828) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "applications", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "university_id"
+    t.boolean  "applied"
+    t.datetime "applied_date"
+    t.boolean  "admitted"
+    t.datetime "admitted_date"
+    t.boolean  "rejected"
+    t.datetime "rejected_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
+  add_index "applications", ["university_id"], name: "index_applications_on_university_id"
 
   create_table "faculties", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -67,8 +83,8 @@ ActiveRecord::Schema.define(version: 20190220023828) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "student_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "gre"
     t.integer  "toefl"
     t.decimal  "cgpa"
@@ -79,7 +95,7 @@ ActiveRecord::Schema.define(version: 20190220023828) do
     t.integer  "month_work_exp"
     t.text     "resume_data"
     t.text     "sop_data"
-    t.text     "additional_attachment"
+    t.text     "additional_attachment_data"
   end
 
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
