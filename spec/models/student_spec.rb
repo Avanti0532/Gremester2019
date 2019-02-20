@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Student, type: :model do
+  it { should have_one(:profile) }
   it 'valid user' do
     student = Student.new(first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
     assert student.valid?
