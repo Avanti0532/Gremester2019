@@ -2,14 +2,24 @@
 class Profile < ActiveRecord::Base
   belongs_to :student
   has_many :applications
-  validates_inclusion_of :gre, :in => 0..170
+  validates_inclusion_of :gre_quant, :in => 130..170
+  validates_inclusion_of :gre_verbal, :in => 130..170
+  validates_inclusion_of :gre_writing, :in => 0..6
   validates_inclusion_of :toefl, :in => 0..120
   validates_numericality_of :cgpa, :greater_than_or_equal_to => 0
   validates_numericality_of :year_work_exp, :greater_than_or_equal_to => 0
   validates_numericality_of :month_work_exp, :greater_than_or_equal_to => 0
   validates_presence_of :student_id
-  def update_gre(gre)
-    self.gre = gre
+  def update_gre_quant(score)
+    self.gre_quant = score
+  end
+
+  def update_gre_verbal(score)
+    self.gre_verbal = score
+  end
+
+  def update_gre_writing(score)
+    self.gre_writing = score
   end
 
   def update_toefl(toefl)
