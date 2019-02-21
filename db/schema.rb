@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190220155754) do
+ActiveRecord::Schema.define(version: 20190221170233) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20190220155754) do
     t.integer  "student_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.integer  "gre"
     t.integer  "toefl"
     t.decimal  "cgpa"
     t.string   "interested_major"
@@ -96,6 +95,9 @@ ActiveRecord::Schema.define(version: 20190220155754) do
     t.text     "resume_data"
     t.text     "sop_data"
     t.text     "additional_attachment_data"
+    t.integer  "gre_quant"
+    t.decimal  "gre_writing"
+    t.integer  "gre_verbal"
   end
 
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"

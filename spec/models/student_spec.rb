@@ -33,5 +33,18 @@ RSpec.describe Student, type: :model do
     mock_student.should_not be_valid
     mock_student.errors[:username].should include("has already been taken")
   end
-end
 
+  it "should return profile of the student" do
+    student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
+    mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019)
+    student.profile = mock_profile
+    assert(student.current_profile.student_id).eql?(1)
+    assert(student.current_profile.gre_verbal).eql?(mock_profile.gre_verbal)
+    assert(student.current_profile.toefl).eql?(mock_profile.toefl)
+    assert(student.current_profile.cgpa).eql?(mock_profile.cgpa)
+    assert(student.current_profile.interested_major).eql?(mock_profile.interested_major)
+    assert(student.current_profile.interested_term).eql?(mock_profile.interested_term)
+    assert(student.current_profile.interested_year).eql?(mock_profile.interested_year)
+  end
+
+end
