@@ -5,5 +5,7 @@ class Student < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :username, :password, presence: true
   validates_uniqueness_of :username
-
+  def current_profile
+    self.profile
+  end
 end
