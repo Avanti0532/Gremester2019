@@ -3,7 +3,9 @@ class CreateProfiles < ActiveRecord::Migration
     create_table :profiles do |t|
       t.references :student, index: true
       t.timestamps null: false
-      t.integer :gre
+      t.integer :gre_verbal
+      t.decimal :gre_writing
+      t.integer :gre_quant
       t.integer :toefl
       t.decimal :cgpa
       t.string :interested_major
