@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190221170233) do
+ActiveRecord::Schema.define(version: 20190223034834) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20190221170233) do
     t.integer  "gre_quant"
     t.decimal  "gre_writing"
     t.integer  "gre_verbal"
+    t.string   "college"
   end
 
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
