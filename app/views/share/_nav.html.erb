@@ -36,9 +36,15 @@
           </li>
         <%else %>
           <%if(student_signed_in?) %>
-            <li ><%= link_to "profile", profiles_path, :method => :get, class: "nav-link"%></li>
-            <li class= "navbar-text"><%="Hi, #{current_student.username}" %> </li>
-            <li ><%= link_to "Log Out", destroy_student_session_path, :method => :delete, class: "nav-link"%></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%="Hi, #{current_student.username}" %><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><%= link_to "View Profile", profiles_path, :method => :get, class: "nav-link"%></li>
+                <li><%= link_to "Account Settings", profiles_path, :method => :get, class: "nav-link"%></li>
+                <li class="divider"></li>
+                <li ><%= link_to "Log Out", destroy_student_session_path, :method => :delete, class: "nav-link"%></li>
+              </ul>
+            </li>
           <%elsif faculty_signed_in? %>
             <li class= "navbar-text"><%="Hi, #{current_faculty.username}" %> </li>
             <li ><%= link_to "Log Out", destroy_faculty_session_path, :method => :delete, class: "nav-link"%></li>
