@@ -4,6 +4,12 @@
     display: flex;
     background: linear-gradient(rgba(3, 1, 10, 0.5), rgba(3, 1, 10, 0.5)), url(/images/cap-throw-graduate.jpg) no-repeat scroll center center;
     background-size: cover; }
+.home_banner_area_university {
+    z-index: 1;
+    min-height: 500px;
+    display: flex;
+    background: linear-gradient(rgba(3, 1, 10, 0.5), rgba(3, 1, 10, 0.5)), url(/images/university.jpg) no-repeat scroll center center;
+    background-size: cover; }
 .home_banner_area .banner_inner {
     width: 100%;
     display: flex; }
@@ -77,3 +83,4 @@
     display: flex;
     background: linear-gradient(rgba(3, 1, 10, 0.5), rgba(3, 1, 10, 0.5)), url(/images/university.jpg) no-repeat scroll center center;
     background-size: cover; }
+

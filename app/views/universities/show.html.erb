@@ -5,7 +5,7 @@
       <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="transform: translateY(-23.5182px);"></div>
       <div class="container">
         <div class="col-lg-12">
-          <h1><%= @university.university_name %></h1>
+          <h1 id="university_name"><%= @university.university_name %></h1>
         </div>
       </div>
     </div>
@@ -13,45 +13,45 @@
   <br>
   <br>
   <br>
-  <h3 style="font-size: 21px; font-family: 'Karla', sans-serif;"><%= @university.university_desc %></h3>
+  <h3 id="university_desc"><%= @university.university_desc %></h3>
 
   <br>
   <br>
 
   <div class="col-md-3">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Ranking</h2>
-    <h3 style="font-size: 24px; font-family: 'Karla', sans-serif;">#<%= @university.rank %></h3>
+    <h2 id="label">Ranking</h2>
+    <h3 id="university_rank">#<%= @university.rank %></h3>
   </div>
 
 
   <div class="col-md-3">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">University Type</h2>
-    <h3 style="font-size: 24px; font-family: 'Karla', sans-serif;"><%= @university.university_type %> institution</h3>
+    <h2 id="label">University Type</h2>
+    <h3 id="university_type"><%= @university.university_type %> institution</h3>
   </div>
 
   <div class="col-md-3">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Acceptance rate</h2>
-    <h3 style="font-size: 24px; font-family: 'Karla', sans-serif;"><%= @university.acceptance_rate %>%</h3>
+    <h2 id="label">Acceptance rate</h2>
+    <h3 id="university_acceptance_rate"><%= @university.acceptance_rate %>%</h3>
   </div>
 
   <div class="col-md-3">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Tuition</h2>
-    <h3 style="font-size: 24px; font-family: 'Karla', sans-serif;"><%= @university.tuition %>/year</h3>
+    <h2 id="label">Tuition</h2>
+    <h3 id="university_tuition"><%= @university.tuition %>/year</h3>
   </div>
 
   <div class="col-md-12">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Location</h2>
-    <h3 style="font-size: 21px; font-family: 'Karla', sans-serif;"><%= @university.location %></h3>
+    <h2 id="label">Location</h2>
+    <h3 id="university_location"><%= @university.location %></h3>
   </div>
 
   <div class="col-md-12">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Weather</h2>
-    <h3 style="font-size: 21px; font-family: 'Karla', sans-serif;" ><%= @university.weather %></h3>
+    <h2 id="label">Weather</h2>
+    <h3 id="university_weather" ><%= @university.weather %></h3>
   </div>
 
   <div class="col-md-12">
-    <h2 style="font-size: 30px; font-family: 'Karla', sans-serif; font-weight: bold">Website</h2>
-    <%=link_to @university.university_link.to_s, @university.university_link.to_s, target: :_blank, :style => 'font-size: 21px' %>
+    <h2 id="label">Website</h2>
+    <%=link_to @university.university_link.to_s, @university.university_link.to_s, target: :_blank, :id => 'university_website' %>
   </div>
 
 </div>
