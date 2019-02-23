@@ -71,3 +71,9 @@
 .banner_area .banner_inner .banner_content p {
     color: #ffffff;
     margin-bottom: 0; }
+home_banner_area_university {
+    z-index: 1;
+    min-height: 300px;
+    display: flex;
+    background: linear-gradient(rgba(3, 1, 10, 0.5), rgba(3, 1, 10, 0.5)), url(/images/university.jpg) no-repeat scroll center center;
+    background-size: cover; }
