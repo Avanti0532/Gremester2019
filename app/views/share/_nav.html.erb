@@ -36,6 +36,7 @@
           </li>
         <%else %>
           <%if(student_signed_in?) %>
+            <li ><%= link_to "profile", profiles_path, :method => :get, class: "nav-link"%></li>
             <li class= "navbar-text"><%="Hi, #{current_student.username}" %> </li>
             <li ><%= link_to "Log Out", destroy_student_session_path, :method => :delete, class: "nav-link"%></li>
           <%elsif faculty_signed_in? %>
