@@ -10,6 +10,7 @@ class Profile < ActiveRecord::Base
   validates_numericality_of :year_work_exp, :greater_than_or_equal_to => 0
   validates_numericality_of :month_work_exp, :greater_than_or_equal_to => 0
   validates_presence_of :student_id
+
   def update_gre_quant(score)
     self.gre_quant = score
   end
@@ -57,5 +58,9 @@ class Profile < ActiveRecord::Base
 
   def update_additional_attachment_data(additional_attachment_data)
     self.additional_attachment_data = additional_attachment_data
+  end
+
+  def update_college(college)
+    self.college = college
   end
 end
