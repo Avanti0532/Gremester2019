@@ -71,7 +71,7 @@
 .banner_area .banner_inner .banner_content p {
     color: #ffffff;
     margin-bottom: 0; }
-home_banner_area_university {
+.home_banner_area_university {
     z-index: 1;
     min-height: 300px;
     display: flex;
