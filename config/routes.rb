@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       registrations: 'admins/registrations'
   }
 
+  resources :universities
+
   root to: 'homepage#index'
 end
 

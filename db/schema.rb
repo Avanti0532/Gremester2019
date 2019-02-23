@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190209213824) do
+ActiveRecord::Schema.define(version: 20190223034834) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(version: 20190209213824) do
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
+  create_table "applications", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "university_id"
+    t.boolean  "applied"
+    t.datetime "applied_date"
+    t.boolean  "admitted"
+    t.datetime "admitted_date"
+    t.boolean  "rejected"
+    t.datetime "rejected_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
+  add_index "applications", ["university_id"], name: "index_applications_on_university_id"
 
   create_table "faculties", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -65,6 +81,28 @@ ActiveRecord::Schema.define(version: 20190209213824) do
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
 
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "student_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "toefl"
+    t.decimal  "cgpa"
+    t.string   "interested_major"
+    t.string   "interested_term"
+    t.integer  "interested_year"
+    t.integer  "year_work_exp"
+    t.integer  "month_work_exp"
+    t.text     "resume_data"
+    t.text     "sop_data"
+    t.text     "additional_attachment_data"
+    t.integer  "gre_quant"
+    t.decimal  "gre_writing"
+    t.integer  "gre_verbal"
+    t.string   "college"
+  end
+
+  add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
+
   create_table "students", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -91,5 +129,19 @@ ActiveRecord::Schema.define(version: 20190209213824) do
   add_index "students", ["email"], name: "index_students_on_email", unique: true
   add_index "students", ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   add_index "students", ["username"], name: "index_students_on_username", unique: true
+
+  create_table "universities", force: :cascade do |t|
+    t.integer "rank"
+    t.string  "university_name"
+    t.string  "university_type"
+    t.float   "acceptance_rate"
+    t.string  "tuition"
+    t.string  "location"
+    t.string  "weather"
+    t.string  "university_link"
+    t.string  "university_desc"
+  end
+
+  add_index "universities", ["university_name"], name: "index_universities_on_university_name", unique: true
 
 end
