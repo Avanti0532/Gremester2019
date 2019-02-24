@@ -1,0 +1,111 @@
+<div class="container">
+  <h1>Profile</h1>
+  <hr>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <br>
+      </div>
+      <div class="text-center">
+        <br>
+         <%= button_to "Edit Profile", edit_profile_path(@current_student.id), :method => "get", :class=>"btn btn-primary"  %>
+      </div>
+    </div>
+
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+
+      <h3>Personal info</h3>
+
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" value="<%= @current_student.first_name %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" value="<%= @current_student.last_name %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Undergraduate School:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" value="<%= @profile.college %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">GPA:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" value="<%= @profile.cgpa %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">TOEFL Score:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.toefl %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Writing:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_writing %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Quantitative:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_quant %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Verbal:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_verbal %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Major:</label>
+          <div class="col-lg-8">
+            <input class="form-control" type="text" value="<%= @profile.interested_major %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Graduate Start Term:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.interested_term %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Work Experience:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="Years: <%= @profile.year_work_exp %> Months: <%= @profile.month_work_exp %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">SOP/Resume:</label>
+          <div class="col-md-8">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Additional Attachments:</label>
+          <div class="col-md-8">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <span></span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>
