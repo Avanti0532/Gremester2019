@@ -58,6 +58,17 @@ describe UniversitiesController do
       get :index, params
       expect(assigns(:universities)).to eq([university5,university45])
     end
+    it 'should choose selected type' do
+      params = {:type => 'Private'}
+      get :index, params
+      expect(assigns(:type)).to eq('Private')
+    end
+    it 'should choose selected ranking_from and ranking_to' do
+      params = {:ranking_from => '10', :ranking_to => '25'}
+      get :index, params
+      expect(assigns(:ranking_from)).to eq('10')
+      expect(assigns(:ranking_to)).to eq('25')
+    end
   end
 
 end
