@@ -48,11 +48,14 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except ['Faculty', 'Student']
+      only ['University', 'Admin']
+    end
+    edit do
+      only ['University']
     end
     bulk_delete
     approve_faculty do
-      except ['Student', 'Admin']
+      only ['Faculty']
     end
     show
     delete
@@ -61,5 +64,10 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+  end
+  config.model 'University' do
+    edit do
+      exclude_fields :applications
+    end
   end
 end
