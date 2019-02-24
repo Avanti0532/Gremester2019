@@ -1,0 +1,26 @@
+#university_name {
+    color: white;
+    font-size: 40px;
+    font-family: 'Book Antiqua', sans-serif;
+    font-weight: bold
+}
+
+#label {
+    font-size: 30px;
+    font-family: 'Book Antiqua', sans-serif;
+    font-weight: bold
+}
+
+#university_rank, #university_acceptance_rate, #university_tuition, #university_location, #university_weather, #university_type, #university_desc {
+    font-size: 22px;
+    font-family: 'Book Antiqua', sans-serif;
+}
+
+#university_website {
+    font-size: 22px;
+    font-family: 'Book Antiqua', sans-serif;
+}
+
+#university_banner {
+    transform: translateY(-23.5182px);
+}
