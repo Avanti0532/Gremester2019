@@ -51,9 +51,23 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">GRE:</label>
+          <label class="col-md-3 control-label">GRE Writing:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="Writing: <%= @profile.gre_writing %> Verbal: <%= @profile.gre_verbal %> Quant: <%= @profile.gre_quant %> " readonly>
+            <input class="form-control" type="text" value="<%= @profile.gre_writing %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Quantitative:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_quant %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Verbal:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_verbal %>" readonly>
           </div>
         </div>
         <div class="form-group">
