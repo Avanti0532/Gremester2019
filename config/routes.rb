@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   }
 
   resources :universities
+  resources :profiles
 
   root to: 'homepage#index'
 end
