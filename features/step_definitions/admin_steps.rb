@@ -26,6 +26,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
   elsif table_name.eql?("Student")
     user_table.hashes.each do |student|
       Student.create(student)
+     end
+  elsif table_name.eql?("University")
+    user_table.hashes.each do |university|
+      University.create(university)
     end
   end
 end
@@ -99,14 +103,19 @@ Then(/^I can see all (.*?) in the database$/) do |field|
       page.should have_content faculty.email
     end
   elsif field == "students"
-    find('tr', text: 'Students').click_link 'Students'
-    Student.all.each do |student|
-      page.should have_content student.email
-    end
+     find('tr', text: 'Students').click_link 'Students'
+     Student.all.each do |student|
+       page.should have_content student.email
+     end
   elsif field == "admins"
     find('tr', text: 'Admins').click_link 'Admins'
     Admin.all.each do |admin|
       page.should have_content admin.email
+    end
+  elsif field == "universities"
+    find('tr', text: 'Universities').click_link 'Universities'
+    University.all.each do |university|
+      page.should have_content university.university_name
     end
   end
 end
@@ -163,13 +172,15 @@ Then(/^I can create account for another admin$/) do
 end
 
 Then(/^I cannot export (.*?) information$/) do |field|
+  visit '/admin/dashboard'
   if field.eql?('student')
-    visit '/admin/dashboard'
     find('tr', text: 'Students').click_link 'Students'
     expect(page).to have_no_link('Export')
   elsif field.eql?('faculty')
-    visit '/admin/dashboard'
     find('tr', text: 'Faculties').click_link 'Faculties'
+    expect(page).to have_no_link('Export')
+  elsif field.eql?('university')
+    find('tr', text: 'Universities').click_link 'Universities'
     expect(page).to have_no_link('Export')
   end
 end
@@ -198,3 +209,6 @@ end
 And(/^I click on log out as an admin$/) do
   click_link 'Log out'
 end
+
+
+
