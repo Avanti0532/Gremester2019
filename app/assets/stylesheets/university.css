@@ -20,3 +20,7 @@
     font-size: 22px;
     font-family: 'Book Antiqua', sans-serif;
 }
+
+#university_banner {
+    transform: translateY(-23.5182px);
+}

@@ -11,7 +11,7 @@ RailsAdmin.config do |config|
     end
   end
 
-    require Rails.root.join('lib', 'rails_admin_approve_faculty.rb')
+  require Rails.root.join('lib', 'rails_admin_approve_faculty.rb')
   ### Popular gems integration
 
   ## == Devise ==
