@@ -18,7 +18,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'devise', '~> 3.4.0'
 # Use bcrypt for password encryption
 gem 'bcrypt'
-gem 'bootstrap-sass', '~> 3.3.6'
 # Use dotenv-rails to include .env file
 gem 'dotenv-rails'
 gem 'twitter-bootswatch-rails', '~> 3.3.4'

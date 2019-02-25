@@ -86,6 +86,14 @@ RSpec.describe Profile, type: :model do
       assert(student.current_profile.interested_term).eql?("Fall")
     end
 
+    it "should update interested year field of the profile" do
+      student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
+      mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019)
+      mock_profile.update_interested_year(2020)
+      student.profile = mock_profile
+      assert(student.current_profile.interested_term).eql?(2020)
+    end
+
     it "should update sop field of the profile" do
       student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
       mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019, sop_data: 'sop')
