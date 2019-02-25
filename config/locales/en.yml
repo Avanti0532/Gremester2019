@@ -25,3 +25,5 @@ en:
     actions:
       approve_faculty:
         menu: "Approve faculty"
+  errors:
+    format: "%{message}"
