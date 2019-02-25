@@ -18,13 +18,13 @@ Feature: Admin can add/edit/delete universities
 
   Scenario: Admin can add universities in the database
     When I log in as an admin
-    Then I can add an university
+    Then I can add a university
 
   Scenario: Admin can edit any university
     When I log in as an admin
     Then I can edit any university from the university database
 
-  Scenario: Admin can delete any question
+  Scenario: Admin can delete any university
     When I log in as an admin
     Then I can delete any university from the university database
 
