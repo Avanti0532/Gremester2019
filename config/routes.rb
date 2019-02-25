@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       get :confirm_email
     end
   end
+  authenticated :student do
+    root 'universities#index', as: :authenticated_student_root
+  end
 
   devise_for :faculties, controllers: {
       sessions: 'faculties/sessions',
