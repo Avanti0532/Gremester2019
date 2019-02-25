@@ -41,6 +41,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'shrine-google_cloud_storage'
 # Use Unicorn as the app server
 # gem 'unicorn'
+gem 'rails-assets-jquery', source: 'https://rails-assets.org'
+gem 'rails-assets-datatables', source: 'https://rails-assets.org'
+gem 'jquery-datatables-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -70,6 +73,9 @@ group :test do
   gem 'cucumber-rails', :require=>false
   gem 'database_cleaner'
   gem 'rspec-expectations'
+  gem 'factory_girl_rails'
+  gem 'factory_girl'
+  gem 'faker'
 end
 
 group :production do
@@ -79,4 +85,3 @@ group :production do
   gem 'rails_12factor'
   gem 'shrine-google_cloud_storage'
 end
-
