@@ -5,13 +5,13 @@ RSpec.describe Profile, type: :model do
   it { should belong_to(:student) }
   it { should have_many(:applications) }
   it { should validate_presence_of(:student_id) }
-  it { should validate_inclusion_of(:gre_quant).in_range(130..170).with_message("GRE Quantitative score must be within the range from 130 to 170")}
-  it { should validate_inclusion_of(:gre_verbal).in_range(130..170).with_message("GRE Verbal score must be within the range from 130 to 170")}
-  it { should validate_inclusion_of(:gre_writing).in_range(0..6).with_message("GRE Writing score must be within the range from 0 to 6.0")}
-  it { should validate_inclusion_of(:toefl).in_range(0..120).with_message("TOEFL score must be within the range from 0 to 120")}
-  it { should validate_numericality_of(:cgpa).is_greater_than_or_equal_to(0).with_message("GPA must be greater than or equal to 0")}
-  it { should validate_numericality_of(:year_work_exp).is_greater_than_or_equal_to(0).with_message("Years of experience must be greater than or equal to 0")}
-  it { should validate_numericality_of(:month_work_exp).is_greater_than_or_equal_to(0).with_message("Months of experience must be greater than or equal to 0")}
+  it { should validate_inclusion_of(:gre_quant).in_range(130..170).with_message("must be within the range from 130 to 170")}
+  it { should validate_inclusion_of(:gre_verbal).in_range(130..170).with_message("must be within the range from 130 to 170")}
+  it { should validate_inclusion_of(:gre_writing).in_range(0..6).with_message("must be within the range from 0 to 6.0")}
+  it { should validate_inclusion_of(:toefl).in_range(0..120).with_message("must be within the range from 0 to 120")}
+  it { should validate_numericality_of(:cgpa).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
+  it { should validate_numericality_of(:year_work_exp).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
+  it { should validate_numericality_of(:month_work_exp).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
 
   context "Updating profile field" do
     it "should update gre quant field of the profile" do
