@@ -15,7 +15,7 @@ def fill_in_data
   fill_in 'university_university_desc', with: @universities[:desc]
 end
 
-Then(/^I can add an university/) do
+Then(/^I can add a university/) do
   create_university
   find('tr', text: 'Universities').click_link 'Universities'
   fill_in_data
