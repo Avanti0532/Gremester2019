@@ -151,44 +151,32 @@ And /^I click on log out as a student/ do
 end
 
 Then /^I can update my (.*?)$/ do |field|
-  if field.eql?('toefl score')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  visit profiles_path
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  click_button 'Edit Profile'
+  expect(page).to have_current_path(edit_profile_path(current_student.id))
+  case field
+  when 'toefl score'
     fill_in 'toefl', with: 120
     current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.toefl.should eq(120)
-  elsif field.eql?('undergraduate college')
-    puts 'college'
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  when 'undergraduate college'
     fill_in 'college', with: 'University of Iowa Test'
     current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
-    puts current_student.current_profile.college
     current_student.current_profile.college.should eq('University of Iowa Test')
-  elsif field.eql?('cgpa')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  when 'cgpa'
     fill_in 'gpa', with: '2.7'
     current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.cgpa.should eq(2.7)
-  elsif field.eql?('major')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  when 'major'
     fill_in 'interested_major', with: 'Computer Security'
     current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.interested_major.should eq('Computer Security')
-  elsif field.eql?('gre verbal, writing or quant score')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  when 'gre verbal, writing or quant score'
     fill_in 'gre_writing', with: '4.5'
     fill_in 'gre_verbal', with: '158'
     fill_in 'gre_quant', with: '162'
@@ -197,31 +185,21 @@ Then /^I can update my (.*?)$/ do |field|
     current_student.current_profile.gre_writing.should eq(4.5)
     current_student.current_profile.gre_verbal.should eq(158)
     current_student.current_profile.gre_quant.should eq(162)
-  elsif field.eql?('work experience')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
-    fill_in 'year_work_exp', with: '10'
-    fill_in 'month_work_exp', with: '12'
-    current_student = Student.find_by_email(@saved_student_data[:email])
-    click_button 'Save Changes'
-    current_student.current_profile.year_work_exp.should eq(10)
-    current_student.current_profile.month_work_exp.should eq(12)
-  elsif field.eql?('intended start term')
-    visit profiles_path
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(1))
+  when 'intended start term'
     fill_in 'interested_start_term', with: 'Spring'
     fill_in 'interested_start_year', with: '2022'
     current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.interested_term.should eq('Spring')
     current_student.current_profile.interested_year.should eq(2022)
-  elsif field.eql?('last name and first name')
-    visit profiles_path
+  when 'work experience'
+    fill_in 'year_work_exp', with: '10'
+    fill_in 'month_work_exp', with: '12'
     current_student = Student.find_by_email(@saved_student_data[:email])
-    click_button 'Edit Profile'
-    expect(page).to have_current_path(edit_profile_path(current_student.id))
+    click_button 'Save Changes'
+    current_student.current_profile.year_work_exp.should eq(10)
+    current_student.current_profile.month_work_exp.should eq(12)
+  when 'last name and first name'
     fill_in 'first_name', with: 'Linh'
     fill_in 'last_name', with: 'Pham'
     click_button 'Save Changes'
