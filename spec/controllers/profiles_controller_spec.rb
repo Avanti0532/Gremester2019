@@ -47,7 +47,7 @@ describe ProfilesController do
       mock_profile = Profile.create(student_id: 1)
       controller.stub(:current_student).and_return(mock_student)
       controller.instance_eval {@profile = mock_profile}
-      post :update, {:current_student => {:first_name => "name", :last_name => "test"}, :profile => {:cgpa => ''}}
+      post :update, {:current_student => {:first_name => "name", :last_name => "test"}, :profile => {:toefl => '560'}}
       response.should render_template('edit')
     end
   end

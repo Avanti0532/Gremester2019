@@ -20,82 +20,82 @@
         <div class="form-group">
           <label class="col-md-3 control-label">First name:</label>
           <div class="col-md-8">
-            <%= text_area :current_student, 'first_name', class: "form-control" %>
+            <%= text_area :current_student, 'first_name', class: "form-control", id: 'first_name' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Last name:</label>
           <div class="col-md-8">
-            <%= text_area :current_student, 'last_name', class: "form-control" %>
+            <%= text_area :current_student, 'last_name', class: "form-control", id: 'last_name' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'college', class: "form-control", text: @profile.college %>
+            <%= text_area :profile, 'college', class: "form-control", text: @profile.college, id: 'college' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">GPA:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa %>
+            <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">TOEFL Score:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'toefl', class: "form-control", text: @profile.toefl %>
+            <%= text_area :profile, 'toefl', class: "form-control", text: @profile.toefl, id: 'toefl' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Writing:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'gre_writing', class: "form-control", text: @profile.gre_writing %>
+            <%= text_area :profile, 'gre_writing', class: "form-control", text: @profile.gre_writing, id: 'gre_writing' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Quantitative:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'gre_quant', class: "form-control", text: @profile.gre_quant %>
+            <%= text_area :profile, 'gre_quant', class: "form-control", text: @profile.gre_quant, id: "gre_quant" %>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Verbal:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'gre_verbal', class: "form-control", text: @profile.gre_verbal %>
+            <%= text_area :profile, 'gre_verbal', class: "form-control", text: @profile.gre_verbal, id: 'gre_verbal' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Major:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'interested_major', class: "form-control", text: @profile.interested_major %>
+            <%= text_area :profile, 'interested_major', class: "form-control", text: @profile.interested_major, id: 'interested_major'%>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Graduate Start Term:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term %>
+            <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term, id: 'interested_start_term' %>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 control-label">Graduate Start Term:</label>
+          <label class="col-md-3 control-label">Graduate Start Year:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year %>
+            <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year, id: 'interested_start_year' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Work Experience (Year):</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp   %>
+            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Work Experience (Month):</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp %>
+            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
           </div>
         </div>
         <div class="form-group">
