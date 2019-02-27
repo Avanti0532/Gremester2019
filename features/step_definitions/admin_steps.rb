@@ -26,10 +26,14 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
   elsif table_name.eql?("Student")
     user_table.hashes.each do |student|
       Student.create(student)
-     end
+    end
   elsif table_name.eql?("University")
     user_table.hashes.each do |university|
       University.create(university)
+    end
+  elsif table_name.eql?("Profile")
+    user_table.hashes.each do |profile|
+      Profile.create(profile)
     end
   end
 end
@@ -103,10 +107,10 @@ Then(/^I can see all (.*?) in the database$/) do |field|
       page.should have_content faculty.email
     end
   elsif field == "students"
-     find('tr', text: 'Students').click_link 'Students'
-     Student.all.each do |student|
-       page.should have_content student.email
-     end
+    find('tr', text: 'Students').click_link 'Students'
+    Student.all.each do |student|
+      page.should have_content student.email
+    end
   elsif field == "admins"
     find('tr', text: 'Admins').click_link 'Admins'
     Admin.all.each do |admin|

@@ -25,3 +25,15 @@ en:
     actions:
       approve_faculty:
         menu: "Approve faculty"
+  activerecord:
+    attributes:
+      profile:
+        gre_quant: "GRE Quantitative Score"
+        gre_verbal: "GRE Verbal Score"
+        gre_writing: "GRE Writing Score"
+        toefl: "TOEFL Score"
+        year_work_exp: "Years of working experience"
+        month_work_exp: "Months of working experience"
+        cgpa: "GPA"
+
+

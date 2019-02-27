@@ -26,7 +26,12 @@ Rails.application.routes.draw do
   }
 
   resources :universities
-  resources :profiles
+  resources :profiles do
+    collection do
+    post  "new"  => "profiles#update",  :as => 'update'
+    end
+  end
+
 
   root to: 'homepage#index'
 end

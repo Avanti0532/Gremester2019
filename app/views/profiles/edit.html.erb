@@ -16,72 +16,86 @@
     <div class="col-md-9 personal-info">
       <h3>Personal info</h3>
 
-      <form class="form-horizontal" role="form">
+      <%= form_tag update_profiles_path, method: :post, class: "form-horizontal"  do %>
         <div class="form-group">
-          <label class="col-lg-3 control-label">First name:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" value= "<%= current_student.first_name %>">
+          <label class="col-md-3 control-label">First name:</label>
+          <div class="col-md-8">
+            <%= text_area :current_student, 'first_name', class: "form-control", id: 'first_name' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Last name:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" value="<%= current_student.last_name %>" >
+          <label class="col-md-3 control-label">Last name:</label>
+          <div class="col-md-8">
+            <%= text_area :current_student, 'last_name', class: "form-control", id: 'last_name' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Undergraduate School:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" value="" >
+          <label class="col-md-3 control-label">Undergraduate School:</label>
+          <div class="col-md-8">
+            <%= text_area :profile, 'college', class: "form-control", text: @profile.college, id: 'college' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">GPA:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" value="" >
+          <label class="col-md-3 control-label">GPA:</label>
+          <div class="col-md-8">
+            <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">TOEFL Score:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="" >
+            <%= text_area :profile, 'toefl', class: "form-control", text: @profile.toefl, id: 'toefl' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Writing:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @profile.gre_writing %>" readonly>
+            <%= text_area :profile, 'gre_writing', class: "form-control", text: @profile.gre_writing, id: 'gre_writing' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Quantitative:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @profile.gre_quant %>" readonly>
+            <%= text_area :profile, 'gre_quant', class: "form-control", text: @profile.gre_quant, id: "gre_quant" %>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">GRE Verbal:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @profile.gre_verbal %>" readonly>
+            <%= text_area :profile, 'gre_verbal', class: "form-control", text: @profile.gre_verbal, id: 'gre_verbal' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Major:</label>
-          <div class="col-lg-8">
-            <input class="form-control" type="text" value="" >
+          <label class="col-md-3 control-label">Major:</label>
+          <div class="col-md-8">
+            <%= text_area :profile, 'interested_major', class: "form-control", text: @profile.interested_major, id: 'interested_major'%>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Graduate Start Term:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="" >
+            <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term, id: 'interested_start_term' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Graduate Start Year:</label>
+          <div class="col-md-8">
+            <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year, id: 'interested_start_year' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Work Experience:</label>
+          <label class="col-md-3 control-label">Work Experience (Year):</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="" >
+            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Work Experience (Month):</label>
+          <div class="col-md-8">
+            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
           </div>
         </div>
         <div class="form-group">
@@ -97,12 +111,13 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input type="button" class="btn btn-primary" value="Save Changes">
+            <%= submit_tag "Save Changes", class: "btn btn-primary" %>
+<!--            <input type="button" class="btn btn-primary" value="Save Changes">-->
             <span></span>
             <input type="reset" class="btn btn-default" value="Cancel">
           </div>
         </div>
-      </form>
+      <%end %>
     </div>
   </div>
 </div>
