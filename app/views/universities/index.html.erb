@@ -6,10 +6,10 @@
 
         <div class="col-md-6">
           <%= label_tag 'type','Type'%>
-          <%if @type=='Private' then%>
-            <%=select_tag "type", options_for_select([["Public" , "Public" ],["Private" , "Private" ]], @type)%>
+          <%if @type then%>
+            <%=select_tag "type", options_for_select([["All" , "All" ], ["Public" , "Public" ],["Private" , "Private" ]], @type)%>
           <%else %>
-            <%=select_tag "type", options_for_select([["Public" , "Public" ],["Private" , "Private" ]])%>
+            <%=select_tag "type", options_for_select([["All" , "All" ], ["Public" , "Public" ],["Private" , "Private" ]])%>
           <%end %>
         </div>
         <div class="col-md-2">
