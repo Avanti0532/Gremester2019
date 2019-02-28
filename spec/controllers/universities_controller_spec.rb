@@ -58,6 +58,15 @@ describe UniversitiesController do
       get :index, params
       expect(assigns(:universities)).to eq([university5,university45])
     end
+    it 'should populate all universities whose ranks are between the params when All type is selected' do
+      university5 = FactoryGirl.create(:university, :rank => 5, :university_type => 'Private')
+      university15 = FactoryGirl.create(:university, :rank => 15, :university_type => 'Public')
+      university45 = FactoryGirl.create(:university, :rank => 45, :university_type => 'Private')
+      university65 = FactoryGirl.create(:university, :rank => 65, :university_type => 'Public')
+      params = {:ranking_from => 1, :ranking_to => 50, :type => 'All'}
+      get :index, params
+      expect(assigns(:universities)).to eq([university5,university15,university45])
+    end
     it 'should choose selected type' do
       params = {:type => 'Private'}
       get :index, params
