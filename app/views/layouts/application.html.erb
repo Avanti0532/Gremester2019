@@ -17,13 +17,16 @@
 
   <%= render "share/nav" %>
 </head>
-<body>
-<p style= "padding-left: 15px; margin: 0px 0px; color: #31708f; background-color: #d9edf7;
-    text-align: center; font-family: Helvetica, sans-serif;
-    font-size: 15px;" class="notice"><%= notice %></p>
-
-
-<p class="alert"><%= alert %></p>
+<body style="padding-top: 51px;">
+<% flash.each do |type, msg| %>
+  <% if type == "notice" %>
+    <div class="alert alert-info"><%= msg %></div>
+  <% elsif type == "alert" %>
+    <div class="alert alert-danger"><%= msg %></div>
+  <% else %>
+    <div class='alert alert-<%= "#{type}" %>'><%= msg %></div>
+  <% end %>
+<% end %>
 
 <%= yield %>
 

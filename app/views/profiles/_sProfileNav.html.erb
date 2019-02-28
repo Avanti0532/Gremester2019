@@ -1,0 +1,12 @@
+<%= stylesheet_link_tag 'sProfileNav' %>
+<!--navigation-->
+<div class="navbar navbar-inverse navbar-fixed-left ">
+
+  <ul class="nav navbar-nav">
+    <li><%= link_to "Student Profile", profiles_path, :method => :get, class: "nav-link"%></li>
+    <li><%= link_to "Schools of Interest", sInterestedSchools_profiles_path, :method => :get, class: "nav-link"%></li>
+    <li><%= link_to "Account Settings", profiles_path, :method => :get, class: "nav-link"%></li>
+  </ul>
+</div>
+<!--end navigation-->
+<!-- 1st section-->
