@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     var counter = 0;
 
@@ -31,7 +32,7 @@ $(document).ready(function () {
     });
 
     $('#opendatetimepicker').click(function(event){
-        $('#datetimepicker').datepicker();
+            $('#datetimepicker').datepicker();
     });
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
