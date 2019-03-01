@@ -20,10 +20,10 @@ Feature: Allow students to add school to list of potential schools and update st
       |3 |15     |University of California – Berkeley  |Private          |14               |$28,000  |University of California – Berkeley is located in the Bay Area of California, a very in-demand and rather expensive area. The university is roughly 5 miles from Oakland, and 12 miles from San Francisco. Anyone who knows will tell you that UC Berkeley has a fantastic location, with Tilden Park and Berkeley Marina pretty close by.|Berkeley has a Mediterranean climate, though the temperatures in general are rather lower than what you come to expect in, say, Spain. Summers are cool and dry, while winters are cold and wet. Average temperatures in September (the ‘hottest’ month) are a high of 22.1°C and a low of 13.3°C, while average temperatures in January (the coldest month) are a high of 13.6°C and a low of 6.4°C. Berkeley also experiences rainfall once in a while, mainly during winters, and not much. Snowfall is a rare commodity, and normally takes place only on the peaks of hills.|https://www.berkeley.edu/|UC Berkeley is the flagship institute of the University of California. Statistically, Berkeley (as it’s called) is the most consistently well ranked university in the world. It has the highest number of distinguished graduate programs ranked in the top 10 in their fields by the United States National Research Council. As you can probably gauge, it isn’t easy to get into Berkeley, unless you have an untouchable academic track record. And rightly so – some of the achievements at this institute are fantastic. To give you an idea, UC Berkeley and its researchers are associated with 6 chemical elements of the periodic table. Now that’s something, isn’t it?|
 
     And the following applications have been added to Application Database:
-      | profile_id    | university_id   | applied   | applied_date    |   admitted      | rejected    | rejected_date |
-      | 1             | 1               | true      | 2019-02-15      |   false         | true        | 2019-03-16    |
-      | 2             | 2               | false     |                 |   false         | false       |               |
-      | 3             | 3               | false     |                 |   false         | false       |               |
+      | profile_id    | university_id   | applied   | applied_date    |   admitted      | admitted_date | rejected    | rejected_date |
+      | 1             | 1               | true      | 2019-02-15      |   false         |               | true        | 2019-03-16    |
+      | 2             | 2               | false     |                 |   false         |               | false       |               |
+      | 3             | 3               | true      |                 |   true          | 2019-03-10    | false       |               |
 
   @wip
   Scenario: Students can add school to their potential school list
