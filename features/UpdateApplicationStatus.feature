@@ -13,14 +13,17 @@ Feature: Allow students to add school to list of potential schools and update st
       | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science | Grinnell  | 2             | 5              | test resume | test sop | test additional            |
       | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science | UMichigan | 0             | 7              | test resume | test sop | test additional            |
 
+  @wip
   Scenario: Students can add school to their potential school list
     When I log in as a student
     Then I can add school to my potential school list
 
+  @wip
   Scenario: Students can update status of any school in the potential school list
     When I log in as a student
     Then I can update the status of any school in the list to be applied, rejected, interested or admitted
 
+  @wip
   Scenario: Students can add date that they applied, admitted or rejected to any school
     When I log in as a student
     Then I can add date that they applied, admitted or rejected to any school
