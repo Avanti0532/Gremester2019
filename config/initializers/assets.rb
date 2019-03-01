@@ -9,6 +9,7 @@ Rails.application.config.assets.precompile += %w( sInterestedSchools.js )
 Rails.application.config.assets.precompile += %w( university.css )
 Rails.application.config.assets.precompile += %w( sProfileNav.css )
 
+
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 
