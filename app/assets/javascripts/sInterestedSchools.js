@@ -32,7 +32,6 @@ $(document).ready(function () {
         $(function() {
             let pickerID = 'datetimepicker'+ counter;
             var element = document.getElementById(pickerID);
-            console.log(pickerID);
             $(element).click(function() {
                 $(this).datepicker().datepicker( "show" )
                 $(this).datepicker().datepicker({
