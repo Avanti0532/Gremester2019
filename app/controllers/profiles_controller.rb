@@ -1,5 +1,8 @@
 class ProfilesController < ApplicationController
 
+  def profile_params
+    params.require(:profile).permit(:photo_id)
+  end
   def index
     @profile = current_student.current_profile
     if(@profile.nil?)
@@ -42,6 +45,11 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def create
+    @profile = Profile.new(profile_params)
+  end
+
+
   def update
     @first_name = params[:current_student][:first_name]
     @last_name = params[:current_student][:last_name]
@@ -68,6 +76,7 @@ class ProfilesController < ApplicationController
     @profile.update_interested_year(@interested_year)  if !@interested_year.blank?
     @profile.update_year_work_experience(@year_work_exp.to_i)  if !@year_work_exp.blank?
     @profile.update_month_work_experience(@month_work_exp.to_i)  if !@month_work_exp.blank?
+    @profile.photo_id = profile_params[:photo_id]
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?

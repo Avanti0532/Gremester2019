@@ -2,17 +2,56 @@
 <div class="container">
   <h1>Edit Profile</h1>
   <hr>
-  <%= form_for @profile, :url => update_profiles_path, method: :post, class: "form-horizontal"  do |f| %>
+  <%= form_for @profile, class: "form-horizontal"  do |f| %>
     <div class="row">
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
           <h6>Upload a different photo...</h6>
-          <%= f.hidden_field :photo_id, value: @profile.cached_photo_id_data %>
+          <%= f.hidden_field :photo_id, value: f.object.cached_photo_id_data %>
           <%= f.file_field :photo_id, autocomplete: "off" %>
+          <img id="upload-preview">
         </div>
       </div>
+
+
+      <script>
+          function fileUpload(fileInput) {
+              var imagePreview = document.querySelector('.upload-preview')
+              fileInput.style.display = 'none' // uppy will add its own file input
+              var uppy = Uppy.Core({
+                  id: fileInput.id,
+                  autoProceed: true,
+              })
+                  .use(Uppy.FileInput, {
+                      target: fileInput.parentNode,
+                  })
+                  .use(Uppy.Informer, {
+                      target: fileInput.parentNode,
+                  })
+                  .use(Uppy.ProgressBar, {
+                      target: imagePreview.parentNode,
+                  })
+              uppy.use(Uppy.XHRUpload, {
+                  endpoint: '/images/upload', // Shrine's upload endpoint
+                  fieldName: 'file',
+              })
+              uppy.on('upload-success', function (file, data) {
+                  // show image preview
+                  imagePreview.src = URL.createObjectURL(file.data)
+                  // read uploaded file data from the upload endpoint response
+                  var uploadedFileData = JSON.stringify(data)
+                  // set hidden field value to the uploaded file data so that it's submitted with the form as the attachment
+                  var hiddenInput = fileInput.parentNode.querySelector('.upload-hidden')
+                  hiddenInput.value = uploadedFileData
+              })
+              return uppy
+          }
+          document.querySelectorAll('.upload-file').forEach(function (fileInput) {
+              fileUpload(fileInput)
+          })
+      </script>
+
 
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
@@ -101,19 +140,30 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">SOP/Resume:</label>
+          <label class="col-md-3 control-label">SOP:</label>
+          <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
+          <%= f.file_field :sop, autocomplete: "off" %>
+          <div class="col-md-8">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Resume:</label>
+          <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
+          <%= f.file_field :resume, autocomplete: "off" %>
           <div class="col-md-8">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Additional Attachments:</label>
+          <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
+          <%= f.file_field :additional_attachment, autocomplete: "off" %>
           <div class="col-md-8">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <%= submit_tag "Save Changes", class: "btn btn-primary" %>
+            <%= f.submit "Save Changes", class: "btn btn-primary" %>
             <!--            <input type="button" class="btn btn-primary" value="Save Changes">-->
             <span></span>
             <input type="reset" class="btn btn-default" value="Cancel">
@@ -124,5 +174,4 @@
     </div>
   <%end %>
 </div>
-
 <hr>
