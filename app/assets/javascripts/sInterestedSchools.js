@@ -18,10 +18,10 @@ $(document).ready(function () {
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '<option>Interested</option> </select> </div></td>';
-        cols += '<td><div class="input-group">' +
-            '<input type="text" class="form-control" id="datetimepicker" name="datetimepicker">'+
+        cols += '<td><div class="input-group date" id="datetimepicker-group">' +
+            '<input type="text" class="form-control" name="datepicker" value="">'+
             '<label class="input-group-addon btn" for="datepicker">'+
-            '<span class="glyphicon glyphicon-calendar" id="opendatetimepicker">' +
+            '<span class="glyphicon glyphicon-calendar">' +
             '</span>' +
             '</label>' +
             '</div></td>';
@@ -31,9 +31,14 @@ $(document).ready(function () {
         counter++;
     });
 
-    $('#opendatetimepicker').click(function(event){
-            $('#datetimepicker').datepicker();
+    $("table.order-list").on("click", "#datetimepicker-group", function (event) {
+        $(this).datepicker({
+            todayHighlight: true,
+            autoclose: true
+        });
+
     });
+
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
