@@ -23,7 +23,9 @@ $(document).ready(function () {
         counter++;
     });
 
-
+    $('#opendatetimepicker').click(function(event){
+        $('#datetimepicker').datepicker();
+    });
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
