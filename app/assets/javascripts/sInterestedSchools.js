@@ -18,7 +18,7 @@ $(document).ready(function () {
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '<option>Interested</option> </select> </div></td>';
-        cols += '<td><div class="input-group date" id="datetimepicker-group">' +
+        cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
             '<input type="text" class="form-control" name="datepicker" value="">'+
             '<label class="input-group-addon btn" for="datepicker">'+
             '<span class="glyphicon glyphicon-calendar">' +
