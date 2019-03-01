@@ -7,13 +7,17 @@
       <!-- left column -->
       <div class="col-md-3">
         <div class="text-center">
+          <% if @profile.photo_id.present? %>
+            <%= image_tag @profile.photo_id_url, :size => "260x180" %>
+          <% else %>
+            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <%end %>
           <h6>Upload a different photo...</h6>
           <%= f.hidden_field :photo_id, value: f.object.cached_photo_id_data %>
           <%= f.file_field :photo_id, autocomplete: "off" %>
           <img id="upload-preview">
         </div>
       </div>
-
 
       <script>
           function fileUpload(fileInput) {
@@ -141,30 +145,38 @@
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">SOP:</label>
-          <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
-          <%= f.file_field :sop, autocomplete: "off" %>
           <div class="col-md-8">
+            <%if  !@profile.sop.nil? %>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+            <%end %>
+            <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
+            <%= f.file_field :sop, autocomplete: "off" %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Resume:</label>
-          <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
-          <%= f.file_field :resume, autocomplete: "off" %>
           <div class="col-md-8">
+            <%if  !@profile.resume.nil? %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+            <%end %>
+            <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
+            <%= f.file_field :resume, autocomplete: "off" %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Additional Attachments:</label>
-          <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
-          <%= f.file_field :additional_attachment, autocomplete: "off" %>
           <div class="col-md-8">
+            <%if  !@profile.additional_attachment.nil? %>
+              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+            <%end %>
+            <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
+            <%= f.file_field :additional_attachment, autocomplete: "off" %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
             <%= f.submit "Save Changes", class: "btn btn-primary" %>
-            <!--            <input type="button" class="btn btn-primary" value="Save Changes">-->
             <span></span>
             <input type="reset" class="btn btn-default" value="Cancel">
           </div>
