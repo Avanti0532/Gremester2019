@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
 
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -28,15 +28,30 @@ $(document).ready(function () {
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
+
+        $(function() {
+            let pickerID = 'datetimepicker'+ counter;
+            var element = document.getElementById(pickerID);
+            console.log(pickerID);
+            $(element).click(function() {
+                $(this).datepicker().datepicker( "show" )
+                $(this).datepicker().datepicker({
+                    todayHighlight: true,
+                    autoclose: true
+                });
+            });
+        });
         counter++;
     });
 
-    $("table.order-list").on("click", "#datetimepicker-group", function (event) {
-        $(this).datepicker({
-            todayHighlight: true,
-            autoclose: true
+    $(function() {
+        $("#datetimepicker0").click(function() {
+            $(this).datepicker().datepicker( "show" )
+            $(this).datepicker().datepicker({
+                todayHighlight: true,
+                autoclose: true
+            });
         });
-
     });
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
