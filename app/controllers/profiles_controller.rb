@@ -1,8 +1,9 @@
 class ProfilesController < ApplicationController
 
   def profile_params
-    params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment)
+    params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
+
   def index
     @profile = current_student.current_profile
     if(@profile.nil?)
@@ -50,17 +51,17 @@ class ProfilesController < ApplicationController
   def update
     @first_name = params[:current_student][:first_name]
     @last_name = params[:current_student][:last_name]
-    @gpa = params[:profile][:cgpa]
-    @college = params[:profile][:college]
-    @toefl = params[:profile][:toefl].to_i
-    @gre_writing = params[:profile][:gre_writing]
-    @gre_quant = params[:profile][:gre_quant]
-    @gre_verbal = params[:profile][:gre_verbal]
-    @interested_major = params[:profile][:interested_major]
-    @interested_term = params[:profile][:interested_term]
-    @interested_year = params[:profile][:interested_year]
-    @year_work_exp = params[:profile][:year_work_exp]
-    @month_work_exp = params[:profile][:month_work_exp]
+    @gpa = profile_params[:cgpa]
+    @college = profile_params[:college]
+    @toefl = profile_params[:toefl]
+    @gre_writing = profile_params[:gre_writing]
+    @gre_quant = profile_params[:gre_quant]
+    @gre_verbal = profile_params[:gre_verbal]
+    @interested_major = profile_params[:interested_major]
+    @interested_term = profile_params[:interested_term]
+    @interested_year = profile_params[:interested_year]
+    @year_work_exp = profile_params[:year_work_exp]
+    @month_work_exp = profile_params[:month_work_exp]
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_college(@college) if !@college.blank?
