@@ -1,5 +1,6 @@
+
 $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
 
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -17,13 +18,40 @@ $(document).ready(function () {
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '<option>Interested</option> </select> </div></td>';
+        cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
+            '<input type="text" class="form-control" name="datepicker" value="">'+
+            '<label class="input-group-addon btn" for="datepicker">'+
+            '<span class="glyphicon glyphicon-calendar">' +
+            '</span>' +
+            '</label>' +
+            '</div></td>';
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
+
+        $(function() {
+            let pickerID = 'datetimepicker'+ counter;
+            var element = document.getElementById(pickerID);
+            $(element).click(function() {
+                $(this).datepicker().datepicker( "show" )
+                $(this).datepicker().datepicker({
+                    todayHighlight: true,
+                    autoclose: true
+                });
+            });
+        });
         counter++;
     });
 
-
+    $(function() {
+        $("#datetimepicker0").click(function() {
+            $(this).datepicker().datepicker( "show" )
+            $(this).datepicker().datepicker({
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
+    });
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
