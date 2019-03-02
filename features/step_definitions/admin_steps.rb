@@ -234,4 +234,10 @@ Then(/^I cannot edit any profile in the database$/) do
   expect(page).to have_no_link('Edit')
 end
 
+Then(/^I cannot delete profile information$/) do
+  visit '/admin/dashboard'
+  find('tr', text: 'Profiles').click_link 'Profiles'
+  expect(page).to have_no_link('Delete')
+end
+
 

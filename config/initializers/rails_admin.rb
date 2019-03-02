@@ -53,13 +53,16 @@ RailsAdmin.config do |config|
     edit do
       only ['University']
     end
-    bulk_delete
+    bulk_delete do
+      only ['University', 'Faculty', 'Student']
+    end
     approve_faculty do
       only ['Faculty']
     end
     show
-    delete
-
+    delete do
+      only ['University', 'Faculty', 'Student']
+    end
     ## With an audit adapter, you can add:
     # history_index
     # history_show

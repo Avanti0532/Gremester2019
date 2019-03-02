@@ -95,3 +95,7 @@ Feature: Admin can look at all user but cannot edit their information
   Scenario: Admin cannot export profile data
     When I log in as an admin
     Then I cannot export profile information
+
+  Scenario: Admin cannot delete profile data
+    When I log in as an admin
+    Then I cannot delete profile information
