@@ -2,10 +2,10 @@ Feature: Admin can look at all user but cannot edit their information
 
   Background: I am on the Welcome to Gremester page
     Given the following students have been added to Student Database:
-      | first_name  | last_name  | email          | password  | username          |
-      | Robin       | Hood       | robin@gmail.com  | 12345678    |   robin_hood      |
-      | Thomas      | Edison     | thomas@gmail.com  | 23456789    |   thomas_edison   |
-      | Frank       | Robert     | frank@gmail.com | 34567890    |   frank_robert    |
+      | first_name  | last_name  | email          | password  | username                | id |
+      | Robin       | Hood       | robin@gmail.com  | 12345678    |   robin_hood        | 1  |
+      | Thomas      | Edison     | thomas@gmail.com  | 23456789    |   thomas_edison    | 2  |
+      | Frank       | Robert     | frank@gmail.com | 34567890    |   frank_robert       | 3  |
 
     And the following faculties have been added to Faculty Database:
       | first_name  | last_name   | email             | password    |   username          | weblink |
@@ -17,6 +17,12 @@ Feature: Admin can look at all user but cannot edit their information
       | first_name  | last_name   | email             | password    | password_confirmation |
       | Linh        | Pham         | linh@gmail.com    | 12345689    |  12345689            |
       | Jordan        | Peterson      | jordan@gmail.com   | 23456789    | 23456789         |
+
+    And the following profiles have been added to Profile Database:
+      | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major | college   | year_work_exp | month_work_exp | resume_data | sop_data | additional_attachment_data |
+      | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science | Uiowa     | 1             | 4              |             |          |                            |
+      | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science | Grinnell  | 2             | 5              |             |          |                            |
+      | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science | UMichigan | 0             | 7              |             |          |                            |
 
   Scenario: Admin can see all faculties in the database
     When I log in as an admin
@@ -66,7 +72,6 @@ Feature: Admin can look at all user but cannot edit their information
     When I log in as an admin
     Then I will go to homepage of Gremester if I click on Home button on the navigation bar
 
-
   Scenario: Admin approves faculty once faculty signs up
     When I sign up with valid faculties details
     Then I should see a message saying my account is pending for admin approval
@@ -74,3 +79,15 @@ Feature: Admin can look at all user but cannot edit their information
     Then I can approve the faculty
     Then I can see successful approval message
 
+
+  Scenario: Admin can see all profiles in the database
+    When I log in as an admin
+    Then I can see all profiles in the database
+
+  Scenario: Admin cannot add any profile in the database
+    When I log in as an admin
+    Then I cannot add any profile in the database
+
+  Scenario: Admin cannot export profile data
+    When I log in as an admin
+    Then I cannot export profile information

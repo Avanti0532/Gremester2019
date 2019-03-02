@@ -121,6 +121,11 @@ Then(/^I can see all (.*?) in the database$/) do |field|
     University.all.each do |university|
       page.should have_content university.university_name
     end
+  elsif field == "profiles"
+    find('tr', text: 'Profiles').click_link 'Profiles'
+    Profile.all.each do |profile|
+      page.should have_content profile.student_id
+    end
   end
 end
 
@@ -131,6 +136,12 @@ Then(/^I cannot edit any student or faculty information$/) do
   visit '/admin/dashboard'
   find('tr', text: 'Students').click_link 'Students'
   expect(page).to have_no_link('Edit')
+end
+
+Then(/^I cannot add any profile in the database$/) do
+  visit '/admin/dashboard'
+  find('tr', text: 'Profiles').click_link 'Profiles'
+  expect(page).to have_no_link('Add new')
 end
 
 Then(/^I can approve faculty credential$/) do
@@ -185,6 +196,9 @@ Then(/^I cannot export (.*?) information$/) do |field|
     expect(page).to have_no_link('Export')
   elsif field.eql?('university')
     find('tr', text: 'Universities').click_link 'Universities'
+    expect(page).to have_no_link('Export')
+  elsif field.eql?('profile')
+    find('tr', text: 'Profiles').click_link 'Profiles'
     expect(page).to have_no_link('Export')
   end
 end

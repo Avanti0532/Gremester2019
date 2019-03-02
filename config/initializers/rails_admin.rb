@@ -59,7 +59,6 @@ RailsAdmin.config do |config|
     end
     show
     delete
-    show_in_app
 
     ## With an audit adapter, you can add:
     # history_index
@@ -68,6 +67,11 @@ RailsAdmin.config do |config|
   config.model 'University' do
     edit do
       exclude_fields :applications
+    end
+  end
+  config.model 'Student' do
+    show do
+      exclude_fields :current_sign_in_ip, :last_sign_in_ip
     end
   end
 end
