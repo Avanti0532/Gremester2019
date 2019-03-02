@@ -228,5 +228,10 @@ And(/^I click on log out as an admin$/) do
   click_link 'Log out'
 end
 
+Then(/^I cannot edit any profile in the database$/) do
+  visit '/admin/dashboard'
+  find('tr', text: 'Profiles').click_link 'Profiles'
+  expect(page).to have_no_link('Edit')
+end
 
 

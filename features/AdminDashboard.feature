@@ -88,6 +88,10 @@ Feature: Admin can look at all user but cannot edit their information
     When I log in as an admin
     Then I cannot add any profile in the database
 
+  Scenario: Admin cannot edit any profile in the database
+    When I log in as an admin
+    Then I cannot edit any profile in the database
+
   Scenario: Admin cannot export profile data
     When I log in as an admin
     Then I cannot export profile information
