@@ -158,29 +158,24 @@ Then /^I can update my (.*?)$/ do |field|
   case field
   when 'toefl score'
     fill_in 'toefl', with: 120
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.toefl.should eq(120)
   when 'undergraduate college'
     fill_in 'college', with: 'University of Iowa Test'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.college.should eq('University of Iowa Test')
   when 'cgpa'
     fill_in 'gpa', with: '2.7'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.cgpa.should eq(2.7)
   when 'major'
     fill_in 'interested_major', with: 'Computer Security'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.interested_major.should eq('Computer Security')
   when 'gre verbal, writing or quant score'
     fill_in 'gre_writing', with: '4.5'
     fill_in 'gre_verbal', with: '158'
     fill_in 'gre_quant', with: '162'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.gre_writing.should eq(4.5)
     current_student.current_profile.gre_verbal.should eq(158)
@@ -188,14 +183,12 @@ Then /^I can update my (.*?)$/ do |field|
   when 'intended start term'
     fill_in 'interested_start_term', with: 'Spring'
     fill_in 'interested_start_year', with: '2022'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.interested_term.should eq('Spring')
     current_student.current_profile.interested_year.should eq(2022)
   when 'work experience'
     fill_in 'year_work_exp', with: '10'
     fill_in 'month_work_exp', with: '12'
-    current_student = Student.find_by_email(@saved_student_data[:email])
     click_button 'Save Changes'
     current_student.current_profile.year_work_exp.should eq(10)
     current_student.current_profile.month_work_exp.should eq(12)
@@ -206,5 +199,21 @@ Then /^I can update my (.*?)$/ do |field|
     current_student = Student.find_by_email(@saved_student_data[:email])
     current_student.first_name.should eq('Linh')
     current_student.last_name.should eq('Pham')
+  when 'resume'
+    page.attach_file "profile[resume]", Rails.root + 'public/test.pdf'
+    click_button 'Save Changes'
+    current_student.current_profile.resume.metadata['filename'].should eq('test.pdf')
+  when 'sop'
+    page.attach_file "profile[sop]", Rails.root + 'public/test.pdf'
+    click_button 'Save Changes'
+    current_student.current_profile.sop.metadata['filename'].should eq('test.pdf')
+  when 'additional attachment'
+    page.attach_file "profile[additional_attachment]", Rails.root + 'public/test.pdf'
+    click_button 'Save Changes'
+    current_student.current_profile.additional_attachment.metadata['filename'].should eq('test.pdf')
+  when 'profile photo'
+    page.attach_file "profile[photo_id]", Rails.root + 'public/gradcap.jpg'
+    click_button 'Save Changes'
+    current_student.current_profile.photo_id.metadata['filename'].should eq('gradcap.jpg')
   end
 end

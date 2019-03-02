@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20190301021316) do
     t.decimal  "gre_writing"
     t.integer  "gre_verbal"
     t.string   "college"
-    t.string   "photo_id_data"
+    t.text     "photo_id_data"
     t.string   "citizenship"
     t.integer  "degree_objective_phd"
     t.integer  "degree_objective_master"
