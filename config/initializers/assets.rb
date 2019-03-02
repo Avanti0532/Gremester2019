@@ -6,6 +6,7 @@ Rails.application.config.assets.precompile += %w( yeti.css )
 Rails.application.config.assets.precompile += %w( banner.css )
 Rails.application.config.assets.precompile += %w( yeti.js )
 Rails.application.config.assets.precompile += %w( sInterestedSchools.js )
+Rails.application.config.assets.precompile += %w( file_upload.js )
 Rails.application.config.assets.precompile += %w( university.css )
 Rails.application.config.assets.precompile += %w( sProfileNav.css )
 

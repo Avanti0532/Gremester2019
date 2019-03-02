@@ -6,12 +6,16 @@
     <!-- left column -->
     <div class="col-md-3">
       <div class="text-center">
-        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <% if @profile.photo_id.present? %>
+          <%= image_tag @profile.photo_id_url, :size => "260x180" %>
+        <% else %>
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <%end %>
         <br>
       </div>
       <div class="text-center">
         <br>
-         <%= button_to "Edit Profile", edit_profile_path(@current_student.id), :method => "get", :class=>"btn btn-primary"  %>
+        <%= button_to "Edit Profile", edit_profile_path(@current_student.id), :method => "get", :class=>"btn btn-primary"  %>
       </div>
     </div>
 
@@ -91,13 +95,29 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">SOP/Resume:</label>
+          <label class="col-md-3 control-label">SOP:</label>
           <div class="col-md-8">
+            <%if !@profile.sop.nil? %>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+            <%end %>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Resume:</label>
+          <div class="col-md-8">
+            <%if  !@profile.resume.nil? %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+            <% end %>
+
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Additional Attachments:</label>
           <div class="col-md-8">
+            <%if !@profile.additional_attachment.nil? %>
+              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+            <% end %>
           </div>
         </div>
         <div class="form-group">

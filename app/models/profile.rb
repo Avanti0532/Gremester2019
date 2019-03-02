@@ -2,6 +2,10 @@
 class Profile < ActiveRecord::Base
   belongs_to :student
   has_many :applications
+  include ImageUploader::Attachment.new(:photo_id)
+  include DocumentUploader::Attachment.new(:sop)
+  include DocumentUploader::Attachment.new(:resume)
+  include DocumentUploader::Attachment.new(:additional_attachment)
   validates_inclusion_of :gre_quant, :in => 130..170, allow_blank: true, message: 'must be within the range from 130 to 170'
   validates_inclusion_of :gre_verbal, :in => 130..170, allow_blank: true, message: 'must be within the range from 130 to 170'
   validates_inclusion_of :gre_writing, :in => 0..6, allow_blank: true, message: 'must be within the range from 0 to 6.0'
