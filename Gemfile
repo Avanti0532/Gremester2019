@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11'
 gem 'jasmine'
+gem 'jasmine-jquery-rails'
 # Added haml file
 gem 'haml'
 # Use SCSS for stylesheets
@@ -28,6 +29,7 @@ gem 'rails_admin'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
+gem 'poltergeist'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

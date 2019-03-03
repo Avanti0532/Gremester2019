@@ -9,6 +9,7 @@ Rails.application.config.assets.precompile += %w( sInterestedSchools.js )
 Rails.application.config.assets.precompile += %w( file_upload.js )
 Rails.application.config.assets.precompile += %w( university.css )
 Rails.application.config.assets.precompile += %w( sProfileNav.css )
+Rails.application.config.assets.precompile += %w( jasmine-jquery.js)
 
 
 # Add additional assets to the asset load path
