@@ -33,3 +33,15 @@ Then(/I should see both (.*?) and (.*?) universities/) do |type1, type2|
     expect(td3.text).to eq(type1).or eq(type2)
   end
 end
+
+
+And(/^I click on show link of (.*?)$/) do |university|
+  find(:xpath, "//tr[contains(.,\"#{university}\")]/td/a", :text => 'Show').click
+end
+
+Then(/^I should be able to see (.*?) information$/) do |university|
+  website = University.find_by(university_name: university).university_link
+  expect(page).to have_current_path(/universities\/[0-9]+/)
+  expect(page).to have_content(university)
+  expect(page).to have_link(website)
+end

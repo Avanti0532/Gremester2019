@@ -67,17 +67,17 @@ Then(/^I can add another university if admin clicks on save and add another/) do
   page.should have_content("Save and add another")
 end
 
-And(/^I search universities with Stanford$/) do
+And(/^I search universities with (.*?)$/) do |search_field|
   page.execute_script("$('#universitiesTable').DataTable({});")
   page.should have_content('Search:')
-  page.fill_in "Search:", with: 'Stanford'
+  page.fill_in "Search:", with: search_field
 end
 
-Then(/^I should see universities with Stanford$/) do
+Then(/^I should see only search result with (.*?)$/) do |search_field|
   University.all.each do |university|
-    if !university.university_name.eql?('Stanford University')
+    if !university.university_name.eql?(search_field)
       page.should_not have_content(university.university_name)
     end
   end
-  page.should have_content('Stanford')
+  page.should have_content(search_field)
 end
