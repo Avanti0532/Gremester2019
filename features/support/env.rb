@@ -60,7 +60,5 @@ require 'simplecov'
 SimpleCov.start 'rails'
 
 require 'capybara/poltergeist'
-# Capybara.default_driver = :selenium
 Capybara.javascript_driver = :poltergeist
 Capybara.server = :puma
-# Capybara.ignore_hidden_elements = false

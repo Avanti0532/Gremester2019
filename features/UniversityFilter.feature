@@ -46,8 +46,8 @@ Feature: Student can view/search universities
 
   Scenario: Student should see university information when show button is clicked
     When I log in as a student
-    And I click on show link of University of Texas at Arlington
-    Then I should be able to see University of Texas at Arlington information
+    And I click on show link of California Institute Of Technology
+    Then I should be able to see California Institute Of Technology information
 
   @javascript
   Scenario: Student can search universities
