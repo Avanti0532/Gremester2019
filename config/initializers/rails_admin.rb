@@ -53,14 +53,16 @@ RailsAdmin.config do |config|
     edit do
       only ['University']
     end
-    bulk_delete
+    bulk_delete do
+      only ['University', 'Faculty', 'Student']
+    end
     approve_faculty do
       only ['Faculty']
     end
     show
-    delete
-    show_in_app
-
+    delete do
+      only ['University', 'Faculty', 'Student']
+    end
     ## With an audit adapter, you can add:
     # history_index
     # history_show
@@ -68,6 +70,11 @@ RailsAdmin.config do |config|
   config.model 'University' do
     edit do
       exclude_fields :applications
+    end
+  end
+  config.model 'Student' do
+    show do
+      exclude_fields :current_sign_in_ip, :last_sign_in_ip
     end
   end
 end
