@@ -25,6 +25,7 @@ gem 'twitter-bootswatch-rails', '~> 3.3.4'
 gem 'twitter-bootswatch-rails-helpers'
 gem "therubyracer"
 gem 'rails_admin'
+gem 'poltergeist'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
