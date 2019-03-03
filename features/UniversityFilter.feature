@@ -39,5 +39,9 @@ Feature: Student can view/search universities
     And I should see only Public universities
     And I should not see Private universities
 
-
+    @javascript
+  Scenario: Student can search universities do
+    When I log in as a student
+    And I search universities with Stanford
+    Then I should see universities with Stanford
 

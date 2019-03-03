@@ -66,3 +66,18 @@ Then(/^I can add another university if admin clicks on save and add another/) do
   page.should have_content('University successfully created')
   page.should have_content("Save and add another")
 end
+
+And(/^I search universities with Stanford$/) do
+  page.execute_script("$('#universitiesTable').DataTable({});")
+  page.should have_content('Search:')
+  page.fill_in "Search:", with: 'Stanford'
+end
+
+Then(/^I should see universities with Stanford$/) do
+  University.all.each do |university|
+    if !university.university_name.eql?('Stanford University')
+      page.should_not have_content(university.university_name)
+    end
+  end
+  page.should have_content('Stanford')
+end
