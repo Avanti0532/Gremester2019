@@ -25,6 +25,7 @@ gem 'twitter-bootswatch-rails', '~> 3.3.4'
 gem 'twitter-bootswatch-rails-helpers'
 gem "therubyracer"
 gem 'rails_admin'
+gem 'poltergeist'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
@@ -39,6 +40,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'shrine-google_cloud_storage'
+gem 'puma'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'rails-assets-jquery', source: 'https://rails-assets.org'
