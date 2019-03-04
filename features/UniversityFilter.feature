@@ -39,7 +39,6 @@ Feature: Student can view/search universities
     And I should see only Public universities
     And I should not see Private universities
 
-
   Scenario: Student should see university information when show button is clicked
     When I log in as a student
     And I click on show link of Stanford University
@@ -51,14 +50,14 @@ Feature: Student can view/search universities
     Then I should be able to see California Institute Of Technology information
 
   @javascript
-  Scenario: Student can search universities do
+  Scenario: Student can search universities
     When I log in as a student
     And I search universities with Stanford University
     Then I should see only search result with Stanford University
 
 
   @javascript
-  Scenario: Student should see university information when show button is clicked
+  Scenario: Student can search universities
     When I log in as a student
     And I search universities with University of Texas at Arlington
     Then I should see only search result with University of Texas at Arlington
