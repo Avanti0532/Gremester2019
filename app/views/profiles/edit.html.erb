@@ -8,7 +8,7 @@
       <div class="col-md-3">
         <div class="text-center">
           <% if @profile.photo_id.present? %>
-            <%= image_tag @profile.photo_id_url, :size => "260x180" %>
+            <%= image_tag "https://console.cloud.google.com/storage/browser/store-faculty-id-card/profile/1/photo_id?prefix=d03364e305e7b3802ef08e0aed7ab81d.png", :size => "260x180" %>
           <% else %>
             <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
           <%end %>
