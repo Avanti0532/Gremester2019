@@ -109,7 +109,7 @@
           <label class="col-md-3 control-label">SOP:</label>
           <div class="col-md-8">
             <%if  !@profile.sop.nil? %>
-              <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
             <%end %>
             <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
             <%= f.file_field :sop, autocomplete: "off" %>
