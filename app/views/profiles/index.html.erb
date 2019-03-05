@@ -6,8 +6,8 @@
     <!-- left column -->
     <div class="col-md-3">
       <div class="text-center">
-        <% if @profile.photo_id.present? %>
-          <%= image_tag @profile.photo_id_url, :size => "260x180" %>
+        <% if !@profile.photo_id.nil? %>
+          <%= image_tag @profile.photo_id_url, :size => "120x120" %>
         <% else %>
           <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
         <%end %>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <!-- edit form column -->
+    <!-- show form column -->
     <div class="col-md-9 personal-info">
 
       <h3>Personal info</h3>
@@ -97,27 +97,35 @@
         <div class="form-group">
           <label class="col-md-3 control-label">SOP:</label>
           <div class="col-md-8">
-            <%if !@profile.sop.nil? %>
+            <%if !@profile.sop.nil? && Rails.env.production? %>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
+            <%elsif !@profile.sop.nil? && Rails.env.development?  %>
               <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
             <%end %>
+            <br>
           </div>
 
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Resume:</label>
           <div class="col-md-8">
-            <%if  !@profile.resume.nil? %>
-              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+            <%if  !@profile.resume.nil? && Rails.env.production?  %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
+            <%elsif !@profile.resume.nil? && Rails.env.development?  %>
+          <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
             <% end %>
-
+            <br>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Additional Attachments:</label>
           <div class="col-md-8">
-            <%if !@profile.additional_attachment.nil? %>
+            <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
               <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
+            <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
+          <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
             <% end %>
+            <br>
           </div>
         </div>
         <div class="form-group">
