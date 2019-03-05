@@ -116,7 +116,7 @@
           <label class="col-md-3 control-label">Additional Attachments:</label>
           <div class="col-md-8">
             <%if !@profile.additional_attachment.nil? %>
-              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
             <% end %>
           </div>
         </div>
