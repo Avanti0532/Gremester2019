@@ -2,7 +2,7 @@
 <div class="container">
   <h1>Edit Profile</h1>
   <hr>
-  <%= form_for @profile, class: "form-horizontal"  do |f| %>
+  <%= form_for @profile, url: update_profiles_path, class: "form-horizontal"  do |f| %>
     <div class="row">
       <!-- left column -->
       <div class="col-md-3">

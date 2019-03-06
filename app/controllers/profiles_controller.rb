@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
       @profile.update_resume_data('')
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
-     current_student.create_profile()
+      current_student.create_profile()
 
     end
   end
