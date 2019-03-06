@@ -6,6 +6,8 @@
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h2>Schools of Interest</h2>
+  <%= form_tag update_profiles_path do %>
+  <%= form_tag show_profiles_path,:method => :get do %>
   <table id="myTable" class=" table order-list">
     <thead>
     <tr>
@@ -27,7 +29,7 @@
 
       <td class="col-sm-2">
         <div class="form-group">
-          <select class="form-control" id="sel1">
+          <select class="form-control" id="sel1" name="sel_opt">
             <option disabled selected value> -- select an option -- </option>
             <option>Applied - Accepted</option>
             <option>Applied - Rejected</option>
@@ -48,17 +50,20 @@
       </td>
 
       <td class="col-sm-2"><a class="deleteRow"></a>
-
+      </td>
+      <td class="col-sm-2"><a class="editRow"></a>
       </td>
     </tr>
     </tbody>
+  <%end %>
     <tfoot>
     <tr>
       <td colspan="5" style="text-align: left;">
         <input type="button" class="btn btn-default " id="addrow" value="Add School" />
         <br>
         <br>
-        <input type="button" class="btn btn-primary " id="saveSchools" value="Save" />
+        <%= submit_tag "Save" %>
+  <%end %>
       </td>
     </tr>
     <tr>

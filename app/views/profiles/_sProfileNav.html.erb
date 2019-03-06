@@ -4,7 +4,7 @@
 
   <ul class="nav navbar-nav">
     <li><%= link_to "Student Profile", profiles_path, :method => :get, class: "nav-link"%></li>
-    <li><%= link_to "Schools of Interest", sInterestedSchools_profiles_path, :method => :get, class: "nav-link"%></li>
+    <li><%= link_to "Schools of Interest", show_profiles_path(current_student.current_profile.id), :method => :get, class: "nav-link"%></li>
     <li><%= link_to "Account Settings", profiles_path, :method => :get, class: "nav-link"%></li>
   </ul>
 </div>

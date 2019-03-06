@@ -4,6 +4,12 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
 
+  #def sInterestedSchools_params
+   # params.require(:sInterestedSchools).permit(:sell, :datepicker, :university_name)
+  #end
+  #def create
+   # redirect_to profiles_path
+  #end
   def index
     @profile = current_student.current_profile
     if(@profile.nil?)
@@ -93,5 +99,26 @@ class ProfilesController < ApplicationController
       redirect_to profiles_path
     end
 
+  end
+
+  def showschools
+    puts "I am in showschool"
+    id = params[:id]
+    @application = Application.find_by_profile_id(id)
+    render 'profiles/sInterestedSchools'
+  end
+
+  def addschools
+    if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
+      flash[:notice] = 'Please enter all the fields'
+    else
+      @application = Application.add_school!(params[:id], params[:univ_name],params[:sel_opt], params[:datepicker])
+      if @application
+        flash[:notice] = 'University application successfully added to database'
+      else
+        flash[:notice] = 'Error while saving application to database'
+      end
+    end
+    render 'profiles/sInterestedSchools'
   end
 end

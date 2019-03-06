@@ -71,4 +71,5 @@ class Profile < ActiveRecord::Base
   def update_college(college)
     self.college = college
   end
+
 end

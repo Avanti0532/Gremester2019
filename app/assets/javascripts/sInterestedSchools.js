@@ -26,6 +26,7 @@ $(document).ready(function () {
             '</label>' +
             '</div></td>';
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+        cols += '<td><input type="button" class="btn btn-md btn-success"  value="Edit"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
@@ -33,11 +34,7 @@ $(document).ready(function () {
             let pickerID = 'datetimepicker'+ counter;
             var element = document.getElementById(pickerID);
             $(element).click(function() {
-                $(this).datepicker().datepicker( "show" )
-                $(this).datepicker().datepicker({
-                    todayHighlight: true,
-                    autoclose: true
-                });
+                $(this).datepicker().datepicker("show")
             });
         });
         counter++;
@@ -45,11 +42,7 @@ $(document).ready(function () {
 
     $(function() {
         $("#datetimepicker0").click(function() {
-            $(this).datepicker().datepicker( "show" )
-            $(this).datepicker().datepicker({
-                todayHighlight: true,
-                autoclose: true
-            });
+            $(this).datepicker().datepicker("show")
         });
     });
 
