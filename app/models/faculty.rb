@@ -4,7 +4,7 @@ class Faculty < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  validates :first_name, :last_name, :email, :password, :username, presence: true
+  validates :first_name, :last_name, :email, :password, :username, :university_id, presence: true
   validates_uniqueness_of :username
   validates_format_of :email, :with => /.*\.edu\Z/, :message => "Please provide an university email"
   validate :id_or_link

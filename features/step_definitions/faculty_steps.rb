@@ -1,6 +1,6 @@
 def create_faculty
   @faculty ||= {username: 'James', first_name: 'James', last_name: 'Brown', email: 'jamesbrown@uiowa.edu',
-                password: 'james1234', password_confirmation: 'james1234', weblink: 'http://homepage.cs.uiowa.edu/~alicem/'}
+                password: 'james1234', password_confirmation: 'james1234', weblink: 'http://homepage.cs.uiowa.edu/~alicem/', university_id: 1}
 end
 
 def create_another_faculty
@@ -34,6 +34,7 @@ def fill_data
   fill_in 'faculty_password', with: @faculty[:password]
   fill_in 'faculty_password_confirmation', with: @faculty[:password_confirmation]
   fill_in 'faculty_weblink', with: @faculty[:weblink]
+  select('Massachusetts Institute of Technology', from: 'faculty_university_id')
   click_button 'Sign up'
 end
 
