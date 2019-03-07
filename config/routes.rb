@@ -2,7 +2,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin/dashboard', as: 'rails_admin'
   mount ImageUploader.upload_endpoint(:cache) => "/upload"
-  mount DocumentUploader.upload_endpoint(:cache) => "/upload"
   devise_for :students, controllers: {
       sessions: 'students/sessions',
       registrations: 'students/registrations'
