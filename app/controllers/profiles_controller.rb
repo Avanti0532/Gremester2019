@@ -4,12 +4,6 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
 
-  #def sInterestedSchools_params
-   # params.require(:sInterestedSchools).permit(:sell, :datepicker, :university_name)
-  #end
-  #def create
-   # redirect_to profiles_path
-  #end
   def index
     @profile = current_student.current_profile
     if(@profile.nil?)
@@ -112,15 +106,20 @@ class ProfilesController < ApplicationController
     if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
       flash[:notice] = 'Please enter all the fields'
     else
-      @applications = Application.add_school!(profile_id, params[:univ_name],params[:sel_opt], params[:datepicker])
-      if @applications
-        flash[:notice] = 'University application successfully added to database'
+      @university = University.find_by_university_name(params[:univ_name])
+      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
+      if @applications_new.blank?
+         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+         if @applications
+             flash[:notice] = 'University application successfully added to database'
+         else
+             flash[:notice] = 'Error while saving application to database'
+         end
       else
-        flash[:notice] = 'Error while saving application to database'
+        flash[:notice] = 'University is already present. Please add a new one'
       end
     end
     @applications = Application.where(profile_id: profile_id)
      render 'profiles/sInterestedSchools'
-     #redirect_to :back
   end
 end

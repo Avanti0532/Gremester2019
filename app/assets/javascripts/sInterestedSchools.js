@@ -60,8 +60,11 @@ $(document).ready(function () {
             url: "/profiles/addschools",
             type: 'POST',
             data: {univ_name: university,datepicker: new_date,sel_opt: option},
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-
+            datatype:"html",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            success: function(data) {
+                location.reload();
+            },
         });
     });
 

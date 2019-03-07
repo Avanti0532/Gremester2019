@@ -51,4 +51,15 @@ describe ProfilesController do
       response.should render_template('edit')
     end
   end
+  describe 'show list of schools' do
+    it 'should show list of schools added by a student' do
+      application = Application.new(id: 1, profile_id: 1, university_id: 1, applied: 't', applied_date: '2019-01-02', admitted: 't', admitted_date: '2019-03-05', rejected: '', rejected_date:'')
+      application.save
+      expect(Application).to receive(:where).with(profile_id: '1').and_return(application)
+      get :showschools, {:id => '1'}
+      response.should render_template('profiles/sInterestedSchools')
+    end
+
+  end
+
 end
