@@ -102,23 +102,25 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-    puts "I am in showschool"
     id = params[:id]
-    @application = Application.find_by_profile_id(id)
+    @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'
   end
 
   def addschools
+    profile_id = current_student.current_profile.id
     if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
       flash[:notice] = 'Please enter all the fields'
     else
-      @application = Application.add_school!(params[:id], params[:univ_name],params[:sel_opt], params[:datepicker])
-      if @application
+      @applications = Application.add_school!(profile_id, params[:univ_name],params[:sel_opt], params[:datepicker])
+      if @applications
         flash[:notice] = 'University application successfully added to database'
       else
         flash[:notice] = 'Error while saving application to database'
       end
     end
-    render 'profiles/sInterestedSchools'
+    @applications = Application.where(profile_id: profile_id)
+     render 'profiles/sInterestedSchools'
+     #redirect_to :back
   end
 end

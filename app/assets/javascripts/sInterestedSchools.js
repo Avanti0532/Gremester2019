@@ -12,7 +12,7 @@ $(document).ready(function () {
             '<option value="<%= university.university_name %>"></option>' +
             '<% end %>' +
             '</datalist></td>';
-        cols += '<td><div class="form-group"> <select class="form-control" id="sel1">' +
+        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
             '<option disabled selected value> -- select an option -- </option>' +
             '<option>Applied - Accepted</option>' +
             '<option>Applied - Rejected</option>' +
@@ -26,7 +26,7 @@ $(document).ready(function () {
             '</label>' +
             '</div></td>';
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-        cols += '<td><input type="button" class="btn btn-md btn-success"  value="Edit"></td>';
+        cols += '<td><input type="button" class="save btn btn-md btn-Success " value="Save"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
@@ -51,6 +51,19 @@ $(document).ready(function () {
         counter -= 1
     });
 
+    $("table.order-list").on("click", ".save", function (event) {
+          var university = $("input[name='univ_name']").val();
+          var new_date = $("input[name='datepicker']").val();
+          var option = $("#sell").val();
+
+        $.ajax({
+            url: "/profiles/addschools",
+            type: 'POST',
+            data: {univ_name: university,datepicker: new_date,sel_opt: option},
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+
+        });
+    });
 
 });
 
