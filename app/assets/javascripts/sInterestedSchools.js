@@ -58,9 +58,10 @@ $(document).ready(function () {
             data: {univ_name: university,datepicker: new_date,sel_opt: option},
             datatype:"html",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-            success: function(data) {
-                location.reload();
-            },
+             success: function(data) {
+                  location.reload();
+             },
+
         });
     });
 

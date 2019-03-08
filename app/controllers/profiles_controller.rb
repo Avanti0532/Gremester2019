@@ -42,7 +42,6 @@ class ProfilesController < ApplicationController
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
       current_student.create_profile()
-      render 'profiles/index'
     end
   end
 
@@ -119,7 +118,7 @@ class ProfilesController < ApplicationController
         flash[:notice] = 'University is already present. Please add a new one'
       end
     end
-    @applications = Application.where(profile_id: profile_id)
-     render 'profiles/sInterestedSchools'
+       @applications = Application.where(profile_id: profile_id)
+       redirect_to show_profiles_path(profile_id), turbolinks: false
   end
 end

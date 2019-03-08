@@ -29,7 +29,10 @@ Rails.application.routes.draw do
    resources :profiles do
      get :sInterestedSchools, on: :collection
        collection do
-          post  ":id"  => "profiles#addschools",  :as => 'update'
+         match '/addschools', to: 'profiles#addschools',via: :post
+         post  ":id"  => "profiles#update",  :as => 'update'
+
+          #match '/update_schools', to: 'profiles#update', via: :post
           get   ":id"  => "profiles#showschools", :as => 'show'
       end
    end
