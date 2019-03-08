@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-
+  respond_to :html, :js, :only => :addschools
   def profile_params
     params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end

@@ -1,28 +1,37 @@
 h2{
-
     font-family: Tahoma, Verdana, sans-serif;
 }
 
 table#myTable thead{
+    border: 2px solid white;
     font-weight: bold;
-    font-size: 18px;
-    font-family: Tahoma, Verdana, sans-serif;;
+    background-color: lightskyblue;
 }
 
 table#myTable tbody
 {
-    border: 2px solid deepskyblue;
-    border-bottom: 2px solid deepskyblue;
-    border-top:2px solid deepskyblue ;
+    margin: 10px;
+    border-collapse: collapse;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+table#myTable thead, table#myTable td {
+    padding: 8px;
+    text-align: left;
+}
+div#main {
+    margin: 0;
+
 }
 #trash{
     position: absolute;
     right: 150px;
     padding: 6px;
-    background-color:indianred;
+    background-color:wheat;
 }
 #edit{
     padding: 6px;
-    background-color:limegreen;
+    background-color:lightgreen;
 }
 
