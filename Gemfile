@@ -44,8 +44,8 @@ gem 'shrine-google_cloud_storage'
 gem 'puma'
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'rails-assets-jquery', source: 'https://rails-assets.org'
-gem 'rails-assets-datatables', source: 'https://rails-assets.org'
+gem 'rails-assets-jquery'
+gem 'rails-assets-datatables'
 gem 'jquery-datatables-rails'
 
 # Use Capistrano for deployment
