@@ -1,7 +1,4 @@
-.btn{
-    background-color: Green;
+table#myTable th{
+    font-weight: bold;
 }
 
-table#myTable th {
-    background-color: Green;
-}

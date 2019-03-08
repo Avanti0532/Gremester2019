@@ -6,18 +6,14 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" />' +
-            '<datalist id="university-name">' +
-            '<% University.all.each do |university| %>' +
-            '<option value="<%= university.university_name %>"></option>' +
-            '<% end %>' +
-            '</datalist></td>';
+        cols += '<td><input class= "form-control" id="univ_name" name="univ_name" />' +
+            '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
             '<option disabled selected value> -- select an option -- </option>' +
             '<option>Applied - Accepted</option>' +
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
-            '<option>Interested</option> </select> </div></td>';
+            '</select></div></td>';
         cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
             '<input type="text" class="form-control" name="datepicker" value="">'+
             '<label class="input-group-addon btn" for="datepicker">'+
