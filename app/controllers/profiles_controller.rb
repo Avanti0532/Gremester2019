@@ -42,7 +42,7 @@ class ProfilesController < ApplicationController
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
       current_student.create_profile()
-
+      render 'profiles/index'
     end
   end
 

@@ -31,7 +31,6 @@ Rails.application.routes.draw do
        collection do
           post  ":id"  => "profiles#addschools",  :as => 'update'
           get   ":id"  => "profiles#showschools", :as => 'show'
-     #    get :sInterestedSchools
       end
    end
 
