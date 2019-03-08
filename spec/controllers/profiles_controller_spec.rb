@@ -18,11 +18,11 @@ describe ProfilesController do
     end
   end
   describe 'edit current user profile' do
-    it 'should render index template when profile is created' do
+    it 'should render edit template when profile is created' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
       get :edit, {:id => 1}
-      response.should render_template('profiles/index')
+      response.should render_template('edit')
     end
 
     it 'should populate profile data when it is null' do
@@ -64,9 +64,9 @@ describe ProfilesController do
   describe 'Add schools' do
     before :each do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
-      mock_profile = Profile.create(student_id: 1)
+      @mock_profile = Profile.create(id:1, student_id: 1)
       controller.stub(:current_student).and_return(mock_student)
-      controller.instance_eval {@profile = mock_profile}
+      controller.instance_eval {@profile = @mock_profile}
       @university = University.new(id: 1, rank: 1, university_name: 'Stanford University')
       @university.save
       @application_new = Application.new(:id => 2, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'t',:admitted_date=>'2019-04-23',:rejected=>'',:rejected_date=>'')
@@ -106,7 +106,7 @@ describe ProfilesController do
     end
     it 'shoud render interested school template' do
       post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
-      expect(response).to render_template('profiles/sInterestedSchools')
+      expect(response).to redirect_to(show_profiles_path(@mock_profile.id))
     end
   end
 end
