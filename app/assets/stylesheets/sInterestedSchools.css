@@ -1,4 +1,28 @@
-table#myTable th{
+h2{
+
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+table#myTable thead{
     font-weight: bold;
+    font-size: 18px;
+    font-family: Tahoma, Verdana, sans-serif;;
+}
+
+table#myTable tbody
+{
+    border: 2px solid deepskyblue;
+    border-bottom: 2px solid deepskyblue;
+    border-top:2px solid deepskyblue ;
+}
+#trash{
+    position: absolute;
+    right: 150px;
+    padding: 6px;
+    background-color:indianred;
+}
+#edit{
+    padding: 6px;
+    background-color:limegreen;
 }
 
