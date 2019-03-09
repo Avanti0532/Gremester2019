@@ -94,7 +94,6 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-    #gon.notice = "sucesssssfullllll"
     gon.universities = University.all
     id = params[:id]
     @applications = Application.where(profile_id:id)
