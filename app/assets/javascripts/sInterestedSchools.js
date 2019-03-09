@@ -6,7 +6,13 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
 
-        cols += '<td><input class= "form-control" id="univ_name" name="univ_name" />' +
+        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" />' +
+            '<datalist id="university-name">' +
+            '<% gon.universities.each do |university| %>' +
+            '<option><%= university.university_name%></option>'+
+            '<option value="<%= university.university_name %>"></option>'+
+            '<% end %>'+
+            '</datalist>'+
             '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
             '<option disabled selected value> -- select an option -- </option>' +
@@ -42,6 +48,7 @@ $(document).ready(function () {
         });
     });
 
+
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
         counter -= 1
@@ -59,9 +66,10 @@ $(document).ready(function () {
             datatype:"html",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
              success: function(data) {
+                 //alert(gon.notice)
                   location.reload();
+                },
 
-             },
 
         });
     });

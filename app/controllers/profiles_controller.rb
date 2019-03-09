@@ -94,7 +94,8 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-
+    #gon.notice = "sucesssssfullllll"
+    gon.universities = University.all
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'
@@ -115,7 +116,7 @@ class ProfilesController < ApplicationController
              flash[:notice] = 'Error while saving application to database'
          end
       else
-        flash[:notice] = 'University is already present. Please add a new one'
+             flash[:notice] = 'University is already present. Please add a new one'
       end
     end
        @applications = Application.where(profile_id: profile_id)
