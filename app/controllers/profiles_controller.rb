@@ -123,15 +123,4 @@ class ProfilesController < ApplicationController
       format.js {render inline: "location.reload();" }
     end
   end
-
-  def deleteschools
-    #redirect_to show_profiles_path(profile_id)
-    @applications = Application.where(profile_id: params[:id])
-    render 'profiles/sInterestedSchools'
-  end
-
-  def destroy
-    @applications = Application.where(profile_id: params[:id])
-    render 'profiles/sInterestedSchools'
-  end
 end
