@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-
   def profile_params
     params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
@@ -42,7 +41,6 @@ class ProfilesController < ApplicationController
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
       current_student.create_profile()
-
     end
   end
 
@@ -93,5 +91,34 @@ class ProfilesController < ApplicationController
       redirect_to profiles_path
     end
 
+  end
+
+  def showschools
+
+    id = params[:id]
+    @applications = Application.where(profile_id:id)
+    render 'profiles/sInterestedSchools'
+  end
+
+  def addschools
+    profile_id = current_student.current_profile.id
+    if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
+      flash[:notice] = 'Please enter all the fields'
+    else
+      @university = University.find_by_university_name(params[:univ_name])
+      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
+      if @applications_new.blank?
+         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+         if @applications
+             flash[:notice] = 'University application successfully added to database'
+         else
+             flash[:notice] = 'Error while saving application to database'
+         end
+      else
+        flash[:notice] = 'University is already present. Please add a new one'
+      end
+    end
+       @applications = Application.where(profile_id: profile_id)
+       redirect_to show_profiles_path(profile_id), turbolinks: false
   end
 end

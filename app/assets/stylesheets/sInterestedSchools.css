@@ -1,0 +1,37 @@
+h2{
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+table#myTable thead{
+    border: 2px solid white;
+    font-weight: bold;
+    background-color: lightskyblue;
+}
+
+table#myTable tbody
+{
+    margin: 10px;
+    border-collapse: collapse;
+    width: 100%;
+    border-bottom: 2px solid black;
+}
+
+table#myTable thead, table#myTable td {
+    padding: 8px;
+    text-align: left;
+}
+div#main {
+    margin: 0;
+
+}
+#trash{
+    position: absolute;
+    right: 410px;
+    padding: 6px;
+    background-color:wheat;
+}
+#edit{
+    padding: 6px;
+    background-color:lightgreen;
+}
+
