@@ -73,40 +73,43 @@ describe ProfilesController do
       @application_new.save
       @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
       @application.save
+      format = double("format")
+      format.should_receive(:js).and_return("location.reload();")
+      controller.should_receive(:respond_to).and_yield(format)
     end
     it 'should throw error when fields are empty' do
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"", "sel_opt"=>"", "id"=>"addschools"}
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"", "sel_opt"=>""}
       expect(flash[:notice]).to eq('Please enter all the fields')
     end
     it 'should call appropriate model method to add school to database' do
       expect(University).to receive(:find_by_university_name).with("Stanford University").and_return(@university)
       allow(Application).to receive(:where).and_return(nil)
       expect(Application).to receive(:add_school!).and_return(@application)
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted"}
     end
     it 'should flash successful message when school is added successfully' do
       expect(University).to receive(:find_by_university_name).with("Stanford University").and_return(@university)
       allow(Application).to receive(:where).and_return(nil)
       expect(Application).to receive(:add_school!).and_return(@application)
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted"}
       expect(flash[:notice]).to eq('University application successfully added to database')
     end
     it 'should flash error message when school is not added to the database' do
       expect(University).to receive(:find_by_university_name).with("Stanford University").and_return(@university)
       allow(Application).to receive(:where).and_return(nil)
       expect(Application).to receive(:add_school!).and_return(nil)
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted"}
       expect(flash[:notice]).to eq('Error while saving application to database')
     end
     it 'should flash error message when school is already present in the database' do
       expect(University).to receive(:find_by_university_name).with("Stanford University").and_return(@university)
       allow(Application).to receive(:where).and_return(@application_new)
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted"}
       expect(flash[:notice]).to eq('University is already present. Please add a new one')
     end
     it 'shoud render interested school template' do
-      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "id"=>"addschools"}
-      expect(response).to redirect_to(show_profiles_path(@mock_profile.id))
+      post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted"}
+      expect(response).to render_template("profiles/addschools")
     end
   end
 end
