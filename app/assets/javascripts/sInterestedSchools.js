@@ -5,15 +5,17 @@ $(document).ready(function () {
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
         var cols = "";
+        var options = "";
+        for (var university of gon.universities) {
+            options += '<option value="' +university.university_name+'" />';
+        }
 
         cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" />' +
             '<datalist id="university-name">' +
-            '<% gon.universities.each do |university| %>' +
-            '<option><%= university.university_name%></option>'+
-            '<option value="<%= university.university_name %>"></option>'+
-            '<% end %>'+
+            options +
             '</datalist>'+
             '</td>';
+
         cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
             '<option disabled selected value> -- select an option -- </option>' +
             '<option>Applied - Accepted</option>' +
@@ -55,9 +57,9 @@ $(document).ready(function () {
     });
 
     $("table.order-list").on("click", ".save", function (event) {
-          var university = $("input[name='univ_name']").val();
-          var new_date = $("input[name='datepicker']").val();
-          var option = $("#sell").val();
+        var university = $("input[name='univ_name']").val();
+        var new_date = $("input[name='datepicker']").val();
+        var option = $("#sell").val();
 
         $.ajax({
             url: "/profiles/addschools",
@@ -65,12 +67,9 @@ $(document).ready(function () {
             data: {univ_name: university,datepicker: new_date,sel_opt: option},
             datatype:"html",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-             success: function(data) {
-                 //alert(gon.notice)
-                  location.reload();
-                },
-
-
+            success: function(data) {
+                location.reload();
+            },
         });
     });
 
