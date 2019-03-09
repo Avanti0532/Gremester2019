@@ -2,6 +2,10 @@ h2{
     font-family: Tahoma, Verdana, sans-serif;
 }
 
+.alert {
+    margin-bottom: 0;
+}
+
 table#myTable thead{
     border: 2px solid white;
     font-weight: bold;

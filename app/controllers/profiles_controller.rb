@@ -108,18 +108,20 @@ class ProfilesController < ApplicationController
       @university = University.find_by_university_name(params[:univ_name])
       @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
       if @applications_new.blank?
-         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
-         if @applications
-             flash[:notice] = 'University application successfully added to database'
-         else
-             flash[:notice] = 'Error while saving application to database'
-         end
+        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+        if @applications
+          flash[:notice] = 'University application successfully added to database'
+        else
+          flash[:notice] = 'Error while saving application to database'
+        end
       else
-             flash[:notice] = 'University is already present. Please add a new one'
+        flash[:notice] = 'University is already present. Please add a new one'
       end
     end
-       @applications = Application.where(profile_id: profile_id)
-       redirect_to show_profiles_path(profile_id), turbolinks: false
+    @applications = Application.where(profile_id: profile_id)
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
+    end
   end
 
   def deleteschools
