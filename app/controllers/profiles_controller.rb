@@ -94,7 +94,7 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-    gon.universities = University.all
+    gon.universities = University.select('id, university_name')
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'
