@@ -121,4 +121,15 @@ class ProfilesController < ApplicationController
        @applications = Application.where(profile_id: profile_id)
        redirect_to show_profiles_path(profile_id), turbolinks: false
   end
+
+  def deleteschools
+    #redirect_to show_profiles_path(profile_id)
+    @applications = Application.where(profile_id: params[:id])
+    render 'profiles/sInterestedSchools'
+  end
+
+  def destroy
+    @applications = Application.where(profile_id: params[:id])
+    render 'profiles/sInterestedSchools'
+  end
 end
