@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190306222853) do
+ActiveRecord::Schema.define(version: 20190308195614) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 20190306222853) do
 
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
   add_index "applications", ["university_id"], name: "index_applications_on_university_id"
+
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "faculties", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -110,6 +116,20 @@ ActiveRecord::Schema.define(version: 20190306222853) do
 
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
 
+  create_table "rank_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rankings", force: :cascade do |t|
+    t.integer  "rank_type_id"
+    t.integer  "undergrad_university_id"
+    t.integer  "rank"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -136,6 +156,22 @@ ActiveRecord::Schema.define(version: 20190306222853) do
   add_index "students", ["email"], name: "index_students_on_email", unique: true
   add_index "students", ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
   add_index "students", ["username"], name: "index_students_on_username", unique: true
+
+  create_table "undergrad_universities", force: :cascade do |t|
+    t.integer  "country_id"
+    t.integer  "ranking_id"
+    t.string   "university_name"
+    t.string   "university_type"
+    t.float    "acceptance_rate"
+    t.string   "location"
+    t.string   "university_link"
+    t.string   "university_desc"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "undergrad_universities", ["country_id"], name: "index_undergrad_universities_on_country_id"
+  add_index "undergrad_universities", ["ranking_id"], name: "index_undergrad_universities_on_ranking_id"
 
   create_table "universities", force: :cascade do |t|
     t.integer "rank"
