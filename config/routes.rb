@@ -31,7 +31,8 @@ Rails.application.routes.draw do
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
          post  ":id"  => "profiles#update",  :as => 'update'
-          get   ":id"  => "profiles#showschools", :as => 'show'
+         # match '/showSchools', to: 'profiles#showschools',via: :get, :as => 'show'
+         get   ":id"  => "profiles#showschools", :as => 'show'
        end
    end
 
