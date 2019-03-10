@@ -1,31 +1,16 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
 
   def index
-    @profile = current_student.current_profile
-    if(@profile.nil?)
-      @profile = Profile.new()
-      @profile.update_college('')
-      @profile.update_gre_quant('')
-      @profile.update_gre_verbal('')
-      @profile.update_gre_writing('')
-      @profile.update_toefl('')
-      @profile.update_cgpa('')
-      @profile.update_interested_major('')
-      @profile.update_interested_term('')
-      @profile.update_year_work_experience('')
-      @profile.update_month_work_experience('')
-      @profile.update_resume_data('')
-      @profile.update_sop_data('')
-      @profile.update_additional_attachment_data('')
-    end
+    @profiles = Profile.all
   end
 
-  def edit
+  def show
     @profile = current_student.current_profile
-    if(@profile.nil?)
+
+    if(@profile.nil?) then
       @profile = Profile.new()
       @profile.update_college('')
       @profile.update_gre_quant('')
@@ -44,6 +29,30 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def edit
+    @profile = current_student.current_profile
+    if(@profile.nil?) then
+      @profile = Profile.new()
+      @profile.update_college('')
+      @profile.update_gre_quant('')
+      @profile.update_gre_verbal('')
+      @profile.update_gre_writing('')
+      @profile.update_toefl('')
+      @profile.update_cgpa('')
+      @profile.update_interested_major('')
+      @profile.update_interested_term('')
+      @profile.update_year_work_experience('')
+      @profile.update_month_work_experience('')
+      @profile.update_resume_data('')
+      @profile.update_sop_data('')
+      @profile.update_additional_attachment_data('')
+      current_student.create_profile()
+    end
+  end
+
+  def new
+    @profile = Profile.new()
+  end
 
   def getUndergradUniversityByCountry
     @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
@@ -51,6 +60,26 @@ class ProfilesController < ApplicationController
       format.json {
         render json: {undergrad_universities: @undergrad_universities}
       }
+    end
+  end
+
+  def create
+    params = profile_params
+    @profile = Profile.create(:college => params[:college], :cgpa => params[:cgpa], :toefl => params[:toefl],
+                              :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
+                              :interested_major => params[:interested_major], :interested_year => params[:interested_year],
+                              :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
+                              :month_work_exp => params[:month_work_exp], :resume => params[:resume], :sop => params[:sop],
+                              :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
+    if !@profile.errors.full_messages.empty?
+      error = ''
+      @profile.errors.full_messages.each do |message|
+        error = error + message + ' '
+      end
+      flash.now[:notice] = error
+      render :edit
+    else
+      redirect_to root_path
     end
   end
 
@@ -103,7 +132,7 @@ class ProfilesController < ApplicationController
       flash.now[:notice] = error
       render :edit
     else
-      redirect_to profiles_path
+      redirect_to profile_path
     end
 
   end

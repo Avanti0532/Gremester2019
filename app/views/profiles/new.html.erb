@@ -1,0 +1,165 @@
+<%= render "profiles/sProfileNav" %>
+<div class="container">
+  <h1>Profile</h1>
+  <hr>
+  <div class="row">
+    <%= form_for(@profile, as: :profile, url: { controller: "profiles", action: "create"},html: { class: "form-horizontal", role: "form" }) do |f| %>
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar" size = "260x180" >
+        <h6>Upload a photo...</h6>
+        <%= f.hidden_field :photo_id, value: f.object.cached_photo_id_data %>
+        <%= f.file_field :photo_id, autocomplete: "off" %>
+        <img id="upload-preview">
+      </div>
+    </div>
+
+    <!-- show form column -->
+    <div class="col-md-9 personal-info">
+
+      <h3>Personal info</h3>
+
+<!--      <form class="form-horizontal" role="form">-->
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :college, 'Undergraduate School:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :college, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :cgpa, 'GPA:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :cgpa, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :toefl, 'TOEFL Score:', class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :toefl, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :gre_writing, 'GRE Writing:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :gre_writing, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :gre_quant, 'GRE Quantitative:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :gre_quant, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :gre_verbal, 'GRE Verbal:', class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :gre_verbal, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :interested_major, 'Major:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :interested_major, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :interested_year, 'Graduate Start Year:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :interested_year, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :interested_term, 'Graduate Start Term:',class: 'col-md-3 control-label' %>
+            <div class="col-md-8">
+              <%= f.text_field :interested_term, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= f.label :year_work_exp, 'Work Experience Years:',class: 'col-md-4 control-label' %>
+            <div class="col-md-2">
+              <%= f.text_field :year_work_exp, class: 'form-control'%>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :month_work_exp, 'Months:',class: 'col-md-2 control-label' %>
+            <div class="col-md-2">
+              <%= f.text_field :month_work_exp, class: 'form-control'%>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :sop, 'SOP:',class: 'col-md-3 control-label' %>
+          <div class="col-md-8">
+            <%if !@profile.sop.nil? && Rails.env.production? %>
+              <%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %>
+            <%elsif !@profile.sop.nil? && Rails.env.development?  %>
+              <%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %>
+            <%end %>
+            <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
+            <%= f.file_field :sop, autocomplete: "off" %>
+            <br>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :resume, 'Resume:',class: 'col-md-3 control-label' %>
+          <div class="col-md-8">
+            <% if !@profile.resume.nil? && Rails.env.production? %>
+              <%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %>
+            <%elsif !@profile.resume.nil? && Rails.env.development?  %>
+              <%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %>
+            <% end %>
+            <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
+            <%= f.file_field :resume, autocomplete: "off" %>
+            <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :additional_attachment, 'Additional Attachment:',class: 'col-md-3 control-label' %>
+          <div class="col-md-8">
+            <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
+              <%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %>
+            <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
+              <%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %>
+            <% end %>
+            <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
+            <%= f.file_field :additional_attachment, autocomplete: "off" %>
+            <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <%= f.submit "Create", class: "btn btn-primary" %>
+            <span></span>
+            <%= button_to "Cancel", profiles_path, class:"btn btn-default" %>
+          </div>
+        </div>
+
+    </div>
+    <% end %>
+  </div>
+
+</div>
+<hr>

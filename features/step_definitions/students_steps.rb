@@ -10,7 +10,7 @@ end
 
 
 def saved_student_data
-  @saved_student_data = {email: 'robin@gmail.com', password: '12345678'}
+  @saved_student_data = {email: 'robin@gmail.com', password: '12345678', username: 'Lily'}
 end
 
 def log_in_student
@@ -151,8 +151,8 @@ And /^I click on log out as a student/ do
 end
 
 Then /^I can update my (.*?)$/ do |field|
-  visit profiles_path
   current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
   click_button 'Edit Profile'
   expect(page).to have_current_path(edit_profile_path(current_student.id))
   case field
