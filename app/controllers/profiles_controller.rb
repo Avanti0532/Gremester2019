@@ -123,4 +123,16 @@ class ProfilesController < ApplicationController
       format.js {render inline: "location.reload();" }
     end
   end
+
+  def deleteschools
+    profile_id = current_student.current_profile.id
+    @deletion = Application.where(profile_id: profile_id , university_id: params[:university_id]).destroy_all
+    if @deletion
+      flash[:notice] = 'University is deleted successfully'
+    else
+      flash[:notice] = 'Error while deleting University'
+    end
+    @applications = Application.where(profile_id: profile_id)
+    redirect_to show_profiles_path(profile_id)
+  end
 end

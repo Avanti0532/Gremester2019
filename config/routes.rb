@@ -30,6 +30,7 @@ Rails.application.routes.draw do
      get :sInterestedSchools, on: :collection
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
+         match '/deleteschools', to: 'profiles#deleteschools',via: :post
          post  ":id"  => "profiles#update",  :as => 'update'
           get   ":id"  => "profiles#showschools", :as => 'show'
        end
