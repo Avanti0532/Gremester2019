@@ -120,19 +120,25 @@ describe ProfilesController do
     controller.stub(:current_student).and_return(mock_student)
     controller.instance_eval {@profile = @mock_profile}
     @univ_id = "1"
+    @count = 1
     @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
     @application.save
     @deletion = double("application")
   end
+    it 'should render show school template' do
+      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id:@univ_id).and_return(@count)
+      post :deleteschools, {"university_id"=> "1"}
+      expect(response).to redirect_to(show_profiles_path(@mock_profile.id))
+    end
     it 'should flash successful message when school is deleted successfully' do
-      allow(Application.where(profile_id: @mock_profile.id, university_id:@univ_id)).to receive(:destroy_all).and_return(@deletion)
+      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id:@univ_id).and_return(@count)
       post :deleteschools, {"university_id"=> "1"}
       expect(flash[:notice]).to eq('University is deleted successfully')
     end
     it 'should flash unsuccessful message for unsuccessful deletion' do
-      allow(Application.where(profile_id: @mock_profile.id, university_id: "2")).to receive(:destroy_all).and_return(nil)
-      post :deleteschools, {"university_id"=> "1"}
-      expect(flash[:notice]).to eq('Error while deleting University')
+      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id: "2").and_return(0)
+      post :deleteschools, {"university_id"=> "2"}
+      expect(flash[:notice]).to eq('Error while deleting the university')
     end
   end
 end
