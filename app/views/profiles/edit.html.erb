@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'edit_profile' %>
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h1>Edit Profile</h1>
@@ -39,124 +40,126 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'college', class: "form-control", text: @profile.college, id: 'college' %>
+            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile"%>
+            <br><br>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">GPA:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">TOEFL Score:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'toefl', class: "form-control", text: @profile.toefl, id: 'toefl' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">GRE Writing:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'gre_writing', class: "form-control", text: @profile.gre_writing, id: 'gre_writing' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">GRE Quantitative:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'gre_quant', class: "form-control", text: @profile.gre_quant, id: "gre_quant" %>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">GRE Verbal:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'gre_verbal', class: "form-control", text: @profile.gre_verbal, id: 'gre_verbal' %>
+          <div class="form-group">
+            <label class="col-md-3 control-label">GPA:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Major:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'interested_major', class: "form-control", text: @profile.interested_major, id: 'interested_major'%>
+          <div class="form-group">
+            <label class="col-md-3 control-label">TOEFL Score:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'toefl', class: "form-control", text: @profile.toefl, id: 'toefl' %>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Graduate Start Term:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term, id: 'interested_start_term' %>
+          <div class="form-group">
+            <label class="col-md-3 control-label">GRE Writing:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'gre_writing', class: "form-control", text: @profile.gre_writing, id: 'gre_writing' %>
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">GRE Quantitative:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'gre_quant', class: "form-control", text: @profile.gre_quant, id: "gre_quant" %>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">Graduate Start Year:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year, id: 'interested_start_year' %>
+          <div class="form-group">
+            <label class="col-md-3 control-label">GRE Verbal:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'gre_verbal', class: "form-control", text: @profile.gre_verbal, id: 'gre_verbal' %>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Work Experience (Year):</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Major:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'interested_major', class: "form-control", text: @profile.interested_major, id: 'interested_major'%>
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Graduate Start Term:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term, id: 'interested_start_term' %>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">Work Experience (Month):</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Graduate Start Year:</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year, id: 'interested_start_year' %>
+            </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Work Experience (Year):</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
+            </div>
+          </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">SOP:</label>
-          <div class="col-md-8">
-            <%if !@profile.sop.nil? && Rails.env.production? %>
-              <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
-            <%elsif !@profile.sop.nil? && Rails.env.development?  %>
-              <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
-            <%end %>
-            <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
-            <%= f.file_field :sop, autocomplete: "off" %>
-            <br>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Work Experience (Month):</label>
+            <div class="col-md-8">
+              <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">Resume:</label>
-          <div class="col-md-8">
-            <% if !@profile.resume.nil? && Rails.env.production? %>
-              <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
-            <%elsif !@profile.resume.nil? && Rails.env.development?  %>
-              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
-            <% end %>
-            <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
-            <%= f.file_field :resume, autocomplete: "off" %>
-          <br>
+          <div class="form-group">
+            <label class="col-md-3 control-label">SOP:</label>
+            <div class="col-md-8">
+              <%if !@profile.sop.nil? && Rails.env.production? %>
+                <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
+              <%elsif !@profile.sop.nil? && Rails.env.development?  %>
+                <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+              <%end %>
+              <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
+              <%= f.file_field :sop, autocomplete: "off" %>
+              <br>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-md-3 control-label">Additional Attachments:</label>
-          <div class="col-md-8">
-            <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
-              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
-            <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
-              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
-            <% end %>
-            <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
-            <%= f.file_field :additional_attachment, autocomplete: "off" %>
-            <br>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Resume:</label>
+            <div class="col-md-8">
+              <% if !@profile.resume.nil? && Rails.env.production? %>
+                <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
+              <%elsif !@profile.resume.nil? && Rails.env.development?  %>
+                <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+              <% end %>
+              <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
+              <%= f.file_field :resume, autocomplete: "off" %>
+              <br>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label"></label>
-          <div class="col-md-8">
-            <%= f.submit "Save Changes", class: "btn btn-primary" %>
-            <span></span>
-            <%= button_to "Cancel", profiles_path, class:"btn btn-default" %>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Additional Attachments:</label>
+            <div class="col-md-8">
+              <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
+                <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
+              <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
+                <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+              <% end %>
+              <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
+              <%= f.file_field :additional_attachment, autocomplete: "off" %>
+              <br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <%= f.submit "Save Changes", class: "btn btn-primary" %>
+              <span></span>
+              <%= button_to "Cancel", profiles_path, class:"btn btn-default" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   <%end %>
+  </div>
+  <hr>
 </div>
-<hr>
