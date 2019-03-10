@@ -4,6 +4,7 @@ require 'spec_helper'
 RSpec.describe Profile, type: :model do
   it { should belong_to(:student) }
   it { should have_many(:applications) }
+  it { should have_and_belong_to_many(:undergrad_universities) }
   it { should validate_presence_of(:student_id) }
   it { should validate_inclusion_of(:gre_quant).in_range(130..170).with_message("must be within the range from 130 to 170")}
   it { should validate_inclusion_of(:gre_verbal).in_range(130..170).with_message("must be within the range from 130 to 170")}

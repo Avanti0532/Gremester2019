@@ -1,64 +1,42 @@
-
+<%= stylesheet_link_tag 'sInterestedSchools' %>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <%= javascript_include_tag 'sInterestedSchools' %>
 <!------ Include the above in your HEAD tag ---------->
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h2>Schools of Interest</h2>
+  <%= form_tag show_profiles_path,:method => :get do %>
   <table id="myTable" class=" table order-list">
     <thead>
     <tr>
       <td>University Name</td>
-      <td>Application Status?</td>
-      <td>Date</td>
+      <td>Applied Date</td>
+      <td>Admit Date</td>
+      <td>Reject Date</td>
     </tr>
     </thead>
     <tbody>
+    <% @applications.each do |app|%>
     <tr>
-      <td class="col-sm-2">
-        <input class= "form-control" list="university-name" id="univ_name" name="univ_name" />
-          <datalist id="university-name">
-            <% University.all.each do |university| %>
-              <option value="<%= university.university_name %>"></option>
-            <% end %>
-          </datalist>
-      </td>
-
-      <td class="col-sm-2">
-        <div class="form-group">
-          <select class="form-control" id="sel1">
-            <option disabled selected value> -- select an option -- </option>
-            <option>Applied - Accepted</option>
-            <option>Applied - Rejected</option>
-            <option>Applied - Pending Decision</option>
-            <option>Interested</option>
-          </select>
-        </div>
-      </td>
-
-      <td class="col-sm-2" >
-        <div class="input-group date datepicker-me" id="datetimepicker0">
-          <input type="text" name="datepicker" class="form-control" value=""/>
-          <label class="input-group-addon btn" for="datepicker">
-            <span class="glyphicon glyphicon-calendar">
-            </span>
-          </label>
-        </div>
-      </td>
-
-      <td class="col-sm-2"><a class="deleteRow"></a>
-
+      <td><%=University.where(:id =>app.university_id).pluck(:university_name)[0]%></td>
+      <td><%=app.applied_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
+        <td class="col-sm-2" ><button class="btn" id="trash"><i class="fa fa-trash"></i></button>
+        </td>
+      <td class="col-sm-2"><button class="btn" id="edit"><i class="fa fa-edit"></i></button>
       </td>
     </tr>
+    <% end %>
     </tbody>
+  <%end %>
     <tfoot>
     <tr>
       <td colspan="5" style="text-align: left;">
         <input type="button" class="btn btn-default " id="addrow" value="Add School" />
         <br>
-        <br>
-        <input type="button" class="btn btn-primary " id="saveSchools" value="Save" />
       </td>
     </tr>
     <tr>

@@ -26,12 +26,14 @@ Rails.application.routes.draw do
   }
 
   resources :universities
-  resources :profiles do
-    get :sInterestedSchools, on: :collection
-    collection do
-    post  "new"  => "profiles#update",  :as => 'update'
-    end
-  end
+   resources :profiles do
+     get :sInterestedSchools, on: :collection
+       collection do
+         match '/addschools', to: 'profiles#addschools',via: :post
+         post  ":id"  => "profiles#update",  :as => 'update'
+          get   ":id"  => "profiles#showschools", :as => 'show'
+       end
+   end
 
 
   root to: 'homepage#index'
