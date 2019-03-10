@@ -1,5 +1,4 @@
-
-$(document).ready(function () {
+ $(document).ready(function () {
     console.log('here befire');
     $('#college_edit_profile').change(function() {
         var country;

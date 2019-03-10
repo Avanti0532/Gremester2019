@@ -6,9 +6,6 @@ h2{
     margin-bottom: 0;
 }
 
-.hidden {
-    display: none;
-}
 table#myTable thead{
     border: 2px solid white;
     font-weight: bold;
