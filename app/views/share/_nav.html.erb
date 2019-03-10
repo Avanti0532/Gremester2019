@@ -41,7 +41,7 @@
               <ul class="dropdown-menu" role="menu">
                 <%#if session.nil? then %>
 
-                <% if (session[:current_profile].inspect.to_s == 'nil') then %>
+                <% if current_student.current_profile.nil? then %>
                   <li><%= link_to "Create Profile", new_profile_path, :method => :get, class: "nav-link"%></li>
                   <li><%= link_to "Account Settings", new_profile_path, :method => :get, class: "nav-link"%></li>
                   <% else %>

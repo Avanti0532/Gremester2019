@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
   def index
     @profiles = Profile.all
   end
+
   def show
     if !(current_student.current_profile) then
       id = params[:id]
@@ -121,7 +122,7 @@ class ProfilesController < ApplicationController
       flash.now[:notice] = error
       render :edit
     else
-      redirect_to profiles_path
+      redirect_to profile_path
     end
 
   end
