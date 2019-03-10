@@ -27,15 +27,19 @@ Rails.application.routes.draw do
 
   resources :universities
    resources :profiles do
+     collection do
+       match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
+     end
      get :sInterestedSchools, on: :collection
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
          post  ":id"  => "profiles#update",  :as => 'update'
-          get   ":id"  => "profiles#showschools", :as => 'show'
-      end
+         get   ":id"  => "profiles#showschools", :as => 'show'
+       end
    end
 
 
   root to: 'homepage#index'
+
 end
 

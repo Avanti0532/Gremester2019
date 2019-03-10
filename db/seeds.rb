@@ -421,4 +421,5 @@ RankType.create(:name => 'US News')
 universities.each do |university|
   temp = UndergradUniversity.create!(:university_name => university[:university_name])
   temp.rankings.create(:rank_type_id => 1, :rank => university[:rank])
+  Country.where(:name => 'United States').first.undergrad_universities << temp
 end

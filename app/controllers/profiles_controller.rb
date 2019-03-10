@@ -45,6 +45,18 @@ class ProfilesController < ApplicationController
   end
 
 
+  def getUndergradUniversityByCountry
+    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
+    # puts @undergrad_universities
+    session[:country] = params[:country]
+    respond_to do |format|
+      format.json {
+        render json: {undergrad_universities: @undergrad_universities}
+      }
+    end
+  end
+
+
 
   def update
     @first_name = params[:current_student][:first_name]
@@ -76,10 +88,18 @@ class ProfilesController < ApplicationController
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]
     @profile.additional_attachment = profile_params[:additional_attachment]
+    undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
+    puts 'here'
+    puts profile_params[:undergrad_universities]
+    puts undergrad
+    @profile.undergrad_universities << undergrad
+    @profile.save(:validate => true)
+
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
-
+    session[:country] = nil
+    @undergrad_universities = nil
     if !@profile.errors.full_messages.empty?
       error = ''
       @profile.errors.full_messages.each do |message|
@@ -94,7 +114,7 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-
+    gon.universities = University.select('id, university_name')
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'
@@ -108,17 +128,20 @@ class ProfilesController < ApplicationController
       @university = University.find_by_university_name(params[:univ_name])
       @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
       if @applications_new.blank?
-         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
-         if @applications
-             flash[:notice] = 'University application successfully added to database'
-         else
-             flash[:notice] = 'Error while saving application to database'
-         end
+        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+        if @applications
+          flash[:notice] = 'University application successfully added to database'
+        else
+          flash[:notice] = 'Error while saving application to database'
+        end
       else
         flash[:notice] = 'University is already present. Please add a new one'
       end
     end
-       @applications = Application.where(profile_id: profile_id)
-       redirect_to show_profiles_path(profile_id), turbolinks: false
+    @applications = Application.where(profile_id: profile_id)
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
+    end
   end
+
 end
