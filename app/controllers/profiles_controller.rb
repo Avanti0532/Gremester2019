@@ -6,13 +6,9 @@ class ProfilesController < ApplicationController
   def index
     @profiles = Profile.all
   end
+
   def show
-    if !(current_student.current_profile) then
-      id = params[:id]
-      @profile = Profile.joins("INNER JOIN students ON students.id=profiles.student_id AND students.username='#{id}'")
-    else
-      @profile = current_student.current_profile
-    end
+    @profile = current_student.current_profile
 
     if(@profile.nil?) then
       @profile = Profile.new()
@@ -29,6 +25,7 @@ class ProfilesController < ApplicationController
       @profile.update_resume_data('')
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
+      current_student.create_profile()
     end
   end
 
@@ -119,7 +116,7 @@ class ProfilesController < ApplicationController
       flash.now[:notice] = error
       render :edit
     else
-      redirect_to profiles_path
+      redirect_to profile_path
     end
 
   end
