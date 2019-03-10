@@ -6,14 +6,14 @@ describe ProfilesController do
     it 'should render index template' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
-      get :index, {:id => 1}
-      response.should render_template('index')
+      get :show, {:id => 1}
+      response.should render_template('show')
     end
 
     it 'should populate profile data when it is null' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
-      get :index, {:id => 1}
+      get :show, {:id => 1}
       expect(assigns(:profile)).not_to be_nil
     end
   end
@@ -28,7 +28,7 @@ describe ProfilesController do
     it 'should populate profile data when it is null' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
-      get :index, {:id => 1}
+      get :show, {:id => 1}
       expect(assigns(:profile)).not_to be_nil
     end
   end
@@ -39,7 +39,7 @@ describe ProfilesController do
       controller.stub(:current_student).and_return(mock_student)
       controller.instance_eval {@profile = mock_profile}
       post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "month_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>"1"}
-      response.should redirect_to(profiles_path)
+      response.should redirect_to(profile_path)
     end
 
     it 'should stay on same page on unsuccessful update' do

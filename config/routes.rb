@@ -32,7 +32,7 @@ Rails.application.routes.draw do
          match '/addschools', to: 'profiles#addschools',via: :post
          match '/deleteschools', to: 'profiles#deleteschools',via: :post
          post  ":id"  => "profiles#update",  :as => 'update'
-         match   '/showschools/:id'  => "profiles#showschools", via: :get, :as => 'show'
+         match '/showSchools/:id', to: 'profiles#showschools',via: :get, :as => 'show'
        end
    end
 
