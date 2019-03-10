@@ -54,14 +54,23 @@ class ProfilesController < ApplicationController
     @profile = Profile.new()
   end
 
+  def getUndergradUniversityByCountry
+    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
+    respond_to do |format|
+      format.json {
+        render json: {undergrad_universities: @undergrad_universities}
+      }
+    end
+  end
+
   def create
     params = profile_params
     @profile = Profile.create(:college => params[:college], :cgpa => params[:cgpa], :toefl => params[:toefl],
-                   :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
-                   :interested_major => params[:interested_major], :interested_year => params[:interested_year],
-                   :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
-                   :month_work_exp => params[:month_work_exp], :resume => params[:resume], :sop => params[:sop],
-                   :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
+                              :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
+                              :interested_major => params[:interested_major], :interested_year => params[:interested_year],
+                              :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
+                              :month_work_exp => params[:month_work_exp], :resume => params[:resume], :sop => params[:sop],
+                              :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
     if !@profile.errors.full_messages.empty?
       error = ''
       @profile.errors.full_messages.each do |message|
@@ -104,10 +113,16 @@ class ProfilesController < ApplicationController
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]
     @profile.additional_attachment = profile_params[:additional_attachment]
+    if !params[:undergrad_universities].blank?
+      undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
+      @profile.undergrad_universities << undergrad
+    end
+    @profile.save(:validate => true)
+
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
-
+    @undergrad_universities = nil
     if !@profile.errors.full_messages.empty?
       error = ''
       @profile.errors.full_messages.each do |message|
@@ -151,4 +166,5 @@ class ProfilesController < ApplicationController
       format.js {render inline: "location.reload();" }
     end
   end
+
 end

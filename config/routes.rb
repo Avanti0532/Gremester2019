@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   resources :universities
    resources :profiles do
+     collection do
+       match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
+     end
      get :sInterestedSchools, on: :collection
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
@@ -37,5 +40,6 @@ Rails.application.routes.draw do
 
 
   root to: 'homepage#index'
+
 end
 
