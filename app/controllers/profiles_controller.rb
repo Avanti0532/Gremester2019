@@ -93,7 +93,6 @@ class ProfilesController < ApplicationController
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
-    session[:country] = nil
     @undergrad_universities = nil
     if !@profile.errors.full_messages.empty?
       error = ''
