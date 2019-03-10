@@ -47,16 +47,12 @@ class ProfilesController < ApplicationController
 
   def getUndergradUniversityByCountry
     @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
-    # puts @undergrad_universities
-    session[:country] = params[:country]
     respond_to do |format|
       format.json {
         render json: {undergrad_universities: @undergrad_universities}
       }
     end
   end
-
-
 
   def update
     @first_name = params[:current_student][:first_name]
@@ -88,11 +84,10 @@ class ProfilesController < ApplicationController
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]
     @profile.additional_attachment = profile_params[:additional_attachment]
-    undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
-    puts 'here'
-    puts profile_params[:undergrad_universities]
-    puts undergrad
-    @profile.undergrad_universities << undergrad
+    if !params[:undergrad_universities].blank?
+      undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
+      @profile.undergrad_universities << undergrad
+    end
     @profile.save(:validate => true)
 
     @profile.save(:validate => true)

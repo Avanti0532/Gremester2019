@@ -16,8 +16,6 @@ $(document).ready(function () {
                 console.log(universities.length);
                 $("#undergrad_universities").append('<option>Select university</option>');
                 for(var i=0; i< universities.length; i++){
-                    console.log(universities[i]["id"]);
-                    console.log(universities[i]["university_name"]);
                     $("#undergrad_universities").append('<option value="' + universities[i]["id"] + '">' + universities[i]["university_name"] + '</option>');
                 }
 

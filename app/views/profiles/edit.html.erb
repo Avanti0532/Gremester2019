@@ -40,7 +40,11 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
+            <% @profile.undergrad_universities.each  do |university|%>
+              <p><%= university.university_name %></p>
+            <% end %>
             <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile"%>
+            <br>
             <%= select_tag :undergrad_universities%>
             <br><br>
           </div>
