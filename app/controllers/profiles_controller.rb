@@ -1,12 +1,21 @@
 class ProfilesController < ApplicationController
-
+  @profile
   def profile_params
-    params.require(:profile).permit(:photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
 
   def index
-    @profile = current_student.current_profile
-    if(@profile.nil?)
+    @profiles = Profile.all
+  end
+  def show
+    if !(current_student.current_profile) then
+      id = params[:id]
+      @profile = Profile.joins("INNER JOIN students ON students.id=profiles.student_id AND students.username='#{id}'")
+    else
+      @profile = current_student.current_profile
+    end
+
+    if(@profile.nil?) then
       @profile = Profile.new()
       @profile.update_college('')
       @profile.update_gre_quant('')
@@ -26,7 +35,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_student.current_profile
-    if(@profile.nil?)
+    if(@profile.nil?) then
       @profile = Profile.new()
       @profile.update_college('')
       @profile.update_gre_quant('')
@@ -46,7 +55,29 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def new
+    @profile = Profile.new()
+  end
 
+  def create
+    params = profile_params
+    @profile = Profile.create(:college => params[:college], :cgpa => params[:cgpa], :toefl => params[:toefl],
+                   :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
+                   :interested_major => params[:interested_major], :interested_year => params[:interested_year],
+                   :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
+                   :month_work_exp => params[:month_work_exp], :resume => params[:resume], :sop => params[:sop],
+                   :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
+    if !@profile.errors.full_messages.empty?
+      error = ''
+      @profile.errors.full_messages.each do |message|
+        error = error + message + ' '
+      end
+      flash.now[:notice] = error
+      render :edit
+    else
+      redirect_to root_path
+    end
+  end
 
   def update
     @first_name = params[:current_student][:first_name]
