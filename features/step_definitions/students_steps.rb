@@ -151,8 +151,8 @@ And /^I click on log out as a student/ do
 end
 
 Then /^I can update my (.*?)$/ do |field|
-  find('a', :class => 'nav-link', :text=> 'View Profile', :visible => false).click
   current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
   click_button 'Edit Profile'
   expect(page).to have_current_path(edit_profile_path(current_student.id))
   case field
@@ -161,9 +161,17 @@ Then /^I can update my (.*?)$/ do |field|
     click_button 'Save Changes'
     current_student.current_profile.toefl.should eq(120)
   when 'undergraduate college'
-    fill_in 'college', with: 'University of Iowa Test'
+    select('United States', from: 'country_id')
+    select('Massachusetts Institute of Technology', from: 'undergrad_universities')
     click_button 'Save Changes'
-    current_student.current_profile.college.should eq('University of Iowa Test')
+    undergrad_school = current_student.current_profile.undergrad_universities
+    contain = false
+    undergrad_school.each do |school|
+      if school.university_name.eql?('Massachusetts Institute of Technology')
+        contain = true
+      end
+    end
+    contain.should eq(true)
   when 'cgpa'
     fill_in 'gpa', with: '2.7'
     click_button 'Save Changes'
