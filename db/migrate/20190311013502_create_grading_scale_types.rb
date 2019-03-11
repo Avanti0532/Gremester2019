@@ -4,6 +4,6 @@ class CreateGradingScaleTypes < ActiveRecord::Migration
       t.string :grading_scale_name
       t.timestamps null: false
     end
-    add_index :rank_types, :grading_scale_name, unique: true
+    add_index :grading_scale_types, :grading_scale_name, unique: true
   end
 end
