@@ -141,7 +141,6 @@ describe ProfilesController do
       expect(flash[:notice]).to eq('Error while deleting the university')
     end
   end
-end
 
   describe "Get school by country" do
     it 'should assign school by country params' do
