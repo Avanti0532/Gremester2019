@@ -6,5 +6,6 @@ class CreateRankings < ActiveRecord::Migration
       t.integer :rank
       t.timestamps null: false
     end
+
   end
 end
