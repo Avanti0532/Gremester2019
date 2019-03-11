@@ -11,5 +11,6 @@ class CreateUndergradUniversities < ActiveRecord::Migration
       t.string  :university_desc
       t.timestamps null: false
     end
+    add_index :undergrad_universities, :university_name, unique: true
   end
 end

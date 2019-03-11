@@ -39,6 +39,14 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |application|
       Application.create(application)
     end
+  elsif table_name.eql?("Country")
+    user_table.hashes.each do |country|
+      Country.create(country)
+    end
+  elsif table_name.eql?("UndergradUniversity")
+  user_table.hashes.each do |university|
+    UndergradUniversity.create(university)
+  end
   end
 end
 

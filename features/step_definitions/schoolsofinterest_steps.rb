@@ -17,3 +17,15 @@ And(/^I visit Schools of Interest page$/) do
   find('a', :class => 'nav-link', :text=> 'View Profile', :visible => false).click
   find('a', :class => 'nav-link', :text=> 'Schools of Interest', :visible => false).click
 end
+
+Then(/^I click on add school button and add school details$/) do
+  click_button 'Add School'
+  select('Princeton University', from: 'addrow')
+  select('Applied - Pending Decision', from: 'sell')
+  page.execute_script("$('#datetimepicker').datepicker('setDate', '03/11/2019')")
+  click_button 'Save'
+end
+
+Then(/^I should be able to add the school successfully$/) do
+  page.should have_content('University application successfully added to database')
+end

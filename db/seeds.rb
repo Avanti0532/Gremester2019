@@ -1,10 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+
 universities = [
     {:rank => 1, :university_name => 'Massachusetts Institute of Technology', :university_type => 'Private', :acceptance_rate => 18,
      :tuition => '$49,600', :location => 'Located in Cambridge, Massachusetts, MIT is located on the north shore of the Charles River Basin. The campus is within 3 miles of two major interstate highways, and is less than 6 miles from Logan international airport. The Kendall (or MIT) Station is at a 5 minute walk from the campus. MIT is roughly a 20 minute walk from downtown Boston, and a 30–40 minute walk from Harvard University, which is located just up the river from the MIT campus.',
@@ -412,4 +407,30 @@ universities = [
 
 universities.each do |university|
   University.create!(university)
+end
+
+
+Country.create(:name => "United States")
+Country.create(:name => "India")
+RankType.create(:name => 'US News')
+universities.each do |university|
+  temp = UndergradUniversity.create!(:university_name => university[:university_name])
+  temp.rankings.create(:rank_type_id => 1, :rank => university[:rank])
+  Country.where(:name => 'United States').first.undergrad_universities << temp
+end
+
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'grading_scale.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  grading_type = GradingScaleType.where(:grading_scale_name => row['Grading Type']).first
+  if grading_type.nil?
+    grading_type = GradingScaleType.create(:grading_scale_name => row['Grading Type'])
+  end
+  grading_scale = GradingScale.new
+  grading_scale.gpa = row['GPA']
+  grading_scale.percentage = row['Percentage']
+  grading_scale.letter_grade = row['Letter grade']
+  grading_scale.grading_scale_type_id = grading_type.id
+  grading_scale.save
 end

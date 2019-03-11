@@ -141,4 +141,13 @@ describe ProfilesController do
       expect(flash[:notice]).to eq('Error while deleting the university')
     end
   end
+
+  describe "Get school by country" do
+    it 'should assign school by country params' do
+      mock_university = UndergradUniversity.create(:university_name => 'test')
+      Country.stub_chain(:where, :first, :undergrad_universities).and_return(mock_university)
+      get :getUndergradUniversityByCountry, {"country" => "United States", format: :json}
+      expect(assigns(:undergrad_universities)).to eq(mock_university)
+    end
+  end
 end

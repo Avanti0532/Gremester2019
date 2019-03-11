@@ -27,10 +27,12 @@ Feature: Allow students to add school to list of potential schools and update st
       | 2             | 2               | f         |                 |   f             |               | f           |               |
       | 3             | 3               | t         |                 |   t             | 2019-03-10    | f           |               |
 
-  @wip
+  @javascript
   Scenario: Students can add school to their potential school list
     When I log in as a student
-    Then I can add school to my potential school list
+    And  I visit Schools of Interest page
+    Then I click on add school button and add school details
+    Then I should be able to add the school successfully
 
   @wip
   Scenario: Students can update status of any school in the potential school list
