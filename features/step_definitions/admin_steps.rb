@@ -35,6 +35,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |profile|
       Profile.create(profile)
     end
+  elsif table_name.eql?("Application")
+    user_table.hashes.each do |application|
+      Application.create(application)
+    end
   end
 end
 
