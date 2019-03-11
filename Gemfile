@@ -30,6 +30,7 @@ gem 'poltergeist'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
+gem 'gon'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -46,6 +47,7 @@ gem 'puma'
 # gem 'unicorn'
 gem 'rails-assets-jquery', source: 'https://rails-assets.org'
 gem 'rails-assets-datatables', source: 'https://rails-assets.org'
+
 gem 'jquery-datatables-rails'
 
 # Use Capistrano for deployment

@@ -1,8 +1,9 @@
+<%= javascript_include_tag 'edit_profile' %>
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h1>Edit Profile</h1>
   <hr>
-  <%= form_for @profile, url: update_profiles_path, class: "form-horizontal"  do |f| %>
+  <%= form_for @profile, url: update_profiles_path, :method=> :post, class: "form-horizontal"  do |f| %>
     <div class="row">
       <!-- left column -->
       <div class="col-md-3">
@@ -39,9 +40,16 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'college', class: "form-control", text: @profile.college, id: 'college' %>
+            <% @profile.undergrad_universities.each  do |university|%>
+              <p><%= university.university_name %></p>
+            <% end %>
+            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile"%>
+            <br>
+            <%= select_tag :undergrad_universities%>
+            <br><br>
           </div>
         </div>
+
         <div class="form-group">
           <label class="col-md-3 control-label">GPA:</label>
           <div class="col-md-8">
@@ -130,7 +138,7 @@
             <% end %>
             <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
             <%= f.file_field :resume, autocomplete: "off" %>
-          <br>
+            <br>
           </div>
         </div>
 

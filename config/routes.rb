@@ -26,17 +26,23 @@ Rails.application.routes.draw do
   }
 
   resources :universities
-
-  resources :profiles do
-    get :fStudentList, on: :collection
-    get :sInterestedSchools, on: :collection
-    collection do
-    post  "new"  => "profiles#update",  :as => 'update'
-    end
-  end
+   resources :profiles do
+     collection do
+       match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
+     end
+     get :sInterestedSchools, on: :collection
+     get :fStudentList, on: :collection
+       collection do
+         match '/addschools', to: 'profiles#addschools',via: :post
+         match '/deleteschools', to: 'profiles#deleteschools',via: :post
+         post  ":id"  => "profiles#update",  :as => 'update'
+         match '/showSchools/:id', to: 'profiles#showschools',via: :get, :as => 'show'
+       end
+   end
 
 
 
   root to: 'homepage#index'
+
 end
 
