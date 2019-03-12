@@ -24,7 +24,7 @@ Then(/^I click on add school button and add school details$/) do
   click_button 'Add School'
   #wait_until{ page.has_css?('input#univ_name',:visible => true)}
   sleep 10
-  fill_in('univ_name', with: 'Princeton University')
+  fill_in('univ_name', with: 'Stanford University')
   #find("#univ_name").native.send_keys options[:with]
   #fill_autocomplete('univ_name', with: 'Princeton University')
   #page.execute_script %{ $('#{university_name}').trigger('keydown') }
