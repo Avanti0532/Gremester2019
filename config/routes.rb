@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   authenticated :student do
     root 'universities#index', as: :authenticated_student_root
   end
+  authenticated :faculty do
+    root 'profiles#fStudentList', as: :authenticated_faculty_root
+  end
+
 
   devise_for :faculties, controllers: {
       sessions: 'faculties/sessions',
