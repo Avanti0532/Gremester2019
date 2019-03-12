@@ -31,7 +31,7 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then I can update my toefl score
 
-    @javascript
+  @javascript
   Scenario: Students can update their undergraduate college
     When I log in as a student
     Then  I can update my undergraduate college
@@ -48,7 +48,6 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then  I can update my gre verbal, writing or quant score
 
-
   Scenario: Students can update their work experience
     When I log in as a student
     Then  I can update my work experience
@@ -56,7 +55,6 @@ Feature: Allow students to edit their profile
   Scenario: Students can update their intended start term
     When I log in as a student
     Then  I can update my intended start term
-
 
   Scenario: Students can update their resume
     When I log in as a student
@@ -68,10 +66,29 @@ Feature: Allow students to edit their profile
 
   Scenario: Students can update their additional attachment
     When I log in as a student
-    Then  I can update my additional attachment
+    Then I can update my additional attachment
 
   Scenario: Students can update their profile picture
     When I log in as a student
-    Then  I can update my profile picture
+    Then I can update my profile picture
 
+  @wip
+  Scenario: Students can update their citizenship
+    When I log in as a student
+    Then I can update my citizenship
+
+  @wip
+  Scenario: Students can update their gender
+    When I log in as a student
+    Then I can update my gender
+
+  @wip
+  Scenario: Students can update their degree objective for master's/phd
+    When I log in as a student
+    Then I can update my degree objective
+
+  @wip
+  Scenario: Students can update their grading scale
+    When I log in as a student
+    Then I can update my grading scale
 
