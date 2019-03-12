@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#dtOrderExample').DataTable({
-        "order": [[ 3, "desc" ]]
+        "order": [[ 4, "desc" ]]
     });
     $('.dataTables_length').addClass('bs-select');
 });

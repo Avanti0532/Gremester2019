@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag 'sProfileNav' %>
 <%= javascript_include_tag 'fstudentList' %>
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/select/1.3.0/css/select.bootstrap.min.css" rel="stylesheet" />
 
 <%if faculty_signed_in? %>
   <h4 style = "padding-left: 20px"> <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
@@ -31,8 +32,8 @@
     <tr>
       <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
       <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
-      <td><%="#{applicant.profile.cgpa}"%></td>
       <td><%="Research Area" %></td>
+      <td><%="#{applicant.profile.cgpa}"%></td>
       <td><%="#{applicant.profile.gre_quant}" %></td>
       <td><%="#{applicant.profile.gre_verbal}" %></td>
       <%if applicant.profile.degree_objective_master == 1 %>
@@ -42,6 +43,8 @@
           <%end %>
       <%elsif applicant.profile.degree_objective_master == 0 && applicant.profile.degree_objective_phd == 1 %>
         <td id = "msphd"><%= "PhD"%></td>
+      <%else %>
+        <td id = "msphd"><%= ""%></td>
       <%end %>
     </tr>
     <%end %>
