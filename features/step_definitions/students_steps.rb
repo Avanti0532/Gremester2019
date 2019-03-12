@@ -241,5 +241,7 @@ Then /^I can update my (.*?)$/ do |field|
     select('US News', from: 'grading_scale')
     click_button 'Save Changes'
     current_student.current_profile.grading_scale_type.grading_scale_name.should eq('US News')
+
   end
+
 end

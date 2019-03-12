@@ -3,6 +3,8 @@ $(document).ready(function () {
     var counter = 1;
 
     $("#addrow").on("click", function () {
+        console.log('HHHHHH')
+        console.log(gon.universities)
         var newRow = $("<tr>");
         var cols = "";
         var options = "";

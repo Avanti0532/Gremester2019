@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312034806) do
+ActiveRecord::Schema.define(version: 20190312193835) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -125,7 +125,6 @@ ActiveRecord::Schema.define(version: 20190312034806) do
     t.integer  "gre_quant"
     t.decimal  "gre_writing"
     t.integer  "gre_verbal"
-    t.string   "college"
     t.integer  "country_id"
     t.text     "photo_id_data"
     t.integer  "degree_objective_phd"
@@ -137,6 +136,14 @@ ActiveRecord::Schema.define(version: 20190312034806) do
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id"
   add_index "profiles", ["grading_scale_type_id"], name: "index_profiles_on_grading_scale_type_id"
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
+
+  create_table "profiles_research_interests", id: false, force: :cascade do |t|
+    t.integer "profile_id",           null: false
+    t.integer "research_interest_id", null: false
+  end
+
+  add_index "profiles_research_interests", ["profile_id", "research_interest_id"], name: "profile_research_interest"
+  add_index "profiles_research_interests", ["research_interest_id", "profile_id"], name: "research_interest_profile"
 
   create_table "profiles_undergrad_universities", id: false, force: :cascade do |t|
     t.integer "profile_id",              null: false
@@ -160,6 +167,12 @@ ActiveRecord::Schema.define(version: 20190312034806) do
     t.integer  "rank"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "research_interests", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "students", force: :cascade do |t|

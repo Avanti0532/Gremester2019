@@ -150,7 +150,11 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
+    puts 'In controller'
     gon.universities = University.select('id, university_name').order("university_name")
+    puts gon.universities
+    puts University.select('id, university_name').order("university_name")
+    puts University.count
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'

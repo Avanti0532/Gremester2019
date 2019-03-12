@@ -64,9 +64,15 @@
 
             <br><br>
           </div>
-
         </div>
 
+        <div class="form-group">
+          <label class="col-md-3 control-label">Research Interest:</label>
+          <div class="col-md-8">
+              <%= select_tag "research_interest", options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Research Interest'%>
+              <br><br>
+          </div>
+        </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>

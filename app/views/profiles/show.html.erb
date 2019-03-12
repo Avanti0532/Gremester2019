@@ -59,6 +59,14 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-md-3 control-label">Research Interest:</label>
+          <div class="col-md-8">
+            <% @profile.research_interests.each  do |interest|%>
+              <input class="form-control" type="text" value="<%= interest %>" readonly>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
             <% @profile.undergrad_universities.each  do |university|%>

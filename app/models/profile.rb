@@ -4,7 +4,9 @@ class Profile < ActiveRecord::Base
   belongs_to :student
   belongs_to :grading_scale_type
   has_many :applications
-  has_and_belongs_to_many :undergrad_universities
+  has_many :profiles_undergrad_universities
+  has_many :undergrad_universities, through: :profiles_undergrad_universities
+  has_and_belongs_to_many :research_interests
   include ImageUploader::Attachment.new(:photo_id)
   include DocumentUploader::Attachment.new(:sop)
   include DocumentUploader::Attachment.new(:resume)
