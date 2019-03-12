@@ -37,6 +37,37 @@
             <%= text_area :current_student, 'last_name', class: "form-control", id: 'last_name' %>
           </div>
         </div>
+
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Gender:</label>
+          <div class="col-md-8">
+            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified']), include_blank: 'Gender' %>
+            <br><br>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Country of origin:</label>
+          <div class="col-md-8">
+            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country'%>
+            <br><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Degree Objective:</label>
+          <div class="col-md-8">
+            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Phd' %>
+            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Master' %>
+
+            <br><br>
+          </div>
+
+        </div>
+
+
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
@@ -56,6 +87,16 @@
             <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Grading Scale:</label>
+          <div class="col-md-8">
+            <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale'%>
+            <br><br>
+          </div>
+        </div>
+
+
         <div class="form-group">
           <label class="col-md-3 control-label">TOEFL Score:</label>
           <div class="col-md-8">

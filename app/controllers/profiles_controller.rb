@@ -25,6 +25,8 @@ class ProfilesController < ApplicationController
       @profile.update_resume_data('')
       @profile.update_sop_data('')
       @profile.update_additional_attachment_data('')
+      country = Country.new(:name => '')
+      @profile.country = country
       current_student.create_profile()
     end
   end
@@ -55,7 +57,7 @@ class ProfilesController < ApplicationController
   end
 
   def getUndergradUniversityByCountry
-    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
+    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities.order("university_name")
     respond_to do |format|
       format.json {
         render json: {undergrad_universities: @undergrad_universities}
@@ -112,13 +114,23 @@ class ProfilesController < ApplicationController
     @profile.photo_id = profile_params[:photo_id]
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]
+    @profile.gender = params[:gender]
+    @profile.degree_objective_master = params[:degree_objective_master]
+    @profile.degree_objective_phd = params[:degree_objective_phd]
     @profile.additional_attachment = profile_params[:additional_attachment]
+    if !params[:citizenship].blank?
+      country_of_origin = Country.find_by_id(params[:citizenship].to_i)
+      @profile.country = country_of_origin
+    end
+    if !params[:grading_scale].blank?
+      grading_scale = GradingScaleType.find_by_id(params[:grading_scale].to_i)
+      @profile.grading_scale_type = grading_scale
+    end
+
     if !params[:undergrad_universities].blank?
       undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
       @profile.undergrad_universities << undergrad
     end
-    @profile.save(:validate => true)
-
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
@@ -137,7 +149,7 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-    gon.universities = University.select('id, university_name')
+    gon.universities = University.select('id, university_name').order("university_name")
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'

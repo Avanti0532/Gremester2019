@@ -1,6 +1,8 @@
 
 class Profile < ActiveRecord::Base
+  belongs_to :country
   belongs_to :student
+  belongs_to :grading_scale_type
   has_many :applications
   has_and_belongs_to_many :undergrad_universities
   include ImageUploader::Attachment.new(:photo_id)
