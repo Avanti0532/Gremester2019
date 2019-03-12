@@ -14,13 +14,29 @@ Then(/^I should not see (.*?) in list of schools$/) do |university|
 end
 
 And(/^I visit Schools of Interest page$/) do
+
+  find('a', :class => 'dropdown-toggle', :text=> 'Hi, robin_hood', :visible => false).click
   find('a', :class => 'nav-link', :text=> 'View Profile', :visible => false).click
   find('a', :class => 'nav-link', :text=> 'Schools of Interest', :visible => false).click
 end
 
 Then(/^I click on add school button and add school details$/) do
   click_button 'Add School'
-  select('Princeton University', from: 'addrow')
+  #wait_until{ page.has_css?('input#univ_name',:visible => true)}
+  sleep 10
+  fill_in('univ_name', with: 'Princeton University')
+  #find("#univ_name").native.send_keys options[:with]
+  #fill_autocomplete('univ_name', with: 'Princeton University')
+  #page.execute_script %{ $('#{university_name}').trigger('keydown') }
+  #page.execute_script("$('#addrow').click()")
+  #page.should have_css?('#univ_name',:visible => false)
+  #page.save_and_open_page
+
+  puts page.html
+  #find(:css, '#univ_name').trigger(:click)
+  #fill_in('#sel_opt', with: 'Princeton University')
+  #select('Princeton University', from: 'univ_name').select_option
+  #fill_in('input#univ_name', with: 'Princeton University')
   select('Applied - Pending Decision', from: 'sell')
   page.execute_script("$('#datetimepicker').datepicker('setDate', '03/11/2019')")
   click_button 'Save'

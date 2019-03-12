@@ -44,13 +44,14 @@ Feature: Allow students to add school to list of potential schools and update st
     When I log in as a student
     Then I can add date that they applied, admitted or rejected to any school
 
-
+  @wip
   Scenario: Students can remove any school from their potential school list
     When I log in as a student
     And  I visit Schools of Interest page
     Then I click on delete icon of University of California – Berkeley
     Then I should not see University of California – Berkeley in list of schools
 
+  @wip
   Scenario: Students can remove any school from their potential school list
     When I log in as a student
     And  I visit Schools of Interest page
