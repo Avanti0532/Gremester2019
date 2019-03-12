@@ -22,9 +22,9 @@ end
 
 Then(/^I click on add school button and add school details$/) do
   click_button 'Add School'
-  #wait_until{ page.has_css?('input#univ_name',:visible => true)}
   sleep 10
-  fill_in('univ_name', with: 'Stanford University')
+
+  #fill_in('univ_name', with: 'Stanford University')
   #find("#univ_name").native.send_keys options[:with]
   #fill_autocomplete('univ_name', with: 'Princeton University')
   #page.execute_script %{ $('#{university_name}').trigger('keydown') }
@@ -37,8 +37,11 @@ Then(/^I click on add school button and add school details$/) do
   #fill_in('#sel_opt', with: 'Princeton University')
   #select('Princeton University', from: 'univ_name').select_option
   #fill_in('input#univ_name', with: 'Princeton University')
-  select('Applied - Pending Decision', from: 'sell')
-  page.execute_script("$('#datetimepicker').datepicker('setDate', '03/11/2019')")
+  #select('Applied - Pending Decision', from: 'sell')
+  #page.execute_script("$('#datetimepicker').datepicker('setDate', '03/11/2019')")
+  fill_in('univ_name', with: 'California Institute Of Technology')
+  select('Applied - Accepted', from: 'sel_opt')
+  page.execute_script("$('#datetimepicker1').datepicker('setDate', '01/01/2010')")
   click_button 'Save'
 end
 
