@@ -43,6 +43,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
   user_table.hashes.each do |university|
     UndergradUniversity.create(university)
   end
+  elsif table_name.eql?("GradingScaleType")
+    user_table.hashes.each do |grading|
+      GradingScaleType.create(grading)
+    end
   end
 end
 

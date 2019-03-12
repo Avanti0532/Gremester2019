@@ -29,6 +29,7 @@ class ProfilesController < ApplicationController
       @profile.country = country
       current_student.create_profile()
     end
+
   end
 
   def edit

@@ -5,5 +5,6 @@ class AddPhotoIdDataToProfiles < ActiveRecord::Migration
     add_column :profiles, :degree_objective_phd, :integer
     add_column :profiles, :degree_objective_master, :integer
     add_column :profiles, :gender, :string
+    remove_column :profiles, :college, :string
   end
 end

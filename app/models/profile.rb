@@ -18,6 +18,7 @@ class Profile < ActiveRecord::Base
   validates_numericality_of :month_work_exp, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
   validates_presence_of :student_id
 
+
   def update_gre_quant(score)
     self.gre_quant = score
   end

@@ -223,5 +223,23 @@ Then /^I can update my (.*?)$/ do |field|
     page.attach_file "profile[photo_id]", Rails.root + 'public/gradcap.jpg'
     click_button 'Save Changes'
     current_student.current_profile.photo_id.metadata['filename'].should eq('gradcap.jpg')
+  when 'citizenship'
+    select('United States', from: 'citizenship')
+    click_button 'Save Changes'
+    current_student.current_profile.country.name.should eq('United States')
+  when 'gender'
+    select('Female', from: 'gender')
+    click_button 'Save Changes'
+    current_student.current_profile.gender.should eq('Female')
+  when 'degree objective'
+    select('2', from: 'degree_objective_phd')
+    select('3', from: 'degree_objective_master')
+    click_button 'Save Changes'
+    current_student.current_profile.degree_objective_phd.should eq(2)
+    current_student.current_profile.degree_objective_master.should eq(3)
+  when 'grading scale'
+    select('US News', from: 'grading_scale')
+    click_button 'Save Changes'
+    current_student.current_profile.grading_scale_type.grading_scale_name.should eq('US News')
   end
 end

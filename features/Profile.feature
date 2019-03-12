@@ -11,6 +11,10 @@ Feature: Allow students to edit their profile
       | name  | id |
       | United States | 1|
 
+    And the following gradiing scale type have been added to GradingScaleType Database:
+      | grading_scale_name  | id |
+      | US News | 1|
+
     And the following undergrad universities have been added to UndergradUniversity Database:
       | country_id| university_name  | university_type | acceptance_rate | location|university_link|university_desc|
       |1          |Massachusetts Institute of Technology|Private|18|Located in Cambridge, Massachusetts, MIT is located on the north shore of the Charles River Basin. The campus is within 3 miles of two major interstate highways, and is less than 6 miles from Logan international airport. The Kendall (or MIT) Station is at a 5 minute walk from the campus. MIT is roughly a 20 minute walk from downtown Boston, and a 30–40 minute walk from Harvard University, which is located just up the river from the MIT campus.|http://www.mit.edu/|Although it’ll no doubt be fascinating and highly inspiring to read about MIT, it could also give you a serious inferiority complex. Because Massachusetts Institute of Technology is perhaps the best overall college in the world, and it makes sure its students are no less. To get into MIT, you need to be excellent in everything, and even that probably won’t be enough. MIT is absolutely top-notch in everything, from infrastructure to faculty to extracurriculars to placements to alumni. An interesting bit of trivia: the aggregated revenues of companies founded by MIT alumni would rank as the eleventh largest economy in the world. Now, that's MIT. We associate only one word with MIT - WOW.|
@@ -72,22 +76,19 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then I can update my profile picture
 
-  @wip
+
   Scenario: Students can update their citizenship
     When I log in as a student
     Then I can update my citizenship
 
-  @wip
   Scenario: Students can update their gender
     When I log in as a student
     Then I can update my gender
 
-  @wip
   Scenario: Students can update their degree objective for master's/phd
     When I log in as a student
     Then I can update my degree objective
 
-  @wip
   Scenario: Students can update their grading scale
     When I log in as a student
     Then I can update my grading scale
