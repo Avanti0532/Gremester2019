@@ -8,10 +8,10 @@ Feature: Allow students to add school to list of potential schools and update st
       | Frank       | Robert     | frank@gmail.com | 34567890    |   frank_robert    | 2019-02-15 02:46:01 UTC    |3  |
 
     And the following profiles have been added to Profile Database:
-      | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major | college   | year_work_exp | month_work_exp | resume_data | sop_data | additional_attachment_data | id |
-      | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science | Uiowa     | 1             | 4              | test resume | test sop | test additional            | 1  |
-      | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science | Grinnell  | 2             | 5              | test resume | test sop | test additional            | 2  |
-      | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science | UMichigan | 0             | 7              | test resume | test sop | test additional            | 3  |
+      | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major |  year_work_exp | month_work_exp | resume_data | sop_data | additional_attachment_data | id |
+      | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science |  1             | 4              | test resume | test sop | test additional            | 1  |
+      | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             | 5              | test resume | test sop | test additional            | 2  |
+      | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             | 7              | test resume | test sop | test additional            | 3  |
 
     And the following universities have been added to University Database:
       |id| rank  | university_name                     | university_type | acceptance_rate | tuition |location     |weather|university_link|university_desc|
