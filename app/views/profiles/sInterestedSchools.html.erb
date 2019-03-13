@@ -7,7 +7,7 @@
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h2> Schools of Interest</h2>
-  <%= form_tag :method => :get do %>
+  <%= form_tag show_profiles_path,:method => :get do %>
   <table id="myTable" class=" table order-list">
     <thead>
     <tr>
@@ -26,13 +26,11 @@
       <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
       <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
       <%= form_tag deleteschools_profiles_path(:university_id => app.university_id), :method => :post do %>
-        <td class="col-md-2" ><button type="button" class="btn trash" id="trash_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-trash"></i></button>
+        <td class="col-md-2" ><button type="button" class="btn trash" id="trash"><i class="fa fa-trash"></i></button>
         </td>
       <% end %>
         <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
         </td>
-
-
     </tr>
     <% end %>
     </tbody>

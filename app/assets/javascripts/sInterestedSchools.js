@@ -111,11 +111,10 @@ $(document).ready(function () {
         return false;
     });
 
-    $('.trash').on('click', function(){
-        console.log(this.id+' Trash clicked');
+     $('.trash').on('click', function(){
+       console.log(this.id+' Trash clicked');
 
-        return false;
-    });
+        return false;});
 
     $('#saveModal').click(function(){
         edit_btn_id = this.name;
@@ -133,7 +132,7 @@ $(document).ready(function () {
         if (applied_date == '') {
             $("div[role=alert]").text('Applied date cannot be empty!');
             $("div[role=alert]").show();
-        }else if(admitted_date != '' && rejeced_date != ''){
+        }else if(admitted_date != '' && rejected_date != ''){
             $("div[role=alert]").text('');
             $("div[role=alert]").text('Both admitted date and rejected date cannot be selected!');
             $("div[role=alert]").show();

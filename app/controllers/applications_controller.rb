@@ -5,7 +5,7 @@ class ApplicationsController < ApplicationController
   end
   def show
     id = params[:id]
-    @application = Application.find(id);
+    @application = Application.find(id)
     @application1 = @application.as_json
     @application1.merge! "uni_name" => @application.university.university_name
     respond_to do |format|
@@ -28,9 +28,6 @@ class ApplicationsController < ApplicationController
     @application.rejected_date = @rejected_date
     @application.rejected = true unless @rejected_date.blank?
     @application.save(:validate => true)
-    # if request.xhr? then
-    #   render :json => { 'result' => 'success'}
-    # end
     if !@application.errors.full_messages.empty?
       error = ''
       @application.errors.full_messages.each do |message|
@@ -40,7 +37,7 @@ class ApplicationsController < ApplicationController
       if request.xhr? then
         render :json => {'result' => error}
       else
-        redirect_to '/profiles/showSchools/'+@application.profile_id
+        redirect_to show_profiles_path(@application.profile_id)
       end
     else
       render :json => {'result' => 1}
