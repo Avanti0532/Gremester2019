@@ -155,13 +155,13 @@
         <div class="form-group">
           <label class="col-md-3 control-label">SOP:</label>
           <div class="col-md-8">
-            <%if !@profile.sop.nil? && Rails.env.production? %>
+            <%if Rails.env.production?  && !@profile.sop.nil? %>
               <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
-            <%elsif !@profile.sop.nil? && Rails.env.development?  %>
+            <%elsif Rails.env.development? && !@profile.sop.nil?  %>
               <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
-            <% else %>
+            <% elsif !Rails.env.test? && @profile.sop.nil? %>
               <input class="form-control" type="text" value="" readonly>
-            <%end %>
+            <% end %>
             <br>
           </div>
 
@@ -169,11 +169,11 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Resume:</label>
           <div class="col-md-8">
-            <%if  !@profile.resume.nil? && Rails.env.production?  %>
+            <%if Rails.env.production? &&  !@profile.resume.nil? %>
               <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
-            <%elsif !@profile.resume.nil? && Rails.env.development?  %>
+            <%elsif Rails.env.development? && !@profile.resume.nil?  %>
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
-            <% else %>
+            <% elsif !Rails.env.test? && @profile.resume.nil? %>
               <input class="form-control" type="text" value="" readonly>
             <% end %>
             <br>
@@ -182,11 +182,11 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Additional Attachments:</label>
           <div class="col-md-8">
-            <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
+            <%if Rails.env.production? && !@profile.additional_attachment.nil? %>
               <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
-            <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
+            <%elsif Rails.env.development? && !@profile.additional_attachment.nil? %>
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}"%></td>
-            <% else %>
+            <% elsif !Rails.env.test? && @profile.additional_attachment.nil? %>
               <input class="form-control" type="text" value="" readonly>
             <% end %>
             <br>
