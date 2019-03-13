@@ -37,8 +37,12 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
       Profile.create(profile)
     end
   when 'Country'
-    user_table.hashes.each do |country|
+     user_table.hashes.each do |country|
       Country.create(country)
+    end
+  when 'Application'
+    user_table.hashes.each do |application|
+      Application.create(application)
     end
   when 'UndergradUniversity'
     user_table.hashes.each do |university|
@@ -256,5 +260,3 @@ Then(/^I cannot delete profile information$/) do
   find('tr', text: 'Profiles').click_link 'Profiles'
   expect(page).to have_no_link('Delete')
 end
-
-
