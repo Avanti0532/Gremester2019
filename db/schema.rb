@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20190311013615) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "countries", ["name"], name: "index_countries_on_name", unique: true
+
   create_table "faculties", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -94,8 +96,6 @@ ActiveRecord::Schema.define(version: 20190311013615) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end
-
-  add_index "grading_scale_types", ["grading_scale_name"], name: "index_grading_scale_types_on_grading_scale_name", unique: true
 
   create_table "grading_scales", force: :cascade do |t|
     t.integer  "grading_scale_type_id"
@@ -147,6 +147,9 @@ ActiveRecord::Schema.define(version: 20190311013615) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "rank_types", ["name"], name: "index_rank_types_on_name", unique: true
+  add_index "rank_types", [nil], name: "index_rank_types_on_grading_scale_name", unique: true
+
   create_table "rankings", force: :cascade do |t|
     t.integer  "rank_type_id"
     t.integer  "undergrad_university_id"
@@ -197,6 +200,7 @@ ActiveRecord::Schema.define(version: 20190311013615) do
 
   add_index "undergrad_universities", ["country_id"], name: "index_undergrad_universities_on_country_id"
   add_index "undergrad_universities", ["ranking_id"], name: "index_undergrad_universities_on_ranking_id"
+  add_index "undergrad_universities", ["university_name"], name: "index_undergrad_universities_on_university_name", unique: true
 
   create_table "universities", force: :cascade do |t|
     t.integer "rank"
