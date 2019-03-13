@@ -168,4 +168,8 @@ class ProfilesController < ApplicationController
     @applications = Application.where(profile_id: profile_id)
     redirect_to show_profiles_path(profile_id)
   end
+
+  def fStudentList
+    @applications = Application.all
+  end
 end

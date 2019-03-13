@@ -1,0 +1,54 @@
+<%= stylesheet_link_tag 'sProfileNav' %>
+<%= javascript_include_tag 'fstudentList' %>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/select/1.3.0/css/select.bootstrap.min.css" rel="stylesheet" />
+
+<%if faculty_signed_in? %>
+  <h4 style = "padding-left: 20px"> <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
+<%end %>
+<hr>
+<table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+  <tr>
+    <th class="th-sm">Name
+    </th>
+    <th class="th-sm">Undergrad College
+    </th>
+    <th class="th-sm">Research Area
+    </th>
+    <th class="th-sm">GPA
+    </th>
+    <th class="th-sm">GRE(Q)
+    </th>
+    <th class="th-sm">GRE(V)
+    </th>
+    <th class="th-sm">MS/PhD
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @applications.each do |applicant| %>
+    <%if applicant.university_id == current_faculty.university_id %>
+    <tr>
+      <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
+      <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
+      <td><%="Research Area" %></td>
+      <td><%="#{applicant.profile.cgpa}"%></td>
+      <td><%="#{applicant.profile.gre_quant}" %></td>
+      <td><%="#{applicant.profile.gre_verbal}" %></td>
+      <%if applicant.profile.degree_objective_master == 1 %>
+        <td id = "msphd"><%= "MS"%></td>
+          <%if applicant.profile.degree_objective_ == 0 %>
+           <td id = "msphd"><%= "MS + PhD"%></td>
+          <%end %>
+      <%elsif applicant.profile.degree_objective_master == 0 && applicant.profile.degree_objective_phd == 1 %>
+        <td id = "msphd"><%= "PhD"%></td>
+      <%else %>
+        <td id = "msphd"><%= ""%></td>
+      <%end %>
+    </tr>
+    <%end %>
+  <% end %>
+  </tbody>
+</table>
+</hr>

@@ -81,3 +81,5 @@ Then(/^I should see only search result with (.*?)$/) do |search_field|
   end
   page.should have_content(search_field)
 end
+
+

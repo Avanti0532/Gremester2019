@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   authenticated :student do
     root 'universities#index', as: :authenticated_student_root
   end
+  authenticated :faculty do
+    root 'profiles#fStudentList', as: :authenticated_faculty_root
+  end
+
 
   devise_for :faculties, controllers: {
       sessions: 'faculties/sessions',
@@ -31,6 +35,7 @@ Rails.application.routes.draw do
        match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
      end
      get :sInterestedSchools, on: :collection
+     get :fStudentList, on: :collection
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
          match '/deleteschools', to: 'profiles#deleteschools',via: :post
@@ -38,6 +43,7 @@ Rails.application.routes.draw do
          match '/showSchools/:id', to: 'profiles#showschools',via: :get, :as => 'show'
        end
    end
+
 
 
   root to: 'homepage#index'
