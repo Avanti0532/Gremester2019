@@ -125,7 +125,7 @@ $(document).ready(function () {
         console.log(app_id);
         applied_date = $('#datepickerapp').val();
         admitted_date = $('#datepickeradm').val();
-        rejeced_date = $('#datepickerrej').val();
+        rejected_date = $('#datepickerrej').val();
         dt_app = new Date(applied_date);
         dt_adm = new Date(admitted_date);
         dt_rej = new Date(rejected_date);
@@ -137,7 +137,7 @@ $(document).ready(function () {
             $("div[role=alert]").text('');
             $("div[role=alert]").text('Both admitted date and rejected date cannot be selected!');
             $("div[role=alert]").show();
-        }else if( (dt_adm < dt_app) || (dt_rej < dt_app)){
+        }else if ((dt_adm < dt_app) || (dt_rej < dt_app)){
             if(dt_adm < dt_app){
                 $("div[role=alert]").text('');
                 $("div[role=alert]").text('Applied date cannot be later than admitted date!');
