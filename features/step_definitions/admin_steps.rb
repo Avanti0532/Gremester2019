@@ -15,37 +15,42 @@ def log_in_admin
 end
 
 Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_name, user_table|
-  if table_name.eql?("Admin")
+  case table_name
+  when 'Admin'
     user_table.hashes.each do |admin|
       Admin.create(admin)
     end
-  elsif table_name.eql?("Faculty")
+  when 'Faculty'
     user_table.hashes.each do |faculty|
       Faculty.create(faculty)
     end
-  elsif table_name.eql?("Student")
+  when 'Student'
     user_table.hashes.each do |student|
       Student.create(student)
     end
-  elsif table_name.eql?("University")
+  when 'University'
     user_table.hashes.each do |university|
       University.create(university)
     end
-  elsif table_name.eql?("Profile")
+  when 'Profile'
     user_table.hashes.each do |profile|
       Profile.create(profile)
     end
-  elsif table_name.eql?("Country")
+  when 'Country'
     user_table.hashes.each do |country|
       Country.create(country)
     end
-  elsif table_name.eql?("UndergradUniversity")
-  user_table.hashes.each do |university|
-    UndergradUniversity.create(university)
-  end
-  elsif table_name.eql?("GradingScaleType")
+  when 'UndergradUniversity'
+    user_table.hashes.each do |university|
+      UndergradUniversity.create(university)
+    end
+  when 'GradingScaleType'
     user_table.hashes.each do |grading|
       GradingScaleType.create(grading)
+    end
+  when 'ResearchInterest'
+    user_table.hashes.each do |interest|
+      ResearchInterest.create(interest)
     end
   end
 end
