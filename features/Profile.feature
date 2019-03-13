@@ -35,10 +35,10 @@ Feature: Allow students to edit their profile
 
 
     And the following profiles have been added to Profile Database:
-      | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major |  year_work_exp | month_work_exp | resume_data | sop_data | additional_attachment_data |
-      | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science |  1             | 4              |             |          |                            |
-      | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             | 5              |             |          |                            |
-      | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             | 7              |             |          |                            |
+      | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major |  year_work_exp |resume_data  | sop_data | additional_attachment_data |
+      | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science |  1             |             |          |                            |
+      | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             |             |          |                            |
+      | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             |             |          |                            |
 
   Scenario: Students can update their name
     When I log in as a student

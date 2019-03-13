@@ -145,14 +145,8 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Work Experience (Year):</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-3 control-label">Work Experience (Month):</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
+            <%= select_tag "year_work_exp", options_for_select(['Less than 1 year', '1 - 2 years', '3 - 4 years', '4 - 5 years', '5 - 7 years', '7 - 10 years', '>10 years', 'Not Specified']), include_blank: 'Estimate year of work experience', class: "form-control" %>
+            <br>
           </div>
         </div>
 

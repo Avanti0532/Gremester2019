@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year)
   end
 
   def index
@@ -43,7 +43,7 @@ class ProfilesController < ApplicationController
                               :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
                               :interested_major => params[:interested_major], :interested_year => params[:interested_year],
                               :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
-                              :month_work_exp => params[:month_work_exp], :resume => params[:resume], :sop => params[:sop],
+                              :resume => params[:resume], :sop => params[:sop],
                               :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
     if !@profile.errors.full_messages.empty?
       error = ''
@@ -69,8 +69,9 @@ class ProfilesController < ApplicationController
     @interested_major = profile_params[:interested_major]
     @interested_term = profile_params[:interested_term]
     @interested_year = profile_params[:interested_year]
-    @year_work_exp = profile_params[:year_work_exp]
-    @month_work_exp = profile_params[:month_work_exp]
+    @year_work_exp = params[:year_work_exp]
+    puts 'here'
+    puts @year_work_exp
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?
@@ -80,8 +81,7 @@ class ProfilesController < ApplicationController
     @profile.update_interested_major(@interested_major) if !@interested_major.blank?
     @profile.update_interested_term(@interested_term)  if !@interested_term.blank?
     @profile.update_interested_year(@interested_year)  if !@interested_year.blank?
-    @profile.update_year_work_experience(@year_work_exp.to_i)  if !@year_work_exp.blank?
-    @profile.update_month_work_experience(@month_work_exp.to_i)  if !@month_work_exp.blank?
+    @profile.update_year_work_experience(@year_work_exp)  if !@year_work_exp.blank?
     @profile.photo_id = profile_params[:photo_id]
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]

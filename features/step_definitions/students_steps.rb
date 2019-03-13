@@ -195,11 +195,9 @@ Then /^I can update my (.*?)$/ do |field|
     current_student.current_profile.interested_term.should eq('Spring')
     current_student.current_profile.interested_year.should eq(2022)
   when 'work experience'
-    fill_in 'year_work_exp', with: '10'
-    fill_in 'month_work_exp', with: '12'
+    select('>10 years', from: 'year_work_exp')
     click_button 'Save Changes'
-    current_student.current_profile.year_work_exp.should eq(10)
-    current_student.current_profile.month_work_exp.should eq(12)
+    current_student.current_profile.year_work_exp.should eq(">10 years")
   when 'last name and first name'
     fill_in 'first_name', with: 'Linh'
     fill_in 'last_name', with: 'Pham'
