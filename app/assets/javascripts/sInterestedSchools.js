@@ -92,7 +92,7 @@ $(document).ready(function () {
         $("#schoolModal").modal(
             {backdrop: true}
             );
-        $('#datetimepickerapp').click(function() {
+         $('#datetimepickerapp').click(function() {
             $(this).datepicker().datepicker("show")
         });
         return false;
@@ -140,12 +140,13 @@ $(document).ready(function () {
     var currentDate = new Date();
 
 
-    $(function() {
+      $(function() {
         // jQuery.noConflict();
-        $("#datetimepickerapp").click(function() {
+          //var element = document.getElementById('datetimepickerapp');
+          $("#datetimepickerapp").click(function() {
             $(this).datepicker().datepicker("show")
-        });
-    });
+          });
+       });
 
     $(function() {
         $("#datetimepicker0").click(function() {
