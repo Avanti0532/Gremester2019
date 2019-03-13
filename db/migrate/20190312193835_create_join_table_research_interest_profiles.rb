@@ -1,8 +1,8 @@
 class CreateJoinTableResearchInterestProfiles < ActiveRecord::Migration
   def change
-    create_join_table :profiles, :research_interests do |t|
-      t.index [:profile_id, :research_interest_id], name: 'profile_research_interest'
-      t.index [:research_interest_id, :profile_id], name: 'research_interest_profile'
+    create_table :research_interests_profiles do |t|
+      t.references :research_interest
+      t.references :profile
     end
   end
 end

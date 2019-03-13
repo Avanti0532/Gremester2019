@@ -44,33 +44,48 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Country of origin:</label>
+          <label class="col-md-3 control-label">Citizenship:</label>
           <div class="col-md-8">
             <% if !@profile.nil? and !@profile.country.nil?%>
               <input class="form-control" type="text" value="<%= @profile.country.name %>" readonly>
+            <% else %>
+              <input class="form-control" type="text" value="" readonly>
             <% end %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Degree Objective:</label>
+          <label class="col-md-3 control-label">Degree Objective Phd:</label>
           <div class="col-md-8">
             <input class="form-control" type="text" value="<%= @profile.degree_objective_phd %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Degree Objective Master:</label>
+          <div class="col-md-8">
             <input class="form-control" type="text" value="<%= @profile.degree_objective_master %>" readonly>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Research Interest:</label>
           <div class="col-md-8">
-            <% @profile.research_interests.each  do |interest|%>
-              <input class="form-control" type="text" value="<%= interest %>" readonly>
+            <% if @profile.research_interests.nil? or @profile.research_interests.empty?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <% @profile.research_interests.each  do |interest|%>
+                <input class="form-control" type="text" value="<%= interest.name %>" readonly>
+              <% end %>
             <% end %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
-            <% @profile.undergrad_universities.each  do |university|%>
-              <input class="form-control" type="text" value="<%= university.university_name %>" readonly>
+            <% if @profile.undergrad_universities.nil? or @profile.undergrad_universities.empty?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <% @profile.undergrad_universities.each  do |university|%>
+                <input class="form-control" type="text" value="<%= university.university_name %>" readonly>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -84,9 +99,11 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Grading Scale:</label>
           <div class="col-md-8">
-            <% if !@profile.grading_scale_type.nil? %>
-            <input class="form-control" type="text" value="<%= @profile.grading_scale_type.grading_scale_name %>" readonly>
-              <% end %>
+            <% if @profile.grading_scale_type.nil?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <input class="form-control" type="text" value="<%= @profile.grading_scale_type.grading_scale_name %>" readonly>
+            <% end %>
           </div>
         </div>
 
@@ -142,6 +159,8 @@
               <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
             <%elsif !@profile.sop.nil? && Rails.env.development?  %>
               <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+            <% else %>
+              <input class="form-control" type="text" value="" readonly>
             <%end %>
             <br>
           </div>
@@ -154,6 +173,8 @@
               <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
             <%elsif !@profile.resume.nil? && Rails.env.development?  %>
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+            <% else %>
+              <input class="form-control" type="text" value="" readonly>
             <% end %>
             <br>
           </div>
@@ -164,7 +185,9 @@
             <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
               <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
             <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
-              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}"%></td>
+            <% else %>
+              <input class="form-control" type="text" value="" readonly>
             <% end %>
             <br>
           </div>

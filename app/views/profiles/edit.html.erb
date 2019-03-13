@@ -42,34 +42,32 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Gender:</label>
           <div class="col-md-8">
-            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified']), include_blank: 'Gender' %>
-            <br><br>
+            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified']), include_blank: 'Gender', class: "form-control" %>
+            <br>
           </div>
         </div>
 
-
         <div class="form-group">
-          <label class="col-md-3 control-label">Country of origin:</label>
+          <label class="col-md-3 control-label">Citizenship:</label>
           <div class="col-md-8">
-            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country'%>
-            <br><br>
+            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', class: "form-control"%>
+            <br>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Degree Objective:</label>
           <div class="col-md-8">
-            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Phd' %>
-            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Master' %>
-
-            <br><br>
+            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Phd', class: "form-control" %>
+            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Master', class: "form-control" %>
+            <br>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Research Interest:</label>
           <div class="col-md-8">
-              <%= select_tag "research_interest", options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Research Interest'%>
+              <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]} ), :multiple => true, class: "form-control"%>
               <br><br>
           </div>
         </div>
@@ -80,9 +78,9 @@
             <% @profile.undergrad_universities.each  do |university|%>
               <p><%= university.university_name %></p>
             <% end %>
-            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile"%>
+            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile", class: "form-control"%>
             <br>
-            <%= select_tag :undergrad_universities%>
+            <%= select_tag "undergrad_universities",  options_for_select([]), class: "form-control", include_blank: 'University Name'%>
             <br><br>
           </div>
         </div>
@@ -94,7 +92,7 @@
               <br><br>
             </div>
             <div class="col-md-5">
-              <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale'%>
+              <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale', class: "form-control"%>
               <br><br>
             </div>
           </div>
@@ -167,7 +165,7 @@
               <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
             <%end %>
             <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
-            <%= f.file_field :sop, autocomplete: "off" %>
+            <%= f.file_field :sop, autocomplete: "off", class: "form-control" %>
             <br>
           </div>
         </div>
@@ -181,7 +179,7 @@
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
             <% end %>
             <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
-            <%= f.file_field :resume, autocomplete: "off" %>
+            <%= f.file_field :resume, autocomplete: "off", class: "form-control"%>
             <br>
           </div>
         </div>
@@ -195,7 +193,7 @@
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
             <% end %>
             <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
-            <%= f.file_field :additional_attachment, autocomplete: "off" %>
+            <%= f.file_field :additional_attachment, autocomplete: "off", class: "form-control" %>
             <br>
           </div>
         </div>

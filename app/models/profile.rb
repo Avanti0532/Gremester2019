@@ -6,7 +6,8 @@ class Profile < ActiveRecord::Base
   has_many :applications
   has_many :profiles_undergrad_universities
   has_many :undergrad_universities, through: :profiles_undergrad_universities
-  has_and_belongs_to_many :research_interests
+  has_many :research_interests_profiles
+  has_many :research_interests, through: :research_interests_profiles
   include ImageUploader::Attachment.new(:photo_id)
   include DocumentUploader::Attachment.new(:sop)
   include DocumentUploader::Attachment.new(:resume)
@@ -72,10 +73,6 @@ class Profile < ActiveRecord::Base
 
   def update_additional_attachment_data(additional_attachment_data)
     self.additional_attachment_data = additional_attachment_data
-  end
-
-  def update_college(college)
-    self.college = college
   end
 
 end

@@ -10,11 +10,5 @@ class ApplicationController < ActionController::Base
   end
   protected
 
-  # to override the SessionsController#create and save profile_id to session variable : method 1
-  def after_sign_in_path_for(resource)
-    profile = Profile.joins("INNER JOIN students ON students.id=profiles.student_id AND students.username='#{current_student.username}'")
-    session[:current_profile] = profile.id
-    root_path
-  end
 end
 

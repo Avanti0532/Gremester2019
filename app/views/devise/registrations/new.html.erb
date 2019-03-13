@@ -38,7 +38,7 @@
 
       <div class="field">
         <%= f.label :university_id %><br />
-        <%= f.select :university_id, options_for_select(University.all.map {|obj| [obj.university_name, obj.id]}), class: 'form-control form-control-lg'  %>
+        <%= f.select :university_id, options_for_select(University.all.order(:university_name).map {|obj| [obj.university_name, obj.id]}), class: 'form-control form-control-lg'  %>
       </div>
 
       <div class="field">
