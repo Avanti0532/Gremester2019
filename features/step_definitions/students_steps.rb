@@ -10,7 +10,7 @@ end
 
 
 def saved_student_data
-  @saved_student_data = {email: 'robin@gmail.com', password: '12345678', username: 'Lily'}
+  @saved_student_data = {email: 'robin@gmail.com', password: '12345678'}
 end
 
 def log_in_student
