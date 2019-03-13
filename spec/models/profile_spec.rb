@@ -4,7 +4,6 @@ require 'spec_helper'
 RSpec.describe Profile, type: :model do
   it { should belong_to(:student) }
   it { should have_many(:applications) }
-  it { should have_and_belong_to_many(:undergrad_universities) }
   it { should validate_presence_of(:student_id) }
   it { should validate_inclusion_of(:gre_quant).in_range(130..170).with_message("must be within the range from 130 to 170")}
   it { should validate_inclusion_of(:gre_verbal).in_range(130..170).with_message("must be within the range from 130 to 170")}
@@ -118,14 +117,6 @@ RSpec.describe Profile, type: :model do
       mock_profile.update_additional_attachment_data("testing additional attachment")
       student.profile = mock_profile
       assert(student.current_profile.additional_attachment_data.eql?("testing additional attachment"))
-    end
-
-    it "should update college field of the profile" do
-      student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
-      mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019, college: 'University of Iowa')
-      mock_profile.update_college("Iowa State")
-      student.profile = mock_profile
-      assert(student.current_profile.college.eql?("Iowa State"))
     end
 
   end

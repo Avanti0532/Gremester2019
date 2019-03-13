@@ -77,4 +77,7 @@ RailsAdmin.config do |config|
       exclude_fields :current_sign_in_ip, :last_sign_in_ip
     end
   end
+
+  config.excluded_models = ["ResearchInterestsProfile", "ProfilesUndergradUniversity"]
+
 end

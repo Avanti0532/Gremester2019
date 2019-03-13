@@ -409,9 +409,22 @@ universities.each do |university|
   University.create!(university)
 end
 
+csv_country = File.read(Rails.root.join('lib', 'seeds', 'country.csv'))
+csv = CSV.parse(csv_country, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  country = Country.new
+  country.name = row['Name']
+  country.save
+end
 
-Country.create(:name => "United States")
-Country.create(:name => "India")
+csv_research_interest = File.read(Rails.root.join('lib', 'seeds', 'research_interest.csv'))
+csv = CSV.parse(csv_research_interest, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  research_interest = ResearchInterest.new
+  research_interest.name = row['Name']
+  research_interest.save
+end
+
 RankType.create(:name => 'US News')
 universities.each do |university|
   temp = UndergradUniversity.create!(:university_name => university[:university_name])
@@ -434,3 +447,5 @@ csv.each do |row|
   grading_scale.grading_scale_type_id = grading_type.id
   grading_scale.save
 end
+
+

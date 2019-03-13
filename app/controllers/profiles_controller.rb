@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :college, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year, :year_work_exp, :month_work_exp)
   end
 
   def index
@@ -10,43 +10,17 @@ class ProfilesController < ApplicationController
   def show
     @profile = current_student.current_profile
 
-    if(@profile.nil?) then
-      @profile = Profile.new()
-      @profile.update_college('')
-      @profile.update_gre_quant('')
-      @profile.update_gre_verbal('')
-      @profile.update_gre_writing('')
-      @profile.update_toefl('')
-      @profile.update_cgpa('')
-      @profile.update_interested_major('')
-      @profile.update_interested_term('')
-      @profile.update_year_work_experience('')
-      @profile.update_month_work_experience('')
-      @profile.update_resume_data('')
-      @profile.update_sop_data('')
-      @profile.update_additional_attachment_data('')
+    if(@profile.nil?)
       current_student.create_profile()
+      @profile = current_student.current_profile
     end
   end
 
   def edit
     @profile = current_student.current_profile
-    if(@profile.nil?) then
-      @profile = Profile.new()
-      @profile.update_college('')
-      @profile.update_gre_quant('')
-      @profile.update_gre_verbal('')
-      @profile.update_gre_writing('')
-      @profile.update_toefl('')
-      @profile.update_cgpa('')
-      @profile.update_interested_major('')
-      @profile.update_interested_term('')
-      @profile.update_year_work_experience('')
-      @profile.update_month_work_experience('')
-      @profile.update_resume_data('')
-      @profile.update_sop_data('')
-      @profile.update_additional_attachment_data('')
+    if(@profile.nil?)
       current_student.create_profile()
+      @profile = current_student.current_profile
     end
   end
 
@@ -55,7 +29,7 @@ class ProfilesController < ApplicationController
   end
 
   def getUndergradUniversityByCountry
-    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities
+    @undergrad_universities = Country.where(:name => params[:country]).first.undergrad_universities.order("university_name")
     respond_to do |format|
       format.json {
         render json: {undergrad_universities: @undergrad_universities}
@@ -99,7 +73,6 @@ class ProfilesController < ApplicationController
     @month_work_exp = profile_params[:month_work_exp]
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
-    @profile.update_college(@college) if !@college.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?
     @profile.update_gre_writing(@gre_writing.to_f) if !@gre_writing.blank?
     @profile.update_gre_quant(@gre_quant.to_i)  if !@gre_quant.blank?
@@ -112,13 +85,30 @@ class ProfilesController < ApplicationController
     @profile.photo_id = profile_params[:photo_id]
     @profile.sop = profile_params[:sop]
     @profile.resume = profile_params[:resume]
+    @profile.gender = params[:gender]
+    @profile.degree_objective_master = params[:degree_objective_master]
+    @profile.degree_objective_phd = params[:degree_objective_phd]
     @profile.additional_attachment = profile_params[:additional_attachment]
+    if !params[:citizenship].blank?
+      country_of_origin = Country.find_by_id(params[:citizenship].to_i)
+      @profile.country = country_of_origin
+    end
+
+    if !params[:grading_scale].blank?
+      grading_scale = GradingScaleType.find_by_id(params[:grading_scale].to_i)
+      @profile.grading_scale_type = grading_scale
+    end
+
     if !params[:undergrad_universities].blank?
       undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
       @profile.undergrad_universities << undergrad
     end
-    @profile.save(:validate => true)
 
+    if !params[:research_interest].blank?
+      params[:research_interest].each  do |interest|
+        @profile.research_interests << ResearchInterest.find_by_id(interest.to_i)
+      end
+    end
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
@@ -137,7 +127,7 @@ class ProfilesController < ApplicationController
   end
 
   def showschools
-    gon.universities = University.select('id, university_name')
+    gon.universities = University.select('id, university_name').order("university_name")
     id = params[:id]
     @applications = Application.where(profile_id:id)
     render 'profiles/sInterestedSchools'
