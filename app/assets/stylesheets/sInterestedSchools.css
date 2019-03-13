@@ -28,14 +28,18 @@ div#main {
     margin: 0;
 
 }
-#trash{
+.trash{
     position: absolute;
     right: 410px;
     padding: 6px;
     background-color:wheat;
 }
-#edit{
+.edit{
     padding: 6px;
     background-color:lightgreen;
 }
+h4{
+    color:red;
+}
+
 
