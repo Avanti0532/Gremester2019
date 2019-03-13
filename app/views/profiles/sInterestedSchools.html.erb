@@ -63,31 +63,17 @@
       </div>
       <div class="modal-body">
         <form role="form">
+          <div class="alert alert-danger fade" role="alert"></div>
           <div class="form-group">
             <label>University Name:</label>
             <input type="text" class="form-control" id="uni_name" disabled="true">
           </div>
           <label>Applied Date:</label>
-            <div class="input-group date" id="datetimepickerapp">
-              <input type="date" class="form-control" name="datepicker" value="" />
-              <label class="input-group-addon btn" for="datepicker">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </label>
-            </div>
+            <input id="datepickerapp" type="date" class="form-control" value="" />
           <label>Accepted Date:</label>
-          <div class="input-group date" id="datetimepickeracc">
-            <input type="date" class="form-control" name="datepicker" value="" />
-            <label   class="input-group-addon btn" for="datepicker">
-              <span class="glyphicon glyphicon-calendar"></span>
-            </label>
-          </div>
+            <input id="datepickeradm" type="date" class="form-control" value="" />
           <label>Rejected Date:</label>
-          <div class="input-group date" id="datetimepickerrej">
-            <input type="date" class="form-control" name="datepicker" value="" />
-            <label class="input-group-addon btn" for="datepicker">
-              <span class="glyphicon glyphicon-calendar"></span>
-            </label>
-          </div>
+            <input id="datepickerrej" type="date" class="form-control" value="" />
           <input type='hidden' name='_method' value='put' />
         </form>
       </div>

@@ -66,23 +66,38 @@ $(document).ready(function () {
                 if(applied_date.getUTCFullYear() == '1970'){
                     applied_date = '';
                 }else{
-                    applied_date = applied_date.getUTCFullYear()+'-'+(applied_date.getUTCMonth()+1)+'-'+applied_date.getUTCDate();
+                    app_month = (applied_date.getUTCMonth()+1);
+                    app_date =  applied_date.getUTCDate();
+                    if (app_month < 10) app_month = "0" + app_month;
+                    if (app_date < 10) app_date = "0" + app_date;
+                    applied_date = applied_date.getUTCFullYear()+'-'+app_month+'-'+app_date;
                 }
                 admitted_date = new Date(data.admitted_date);
                 if(admitted_date.getUTCFullYear() == '1970'){
                     admitted_date = '';
                 }else{
-                    admitted_date = admitted_date.getUTCFullYear()+'-'+(admitted_date.getUTCMonth()+1)+'-'+admitted_date.getUTCDate();
+                    adm_month = (admitted_date.getUTCMonth()+1);
+                    adm_date =  admitted_date.getUTCDate();
+                    if (adm_month < 10) adm_month = "0" + adm_month;
+                    if (adm_date < 10) adm_date = "0" + adm_date;
+                    admitted_date = admitted_date.getUTCFullYear()+'-'+adm_month+'-'+adm_date;
                 }
                 rejected_date = new Date(data.rejected_date);
                 if(rejected_date.getUTCFullYear() == '1970'){
                     rejected_date = '';
                 }else{
-                    rejected_date = rejected_date.getUTCFullYear()+'-'+(rejected_date.getUTCMonth()+1)+'-'+rejected_date.getUTCDate();
+                    rej_month = (rejected_date.getUTCMonth()+1);
+                    rej_date =  rejected_date.getUTCDate();
+                    if (rej_month < 10) rej_month = "0" + rej_month;
+                    if (rej_date < 10) rej_date = "0" + rej_date;
+                    rejected_date = rejected_date.getUTCFullYear()+'-'+rej_month+'-'+rej_date;
                 }
-                $('#datetimepickerapp').find('input[name="datepicker"]').val(applied_date);
-                $('#datetimepickeracc').find('input[name="datepicker"]').val(admitted_date);
-                $('#datetimepickerrej').find('input[name="datepicker"]').val(rejected_date);
+                $('#datepickerapp').val(applied_date);
+                $('#datepickeradm').val(admitted_date);
+                $('#datepickerrej').val(rejected_date);
+                $('div[role=alert]').text('');
+                $('div[role=alert]').addClass('in');
+                $('div[role=alert]').hide();
 
             },
 
@@ -92,9 +107,7 @@ $(document).ready(function () {
         $("#schoolModal").modal(
             {backdrop: true}
             );
-         $('#datetimepickerapp').click(function() {
-            $(this).datepicker().datepicker("show")
-        });
+
         return false;
     });
 
@@ -110,43 +123,63 @@ $(document).ready(function () {
         app_id = app_id_uni_id[0];
         uni_id = app_id_uni_id[1];
         console.log(app_id);
-        applied_date = $('#datetimepickerapp').find('input[name="datepicker"]').val();
-        admitted_date = $('#datetimepickeracc').find('input[name="datepicker"]').val();
-        rejeced_date = $('#datetimepickerrej').find('input[name="datepicker"]').val();
-        $.ajax({
-            type: "PUT",
-            dataType: "html",
-            url: '/applications/'+app_id,
-            contentType: 'application/json',
-            data: JSON.stringify({ id : app_id, applied_date : applied_date, admitted_date:admitted_date, rejected_date:rejected_date}),
-            success: function(jsonData) {
-                result = JSON.parse(jsonData);
-                if (result.result == 1) {
-                    $('#schoolsModal').modal('hide');
-                    location.reload();
-                }else{
-                    alert(result.result);
-                }
+        applied_date = $('#datepickerapp').val();
+        admitted_date = $('#datepickeradm').val();
+        rejeced_date = $('#datepickerrej').val();
+        dt_app = new Date(applied_date);
+        dt_adm = new Date(admitted_date);
+        dt_rej = new Date(rejected_date);
 
-            },
+        if (applied_date == '') {
+            $("div[role=alert]").text('Applied date cannot be empty!');
+            $("div[role=alert]").show();
+        }else if(admitted_date != '' && rejeced_date != ''){
+            $("div[role=alert]").text('');
+            $("div[role=alert]").text('Both admitted date and rejected date cannot be selected!');
+            $("div[role=alert]").show();
+        }else if( (dt_adm < dt_app) || (dt_rej < dt_app)){
+            if(dt_adm < dt_app){
+                $("div[role=alert]").text('');
+                $("div[role=alert]").text('Applied date cannot be later than admitted date!');
+                $("div[role=alert]").show();
+            }else if(dt_rej < dt_app){
+                $("div[role=alert]").text('');
+                $("div[role=alert]").text('Applied date cannot be later than rejected date!');
+                $("div[role=alert]").show();
+            }
 
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        });
+        }else{
+            $.ajax({
+                type: "PUT",
+                dataType: "html",
+                url: '/applications/' + app_id,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id: app_id,
+                    applied_date: applied_date,
+                    admitted_date: admitted_date,
+                    rejected_date: rejected_date
+                }),
+                success: function (jsonData) {
+                    result = JSON.parse(jsonData);
+                    if (result.result == 1) {
+                        $('#schoolsModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert(result.result);
+                    }
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                },
+            });
+        }
 
 
     })
 
 
     var currentDate = new Date();
-
-
-      $(function() {
-        // jQuery.noConflict();
-          //var element = document.getElementById('datetimepickerapp');
-          $("#datetimepickerapp").click(function() {
-            $(this).datepicker().datepicker("show")
-          });
-       });
 
     $(function() {
         $("#datetimepicker0").click(function() {
