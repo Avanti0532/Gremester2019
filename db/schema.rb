@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312193835) do
+ActiveRecord::Schema.define(version: 20190313183913) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -117,8 +117,6 @@ ActiveRecord::Schema.define(version: 20190312193835) do
     t.string   "interested_major"
     t.string   "interested_term"
     t.integer  "interested_year"
-    t.integer  "year_work_exp"
-    t.integer  "month_work_exp"
     t.text     "resume_data"
     t.text     "sop_data"
     t.text     "additional_attachment_data"
@@ -131,6 +129,7 @@ ActiveRecord::Schema.define(version: 20190312193835) do
     t.integer  "degree_objective_master"
     t.string   "gender"
     t.integer  "grading_scale_type_id"
+    t.string   "year_work_exp"
   end
 
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id"

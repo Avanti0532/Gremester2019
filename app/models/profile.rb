@@ -17,8 +17,6 @@ class Profile < ActiveRecord::Base
   validates_inclusion_of :gre_writing, :in => 0..6, allow_blank: true, message: 'must be within the range from 0 to 6.0'
   validates_inclusion_of :toefl, :in => 0..120, allow_blank: true, message: 'must be within the range from 0 to 120'
   validates_numericality_of :cgpa, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
-  validates_numericality_of :year_work_exp, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
-  validates_numericality_of :month_work_exp, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
   validates_presence_of :student_id
 
 
@@ -59,9 +57,6 @@ class Profile < ActiveRecord::Base
     self.year_work_exp = year_work_exp
   end
 
-  def update_month_work_experience(month_work_exp)
-    self.month_work_exp = month_work_exp
-  end
 
   def update_resume_data(resume_data)
     self.resume_data = resume_data
