@@ -48,19 +48,13 @@ $(document).ready(function () {
         app_id_uni_id = edit_btn_id.substr(5).split('_');
         app_id = app_id_uni_id[0];
         uni_id = app_id_uni_id[1];
-        console.log('app_id_uni_id='+app_id_uni_id[0]+'_'+app_id_uni_id[1]);
-        console.log('app_id='+app_id);
-        console.log('uni_id='+uni_id);
         $.ajax({
             url: "/applications/"+app_id,
             type: 'GET',
             contentType: "application/json",
-            // data: { id : app_id},
             dataType: 'html',
             success: function(jsonData) {
                 data = JSON.parse(jsonData);
-                console.log(data);
-                console.log(data.id);
                 $('#uni_name').val(data.uni_name);
                 applied_date = new Date(data.applied_date);
                 if(applied_date.getUTCFullYear() == '1970'){
@@ -112,16 +106,29 @@ $(document).ready(function () {
     });
 
      $('.trash').on('click', function(){
-       console.log(this.id+' Trash clicked');
+         var app_id = this.id.substr(5).split('_');
+         var appn_id = app_id[1]
+         $.ajax({
+             url: "/profiles/deleteschools",
+             type: 'POST',
+             datatype:"html",
+             contentType: 'application/json',
+             data: JSON.stringify({
+                 application_id: appn_id
+             }),
+             success: function (jsonData) {
+                 location.reload();
+                 },
+             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+         });
 
-        return false;});
+     });
 
     $('#saveModal').click(function(){
         edit_btn_id = this.name;
         app_id_uni_id = edit_btn_id.substr(5).split('_');
         app_id = app_id_uni_id[0];
         uni_id = app_id_uni_id[1];
-        console.log(app_id);
         applied_date = $('#datepickerapp').val();
         admitted_date = $('#datepickeradm').val();
         rejected_date = $('#datepickerrej').val();

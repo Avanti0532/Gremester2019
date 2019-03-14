@@ -40,6 +40,7 @@ class ApplicationsController < ApplicationController
         redirect_to show_profiles_path(@application.profile_id)
       end
     else
+      flash[:notice] = 'Edit is successful'
       render :json => {'result' => 1}
     end
   end

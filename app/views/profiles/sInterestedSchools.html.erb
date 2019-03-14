@@ -25,12 +25,10 @@
       <td><%=app.applied_date.try(:strftime,"%m/%d/%Y")%></td>
       <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
       <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
-      <%= form_tag deleteschools_profiles_path(:university_id => app.university_id), :method => :post do %>
-        <td class="col-md-2" ><button type="button" class="btn trash" id="trash"><i class="fa fa-trash"></i></button>
-        </td>
-      <% end %>
-        <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
-        </td>
+      <td class="col-md-2" ><button type="button" class="btn trash" id="trash_<%=app.id %>"><i class="fa fa-trash"></i></button>
+      </td>
+      <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
+      </td>
     </tr>
     <% end %>
     </tbody>
