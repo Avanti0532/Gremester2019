@@ -70,8 +70,6 @@ class ProfilesController < ApplicationController
     @interested_term = profile_params[:interested_term]
     @interested_year = profile_params[:interested_year]
     @year_work_exp = params[:year_work_exp]
-    puts 'here'
-    puts @year_work_exp
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?

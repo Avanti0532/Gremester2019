@@ -45,7 +45,7 @@ Rails.application.routes.draw do
    end
 
 
-
+  resources :countries
   root to: 'homepage#index'
 
 end
