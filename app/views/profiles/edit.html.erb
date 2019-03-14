@@ -37,25 +37,67 @@
             <%= text_area :current_student, 'last_name', class: "form-control", id: 'last_name' %>
           </div>
         </div>
+
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Gender:</label>
+          <div class="col-md-8">
+            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified']), include_blank: 'Gender', class: "form-control" %>
+            <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Citizenship:</label>
+          <div class="col-md-8">
+            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', class: "form-control"%>
+            <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Degree Objective:</label>
+          <div class="col-md-8">
+            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Phd', class: "form-control" %>
+            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Master', class: "form-control" %>
+            <br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">Research Interest:</label>
+          <div class="col-md-8">
+              <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]} ), :multiple => true, class: "form-control"%>
+              <br><br>
+          </div>
+        </div>
+
         <div class="form-group">
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8">
             <% @profile.undergrad_universities.each  do |university|%>
               <p><%= university.university_name %></p>
             <% end %>
-            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile"%>
+            <%= select_tag "country_id", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', id: "college_edit_profile", class: "form-control"%>
             <br>
-            <%= select_tag :undergrad_universities%>
+            <%= select_tag "undergrad_universities",  options_for_select([]), class: "form-control", include_blank: 'University Name'%>
             <br><br>
           </div>
         </div>
-
-        <div class="form-group">
-          <label class="col-md-3 control-label">GPA:</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-3 control-label">GPA:</label>
+            <div class="col-md-4">
+              <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa' %>
+              <br><br>
+            </div>
+            <div class="col-md-5">
+              <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale', class: "form-control"%>
+              <br><br>
+            </div>
           </div>
         </div>
+
         <div class="form-group">
           <label class="col-md-3 control-label">TOEFL Score:</label>
           <div class="col-md-8">
@@ -103,14 +145,8 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Work Experience (Year):</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'year_work_exp', class: "form-control", text: @profile.year_work_exp, id: 'year_work_exp'   %>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-3 control-label">Work Experience (Month):</label>
-          <div class="col-md-8">
-            <%= text_area :profile, 'month_work_exp', class: "form-control", text: @profile.month_work_exp, id: 'month_work_exp' %>
+            <%= select_tag "year_work_exp", options_for_select(['Less than 1 year', '1 - 2 years', '3 - 4 years', '4 - 5 years', '5 - 7 years', '7 - 10 years', '>10 years', 'Not Specified']), include_blank: 'Estimate year of work experience', class: "form-control" %>
+            <br>
           </div>
         </div>
 
@@ -123,7 +159,7 @@
               <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
             <%end %>
             <%= f.hidden_field :sop, value: f.object.cached_sop_data %>
-            <%= f.file_field :sop, autocomplete: "off" %>
+            <%= f.file_field :sop, autocomplete: "off", class: "form-control" %>
             <br>
           </div>
         </div>
@@ -137,7 +173,7 @@
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
             <% end %>
             <%= f.hidden_field :resume, value: f.object.cached_resume_data %>
-            <%= f.file_field :resume, autocomplete: "off" %>
+            <%= f.file_field :resume, autocomplete: "off", class: "form-control"%>
             <br>
           </div>
         </div>
@@ -151,7 +187,7 @@
               <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
             <% end %>
             <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
-            <%= f.file_field :additional_attachment, autocomplete: "off" %>
+            <%= f.file_field :additional_attachment, autocomplete: "off", class: "form-control" %>
             <br>
           </div>
         </div>

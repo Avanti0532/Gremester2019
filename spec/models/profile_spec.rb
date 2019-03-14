@@ -4,15 +4,12 @@ require 'spec_helper'
 RSpec.describe Profile, type: :model do
   it { should belong_to(:student) }
   it { should have_many(:applications) }
-  it { should have_and_belong_to_many(:undergrad_universities) }
   it { should validate_presence_of(:student_id) }
   it { should validate_inclusion_of(:gre_quant).in_range(130..170).with_message("must be within the range from 130 to 170")}
   it { should validate_inclusion_of(:gre_verbal).in_range(130..170).with_message("must be within the range from 130 to 170")}
   it { should validate_inclusion_of(:gre_writing).in_range(0..6).with_message("must be within the range from 0 to 6.0")}
   it { should validate_inclusion_of(:toefl).in_range(0..120).with_message("must be within the range from 0 to 120")}
   it { should validate_numericality_of(:cgpa).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
-  it { should validate_numericality_of(:year_work_exp).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
-  it { should validate_numericality_of(:month_work_exp).is_greater_than_or_equal_to(0).with_message("must be greater than or equal to 0")}
 
   context "Updating profile field" do
     it "should update gre quant field of the profile" do
@@ -53,14 +50,6 @@ RSpec.describe Profile, type: :model do
       mock_profile.update_cgpa(4.0)
       student.profile = mock_profile
       assert(student.current_profile.cgpa).eql?(4.0)
-    end
-    #
-    it "should update month of exeprience field of the profile" do
-      student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
-      mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019, month_work_exp: 4)
-      mock_profile.update_month_work_experience(12)
-      student.profile = mock_profile
-      assert(student.current_profile.month_work_exp).eql?(12)
     end
 
     it "should update year of experience field of the profile" do
@@ -118,14 +107,6 @@ RSpec.describe Profile, type: :model do
       mock_profile.update_additional_attachment_data("testing additional attachment")
       student.profile = mock_profile
       assert(student.current_profile.additional_attachment_data.eql?("testing additional attachment"))
-    end
-
-    it "should update college field of the profile" do
-      student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test')
-      mock_profile = Profile.new(gre_quant: 150, gre_verbal: 130, gre_writing: 3.0, toefl: 100, cgpa: 3.4, interested_major: 'Computer Science', interested_term: 'fall', interested_year: 2019, college: 'University of Iowa')
-      mock_profile.update_college("Iowa State")
-      student.profile = mock_profile
-      assert(student.current_profile.college.eql?("Iowa State"))
     end
 
   end

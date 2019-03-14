@@ -10,7 +10,7 @@ end
 
 
 def saved_student_data
-  @saved_student_data = {email: 'robin@gmail.com', password: '12345678', username: 'Lily'}
+  @saved_student_data = {email: 'robin@gmail.com', password: '12345678'}
 end
 
 def log_in_student
@@ -195,11 +195,9 @@ Then /^I can update my (.*?)$/ do |field|
     current_student.current_profile.interested_term.should eq('Spring')
     current_student.current_profile.interested_year.should eq(2022)
   when 'work experience'
-    fill_in 'year_work_exp', with: '10'
-    fill_in 'month_work_exp', with: '12'
+    select('>10 years', from: 'year_work_exp')
     click_button 'Save Changes'
-    current_student.current_profile.year_work_exp.should eq(10)
-    current_student.current_profile.month_work_exp.should eq(12)
+    current_student.current_profile.year_work_exp.should eq(">10 years")
   when 'last name and first name'
     fill_in 'first_name', with: 'Linh'
     fill_in 'last_name', with: 'Pham'
@@ -223,5 +221,28 @@ Then /^I can update my (.*?)$/ do |field|
     page.attach_file "profile[photo_id]", Rails.root + 'public/gradcap.jpg'
     click_button 'Save Changes'
     current_student.current_profile.photo_id.metadata['filename'].should eq('gradcap.jpg')
+  when 'citizenship'
+    select('United States', from: 'citizenship')
+    click_button 'Save Changes'
+    current_student.current_profile.country.name.should eq('United States')
+  when 'gender'
+    select('Female', from: 'gender')
+    click_button 'Save Changes'
+    current_student.current_profile.gender.should eq('Female')
+  when 'degree objective'
+    select('2', from: 'degree_objective_phd')
+    select('3', from: 'degree_objective_master')
+    click_button 'Save Changes'
+    current_student.current_profile.degree_objective_phd.should eq(2)
+    current_student.current_profile.degree_objective_master.should eq(3)
+  when 'grading scale'
+    select('US News', from: 'grading_scale')
+    click_button 'Save Changes'
+    current_student.current_profile.grading_scale_type.grading_scale_name.should eq('US News')
+  when 'research interest'
+    select('Machine Learning', from: 'research_interest')
+    click_button 'Save Changes'
+    current_student.current_profile.research_interests.first.name.should eq("Machine Learning")
   end
+
 end

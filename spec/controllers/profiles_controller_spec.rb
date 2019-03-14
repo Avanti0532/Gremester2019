@@ -33,23 +33,24 @@ describe ProfilesController do
     end
   end
   describe 'update current user profile' do
-    it 'should redirect to profile on successful update' do
-      mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
-      mock_profile = Profile.create(student_id: 1)
+    before :each do
+      mock_student = Student.create(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      @mock_profile = Profile.create(student_id: 1)
+      ResearchInterest.create(id:1)
+      UndergradUniversity.create(id:1)
       controller.stub(:current_student).and_return(mock_student)
-      controller.instance_eval {@profile = mock_profile}
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "month_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>"1"}
+      controller.instance_eval {@profile = @mock_profile}
+    end
+    it 'should redirect to profile on successful update' do
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "grading_scale" => "test", "undergrad_universities" => 1, "research_interest" => [1]}
       response.should redirect_to(profile_path)
     end
 
     it 'should stay on same page on unsuccessful update' do
-      mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
-      mock_profile = Profile.create(student_id: 1)
-      controller.stub(:current_student).and_return(mock_student)
-      controller.instance_eval {@profile = mock_profile}
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "month_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>"1"}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1}
       response.should render_template('edit')
     end
+
   end
   describe 'show list of schools' do
     it 'should show list of schools added by a student' do
@@ -145,7 +146,7 @@ describe ProfilesController do
   describe "Get school by country" do
     it 'should assign school by country params' do
       mock_university = UndergradUniversity.create(:university_name => 'test')
-      Country.stub_chain(:where, :first, :undergrad_universities).and_return(mock_university)
+      Country.stub_chain(:where, :first, :undergrad_universities, :order).and_return(mock_university)
       get :getUndergradUniversityByCountry, {"country" => "United States", format: :json}
       expect(assigns(:undergrad_universities)).to eq(mock_university)
     end
