@@ -158,8 +158,8 @@ class ProfilesController < ApplicationController
   def deleteschools
     profile_id = current_student.current_profile.id
     app_id = params[:application_id]
-    @deletion = Application.find(app_id).delete
-    if @deletion
+    @record = Application.where(id: app_id).delete_all
+    if @record > 0
       flash[:notice] = 'University is deleted successfully'
     else
       flash[:notice] = 'Error while deleting the university'
