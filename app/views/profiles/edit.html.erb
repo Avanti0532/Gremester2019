@@ -231,33 +231,39 @@
               <input type="number" name="quantity" min="1" max="100">
             </div>
 
+            <div class="form-group" id="undergrad_location">
+              <label>Location:</label>
+              <input type="text" class="form-control" id="undergrad_location_text" >
+            </div>
+
+            <div class="form-group" id="undergrad_description">
+              <label>Description:</label>
+              <textarea  class="form-control" id="undergrad_description_text" ></textarea>
+            </div>
+
+            <div class="input-group date" id="undergrad_ranking">
+              <div class="row">
+              <div class="col-md-6">
+              <label>Ranking:</label> <br>
+              <input type="number" name="quantity" min="1" id="undergrad_ranking_text">
+              </div>
+              <div class="col-md-6">
+              <label>Ranking Type:</label>
+              <select class="form-control" id="undergrad_rank_type" ></select>
+              </div>
+              </div>
+            </div>
 
             <div class="form-group" id="undergrad_website">
               <label>Website:</label> <br>
               <input type="text" class="form-control" id="undergrad_website_text" >
             </div>
 
-
-            <div class="form-group" id="undergrad_location">
-              <label>Location:</label>
-              <input type="text" class="form-control" id="undergrad_website_location" >
-            </div>
-
-
-            <div class="form-group" id="undergrad_description">
-              <label>Description:</label>
-              <input type="text" class="form-control" id="undergrad_website_description" >
-            </div>
-
-            <div class="input-group date" id="undergrad_ranking">
-              <label>Ranking:</label>
-            </div>
-
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>
+          <button type="button" class="btn btn-default btn-success pull-right" id="saveUndergradInfo"><span class="glyphicon glyphicon-upload"></span>Save</button>
         </div>
       </div>
     </div>
