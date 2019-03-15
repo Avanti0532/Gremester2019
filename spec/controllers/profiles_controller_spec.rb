@@ -151,4 +151,11 @@ describe ProfilesController do
       expect(assigns(:undergrad_universities)).to eq(mock_university)
     end
   end
+  describe 'Get student list' do
+    it 'should return all the applications' do
+      @application = [double('application1'),double('application2')]
+      expect(Application).to receive(:all).and_return(@application)
+      get :fStudentList
+    end
+  end
 end
