@@ -137,14 +137,15 @@ class ProfilesController < ApplicationController
 
   def deleteschools
     profile_id = current_student.current_profile.id
-    @deletion = Application.where(profile_id: profile_id , university_id: params[:university_id]).delete_all
-    if @deletion > 0
+    app_id = params[:application_id]
+    @record = Application.where(id: app_id).delete_all
+    if @record > 0
       flash[:notice] = 'University is deleted successfully'
     else
       flash[:notice] = 'Error while deleting the university'
     end
     @applications = Application.where(profile_id: profile_id)
-    redirect_to show_profiles_path(profile_id)
+    render :json => {'result' => flash[:notice]}
   end
 
   def fStudentList

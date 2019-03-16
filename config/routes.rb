@@ -43,8 +43,7 @@ Rails.application.routes.draw do
          match '/showSchools/:id', to: 'profiles#showschools',via: :get, :as => 'show'
        end
    end
-
-
+  resources :applications
 
   root to: 'homepage#index'
 
