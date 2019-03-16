@@ -99,51 +99,7 @@ $(document).ready(function () {
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
         });
     });
-
-    $('#saveUndergradInfo').click(function(){
-        var university = $("#undergrad_school_name").val();
-        var country = $("#undergrad_country").val();
-        var accp_rate = $("#undergrad_acceptance_rate").val();
-        var website = $("#undergrad_website_text").val();
-        var location = $("#undergrad_location_text").val();
-        var description = $("#undergrad_description_text").val();
-        var ranking = $("#undergrad_ranking_text").val();
-        var ranking_type = $("#undergrad_ranking_type").val();
-        var full_url = document.URL;
-        var url_array = full_url.split('/')
-        var app_id = url_array[url_array.length-2];
-        $.ajax({
-            type: "POST",
-            dataType: "html",
-            url: '/profiles/'+app_id,
-            contentType: 'application/json',
-            data: JSON.stringify({
-                id: app_id,
-                univ_name: university,
-                country: country,
-                acceptance_rate: accp_rate,
-                website: website,
-                location: location,
-                description: description,
-                ranking: ranking,
-                ranking_type: ranking_type
-            }),
-            success: function (jsonData) {
-                result = JSON.parse(jsonData);
-                if (result.result == 1) {
-                    $('#addUndergradModal').modal('hide');
-                    location.reload();
-                } else {
-                    alert(result.result);
-                }
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            }
-        });
-
-    });
-
+    
 });
 
 
