@@ -44,10 +44,11 @@ Rails.application.routes.draw do
        end
    end
 
-
   resources :countries
   resources :rank_types
   resources :undergrad_universities
+  resources :applications
+
   root to: 'homepage#index'
 
 end
