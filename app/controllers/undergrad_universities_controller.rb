@@ -3,7 +3,11 @@ class UndergradUniversitiesController < ApplicationController
     if (!params[:university_name].blank? and !params[:country].blank?)
       new_rank = nil
       if (!params[:ranking].blank? and !params[:rank_type].blank?)
-        rank_type = RankType.find_by_id(params[:rank_type])
+        if !params[:new_rank_type].blank?
+          rank_type = RankType.create(:name => params[:new_rank_type])
+        else
+          rank_type = RankType.find_by_id(params[:rank_type])
+        end
         new_rank = Ranking.new(:rank => params[:ranking])
         rank_type.rankings << new_rank
       end
@@ -19,6 +23,6 @@ class UndergradUniversitiesController < ApplicationController
       end
       current_student.current_profile.undergrad_universities << new_undergrad_university
     end
-      redirect_to edit_profile_path(current_student.id)
+      redirect_to :back
   end
 end
