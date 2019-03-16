@@ -36,9 +36,30 @@ $(document).ready(function () {
                     success: function(jsonData) {
                         data = JSON.parse(jsonData);
                         countries = data.countries;
+                        console.log(countries);
+                        $("#undergrad_country").append('<option selected disabled>Select Country</option>');
                         for(var i=0; i< countries.length; i++){
-                            $("#undergrad_country").append('<option value="' + countries[i] + '">' + countries[i] + '</option>');
+                            $("#undergrad_country").append('<option value="' + countries[i][1] + '">' + countries[i][0] + '</option>');
                         }
+                    },
+
+                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                });
+
+                $.ajax({
+                    url: "/rank_types",
+                    type: 'GET',
+                    contentType: "application/json",
+                    dataType: 'html',
+                    success: function(jsonData) {
+                        data = JSON.parse(jsonData);
+                        ranks = data.rank_types;
+                        console.log(ranks);
+                        $("#undergrad_rank_type").append('<option selected disabled>Select Ranking Type</option>');
+                        for(var i=0; i< ranks.length; i++){
+                            $("#undergrad_rank_type").append('<option value="' + ranks[i][1] + '">' + ranks[i][0] + '</option>');
+                        }
+                        $("#undergrad_rank_type").append('<option>Ranking type not specified</option>');
 
                     },
 
@@ -50,18 +71,44 @@ $(document).ready(function () {
                 );
                // return false;
             });
-
         }
-
     });
 
-    $('#saveModal').click(function(){
+    $('#saveUndergradInfo').click(function(){
+        var school_name = $('#undergrad_school_name').val();
+        var country = $('#undergrad_country').val();
+        console.log('rere');
+        console.log(country);
+        var acceptance_rate =  $('#undergrad_acceptance rate').val();
+        var location =  $('#undergrad_location_text').val();
+        var description =  $('#undergrad_description_text').val();
+        var ranking =  $('#undergrad_ranking_text').val();
+        var rank_type =  $('#undergrad_rank_type').val();
+        var website = $('#undergrad_website_text').val();
+        $.ajax({
+            url: "/undergrad_universities",
+            type: 'POST',
+            data: {university_name: school_name, country: country, acceptance_rate: acceptance_rate, location: location, university_desc: description, ranking: ranking, rank_type: rank_type, university_link: website },
+            dataType: 'html',
+            success: function(data) {
+                console.log(data);
+                $("#addUndergradModal").modal('hide');
+
+            },
+
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        });
+    });
+
+    $('#saveUndergradInfo').click(function(){
         var university = $("#undergrad_school_name").val();
         var country = $("#undergrad_country").val();
         var accp_rate = $("#undergrad_acceptance_rate").val();
         var website = $("#undergrad_website_text").val();
-        var location = $("#undergrad_website_location").val();
-        var description = $("#undergrad_website_description").val();
+        var location = $("#undergrad_location_text").val();
+        var description = $("#undergrad_description_text").val();
+        var ranking = $("#undergrad_ranking_text").val();
+        var ranking_type = $("#undergrad_ranking_type").val();
         var full_url = document.URL;
         var url_array = full_url.split('/')
         var app_id = url_array[url_array.length-2];
@@ -77,7 +124,9 @@ $(document).ready(function () {
                 acceptance_rate: accp_rate,
                 website: website,
                 location: location,
-                description: description
+                description: description,
+                ranking: ranking,
+                ranking_type: ranking_type
             }),
             success: function (jsonData) {
                 result = JSON.parse(jsonData);

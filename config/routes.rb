@@ -46,6 +46,8 @@ Rails.application.routes.draw do
 
 
   resources :countries
+  resources :rank_types
+  resources :undergrad_universities
   root to: 'homepage#index'
 
 end
