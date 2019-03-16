@@ -44,7 +44,7 @@ Rails.application.routes.draw do
        end
    end
 
-
+  resources :research_interests
 
   root to: 'homepage#index'
 

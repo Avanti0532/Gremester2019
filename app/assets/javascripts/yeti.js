@@ -7,3 +7,4 @@
 //= require datatables
 //= require datatables/dataTables.bootstrap4
 //= require yeti/university.js
+//= require yeti/research_interests.js

@@ -30,6 +30,7 @@ gem 'poltergeist'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'gon'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

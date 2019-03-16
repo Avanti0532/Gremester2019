@@ -171,5 +171,6 @@ class ProfilesController < ApplicationController
 
   def fStudentList
     @applications = Application.all
+    @research_interests = ResearchInterestsController.new.index
   end
 end
