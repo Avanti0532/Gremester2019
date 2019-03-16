@@ -70,8 +70,6 @@ class ProfilesController < ApplicationController
     @interested_term = profile_params[:interested_term]
     @interested_year = profile_params[:interested_year]
     @year_work_exp = params[:year_work_exp]
-    puts 'here'
-    puts @year_work_exp
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?
@@ -159,14 +157,15 @@ class ProfilesController < ApplicationController
 
   def deleteschools
     profile_id = current_student.current_profile.id
-    @deletion = Application.where(profile_id: profile_id , university_id: params[:university_id]).delete_all
-    if @deletion > 0
+    app_id = params[:application_id]
+    @record = Application.where(id: app_id).delete_all
+    if @record > 0
       flash[:notice] = 'University is deleted successfully'
     else
       flash[:notice] = 'Error while deleting the university'
     end
     @applications = Application.where(profile_id: profile_id)
-    redirect_to show_profiles_path(profile_id)
+    render :json => {'result' => flash[:notice]}
   end
 
   def fStudentList
