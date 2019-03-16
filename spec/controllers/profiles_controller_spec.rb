@@ -120,25 +120,18 @@ describe ProfilesController do
     @mock_profile = Profile.create(id:1, student_id: 1)
     controller.stub(:current_student).and_return(mock_student)
     controller.instance_eval {@profile = @mock_profile}
-    @univ_id = "1"
-    @count = 1
     @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
     @application.save
-    @deletion = double("application")
+    @deletion = 1
   end
-    it 'should render show school template' do
-      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id:@univ_id).and_return(@count)
-      post :deleteschools, {"university_id"=> "1"}
-      expect(response).to redirect_to(show_profiles_path(@mock_profile.id))
-    end
     it 'should flash successful message when school is deleted successfully' do
-      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id:@univ_id).and_return(@count)
-      post :deleteschools, {"university_id"=> "1"}
+      Application.stub_chain(:delete_all, :where).with(@application.id).and_return(@deletion)
+      post :deleteschools, {"application_id"=>"1", "profile"=>{}}
       expect(flash[:notice]).to eq('University is deleted successfully')
     end
     it 'should flash unsuccessful message for unsuccessful deletion' do
-      Application.stub_chain(:delete_all, :where).with(profile_id: @mock_profile.id, university_id: "2").and_return(0)
-      post :deleteschools, {"university_id"=> "2"}
+      Application.stub_chain(:delete_all, :where).with(:id => "2").and_return(0)
+      post :deleteschools, {"application_id"=>"2", "profile"=>{}}
       expect(flash[:notice]).to eq('Error while deleting the university')
     end
   end
@@ -149,6 +142,13 @@ describe ProfilesController do
       Country.stub_chain(:where, :first, :undergrad_universities, :order).and_return(mock_university)
       get :getUndergradUniversityByCountry, {"country" => "United States", format: :json}
       expect(assigns(:undergrad_universities)).to eq(mock_university)
+    end
+  end
+  describe 'Get student list' do
+    it 'should return all the applications' do
+      @application = [double('application1'),double('application2')]
+      expect(Application).to receive(:all).and_return(@application)
+      get :fStudentList
     end
   end
 end
