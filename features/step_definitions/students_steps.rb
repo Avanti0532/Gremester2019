@@ -314,9 +314,6 @@ Then(/^I cannot add undergrad university (.*?)$/) do |field|
     fill_in 'undergrad_school_name', with: 'Test New Undergrad'
     fill_in 'undergrad_acceptance_rate_text', with: '-20'
     find('[name=save_modal_button]').click
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until page.evaluate_script('jQuery.active').zero?
-    end
     page.should have_content 'Acceptance rate must be a number greater than 0 and less than 100'
   when 'if I fill in negative ranking'
     fill_in 'undergrad_school_name', with: 'Test New Undergrad 2'
@@ -326,9 +323,6 @@ Then(/^I cannot add undergrad university (.*?)$/) do |field|
     select('US News', from: 'undergrad_rank_type')
     fill_in 'undergrad_ranking_text', with: '-40'
     find('[name=save_modal_button]').click
-    Timeout.timeout(Capybara.default_max_wait_time) do
-      loop until page.evaluate_script('jQuery.active').zero?
-    end
     page.should have_content 'Ranking must be a number greater than 0'
   end
 

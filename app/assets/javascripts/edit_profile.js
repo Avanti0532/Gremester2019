@@ -98,13 +98,18 @@ $(document).ready(function () {
     $('#saveUndergradInfo').click(function(){
         var school_name = $('#undergrad_school_name').val();
         var country = $('#undergrad_country').val();
-        var acceptance_rate =  $('#undergrad_acceptance_rate_text   ').val();
+        var acceptance_rate =  $('#undergrad_acceptance_rate_text').val();
         var location =  $('#undergrad_location_text').val();
         var description =  $('#undergrad_description_text').val();
         var ranking =  $('#undergrad_ranking_text').val();
         var rank_type =  $('#undergrad_rank_type').val();
         var website = $('#undergrad_website_text').val();
         var new_rank_type = $('#new_rank_type').val();
+        // Adding console log for testing purpose. Some of the Cucumber tests are flaky and adding these prints seem to help
+        // If this is not working, we will have to suppress the tests
+        console.log(school_name);
+        console.log(acceptance_rate);
+        console.log(ranking);
         var valid = true;
         if (school_name === '') {
             $("div[role=alert]").text('');
