@@ -13,9 +13,9 @@
 <%end %>
 <hr>
 <div class="well row">
-  <%= form_tag({:action => 'index'},{:method => :get}) do |f| %>
-
-    <div class="col-md-6">
+  <%= form_tag url_for(:controller => 'profiles', :action => 'filter'), :method => :get do |f| %>
+    <div class="row">
+    <div class="col-md-4">
       <%= label_tag 'research_interests','Research Interests'%>
       <%if @research_interests then%>
         <select id="research-interests-multiselect" name=”multicheckbox[]”>
@@ -26,19 +26,57 @@
         </select>
       <%end %>
     </div>
-    <div class="col-md-6">
-      <label for="score">CGPA range:</label>
-      <input type="text" class="score" id="cgpa-score" readonly style="border:0; color:#f6931f; font-weight:bold;">
-    <div id="slider-range-cgpa"></div>
+    <div class="col-md-4">
+        <%= label_tag 'undergrad_college','Undergraduate College'%>
+        <%if @undergrad_universities then%>
+          <select id="undergrad_university" name="undergrad_university">
+            <%@undergrad_universities.each do |undergrad_university|%>
+              <option value="<%=undergrad_university.id %>"><%=undergrad_university.university_name %></option>
+            <% end %>
+            <option value="all">**All**</option>
+          </select>
+        <%end %>
+      </div>
+    <div class="col-md-4">
 
     </div>
-
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="score">Cumulative GPA range:</label>
+        <input type="text" class="score" id="cgpa_score" name="cgpa_score" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        <div id="slider-range-cgpa"></div>
+      </div>
+      <div class="col-md-4">
+        <label for="score">GRE-Quantitative range:</label>
+        <input type="text" class="score" id="greq_score" name="greq_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <div id="slider-range-greq"></div>
+      </div>
+      <div class="col-md-4">
+        <label for="score">GRE-Verbal range:</label>
+        <input type="text" class="score" id="grev_score" name="grev_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <div id="slider-range-grev"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label for="score">MS Degree Objective range:</label>
+        <input type="text" class="score" id="msob_score" name="msob_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <div id="slider-range-msob"></div>
+      </div>
+      <div class="col-md-4">
+        <label for="score">PhD Degree Objective range:</label>
+        <input type="text" class="score" id="phdo_score" name="phdo_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <div id="slider-range-phdo"></div>
+      </div>
+    </div>
     <br/>
     <div class="col-md-2">
       <%= submit_tag "Filter", class: 'btn btn-info btn-block' %>
     </div>
   <% end %>
 </div>
+
 
 <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
   <thead>

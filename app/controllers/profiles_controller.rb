@@ -172,5 +172,41 @@ class ProfilesController < ApplicationController
   def fStudentList
     @applications = Application.all
     @research_interests = ResearchInterestsController.new.index
+    @undergrad_universities = UndergradUniversitiesController.new.index
+  end
+  def filter
+    unless params[:undergrad_university].blank?
+      undergrad_university_id = params[:undergrad_university]
+    end
+    puts "params[:cgpa_score]=#{params[:cgpa_score]}"
+    unless params[:cgpa_score].blank?
+      cgpa_values = params[:cgpa_score].to_s.split(" - ");
+      cgpa_low = cgpa_values[0]
+      cgpa_high = cgpa_values[1]
+    end
+    unless params[:greq_score].blank?
+      greq_values = params[:greq_score].to_s.split(" - ");
+      greq_low = greq_values[0]
+      greq_high = greq_values[1]
+    end
+    unless params[:grev_score].blank?
+      grev_values = params[:grev_score].to_s.split(" - ");
+      grev_low = grev_values[0]
+      grev_high = grev_values[1]
+    end
+    # @applications = Application.includes(:profiles, :undergrad_university).where("profiles.undergrad_university.undergrad_university_id=#{undergrad_university_id.to_s}")
+    # @applications.each do |application|
+    #   puts application.profile.undergrad_university_id
+    # end
+    @applications = Application.joins(:profile).where("profiles.cgpa > #{cgpa_low} AND profiles.cgpa < #{cgpa_high} AND "+
+                    "profiles.gre_quant > #{greq_low} AND profiles.gre_quant < #{greq_high} AND "+
+                    "profiles.gre_verbal > #{grev_low} AND profiles.gre_verbal < #{grev_high}").all
+    # @applications.each do |application|
+    #   puts application.profile.undergrad_university_id
+    # end
+    @research_interests = ResearchInterestsController.new.index
+    @undergrad_universities = UndergradUniversitiesController.new.index
+    # redirect_to fStudentList_profiles_path
+    render 'profiles/fStudentList'
   end
 end
