@@ -244,5 +244,20 @@ Then /^I can update my (.*?)$/ do |field|
     click_button 'Save Changes'
     current_student.current_profile.research_interests.first.name.should eq("Machine Learning")
   end
+end
 
+Then(/I can add new undergrad universitiy$/) do
+  undergrad_universities = UndergradUniversity.count
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  select('United States', from: 'country_id')
+  select('School not listed', from: 'undergrad_universities')
+  click_button 'Add your school'
+  fill_in 'undergrad_school_name', with: 'Test New Undergrad'
+  find('[name=save_modal_button]').click
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  UndergradUniversity.count.should eq(undergrad_universities + 1)
 end

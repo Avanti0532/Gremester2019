@@ -110,3 +110,7 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then I can update my research interest
 
+    @javascript
+  Scenario: Student can add undergrad university if it's not available on the school list
+    When I log in as a student
+    Then I can add new undergrad universitiy

@@ -1,5 +1,8 @@
 class UndergradUniversitiesController < ApplicationController
   def create
+    puts 'here in rb'
+    puts params[:university_name]
+    puts params[:country]
     if (!params[:university_name].blank? and !params[:country].blank?)
       new_rank = nil
       if (!params[:ranking].blank? and !params[:rank_type].blank?)
