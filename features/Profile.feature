@@ -129,12 +129,12 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then I cannot add undergrad university if I don't specify school name
 
-  @javascript
+  @wip
   Scenario: Student cannot add undergrad university if I fill in negative acceptance rate
     When I log in as a student
     Then I cannot add undergrad university if I fill in negative acceptance rate
 
-  @javascript
+  @wip
   Scenario: Student cannot add undergrad university if I fill in negative ranking
     When I log in as a student
     Then I cannot add undergrad university if I fill in negative ranking
