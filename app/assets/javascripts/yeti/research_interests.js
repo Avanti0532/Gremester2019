@@ -1,9 +1,19 @@
 $(document).ready(function() {
 
-    $('#research-interests-multiselect').change(function () {
+    $('#research-interests-multiselect').change(function (e) {
+        e.stopImmediatePropagation();
+        console.log("change");
         var theValue = $(this).find('option:selected').text();
+        console.log(theValue);
         if (theValue == "**Multiple**") {
-            residenceAlert();
+            console.log("In If");
+            jQuery.noConflict();
+            $("#researchInterestsModal").modal(
+                {backdrop: true}
+            );
+            $("#researchInterestsModal").show();
+            $("#researchInterestsModal").appendTo("body");
+            // return false;
         }
     });
     var slidercgpa = $("#slider-range-cgpa").slider({
