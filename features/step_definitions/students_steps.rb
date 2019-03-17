@@ -246,7 +246,7 @@ Then /^I can update my (.*?)$/ do |field|
   end
 end
 
-Then(/I can add new undergrad universitiy$/) do
+Then(/I can add new undergrad university with only school name and country$/) do
   undergrad_universities = UndergradUniversity.count
   current_student = Student.find_by_email(@saved_student_data[:email])
   visit profile_path(current_student.id)
@@ -261,3 +261,110 @@ Then(/I can add new undergrad universitiy$/) do
   end
   UndergradUniversity.count.should eq(undergrad_universities + 1)
 end
+
+Then(/I can add new undergrad university with all fields specified$/) do
+  undergrad_universities = UndergradUniversity.count
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  select('United States', from: 'country_id')
+  select('School not listed', from: 'undergrad_universities')
+  click_button 'Add your school'
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  fill_in 'undergrad_school_name', with: 'Test New Undergrad 2'
+  fill_in 'undergrad_acceptance_rate_text', with: '20'
+  fill_in 'undergrad_location_text', with: 'test location'
+  fill_in 'undergrad_description_text', with: 'test description'
+  select('US News', from: 'undergrad_rank_type')
+  fill_in 'undergrad_ranking_text', with: '40'
+  fill_in 'undergrad_website_text', with: 'test website'
+  find('[name=save_modal_button]').click
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  UndergradUniversity.count.should eq(undergrad_universities + 1)
+  new_undergrad = UndergradUniversity.find_by_university_name('Test New Undergrad 2')
+  new_undergrad.acceptance_rate.should eq(20.0)
+  new_undergrad.location.should eq('test location')
+  new_undergrad.university_desc.should eq('test description')
+  new_undergrad.country_id.should eq(1)
+  new_undergrad.university_link.should eq('test website')
+  new_undergrad.rankings[0].rank_type.name.should eq('US News')
+  new_undergrad.rankings[0].rank.should eq(40)
+end
+
+Then(/^I cannot add undergrad university (.*?)$/) do |field|
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  select('United States', from: 'country_id')
+  select('School not listed', from: 'undergrad_universities')
+  click_button 'Add your school'
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  case field
+  when "if I don't specify school name"
+    fill_in 'undergrad_school_name', with: ''
+    find('[name=save_modal_button]').click
+    page.should have_content 'Please fill in university name'
+  when 'if I fill in negative acceptance rate'
+    fill_in 'undergrad_school_name', with: 'Test New Undergrad'
+    fill_in 'undergrad_acceptance_rate_text', with: '-20'
+    find('[name=save_modal_button]').click
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.evaluate_script('jQuery.active').zero?
+    end
+    page.should have_content 'Acceptance rate must be a number greater than 0 and less than 100'
+  when 'if I fill in negative ranking'
+    fill_in 'undergrad_school_name', with: 'Test New Undergrad 2'
+    fill_in 'undergrad_acceptance_rate_text', with: '20'
+    fill_in 'undergrad_location_text', with: 'test location'
+    fill_in 'undergrad_description_text', with: 'test description'
+    select('US News', from: 'undergrad_rank_type')
+    fill_in 'undergrad_ranking_text', with: '-40'
+    find('[name=save_modal_button]').click
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until page.evaluate_script('jQuery.active').zero?
+    end
+    page.should have_content 'Ranking must be a number greater than 0'
+  end
+
+end
+
+Then (/^I can add undergrad university with new rank type if it's not in the list$/) do
+  undergrad_universities = UndergradUniversity.count
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  select('United States', from: 'country_id')
+  select('School not listed', from: 'undergrad_universities')
+  click_button 'Add your school'
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  fill_in 'undergrad_school_name', with: 'Test New Undergrad 3'
+  fill_in 'undergrad_acceptance_rate_text', with: '20'
+  fill_in 'undergrad_location_text', with: 'test location'
+  fill_in 'undergrad_description_text', with: 'test description'
+  select('Ranking type not listed', from: 'undergrad_rank_type')
+  fill_in 'new_rank_type', with: 'new rank type'
+  fill_in 'undergrad_ranking_text', with: '40'
+  fill_in 'undergrad_website_text', with: 'test website'
+  find('[name=save_modal_button]').click
+  Timeout.timeout(Capybara.default_max_wait_time) do
+    loop until page.evaluate_script('jQuery.active').zero?
+  end
+  UndergradUniversity.count.should eq(undergrad_universities + 1)
+  new_undergrad = UndergradUniversity.find_by_university_name('Test New Undergrad 3')
+  new_undergrad.acceptance_rate.should eq(20.0)
+  new_undergrad.location.should eq('test location')
+  new_undergrad.university_desc.should eq('test description')
+  new_undergrad.country_id.should eq(1)
+  new_undergrad.university_link.should eq('test website')
+  new_undergrad.rankings[0].rank_type.name.should eq('new rank type')
+  new_undergrad.rankings[0].rank.should eq(40)
+end
+
