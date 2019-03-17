@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'rails_helper'
-require 'factory_girl'
+
 
 describe CountriesController do
   describe 'Get student list' do

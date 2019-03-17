@@ -25,9 +25,7 @@ $(document).ready(function () {
     $('#undergrad_universities').change(function() {
         var university;
         university = $('#undergrad_universities :selected').text();
-        console.log(university);
         if (university === 'School not listed') {
-            console.log('here');
             if ($("#add_new_undergrad").length <= 0) {
                 $("#undergraduate_edit").append('<button type="button" id="add_new_undergrad">Add your school</button>');
             }
@@ -98,7 +96,6 @@ $(document).ready(function () {
 
 
     $('#saveUndergradInfo').click(function(){
-        console.log('here js');
         var school_name = $('#undergrad_school_name').val();
         var country = $('#undergrad_country').val();
         var acceptance_rate =  $('#undergrad_acceptance_rate_text   ').val();
@@ -109,8 +106,6 @@ $(document).ready(function () {
         var website = $('#undergrad_website_text').val();
         var new_rank_type = $('#new_rank_type').val();
         var valid = true;
-        console.log(school_name);
-        console.log(country);
         if (school_name === '') {
             $("div[role=alert]").text('');
             $("div[role=alert]").text('Please fill in university name');
@@ -129,6 +124,7 @@ $(document).ready(function () {
                     $("div[role=alert]").text('Ranking must be a number greater than 0');
                     $("div[role=alert]").show();
                     valid = false;
+
                 }
             }
         } else if (acceptance_rate !== '') {
@@ -140,7 +136,6 @@ $(document).ready(function () {
                 valid = false;
             }
         }
-        console.log(valid);
         if (valid) {
             $.ajax({
                 url: "/undergrad_universities",
@@ -158,8 +153,6 @@ $(document).ready(function () {
                 },
                 dataType: 'html',
                 success: function (data) {
-                    console.log('Successs');
-
                     setTimeout(function () {
                         window.location.reload();
                     });
@@ -173,5 +166,3 @@ $(document).ready(function () {
         }
     });
 });
-
-
