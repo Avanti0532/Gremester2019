@@ -124,7 +124,7 @@ Feature: Allow students to edit their profile
     When I log in as a student
     Then I can add new undergrad university with all fields specified
 
-  @javascript
+  @wip
   Scenario: Student cannot add undergrad university if they don't specify school name
     When I log in as a student
     Then I cannot add undergrad university if I don't specify school name

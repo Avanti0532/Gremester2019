@@ -105,11 +105,6 @@ $(document).ready(function () {
         var rank_type =  $('#undergrad_rank_type').val();
         var website = $('#undergrad_website_text').val();
         var new_rank_type = $('#new_rank_type').val();
-        // Adding console log for testing purpose. Some of the Cucumber tests are flaky and adding these prints seem to help
-        // If this is not working, we will have to suppress the tests
-        console.log(school_name);
-        console.log(acceptance_rate);
-        console.log(ranking);
         var valid = true;
         if (school_name === '') {
             $("div[role=alert]").text('');
