@@ -2,19 +2,30 @@ $(document).ready(function() {
 
     $('#research-interests-multiselect').change(function (e) {
         e.stopImmediatePropagation();
-        console.log("change");
         var theValue = $(this).find('option:selected').text();
-        console.log(theValue);
         if (theValue == "**Multiple**") {
-            console.log("In If");
             jQuery.noConflict();
             $("#researchInterestsModal").modal(
-                {backdrop: true}
+                {backdrop: false}
             );
-            $("#researchInterestsModal").show();
-            $("#researchInterestsModal").appendTo("body");
-            // return false;
+        }else{
+            $("#multiple_interests").text("");
         }
+    });
+    
+    $('#doneModal').click(function (e) {
+        e.stopImmediatePropagation();
+        var array_interests_ids = [];
+        var array_interests_labels = [];
+        $("input:checkbox:checked").each(function(){
+            array_interests_ids.push($(this).val());
+            array_interests_labels.push($(this).parent().find("label").text());
+        });
+        console.log(array_interests_ids);
+        console.log(array_interests_labels);
+        $("#researchInterestsModal").hide();
+        $("#multiple_interests").text(array_interests_labels);
+        $("#multiple_interests_ids").val(array_interests_ids);
     });
     var slidercgpa = $("#slider-range-cgpa").slider({
         range: true,
@@ -62,10 +73,10 @@ $(document).ready(function() {
         step: 1,
         values: [0, 5],
         slide: function(event, ui) {
-            $( "#msob-score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            $( "#msob_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
         }
     });
-    $( "#msob-score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
+    $( "#msob_score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
         " - " + $( "#slider-range-msob" ).slider( "values", 1 ) );
 
     var sliderphdo = $("#slider-range-phdo").slider({
@@ -75,10 +86,10 @@ $(document).ready(function() {
         step: 1,
         values: [0, 5],
         slide: function(event, ui) {
-            $( "#phdo-score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+            $( "#phdo_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
         }
     });
-    $( "#phdo-score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
+    $( "#phdo_score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
         " - " + $( "#slider-range-phdo" ).slider( "values", 1 ) );
 });
 

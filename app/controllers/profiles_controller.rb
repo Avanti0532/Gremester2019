@@ -194,19 +194,67 @@ class ProfilesController < ApplicationController
       grev_low = grev_values[0]
       grev_high = grev_values[1]
     end
-    # @applications = Application.includes(:profiles, :undergrad_university).where("profiles.undergrad_university.undergrad_university_id=#{undergrad_university_id.to_s}")
-    # @applications.each do |application|
-    #   puts application.profile.undergrad_university_id
-    # end
-    @applications = Application.joins(:profile).where("profiles.cgpa > #{cgpa_low} AND profiles.cgpa < #{cgpa_high} AND "+
-                    "profiles.gre_quant > #{greq_low} AND profiles.gre_quant < #{greq_high} AND "+
-                    "profiles.gre_verbal > #{grev_low} AND profiles.gre_verbal < #{grev_high}").all
-    # @applications.each do |application|
-    #   puts application.profile.undergrad_university_id
-    # end
+    unless params[:msob_score].blank?
+      msob_values = params[:msob_score].to_s.split(" - ");
+      msob_low = msob_values[0]
+      msob_high = msob_values[1]
+    end
+    unless params[:phdo_score].blank?
+      phdo_values = params[:phdo_score].to_s.split(" - ");
+      phdo_low = phdo_values[0]
+      phdo_high = phdo_values[1]
+    end
+    unless params[:undergrad_university].blank?
+      puts "In UU"
+      if params[:undergrad_university].to_s =~ /^any$/
+        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+      else
+        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+                            # .joins(:profiles_undergrad_university).where("undergrad_university.id=#{params[:undergrad_university]}").all
+      end
+    end
+    unless params[:research_interests].blank?
+      # byebug
+      puts "In RI"
+      if params[:research_interests].to_s =~ /^any$/
+        byebug
+        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+      elsif params[:research_interests].to_s =~ /^multiple$/
+             multiple_interests = params[:multiple_interests_ids].to_s.split(",");
+             multiple_interests.each do |interest|
+               puts interest.to_s
+             end
+             @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                                   "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                                   "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                                   "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                                   "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+      else
+        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+                                        # .joins(:undergrad_universities).where("undergrad_universities.id=#{params[:undergrad_university]}").all
+      end
+    end
+
+
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
-    # redirect_to fStudentList_profiles_path
+
     render 'profiles/fStudentList'
   end
 end

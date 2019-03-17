@@ -18,7 +18,8 @@
     <div class="col-md-4">
       <%= label_tag 'research_interests','Research Interests'%>
       <%if @research_interests then%>
-        <select id="research-interests-multiselect" name=”multicheckbox[]”>
+        <select id="research_interests" name="research_interests">
+          <option value="any">**Any**</option>
           <%@research_interests.each do |research_interest|%>
             <option value="<%=research_interest.id %>"><%=research_interest.name %></option>
           <% end %>
@@ -26,19 +27,19 @@
         </select>
       <%end %>
     </div>
+    <div class="col-md-4" id="multiple_interests" name="multiple_interests">
+      <input type="hidden" id="multiple_interests_ids" name="multiple_interests_ids" />
+    </div>
     <div class="col-md-4">
-        <%= label_tag 'undergrad_college','Undergraduate College'%>
-        <%if @undergrad_universities then%>
-          <select id="undergrad_university" name="undergrad_university">
-            <%@undergrad_universities.each do |undergrad_university|%>
-              <option value="<%=undergrad_university.id %>"><%=undergrad_university.university_name %></option>
-            <% end %>
-            <option value="all">**All**</option>
-          </select>
-        <%end %>
-      </div>
-    <div class="col-md-4">
-
+      <%= label_tag 'undergrad_college','Undergraduate College'%>
+      <%if @undergrad_universities then%>
+        <select id="undergrad_university" name="undergrad_university">
+          <option value="any">**Any**</option>
+          <%@undergrad_universities.each do |undergrad_university|%>
+            <option value="<%=undergrad_university.id %>"><%=undergrad_university.university_name %></option>
+          <% end %>
+        </select>
+      <%end %>
     </div>
     </div>
     <div class="row">
@@ -109,7 +110,7 @@
       <td><%="#{applicant.profile.gre_verbal}" %></td>
       <%if applicant.profile.degree_objective_master == 1 %>
         <td id = "msphd"><%= "MS"%></td>
-          <%if applicant.profile.degree_objective_ == 0 %>
+          <%if applicant.profile.degree_objective_phd == 0 %>
            <td id = "msphd"><%= "MS + PhD"%></td>
           <%end %>
       <%elsif applicant.profile.degree_objective_master == 0 && applicant.profile.degree_objective_phd == 1 %>
@@ -124,7 +125,7 @@
 </table>
 <!-- Modal -->
 
-<div class="modal fade in" id="researchInterestsModal" role="dialog" style="z-index:10;">
+<div class="modal fade" id="researchInterestsModal" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -138,7 +139,10 @@
           <div class="alert alert-danger fade" role="alert"></div>
           <%if @research_interests then%>
             <%@research_interests.each do |research_interest|%>
-              <input type="checkbox" value="<%=research_interest.id %>"><%=research_interest.name %>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="<%=research_interest.id %>" value="<%=research_interest.id %>">
+                <label class="form-check-label" for="<%=research_interest.id %>"><%=research_interest.name %></label>
+              </div>
             <% end %>
           <%end %>
         </form>
