@@ -213,7 +213,11 @@ class ProfilesController < ApplicationController
                                                               "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
                                                               "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
       else
-        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+        # byebug
+        undergrad_uni = UndergradUniversity.find(params[:undergrad_university])
+        profiles_undergrad_universities = undergrad_uni.profiles_undergrad_universities
+        # profiles = profiles_undergrad_universities.profile
+        @applications = Application.joins(:profiles_undergrad_universities).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
                                                               "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
                                                               "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
                                                               "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
@@ -225,7 +229,6 @@ class ProfilesController < ApplicationController
       # byebug
       puts "In RI"
       if params[:research_interests].to_s =~ /^any$/
-        byebug
         @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
                                                               "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
                                                               "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
@@ -258,3 +261,5 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 end
+
+# @applications = Application.joins(:profiles_undergrad_universities).where("profiles.cgpa >= 0 AND profiles.cgpa <= 5 AND profiles.gre_quant >= 0 AND profiles.gre_quant <= 5 AND profiles.gre_verbal >= 0 AND profiles.gre_verbal <= 5 AND profiles.degree_objective_phd >= 0 AND profiles.degree_objective_phd <= 5 AND profiles.degree_objective_master >= 0 AND profiles.degree_objective_master <= 5").all
