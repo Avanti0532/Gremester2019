@@ -56,6 +56,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |interest|
       ResearchInterest.create(interest)
     end
+  when 'RankType'
+    user_table.hashes.each do |rank_type|
+      RankType.create(rank_type)
+    end
   end
 end
 

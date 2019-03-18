@@ -46,6 +46,10 @@ Rails.application.routes.draw do
    end
 
   resources :research_interests
+  resources :countries
+  resources :rank_types
+  resources :undergrad_universities
+  resources :applications
 
   root to: 'homepage#index'
 
