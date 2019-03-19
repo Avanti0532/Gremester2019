@@ -5,7 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+require_relative './initializers/shrine'
 module Masterapp
   class Application < Rails::Application
     config.assets.enabled = true

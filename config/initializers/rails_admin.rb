@@ -80,4 +80,24 @@ RailsAdmin.config do |config|
 
   config.excluded_models = ["ResearchInterestsProfile", "ProfilesUndergradUniversity"]
 
-end
+  config.model Faculty do
+    list do
+      include_fields :first_name, :last_name, :email, :weblink, :university, :username
+      field :id_card_data do
+        formatted_value do
+          bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
+          # bindings[:view].tag(:img, { :src => bindings[:object].id_card_url(:thumb) })
+        end
+      end
+    end
+      show do
+        include_fields :first_name, :last_name, :email, :weblink, :university, :username
+        field :id_card_data do
+          formatted_value do
+            bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
+            # bindings[:view].tag(:img, { :src => bindings[:object].id_card_url(:thumb) })
+          end
+        end
+      end
+    end
+  end
