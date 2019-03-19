@@ -151,4 +151,22 @@ describe ProfilesController do
       get :fStudentList
     end
   end
+  describe "Get filtered student list" do
+    before :each do
+      mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      mock_faculty = Faculty.new(id: 1, first_name: 'Michael', last_name: 'Jordan', email: 'michael-jordan@uiowa.edu', university_id: 1)
+      @mock_profile = Profile.create(id:1, student_id: 1, cgpa: 3.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      # @mock_research_interest
+      # controller.stub(:current_student).and_return(mock_student)
+      # controller.instance_eval {@profile = @mock_profile}
+      @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
+      @application.save
+      @filtered = 1
+    end
+    it "should return applications whose profile has cgpa within the requested range" do
+      get :filter, {"cgpa_score"=>"3 - 5"}
+    end
+  end
+
+
 end

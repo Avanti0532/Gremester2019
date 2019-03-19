@@ -180,7 +180,6 @@ class ProfilesController < ApplicationController
       phdo_high = phdo_values[1]
     end
     unless params[:undergrad_university].blank?
-      puts "In UU"
       if params[:undergrad_university].to_s =~ /^any$/
         profiles_other = Profile.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
                                            "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
@@ -191,7 +190,6 @@ class ProfilesController < ApplicationController
           if params[:research_interests].to_s =~ /^any$/
             profiles = profiles_other
           elsif params[:research_interests].to_s =~ /^multiple$/
-
             interests = params[:multiple_interests].to_s.split(",")
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
@@ -214,7 +212,6 @@ class ProfilesController < ApplicationController
         else
           @applications = nil
         end
-
 
       else
 
