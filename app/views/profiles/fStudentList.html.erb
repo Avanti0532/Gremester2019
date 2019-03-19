@@ -28,8 +28,9 @@
         </select>
       <%end %>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" id="interests">
       <p id="multiple_interests_labels" name="multiple_interests_labels"></p>
+      <div id="buttonDiv" hidden="true"><input type="buttton" id="changeInterests" value="Change Interests" class='btn btn-info btn-block' visible="false"></div>
       <input type="hidden" id="multiple_interests" name="multiple_interests" value="">
     </div>
     <div class="col-md-4">
@@ -76,6 +77,9 @@
     <br/>
     <div class="col-md-2">
       <%= submit_tag "Filter", class: 'btn btn-info btn-block' %>
+    </div>
+    <div class="col-md-2">
+      <input type="reset" value="Reset" class='btn btn-warning btn-block' onClick="document.location='/profiles/fStudentList'">
     </div>
   <% end %>
 </div>
