@@ -86,7 +86,6 @@ RailsAdmin.config do |config|
       field :id_card_data do
         formatted_value do
           bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
-          # bindings[:view].tag(:img, { :src => bindings[:object].id_card_url(:thumb) })
         end
       end
     end
@@ -95,7 +94,6 @@ RailsAdmin.config do |config|
         field :id_card_data do
           formatted_value do
             bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
-            # bindings[:view].tag(:img, { :src => bindings[:object].id_card_url(:thumb) })
           end
         end
       end
