@@ -1,6 +1,7 @@
 // Yeti
 // Bootswatch
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require yeti/loader
 //= require yeti/bootswatch

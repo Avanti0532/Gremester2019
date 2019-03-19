@@ -7,7 +7,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <%= javascript_include_tag 'yeti/research_interests' %>
 <%= stylesheet_link_tag    "application", :media => "all", 'data-turbolinks-track' => true %>
-<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "yeti" %>
+<%= stylesheet_link_tag 'research_interests' %>
 <%if faculty_signed_in? %>
   <h4 style = "padding-left: 20px"> <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
 <%end %>
@@ -27,8 +28,9 @@
         </select>
       <%end %>
     </div>
-    <div class="col-md-4" id="multiple_interests" name="multiple_interests">
-      <input type="hidden" id="multiple_interests_ids" name="multiple_interests_ids" />
+    <div class="col-md-4">
+      <p id="multiple_interests_labels" name="multiple_interests_labels"></p>
+      <input type="hidden" id="multiple_interests" name="multiple_interests" value="">
     </div>
     <div class="col-md-4">
       <%= label_tag 'undergrad_college','Undergraduate College'%>
@@ -45,29 +47,29 @@
     <div class="row">
       <div class="col-md-4">
         <label for="score">Cumulative GPA range:</label>
-        <input type="text" class="score" id="cgpa_score" name="cgpa_score" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        <input type="text" class="score" id="cgpa_score" name="cgpa_score" readonly>
         <div id="slider-range-cgpa"></div>
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Quantitative range:</label>
-        <input type="text" class="score" id="greq_score" name="greq_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <input type="text" class="score" id="greq_score" name="greq_score">
         <div id="slider-range-greq"></div>
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Verbal range:</label>
-        <input type="text" class="score" id="grev_score" name="grev_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <input type="text" class="score" id="grev_score" name="grev_score">
         <div id="slider-range-grev"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <label for="score">MS Degree Objective range:</label>
-        <input type="text" class="score" id="msob_score" name="msob_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <input type="text" class="score" id="msob_score" name="msob_score">
         <div id="slider-range-msob"></div>
       </div>
       <div class="col-md-4">
         <label for="score">PhD Degree Objective range:</label>
-        <input type="text" class="score" id="phdo_score" name="phdo_score" style="border:0; color:#f6931f; font-weight:bold;">
+        <input type="text" class="score" id="phdo_score" name="phdo_score">
         <div id="slider-range-phdo"></div>
       </div>
     </div>
@@ -99,12 +101,19 @@
   </tr>
   </thead>
   <tbody>
+  <% if @applications != nil %>
   <% @applications.each do |applicant| %>
     <%if applicant.university_id == current_faculty.university_id %>
     <tr>
       <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
       <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
-      <td><%="Research Area" %></td>
+      <% research_interests = applicant.profile.research_interests
+         ri = []
+         research_interests.each do |interest|
+         ri << interest.name
+         end
+      %>
+      <td><%=ri %></td>
       <td><%="#{applicant.profile.cgpa}"%></td>
       <td><%="#{applicant.profile.gre_quant}" %></td>
       <td><%="#{applicant.profile.gre_verbal}" %></td>
@@ -121,6 +130,8 @@
     </tr>
     <%end %>
   <% end %>
+
+    <%end %>
   </tbody>
 </table>
 <!-- Modal -->

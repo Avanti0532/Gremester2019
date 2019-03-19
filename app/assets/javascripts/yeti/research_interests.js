@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
-    $('#research-interests-multiselect').change(function (e) {
+    $('#research_interests').change(function (e) {
         e.stopImmediatePropagation();
+        console.log("In click");
         var theValue = $(this).find('option:selected').text();
         if (theValue == "**Multiple**") {
             jQuery.noConflict();
@@ -24,8 +25,8 @@ $(document).ready(function() {
         console.log(array_interests_ids);
         console.log(array_interests_labels);
         $("#researchInterestsModal").hide();
-        $("#multiple_interests").text(array_interests_labels);
-        $("#multiple_interests_ids").val(array_interests_ids);
+        $("#multiple_interests_labels").text(array_interests_labels);
+        $("#multiple_interests").val(array_interests_ids);
     });
     var slidercgpa = $("#slider-range-cgpa").slider({
         range: true,

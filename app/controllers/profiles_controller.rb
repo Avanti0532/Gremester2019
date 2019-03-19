@@ -154,10 +154,6 @@ class ProfilesController < ApplicationController
     @undergrad_universities = UndergradUniversitiesController.new.index
   end
   def filter
-    unless params[:undergrad_university].blank?
-      undergrad_university_id = params[:undergrad_university]
-    end
-    puts "params[:cgpa_score]=#{params[:cgpa_score]}"
     unless params[:cgpa_score].blank?
       cgpa_values = params[:cgpa_score].to_s.split(" - ");
       cgpa_low = cgpa_values[0]
@@ -186,53 +182,77 @@ class ProfilesController < ApplicationController
     unless params[:undergrad_university].blank?
       puts "In UU"
       if params[:undergrad_university].to_s =~ /^any$/
-        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
-      else
-        # byebug
-        undergrad_uni = UndergradUniversity.find(params[:undergrad_university])
-        profiles_undergrad_universities = undergrad_uni.profiles_undergrad_universities
-        # profiles = profiles_undergrad_universities.profile
-        @applications = Application.joins(:profiles_undergrad_universities).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
-                            # .joins(:profiles_undergrad_university).where("undergrad_university.id=#{params[:undergrad_university]}").all
-      end
-    end
-    unless params[:research_interests].blank?
-      # byebug
-      puts "In RI"
-      if params[:research_interests].to_s =~ /^any$/
-        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
-      elsif params[:research_interests].to_s =~ /^multiple$/
-             multiple_interests = params[:multiple_interests_ids].to_s.split(",");
-             multiple_interests.each do |interest|
-               puts interest.to_s
-             end
-             @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                                   "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                                   "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                                   "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                                   "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
-      else
-        @applications = Application.joins(:profile).where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                              "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                              "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                              "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                              "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
-                                        # .joins(:undergrad_universities).where("undergrad_universities.id=#{params[:undergrad_university]}").all
-      end
-    end
+        profiles_other = Profile.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                           "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                           "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                           "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                           "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+        unless params[:research_interests].blank?
+          if params[:research_interests].to_s =~ /^any$/
+            profiles = profiles_other
+          elsif params[:research_interests].to_s =~ /^multiple$/
 
+            interests = params[:multiple_interests].to_s.split(",")
+            profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
+            profiles = profiles_other.merge(profiles_research_interests)
+          else
+            interests = params[:research_interests].to_s
+            profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
+            profiles = profiles_other.merge(profiles_research_interests)
+          end
+        end
+
+        if profiles.length >= 1
+          applications  = profiles[0].applications
+          profiles.each do |profile|
+            puts "Profile.gre_verbal"
+            puts profile.gre_verbal
+            applications = applications.merge(profile.applications)
+
+          end
+          @applications = applications
+        else
+          @applications = nil
+        end
+
+
+      else
+
+        undergrad_uni = UndergradUniversity.find_by_id(params[:undergrad_university])
+        profiles_other = undergrad_uni.profiles.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
+                                                    "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                    "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                    "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                    "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+        unless params[:research_interests].blank?
+          if params[:research_interests].to_s =~ /^any$/
+            profiles = profiles_other
+
+          elsif params[:research_interests].to_s =~ /^multiple$/
+            interests = params[:multiple_interests].to_s.split(",")
+            profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
+            profiles = profiles_other.merge(profiles_research_interests)
+
+          else
+            interests = params[:research_interests].to_s
+            profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
+            profiles = profiles_other.merge(profiles_research_interests)
+          end
+            if profiles.length >= 1
+              applications  = profiles[0].applications
+              profiles.each do |profile|
+                puts "Profile.gre_verbal"
+                puts profile.gre_verbal
+                applications = applications.merge(profile.applications)
+
+              end
+              @applications = applications
+            else
+              @applications = nil
+            end
+        end
+      end
+    end
 
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
@@ -240,5 +260,3 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 end
-
-# @applications = Application.joins(:profiles_undergrad_universities).where("profiles.cgpa >= 0 AND profiles.cgpa <= 5 AND profiles.gre_quant >= 0 AND profiles.gre_quant <= 5 AND profiles.gre_verbal >= 0 AND profiles.gre_verbal <= 5 AND profiles.degree_objective_phd >= 0 AND profiles.degree_objective_phd <= 5 AND profiles.degree_objective_master >= 0 AND profiles.degree_objective_master <= 5").all

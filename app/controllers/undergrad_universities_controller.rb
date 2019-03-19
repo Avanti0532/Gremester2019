@@ -3,7 +3,7 @@ class UndergradUniversitiesController < ApplicationController
     params.require(:undergrad_university).permit(:id, :university_name)
   end
   def index
-    @undergrad_universities = UndergradUniversity.all
+    @undergrad_universities = UndergradUniversity.order(:university_name)
   end
 
   def create
