@@ -4,25 +4,48 @@ class UndergradUniversitiesController < ApplicationController
       new_rank = nil
       if (!params[:ranking].blank? and !params[:rank_type].blank?)
         if !params[:new_rank_type].blank?
-          rank_type = RankType.create(:name => params[:new_rank_type])
+          begin
+            rank_type = RankType.create(:name => params[:new_rank_type])
+          rescue ActiveRecord::RecordNotUnique => e
+            respond_to do |format|
+              format.json {
+                render json: {errors: "Rank Type has been added"}
+                return
+              }
+            end
+          end
         else
           rank_type = RankType.find_by_id(params[:rank_type])
         end
         new_rank = Ranking.new(:rank => params[:ranking])
         rank_type.rankings << new_rank
       end
-      new_undergrad_university = UndergradUniversity.new()
-      new_undergrad_university.university_desc = params[:university_desc]
-      new_undergrad_university.acceptance_rate = params[:acceptance_rate]
-      new_undergrad_university.location = params[:location]
-      new_undergrad_university.university_link = params[:university_link]
-      new_undergrad_university.university_name = params[:university_name]
-      new_undergrad_university.country_id = params[:country]
-      if !new_rank.nil?
-        new_undergrad_university.rankings << new_rank
+      begin
+        new_undergrad_university = UndergradUniversity.new()
+        new_undergrad_university.university_desc = params[:university_desc]
+        new_undergrad_university.acceptance_rate = params[:acceptance_rate]
+        new_undergrad_university.location = params[:location]
+        new_undergrad_university.university_link = params[:university_link]
+        new_undergrad_university.university_name = params[:university_name]
+        new_undergrad_university.country_id = params[:country]
+        if !new_rank.nil?
+          new_undergrad_university.rankings << new_rank
+        end
+        current_student.current_profile.undergrad_universities << new_undergrad_university
+      rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
+        respond_to do |format|
+          format.json {
+            render json: {errors: "University name has been added"}
+            return
+          }
+        end
       end
-      current_student.current_profile.undergrad_universities << new_undergrad_university
     end
-      redirect_to :back
+    respond_to do |format|
+      format.json {
+        render json: {success: "Success"}
+        return
+      }
+    end
   end
 end

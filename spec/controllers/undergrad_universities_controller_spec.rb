@@ -11,27 +11,56 @@ describe UndergradUniversitiesController do
       controller.instance_eval {@profile = @mock_profile}
       @rank = RankType.new(id: 1, name: 'US News')
       @rank.save
+      Country.create(id: 2, name: 'India')
+      UndergradUniversity.create(country_id: 2, university_name: 'University of Iowa')
+      RankType.create(id: 3, name: 'world rank')
       @undergrad = UndergradUniversity.new
       request.env['HTTP_REFERER'] = 'http://localhost:3000/profiles/1/edit?'
       @before_count = UndergradUniversity.count
     end
   it 'should save the university details on successful update' do
     expect(RankType).to receive(:find_by_id).with("1").and_return(@rank)
-    post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"1", "university_link"=>"https://uausria.edu"}
+    post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"1", "university_link"=>"https://uausria.edu", format: :json}
     expect(UndergradUniversity.count).not_to eq(@before_count)
-    expect(response).to redirect_to :back
+    @expected = {
+        :success    => 'Success'
+    }.to_json
+    response.body.should == @expected
   end
   it 'should create new rank type when new rank type is listed' do
     @ranktype = RankType.new(id: 2, name: 'webopedia')
     expect(RankType).to receive(:create).with(:name => 'webopedia').and_return(@ranktype)
-    post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"Ranking type not listed", "university_link"=>"https://uausria.edu", "new_rank_type"=>"webopedia"}
+    post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"Ranking type not listed", "university_link"=>"https://uausria.edu", "new_rank_type"=>"webopedia", format: :json}
     expect(UndergradUniversity.count).not_to eq(@before_count)
-    expect(response).to redirect_to :back
+    @expected = {
+        :success    => 'Success'
+    }.to_json
+    response.body.should == @expected
   end
     it 'should save the university details when ranking and rank type is not specified' do
-      post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "university_link"=>"https://uausria.edu"}
+      post :create, {"university_name"=>"University of America", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "university_link"=>"https://uausria.edu", format: :json}
       expect(UndergradUniversity.count).not_to eq(@before_count)
-      expect(response).to redirect_to :back
+      @expected = {
+          :success    => 'Success'
+      }.to_json
+      response.body.should == @expected
+    end
+    it 'should give error if university already exists' do
+      expect(RankType).to receive(:find_by_id).with("1").and_return(@rank)
+      post :create, {"university_name"=>"University of Iowa", "country"=>"2", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"1", "university_link"=>"https://uausria.edu", format: :json}
+      expect(UndergradUniversity.count).to eq(@before_count)
+      @expected = {
+          :errors    => 'University name has been added'
+      }.to_json
+      response.body.should == @expected
+    end
+    it 'should give error if rank type already exists' do
+      post :create, {"university_name"=>"University of Austria", "country"=>"15", "acceptance_rate"=>"2", "location"=>"Austria", "university_desc"=>"University of Austria is one of top most universities in Austria.", "ranking"=>"4", "rank_type"=>"Ranking type not listed", "university_link"=>"https://uausria.edu", "new_rank_type"=>"world rank", format: :json}
+      expect(UndergradUniversity.count).to eq(@before_count)
+      @expected = {
+          :errors    => 'Rank Type has been added'
+      }.to_json
+      response.body.should == @expected
     end
   end
 end

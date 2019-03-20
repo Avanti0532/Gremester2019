@@ -106,15 +106,20 @@ $(document).ready(function () {
         var website = $('#undergrad_website_text').val();
         var new_rank_type = $('#new_rank_type').val();
         var valid = true;
-        if (school_name === '') {
+        if (school_name == null || school_name.length === 0) {
             $("div[role=alert]").text('');
             $("div[role=alert]").text('Please fill in university name');
             $("div[role=alert]").show();
             valid = false;
-        } else if (ranking !== '') {
-            if (rank_type === null) {
+        } else if (ranking !== null && ranking.length > 0) {
+            if (rank_type == null || rank_type.length === 0) {
                 $("div[role=alert]").text('');
                 $("div[role=alert]").text('Please select rank type');
+                $("div[role=alert]").show();
+                valid = false;
+            } else if (rank_type === 'Ranking type not listed' && (new_rank_type === null || new_rank_type.length === 0)) {
+                $("div[role=alert]").text('');
+                $("div[role=alert]").text('Please specify new rank type');
                 $("div[role=alert]").show();
                 valid = false;
             } else {
@@ -124,14 +129,20 @@ $(document).ready(function () {
                     $("div[role=alert]").text('Ranking must be a number greater than 0');
                     $("div[role=alert]").show();
                     valid = false;
-
                 }
             }
-        } else if (acceptance_rate !== '') {
+        } else if (acceptance_rate !== null && acceptance_rate.length > 0) {
             var acceptance_rate_num = parseInt(acceptance_rate, 10);
             if (isNaN(acceptance_rate_num) || acceptance_rate_num < 0 || acceptance_rate_num > 100) {
                 $("div[role=alert]").text('');
                 $("div[role=alert]").text('Acceptance rate must be a number greater than 0 and less than 100');
+                $("div[role=alert]").show();
+                valid = false;
+            }
+        } else if (rank_type !== null && rank_type.length > 0) {
+            if (ranking == null || ranking.length === 0) {
+                $("div[role=alert]").text('');
+                $("div[role=alert]").text('Please specify ranking');
                 $("div[role=alert]").show();
                 valid = false;
             }
@@ -151,11 +162,17 @@ $(document).ready(function () {
                     university_link: website,
                     new_rank_type: new_rank_type
                 },
-                dataType: 'html',
+                dataType: 'json',
                 success: function (data) {
-                    setTimeout(function () {
-                        window.location.reload();
-                    });
+                    if (data.errors != null) {
+                        $("div[role=alert]").text('');
+                        $("div[role=alert]").text(data.errors);
+                        $("div[role=alert]").show();
+                    } else {
+                        setTimeout(function () {
+                            window.location.reload();
+                        });
+                    }
 
                 },
 
