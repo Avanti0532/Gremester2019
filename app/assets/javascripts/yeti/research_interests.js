@@ -1,4 +1,73 @@
 $(document).ready(function() {
+    var slidercgpa = $("#slider-range-cgpa").slider({
+        range: true,
+        min: 0,
+        max: 5,
+        step: 0.1,
+        values: [0, 5],
+        slide: function(event, ui) {
+            $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    var slidergreq = $("#slider-range-greq").slider({
+        range: true,
+        min: 130,
+        max: 170,
+        step: 1,
+        values: [130, 170],
+        slide: function(event, ui) {
+            $( "#greq_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    var slidergrev = $("#slider-range-grev").slider({
+        range: true,
+        min: 130,
+        max: 170,
+        step: 1,
+        values: [130, 170],
+        slide: function(event, ui) {
+            $( "#grev_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    var slidermsob = $("#slider-range-msob").slider({
+        range: true,
+        min: 0,
+        max: 5,
+        step: 1,
+        values: [0, 5],
+        slide: function(event, ui) {
+            $( "#msob_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    var sliderphdo = $("#slider-range-phdo").slider({
+        range: true,
+        min: 0,
+        max: 5,
+        step: 1,
+        values: [0, 5],
+        slide: function(event, ui) {
+            $( "#phdo_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        }
+    });
+
+    $( "#cgpa_score" ).val($( "#slider-range-cgpa" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range-cgpa" ).slider( "values", 1 ) );
+
+    $( "#greq_score" ).val($( "#slider-range-greq" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range-greq" ).slider( "values", 1 ) );
+
+    $( "#grev_score" ).val($( "#slider-range-grev" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range-grev" ).slider( "values", 1 ) );
+
+    $( "#msob_score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range-msob" ).slider( "values", 1 ) );
+
+    $( "#phdo_score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
+        " - " + $( "#slider-range-phdo" ).slider( "values", 1 ) );
 
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
@@ -22,11 +91,11 @@ $(document).ready(function() {
         multiple_interests_arr = multiple_interests.split(",");
         var arr = [];
         var ri_value;
-        for (i = 0; i < multiple_interests_arr.length; i++) {
-            ri_value = $("#research_interests").find('option[value='+multiple_interests_arr[i]+']').text();
-            $("#researchInterestsModal").find('option[value='+multiple_interests_arr[i]+']').attr('selected', true);
-            arr.push(ri_value);
-        }
+        // for (i = 0; i < multiple_interests_arr.length; i++) {
+        //     ri_value = $("#research_interests").find('option[value='+multiple_interests_arr[i]+']').text();
+        //     $("#researchInterestsModal").find('option[value='+multiple_interests_arr[i]+']').attr('selected', true);
+        //     arr.push(ri_value);
+        // }
 
         $("#multiple_interests").val(multiple_interests);
         $("#multiple_interests_labels").text(arr);
@@ -132,6 +201,21 @@ $(document).ready(function() {
             }
         });
 
+        $( "#cgpa_score" ).val($( "#slider-range-cgpa" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-cgpa" ).slider( "values", 1 ) );
+
+        $( "#greq_score" ).val($( "#slider-range-greq" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-greq" ).slider( "values", 1 ) );
+
+        $( "#grev_score" ).val($( "#slider-range-grev" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-grev" ).slider( "values", 1 ) );
+
+        $( "#msob_score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-msob" ).slider( "values", 1 ) );
+
+        $( "#phdo_score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-phdo" ).slider( "values", 1 ) );
+
     }else{
         var slidercgpa = $("#slider-range-cgpa").slider({
             range: true,
@@ -188,23 +272,25 @@ $(document).ready(function() {
             }
         });
 
+        $( "#cgpa_score" ).val($( "#slider-range-cgpa" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-cgpa" ).slider( "values", 1 ) );
+
+        $( "#greq_score" ).val($( "#slider-range-greq" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-greq" ).slider( "values", 1 ) );
+
+        $( "#grev_score" ).val($( "#slider-range-grev" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-grev" ).slider( "values", 1 ) );
+
+        $( "#msob_score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-msob" ).slider( "values", 1 ) );
+
+        $( "#phdo_score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
+            " - " + $( "#slider-range-phdo" ).slider( "values", 1 ) );
+
 
     }
 
-    $( "#cgpa_score" ).val($( "#slider-range-cgpa" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range-cgpa" ).slider( "values", 1 ) );
 
-    $( "#greq_score" ).val($( "#slider-range-greq" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range-greq" ).slider( "values", 1 ) );
-
-    $( "#grev_score" ).val($( "#slider-range-grev" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range-grev" ).slider( "values", 1 ) );
-
-    $( "#msob_score" ).val($( "#slider-range-msob" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range-msob" ).slider( "values", 1 ) );
-
-    $( "#phdo_score" ).val($( "#slider-range-phdo" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range-phdo" ).slider( "values", 1 ) );
 
 
     $('#research_interests').change(function (e) {
@@ -244,13 +330,22 @@ $(document).ready(function() {
         e.stopImmediatePropagation();
         var array_interests_ids = [];
         var array_interests_labels = [];
-        $("input:checkbox:checked").each(function(){
-            array_interests_ids.push($(this).val());
-            array_interests_labels.push($(this).parent().find("label").text());
-        });
-        $("#researchInterestsModal").hide();
-        $("#multiple_interests_labels").text(array_interests_labels);
-        $("#multiple_interests").val(array_interests_ids);
+        var no_checked = $("input:checkbox:checked").size();
+        if (no_checked == 0){
+            console.log('In IF');
+            $("div[role=alert]").text("Please select at least one research interest!");
+            $("div[role=alert]").addClass('in');
+        }else{
+            $("input:checkbox:checked").each(function(){
+                array_interests_ids.push($(this).val());
+                array_interests_labels.push($(this).parent().find("label").text());
+            });
+            $("div[role=alert]").removeClass('in');
+            $("#researchInterestsModal").hide();
+            $("#multiple_interests_labels").text(array_interests_labels);
+            $("#multiple_interests").val(array_interests_ids);
+        }
+
     });
 
 
