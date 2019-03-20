@@ -15,7 +15,6 @@ describe UndergradUniversitiesController do
       UndergradUniversity.create(country_id: 2, university_name: 'University of Iowa')
       RankType.create(id: 3, name: 'world rank')
       @undergrad = UndergradUniversity.new
-      request.env['HTTP_REFERER'] = 'http://localhost:3000/profiles/1/edit?'
       @before_count = UndergradUniversity.count
     end
   it 'should save the university details on successful update' do
