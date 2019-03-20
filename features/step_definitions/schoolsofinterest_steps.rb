@@ -12,7 +12,10 @@ Then(/^I click on delete icon of (.*?)$/) do |university|
     if words[0] == university
       puts "inside"
       puts page.html
-      td1.find("#trash_#{application.id}").trigger('click')
+      #td1.find("#trash_#{application.id}").click
+      td1.find("#trash_2").click
+      sleep 20
+      #td1.find("#trash_#{application.id}").trigger('click')
       #sleep 10
       #page.execute_script("$('.trash').on('click')")
       #puts ret_var
