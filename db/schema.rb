@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190313183913) do
+ActiveRecord::Schema.define(version: 20190320033749) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -208,9 +208,9 @@ ActiveRecord::Schema.define(version: 20190313183913) do
     t.datetime "updated_at",      null: false
   end
 
+  add_index "undergrad_universities", ["country_id", "university_name"], name: "index_undergrad_universities_on_country_id_and_university_name", unique: true
   add_index "undergrad_universities", ["country_id"], name: "index_undergrad_universities_on_country_id"
   add_index "undergrad_universities", ["ranking_id"], name: "index_undergrad_universities_on_ranking_id"
-  add_index "undergrad_universities", ["university_name"], name: "index_undergrad_universities_on_university_name", unique: true
 
   create_table "universities", force: :cascade do |t|
     t.integer "rank"
