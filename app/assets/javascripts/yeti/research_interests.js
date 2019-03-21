@@ -86,17 +86,18 @@ $(document).ready(function() {
 
     if (location.pathname == '/profiles/filter'){
         var research_interests = getUrlParameter('research_interests');
-        $("#research_interests").find('option[value='+research_interests+']').attr('selected', 'true');
+        $("#research_interests").find('option[value='+research_interests+']').prop('selected', true);
         var multiple_interests = getUrlParameter('multiple_interests');
-        multiple_interests_arr = multiple_interests.split(",");
+        var multiple_interests_arr = multiple_interests.split(",");
         var arr = [];
         var ri_value;
-        // for (i = 0; i < multiple_interests_arr.length; i++) {
-        //     ri_value = $("#research_interests").find('option[value='+multiple_interests_arr[i]+']').text();
-        //     $("#researchInterestsModal").find('option[value='+multiple_interests_arr[i]+']').attr('selected', true);
-        //     arr.push(ri_value);
-        // }
-
+        if (multiple_interests != '') {
+            for (var i = 0; i < multiple_interests_arr.length; i++) {
+                ri_value = $("#research_interests").find('option[value=' + multiple_interests_arr[i] + ']').text();
+                $("#researchInterestsModal").find('option[value=' + multiple_interests_arr[i] + ']').prop('selected', true);
+                arr.push(ri_value);
+            }
+        }
         $("#multiple_interests").val(multiple_interests);
         $("#multiple_interests_labels").text(arr);
         if (research_interests == 'multiple'){
@@ -109,7 +110,7 @@ $(document).ready(function() {
 
 
         var undergrad_university = getUrlParameter('undergrad_university');
-        $("#undergrad_university").find('option[value='+undergrad_university+']').attr('selected', 'true');
+        $("#undergrad_university").find('option[value='+undergrad_university+']').prop('selected', 'true');
 
         var cgpa_score = getUrlParameter('cgpa_score');
         cgpa_score_replaced = cgpa_score.replace("+"," ")
@@ -305,15 +306,33 @@ $(document).ready(function() {
                      show: true
                  }
             );
-
+            $("#researchInterestsModal").addClass('in');
             $("#buttonDiv").attr('hidden', false);
             $("#multiple_interests").attr("hidden", false);
             $("#multiple_interests_labels").attr("hidden", false);
+            $("#researchInterestsModal").find($("div[role=alert]")).text("");
+            if($("#researchInterestsModal").find($("div[role=alert]")).hasClass('in')){
+                $("#researchInterestsModal").find($("div[role=alert]")).removeClass('in');
+            }
         }else{
             $("#multiple_interests_labels").attr("hidden", true);
             $("#multiple_interests").attr("hidden", true);
             $("#buttonDiv").attr('hidden', true);
         }
+    });
+    $("#cancelModal").click(function(){
+        $("#multiple_interests_labels").attr("hidden", true);
+        $("#multiple_interests").attr("hidden", true);
+        $("#buttonDiv").attr('hidden', true);
+        $("#researchInterestsModal").removeClass('in');
+        $("#research_interests").find('option[id="any-select"]').prop('selected',true);
+    });
+    $("#x_btn").click(function(){
+        $("#research_interests").find('option[id="any-select"]').prop('selected',true);
+        $("#multiple_interests_labels").attr("hidden", true);
+        $("#multiple_interests").attr("hidden", true);
+        $("#buttonDiv").attr('hidden', true);
+        $("#researchInterestsModal").removeClass('in');
     });
     $("#changeInterests").click(function(){
         $("#researchInterestsModal").modal(
