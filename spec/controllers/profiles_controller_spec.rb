@@ -116,9 +116,9 @@ describe ProfilesController do
 
   describe 'Delete Schools' do
   before :each do
-    mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+    @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
     @mock_profile = Profile.create(id:1, student_id: 1)
-    controller.stub(:current_student).and_return(mock_student)
+    controller.stub(:current_student).and_return(@mock_student)
     controller.instance_eval {@profile = @mock_profile}
     @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
     @application.save
@@ -151,22 +151,24 @@ describe ProfilesController do
       get :fStudentList
     end
   end
-  describe "Get filtered student list" do
+
+  describe 'Get filtered student list' do
     before :each do
-      mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
-      mock_faculty = Faculty.new(id: 1, first_name: 'Michael', last_name: 'Jordan', email: 'michael-jordan@uiowa.edu', university_id: 1)
-      @mock_profile = Profile.create(id:1, student_id: 1, cgpa: 3.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
-      # @mock_research_interest
-      # controller.stub(:current_student).and_return(mock_student)
-      # controller.instance_eval {@profile = @mock_profile}
+      @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      @mock_student.save
+      @mock_faculty = Faculty.new(id: 1, first_name: 'Michael', last_name: 'Jordan', email: 'michael-jordan@uiowa.edu', university_id: 1)
+      @mock_faculty.save
+      @mock_profile = Profile.new(id:1, student_id: 1, cgpa: 2.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile.save
       @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
       @application.save
-      @filtered = 1
     end
-    it "should return applications whose profile has cgpa within the requested range" do
-      get :filter, {"cgpa_score"=>"3 - 5"}
+    it 'should return applications whose profile has cgpa within the requested range' do
+      profiles = [@mock_profile]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"2 - 3", "greq_score"=>"130 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
     end
   end
-
 
 end

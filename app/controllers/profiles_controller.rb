@@ -153,6 +153,7 @@ class ProfilesController < ApplicationController
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
   end
+
   def filter
     unless params[:cgpa_score].blank?
       cgpa_values = params[:cgpa_score].to_s.split(" - ");
@@ -186,6 +187,7 @@ class ProfilesController < ApplicationController
                                            "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
                                            "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
                                            "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+
         unless params[:research_interests].blank?
           if params[:research_interests].to_s =~ /^any$/
             profiles = profiles_other
@@ -199,14 +201,10 @@ class ProfilesController < ApplicationController
             profiles = profiles_other.merge(profiles_research_interests)
           end
         end
-
         if profiles.length >= 1
           applications  = profiles[0].applications
           profiles.each do |profile|
-            puts "Profile.gre_verbal"
-            puts profile.gre_verbal
             applications = applications.merge(profile.applications)
-
           end
           @applications = applications
         else
@@ -238,10 +236,7 @@ class ProfilesController < ApplicationController
             if profiles.length >= 1
               applications  = profiles[0].applications
               profiles.each do |profile|
-                puts "Profile.gre_verbal"
-                puts profile.gre_verbal
                 applications = applications.merge(profile.applications)
-
               end
               @applications = applications
             else
