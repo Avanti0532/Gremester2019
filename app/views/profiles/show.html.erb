@@ -26,15 +26,9 @@
 
       <form class="form-horizontal" role="form">
         <div class="form-group">
-          <label class="col-md-3 control-label">First name:</label>
+          <label class="col-md-3 control-label">Name:</label>
           <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @current_student.first_name %>" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-3 control-label">Last name:</label>
-          <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @current_student.last_name %>" readonly>
+            <input class="form-control" type="text" value="<%= @current_student.first_name + ' ' + @current_student.last_name%>" readonly>
           </div>
         </div>
         <div class="form-group">

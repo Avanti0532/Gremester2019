@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_year)
   end
 
   def index
@@ -47,7 +47,7 @@ class ProfilesController < ApplicationController
     @gre_quant = profile_params[:gre_quant]
     @gre_verbal = profile_params[:gre_verbal]
     @interested_major = profile_params[:interested_major]
-    @interested_term = profile_params[:interested_term]
+    @interested_term = params[:interested_term]
     @interested_year = profile_params[:interested_year]
     @year_work_exp = params[:year_work_exp]
     @profile = current_student.current_profile
