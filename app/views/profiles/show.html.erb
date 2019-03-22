@@ -65,9 +65,7 @@
             <% if @profile.research_interests.nil? or @profile.research_interests.empty?%>
               <input class="form-control" type="text" value="" readonly>
             <% else %>
-              <% @profile.research_interests.each  do |interest|%>
-                <input class="form-control" type="text" value="<%= interest.name %>" readonly>
-              <% end %>
+                <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
             <% end %>
           </div>
         </div>
