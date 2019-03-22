@@ -126,7 +126,7 @@ When /^I log in with wrong (.*?) email/ do |field|
 end
 
 Then /^I should see an invalid login message/ do
-  page.should have_content "Invalid email or password"
+  page.should have_content "Invalid Email or password"
 end
 
 When /^I log in with wrong (.*?) password/ do |field|
