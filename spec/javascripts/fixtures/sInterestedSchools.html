@@ -1,0 +1,91 @@
+<div class="container">
+    <h2> Schools of Interest</h2>
+    <form action="/profiles/showSchools/2" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+        <table id="myTable" class=" table order-list">
+            <thead>
+            <tr>
+                <th>University Name</th>
+                <th>Applied Date</th>
+                <th>Admit Date</th>
+                <th>Reject Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Boston University</td>
+                <td>03/20/2019</td>
+                <td></td>
+                <td></td>
+                <td class="col-md-2"><button type="button" class="btn trash" id="trash_3"><i class="fa fa-trash"></i></button>
+                </td>
+                <td class="col-md-2"><button type="button" class="btn edit" id="edit_3_37"><i class="fa fa-edit"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>California Institute Of Technology</td>
+                <td>03/13/2019</td>
+                <td></td>
+                <td></td>
+                <td class="col-md-2"><button type="button" class="btn trash" id="trash_4"><i class="fa fa-trash"></i></button>
+                </td>
+                <td class="col-md-2"><button type="button" class="btn edit" id="edit_4_4"><i class="fa fa-edit"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td>Columbia University</td>
+                <td>03/06/2019</td>
+                <td></td>
+                <td></td>
+                <td class="col-md-2"><button type="button" class="btn trash" id="trash_5"><i class="fa fa-trash"></i></button>
+                </td>
+                <td class="col-md-2"><button type="button" class="btn edit" id="edit_5_15"><i class="fa fa-edit"></i></button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5" style="text-align: left;">
+                    <input type="button" class="btn btn-default " id="addrow" value="Add School" />
+                    <br>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<div class="modal fade" id="schoolModal" role="dialog" >
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><span class="glyphicon glyphicon-folder-open"></span> Edit School</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="alert alert-danger fade" role="alert"></div>
+                    <div class="form-group">
+                        <label>University Name:</label>
+                        <input type="text" class="form-control" id="uni_name" disabled="true">
+                    </div>
+                    <label>Applied Date:</label>
+                    <input id="datepickerapp" type="date" class="form-control" value="" />
+                    <label>Accepted Date:</label>
+                    <input id="datepickeradm" type="date" class="form-control" value="" />
+                    <label>Rejected Date:</label>
+                    <input id="datepickerrej" type="date" class="form-control" value="" />
+                    <input type='hidden' name='_method' value='put' />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
