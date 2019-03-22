@@ -4,10 +4,10 @@ describe('Add School', function() {
     });
 
     it("should trigger an event add school is clicked", function() {
-          var spyEvent = spyOnEvent('#addrow', 'click')
-          $("#addrow").click()
-          expect('click').toHaveBeenTriggeredOn('#addrow')
-          expect(spyEvent).toHaveBeenTriggered()
+        var spyEvent = spyOnEvent('#addrow', 'click')
+        $("#addrow").click()
+        expect('click').toHaveBeenTriggeredOn('#addrow')
+        expect(spyEvent).toHaveBeenTriggered()
     })
 });
 
@@ -59,12 +59,13 @@ describe('Edit Applications', function() {
         expect(spyEvent).toHaveBeenTriggered()
     })
     it("should open the edit modal when edit is clicked", function(){
-        //var h = readFixtures('sInterestedSchools.html');
-        //var modalSpy = spyOn($("#schoolModal"),'modal').and.returnValue(true)
-        //var modalSpy = spyOn($('.edit'),'click').and.callThrough();
-        $("#edit_4_4").click();
-        //$('.edit').click()
-        //$("#schoolModal").modal({backdrop: true});
-        //expect($('.edit').click()).toHaveBeenCalled();
+        var mock$ = spyOn(window, '$').and.returnValue({
+            modal:jasmine.createSpy('$').and.returnValue(
+                true
+            )
+        })
+        result = $('#schoolModal').modal({backdrop: true});
+        expect(mock$).toHaveBeenCalled();
+        expect(result).toEqual(true);
     })
 });
