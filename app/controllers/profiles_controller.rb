@@ -260,8 +260,6 @@ class ProfilesController < ApplicationController
         end
       end
     end
-    puts "Controller"
-    puts @applications
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
 

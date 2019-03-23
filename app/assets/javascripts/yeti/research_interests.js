@@ -94,7 +94,7 @@ $(document).ready(function() {
         if (multiple_interests != '') {
             for (var i = 0; i < multiple_interests_arr.length; i++) {
                 ri_value = $("#research_interests").find('option[value=' + multiple_interests_arr[i] + ']').text();
-                $("#researchInterestsModal").find('option[value=' + multiple_interests_arr[i] + ']').prop('selected', true);
+                $("#researchInterestsModal").find('input[id=' + multiple_interests_arr[i] + ']').prop('checked', true);
                 arr.push(ri_value);
             }
         }
@@ -292,8 +292,6 @@ $(document).ready(function() {
     }
 
 
-
-
     $('#research_interests').change(function (e) {
         e.stopImmediatePropagation();
         var theValue = $(this).find('option:selected').text();
@@ -307,13 +305,13 @@ $(document).ready(function() {
                  }
             );
             $("#researchInterestsModal").addClass('in');
-            $("#buttonDiv").attr('hidden', false);
-            $("#multiple_interests").attr("hidden", false);
-            $("#multiple_interests_labels").attr("hidden", false);
             $("#researchInterestsModal").find($("div[role=alert]")).text("");
             if($("#researchInterestsModal").find($("div[role=alert]")).hasClass('in')){
                 $("#researchInterestsModal").find($("div[role=alert]")).removeClass('in');
             }
+            $("#buttonDiv").attr('hidden', false);
+            $("#multiple_interests").attr("hidden", false);
+            $("#multiple_interests_labels").attr("hidden", false);
         }else{
             $("#multiple_interests_labels").attr("hidden", true);
             $("#multiple_interests").attr("hidden", true);
@@ -349,7 +347,8 @@ $(document).ready(function() {
         e.stopImmediatePropagation();
         var array_interests_ids = [];
         var array_interests_labels = [];
-        var no_checked = $("input:checkbox:checked").size();
+        var no_checked = $("#researchInterestsModal input:checkbox:checked").length;
+        console.log(no_checked);
         if (no_checked == 0){
             console.log('In IF');
             $("div[role=alert]").text("Please select at least one research interest!");

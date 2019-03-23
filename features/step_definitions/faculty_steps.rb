@@ -169,27 +169,18 @@ Then /^I can see all applications to my university$/ do
   end
 end
 
-When /^I filter by (.*?)$/ do |research_interest|
-  find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(research_interest).id.to_s+'"]').select_option
-  click_button 'Filter'
+When /^I select (.*?) as (.*?)$/ do |option, criteria|
+  if criteria == 'research interest'
+    find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(option).id.to_s+'"]').select_option
+  elsif criteria == 'undergrad university'
+    find('#undergrad_university').find(:css, 'option[value="'+UndergradUniversity.find_by_university_name(option).id.to_s+'"]').select_option
+  end
 end
 
 Then /^I can see all applications with (.*?)$/ do |research_interest|
-  puts ResearchInterest.all.size
-  research_interests = ResearchInterest.all
-  research_interests.each do |re|
-    puts 'In loop'
-    puts re.profiles.size
-  end
-  Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id])
-      profile = application.profile
-      puts "profile"
-      puts profile.id
-      puts "research_interests"
-      profiles_research_interests = profile.research_interests
-      puts profiles_research_interests.size
-    end
+  td3elements = all('table#dtOrderExample tbody tr td:nth-of-type(3)')
+  td3elements.each do |td3|
+    expect(td3.text).to has_content(research_interest)
   end
 end
 
@@ -220,9 +211,39 @@ When /^I select Multiple in research interests$/ do
 end
 
 Then /^I can see research interests modal$/ do
-  pending
-  # page.should have_css('input[value="Filter"]')
+  expect(page).to have_css('#researchInterestsModal[class="modal fade in"]')
 end
+
+When /^I click on (.*?)$/ do |btn|
+  if btn == 'x'
+    find('#x_btn').click
+  else
+    click_button btn
+  end
+end
+
+Then("I should see alert") do
+  expect(find('div[role="alert"]').text).to eq("Please select at least one research interest!")
+end
+
+Then /^modal should not close$/ do
+  expect(page).to have_css('#researchInterestsModal[class="modal fade in"]')
+end
+
+When /^modal should close$/ do
+  expect(page).to have_css('#researchInterestsModal[class="modal fade"]')
+end
+
+Then /^I can see all applications from (.*?)$/ do |undergrad_university|
+  td2elements = all('table#dtOrderExample tbody tr td:nth-of-type(2)')
+  td2elements.each do |td2|
+    expect(td2.text).to has_content(undergrad_university)
+  end
+end
+
+
+
+
 
 
 
