@@ -37,7 +37,7 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
       Profile.create(profile)
     end
   when 'Country'
-     user_table.hashes.each do |country|
+    user_table.hashes.each do |country|
       Country.create(country)
     end
   when 'Application'
@@ -240,12 +240,7 @@ end
 Then(/^I can open weblink to validate faculty's credential$/) do
   visit '/admin/dashboard'
   find('tr', text: 'Faculties').click_link 'Faculties'
-  if !page.has_link?('http://homepage.cs.uiowa.edu/~alicem/')
-    find('tr', text: 'alicen@uiowa.edu').click_link('...')
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  else
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  end
+  expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
 end
 
 Then(/^I will go to homepage of Gremester if I click on Home button on the navigation bar$/) do
