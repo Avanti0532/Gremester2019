@@ -155,27 +155,42 @@ class ProfilesController < ApplicationController
   end
 
   def filter
-    unless params[:cgpa_score].blank?
+    if params[:cgpa_score].blank?
+      cgpa_low = '0'
+      cgpa_high = '5'
+    else
       cgpa_values = params[:cgpa_score].to_s.split(" - ");
       cgpa_low = cgpa_values[0]
       cgpa_high = cgpa_values[1]
     end
-    unless params[:greq_score].blank?
+    if params[:greq_score].blank?
+      greq_low = 130
+      greq_high = 170
+    else
       greq_values = params[:greq_score].to_s.split(" - ");
       greq_low = greq_values[0]
       greq_high = greq_values[1]
     end
-    unless params[:grev_score].blank?
+    if params[:grev_score].blank?
+      grev_low = 130
+      grev_high = 170
+    else
       grev_values = params[:grev_score].to_s.split(" - ");
       grev_low = grev_values[0]
       grev_high = grev_values[1]
     end
-    unless params[:msob_score].blank?
+    if params[:msob_score].blank?
+      msob_low = 0
+      msob_high = 5
+    else
       msob_values = params[:msob_score].to_s.split(" - ");
       msob_low = msob_values[0]
       msob_high = msob_values[1]
     end
-    unless params[:phdo_score].blank?
+    if params[:phdo_score].blank?
+      phdo_low = 0
+      phdo_high = 5
+    else
       phdo_values = params[:phdo_score].to_s.split(" - ");
       phdo_low = phdo_values[0]
       phdo_high = phdo_values[1]
@@ -245,7 +260,8 @@ class ProfilesController < ApplicationController
         end
       end
     end
-
+    puts "Controller"
+    puts @applications
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
 

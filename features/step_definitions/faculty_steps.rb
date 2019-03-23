@@ -9,8 +9,7 @@ def create_another_faculty
 end
 
 def saved_faculty_data
-  @save_faculty = {email: 'alicen@uiowa.edu', password: '12345689' }
-
+  @save_faculty = {email: 'alicen@uiowa.edu', password: '12345689', university_id: 1 }
 end
 
 def sign_up_faculty
@@ -149,4 +148,84 @@ end
 And (/^I should see a log in button/) do
   expect(page).to have_link("Login", visible: false)
 end
+
+Then /^I can see all undergrad universities$/ do
+  UndergradUniversity.all.each do |undergrad_university|
+    page.should have_content(undergrad_university.university_name)
+  end
+end
+
+Then /^I can see all research interests$/ do
+  ResearchInterest.all.each do |research_interest|
+    page.should have_content(research_interest.name)
+  end
+end
+
+Then /^I can see all applications to my university$/ do
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id])
+      page.should have_content(application.profile.student.first_name)
+    end
+  end
+end
+
+When /^I filter by (.*?)$/ do |research_interest|
+  find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(research_interest).id.to_s+'"]').select_option
+  click_button 'Filter'
+end
+
+Then /^I can see all applications with (.*?)$/ do |research_interest|
+  puts ResearchInterest.all.size
+  research_interests = ResearchInterest.all
+  research_interests.each do |re|
+    puts 'In loop'
+    puts re.profiles.size
+  end
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id])
+      profile = application.profile
+      puts "profile"
+      puts profile.id
+      puts "research_interests"
+      profiles_research_interests = profile.research_interests
+      puts profiles_research_interests.size
+    end
+  end
+end
+
+Then /^I can see all filtering options$/ do
+  within 'div#slider-range-cgpa' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-greq' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-grev' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-msob' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-phdo' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'form#filterForm' do
+    page.should have_css('input[value="Filter"]')
+    page.should have_css('input[value="Reset"]')
+  end
+end
+
+When /^I select Multiple in research interests$/ do
+  find('#research_interests').find(:css, 'option[value="multiple"]').select_option
+end
+
+Then /^I can see research interests modal$/ do
+  pending
+  # page.should have_css('input[value="Filter"]')
+end
+
+
+
+
+
 

@@ -15,7 +15,7 @@
 <%end %>
 <hr>
 <div class="well row">
-  <%= form_tag url_for(:controller => 'profiles', :action => 'filter'), :method => :get do |f| %>
+  <%= form_tag url_for(:controller => 'profiles', :action => 'filter'), :id => 'filterForm', :method => :get do |f| %>
     <div class="row">
     <div class="col-md-4">
       <%= label_tag 'research_interests','Research Interests'%>
@@ -111,7 +111,11 @@
     <%if applicant.university_id == current_faculty.university_id %>
     <tr>
       <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
+      <% if applicant.profile.undergrad_universities.size >= 1  %>
       <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
+        <%else %>
+      <td></td>
+        <%end %>
       <% research_interests = applicant.profile.research_interests
          ri = []
          research_interests.each do |interest|
@@ -123,6 +127,7 @@
         ri = ri.gsub('"','')
       %>
       <td><%=ri %></td>
+
       <td><%="#{applicant.profile.cgpa}"%></td>
       <td><%="#{applicant.profile.gre_quant}" %></td>
       <td><%="#{applicant.profile.gre_verbal}" %></td>
