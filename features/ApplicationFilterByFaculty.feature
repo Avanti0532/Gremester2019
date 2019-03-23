@@ -81,14 +81,14 @@ Feature: Faculty can look at all applications applied to his university
   Scenario: Faculty can filter applications by research interest
     When I log in as a faculty
     And I select Artificial Intelligence as research interest
-    And I click on Filter
+    And I click on Filter button
     Then I can see all applications with Artificial Intelligence
 
   @javascript
   Scenario: Faculty can filter applications by undergrad university
     When I log in as a faculty
     And I select Stanford University as undergrad university
-    And I click on Filter
+    And I click on Filter button
     Then I can see all applications from Stanford University
 
   @javascript
@@ -102,7 +102,7 @@ Feature: Faculty can look at all applications applied to his university
     When I log in as a faculty
     And I select Multiple in research interests
     And I can see research interests modal
-    And I click on Done
+    And I click on Done button
     Then I should see alert
     And modal should not close
 
@@ -111,7 +111,7 @@ Feature: Faculty can look at all applications applied to his university
     When I log in as a faculty
     And I select Multiple in research interests
     And I can see research interests modal
-    And I click on Cancel
+    And I click on Cancel button
     And modal should close
 
   @javascript
@@ -119,5 +119,5 @@ Feature: Faculty can look at all applications applied to his university
     When I log in as a faculty
     And I select Multiple in research interests
     And I can see research interests modal
-    And I click on x
+    And I click on x button
     And modal should close

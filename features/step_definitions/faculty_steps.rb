@@ -169,12 +169,11 @@ Then /^I can see all applications to my university$/ do
   end
 end
 
-When /^I select (.*?) as (.*?)$/ do |option, criteria|
-  if criteria == 'research interest'
-    find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(option).id.to_s+'"]').select_option
-  elsif criteria == 'undergrad university'
-    find('#undergrad_university').find(:css, 'option[value="'+UndergradUniversity.find_by_university_name(option).id.to_s+'"]').select_option
-  end
+When /^I select (.*?) as undergrad university$/ do |option|
+  find('#undergrad_university').find(:css, 'option[value="'+UndergradUniversity.find_by_university_name(option).id.to_s+'"]').select_option
+end
+When /^I select (.*?) as research interest$/ do |option|
+  find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(option).id.to_s+'"]').select_option
 end
 
 Then /^I can see all applications with (.*?)$/ do |research_interest|
@@ -214,7 +213,7 @@ Then /^I can see research interests modal$/ do
   expect(page).to have_css('#researchInterestsModal[class="modal fade in"]')
 end
 
-When /^I click on (.*?)$/ do |btn|
+When /^I click on (.*?) button$/ do |btn|
   if btn == 'x'
     find('#x_btn').click
   else
