@@ -240,13 +240,3 @@ Then /^I can see all applications from (.*?)$/ do |undergrad_university|
     expect(td2.text).to has_content(undergrad_university)
   end
 end
-
-
-
-
-
-
-
-
-
-
