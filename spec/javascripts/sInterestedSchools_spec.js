@@ -58,14 +58,23 @@ describe('Edit Applications', function() {
         expect('click').toHaveBeenTriggeredOn('#edit_4_4')
         expect(spyEvent).toHaveBeenTriggered()
     })
-    it("should open the edit modal when edit is clicked", function(){
+
+    it("should open edit modal when edit is clicked", function(){
+        $("#edit_4_4").click()
         var mock$ = spyOn(window, '$').and.returnValue({
             modal:jasmine.createSpy('$').and.returnValue(
                 true
             )
-        })
-        result = $('#schoolModal').modal({backdrop: true});
+        });
+        var result = $('#schoolModal').modal({backdrop: true});
         expect(mock$).toHaveBeenCalled();
         expect(result).toEqual(true);
+        expect('.modal-content').toBeVisible();
+    })
+    it("should trigger an event when save is clicked", function(){
+        var spyEvent = spyOnEvent('#saveModal', 'click')
+        $("#saveModal").click()
+        expect('click').toHaveBeenTriggeredOn('#saveModal')
+        expect(spyEvent).toHaveBeenTriggered()
     })
 });
