@@ -95,34 +95,34 @@ $(document).ready(function () {
 
             },
 
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });
         jQuery.noConflict();
         $("#schoolModal").modal(
             {backdrop: true}
-            );
+        );
 
         return false;
     });
 
-     $('.trash').on('click', function(){
-         var app_id = this.id.substr(5).split('_');
-         var appn_id = app_id[1]
-         $.ajax({
-             url: "/profiles/deleteschools",
-             type: 'POST',
-             datatype:"html",
-             contentType: 'application/json',
-             data: JSON.stringify({
-                 application_id: appn_id
-             }),
-             success: function (jsonData) {
-                 location.reload();
-                 },
-             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-         });
+    $('.trash').on('click', function(){
+        var app_id = this.id.substr(5).split('_');
+        var appn_id = app_id[1]
+        $.ajax({
+            url: "/profiles/deleteschools",
+            type: 'POST',
+            datatype:"html",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                application_id: appn_id
+            }),
+            success: function (jsonData) {
+                location.reload();
+            },
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+        });
 
-     });
+    });
 
     $('#saveModal').click(function(){
         edit_btn_id = this.name;
@@ -177,7 +177,7 @@ $(document).ready(function () {
                 },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                },
+                }
             });
         }
 
@@ -209,9 +209,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {univ_name: university,datepicker: new_date,sel_opt: option},
             datatype:"html",
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });
     });
 });
-
-
