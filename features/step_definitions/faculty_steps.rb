@@ -9,8 +9,7 @@ def create_another_faculty
 end
 
 def saved_faculty_data
-  @save_faculty = {email: 'alicen@uiowa.edu', password: '12345689' }
-
+  @save_faculty = {email: 'alicen@uiowa.edu', password: '12345689', university_id: 1 }
 end
 
 def sign_up_faculty
@@ -150,3 +149,133 @@ And (/^I should see a log in button/) do
   expect(page).to have_link("Login", visible: false)
 end
 
+Then /^I can see all undergrad universities$/ do
+  UndergradUniversity.all.each do |undergrad_university|
+    page.should have_content(undergrad_university.university_name)
+  end
+end
+
+Then /^I can see all research interests$/ do
+  ResearchInterest.all.each do |research_interest|
+    page.should have_content(research_interest.name)
+  end
+end
+
+Then /^I can see all applications to my university$/ do
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id])
+      page.should have_content(application.profile.student.first_name)
+    end
+  end
+end
+
+When /^I select (.*?) as undergrad university$/ do |option|
+  find('#undergrad_university').find(:css, 'option[value="'+UndergradUniversity.find_by_university_name(option).id.to_s+'"]').select_option
+end
+When /^I select (.*?) as research interest$/ do |option|
+  find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(option).id.to_s+'"]').select_option
+end
+
+Then /^I can see all applications with (.*?) as research interest$/ do |research_interest|
+  td3elements = all('table#dtOrderExample tbody tr td:nth-of-type(3)')
+  td3elements.each do |td3|
+    expect(td3.text).to have_content(research_interest)
+  end
+end
+
+Then /^I can see all filtering options$/ do
+  within 'div#slider-range-cgpa' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-greq' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-grev' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-msob' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'div#slider-range-phdo' do
+    page.should have_css('div.ui-slider-range')
+  end
+  within 'form#filterForm' do
+    page.should have_css('input[value="Filter"]')
+    page.should have_css('input[value="Reset"]')
+  end
+end
+
+When /^I select Multiple in research interests$/ do
+  find('#research_interests').find(:css, 'option[value="multiple"]').select_option
+end
+
+Then /^I can see research interests modal$/ do
+  expect(page).to have_css('#researchInterestsModal[class="modal fade in"]')
+end
+
+When /^I click on (.*?) button$/ do |btn|
+  if btn == 'x'
+    find('#x_btn').click
+  else
+    click_button btn
+  end
+end
+
+Then("I should see alert") do
+  expect(find('div[role="alert"]').text).to eq("Please select at least one research interest!")
+end
+
+Then /^modal should not close$/ do
+  expect(page).to have_css('#researchInterestsModal[class="modal fade in"]')
+end
+
+When /^modal should close$/ do
+  expect(page).to have_css('#researchInterestsModal[class="modal fade"]')
+end
+
+Then /^I can see all applications from (.*?)$/ do |undergrad_university|
+  td2elements = all('table#dtOrderExample tbody tr td:nth-of-type(2)')
+  td2elements.each do |td2|
+    expect(td2.text).to have_content(undergrad_university)
+  end
+end
+
+When /^I slide (.*?) to range (.*?),(.*?)$/ do |slider, int, int2|
+  page.execute_script("$('#slider-range-"+slider.to_s.downcase+"').slider({values: ["+int.to_s+","+int2.to_s+"]})")
+end
+
+Then /^I can see all applications with (.*?) in range (.*?),(.*?)$/ do |slider, int, int2|
+  col_no = 4 if slider == 'CGPA'
+  col_no = 5 if slider == 'GREQ'
+  col_no = 6 if slider == 'GREV'
+  col_no = 7 if (slider == 'MSOB' or slider == 'PHDO')
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type('+col_no.to_s+')')
+  tdelements.each do |td|
+    if col_no == 7
+      obj = td.text.split("/")
+      if slider == "MSDO"
+        (obj[0]).should be_between(int, int2)
+      else
+        (obj[1]).should be_between(int, int2)
+      end
+    else
+      (td.text).should be_between(int, int2)
+    end
+  end
+end
+
+When("I change sliders GREV and GREQ to ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
+  page.execute_script("$('#slider-range-grev').slider({values: ["+int.to_s+","+int2.to_s+"]})")
+  page.execute_script("$('#slider-range-greq').slider({values: ["+int3.to_s+","+int4.to_s+"]})")
+end
+
+Then("I can see all applications with GREV and GREQ in ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(6)')
+  tdelements.each do |td|
+      (td.text.to_i).should be_between(int, int2)
+  end
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(5)')
+  tdelements.each do |td|
+    (td.text.to_i).should be_between(int3, int4)
+  end
+end

@@ -30,7 +30,6 @@ div#main {
 }
 .trash{
     position: absolute;
-    right: 410px;
     padding: 6px;
     background-color:wheat;
 }
