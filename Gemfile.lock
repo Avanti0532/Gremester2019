@@ -481,6 +481,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-datatables-rails
   jquery-rails
+  jquery-ui-rails
   launchy
   pg (~> 0.21)
   poltergeist
@@ -513,4 +514,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.5
+   1.17.3

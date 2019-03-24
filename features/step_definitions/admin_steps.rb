@@ -60,8 +60,17 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |rank_type|
       RankType.create(rank_type)
     end
+  when 'ResearchInterestsProfile'
+    user_table.hashes.each do |research_interests_profile|
+      ResearchInterestsProfile.create(research_interests_profile)
+    end
+  when 'ProfilesUndergradUniversity'
+    user_table.hashes.each do |profiles_undergrad_university|
+      ProfilesUndergradUniversity.create(profiles_undergrad_university)
+    end
   end
 end
+
 
 When(/^I log in as an admin/) do
   create_admin
