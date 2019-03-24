@@ -189,8 +189,8 @@ Then /^I can update my (.*?)$/ do |field|
     current_student.current_profile.gre_verbal.should eq(158)
     current_student.current_profile.gre_quant.should eq(162)
   when 'intended start term'
-    fill_in 'interested_start_term', with: 'Spring'
-    fill_in 'interested_start_year', with: '2022'
+    select('Spring', from: 'interested_term')
+    select('2022', from:'interested_year')
     click_button 'Save Changes'
     current_student.current_profile.interested_term.should eq('Spring')
     current_student.current_profile.interested_year.should eq(2022)

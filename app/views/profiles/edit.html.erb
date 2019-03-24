@@ -42,7 +42,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Gender:</label>
           <div class="col-md-8">
-            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified']), include_blank: 'Gender', class: "form-control" %>
+            <%= select_tag "gender", options_for_select(['Female', 'Male', 'Not Specified'],  :selected => @profile.gender || nil), include_blank: 'Gender', class: "form-control" %>
             <br>
           </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Citizenship:</label>
           <div class="col-md-8">
-            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]} ), include_blank: 'Country', class: "form-control"%>
+            <%= select_tag "citizenship", options_for_select(Country.all.each.collect{ |u| [u.name, u.id]}, selected: @profile.country.nil? ? nil: @profile.country_id), include_blank: 'Country', class: "form-control"%>
             <br>
           </div>
         </div>
@@ -58,16 +58,22 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Degree Objective:</label>
           <div class="col-md-8">
-            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Phd', class: "form-control" %>
-            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']), include_blank: 'Master', class: "form-control" %>
+            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5'],  :selected => @profile.degree_objective_phd || nil), include_blank: 'Phd', class: "form-control" %>
+            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil), include_blank: 'Master', class: "form-control" %>
             <br>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Research Interest:</label>
+
           <div class="col-md-8">
-            <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]} ), :multiple => true, class: "form-control"%>
+            <% if @profile.research_interests.nil? or @profile.research_interests.empty?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
+            <% end %>
+            <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]}), :multiple => true, class: "form-control"%>
             <br><br>
           </div>
         </div>
@@ -92,7 +98,7 @@
               <br><br>
             </div>
             <div class="col-md-5">
-              <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale', class: "form-control"%>
+              <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]}, :selected => @profile.grading_scale_type_id ), include_blank: 'Grading Scale', class: "form-control"%>
               <br><br>
             </div>
           </div>
@@ -132,20 +138,20 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Graduate Start Term:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'interested_term', class: "form-control", text: @profile.interested_term, id: 'interested_start_term' %>
+            <%= select_tag 'interested_term', options_for_select(['Fall', 'Spring', 'Summer', 'Winter'], :selected => @profile.interested_term || nil,), include_blank: 'Term of study', class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-md-3 control-label">Graduate Start Year:</label>
           <div class="col-md-8">
-            <%= text_area :profile, 'interested_year', class: "form-control", text: @profile.interested_year, id: 'interested_start_year' %>
+            <%= select_tag 'interested_year', options_for_select(['2019','2020','2021','2022','2023','2024','2025','2026', '2027','2028','2029'], :selected => @profile.interested_year || nil), include_blank: 'Year of study', :selected_value => @profile.interested_term || nil, class: "form-control" %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Work Experience (Year):</label>
           <div class="col-md-8">
-            <%= select_tag "year_work_exp", options_for_select(['Less than 1 year', '1 - 2 years', '3 - 4 years', '4 - 5 years', '5 - 7 years', '7 - 10 years', '>10 years', 'Not Specified']), include_blank: 'Estimate year of work experience', class: "form-control" %>
+            <%= select_tag "year_work_exp", options_for_select(['Less than 1 year', '1 - 2 years', '3 - 4 years', '4 - 5 years', '5 - 7 years', '7 - 10 years', '>10 years', 'Not Specified'],  :selected => @profile.year_work_exp || nil), include_blank: 'Estimate year of work experience', class: "form-control" %>
             <br>
           </div>
         </div>
