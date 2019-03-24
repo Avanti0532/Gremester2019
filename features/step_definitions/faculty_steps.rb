@@ -176,10 +176,10 @@ When /^I select (.*?) as research interest$/ do |option|
   find('#research_interests').find(:css, 'option[value="'+ResearchInterest.find_by_name(option).id.to_s+'"]').select_option
 end
 
-Then /^I can see all applications with (.*?)$/ do |research_interest|
+Then /^I can see all applications with (.*?) as research interest$/ do |research_interest|
   td3elements = all('table#dtOrderExample tbody tr td:nth-of-type(3)')
   td3elements.each do |td3|
-    expect(td3.text).to has_content(research_interest)
+    expect(td3.text).to have_content(research_interest)
   end
 end
 
@@ -236,6 +236,30 @@ end
 Then /^I can see all applications from (.*?)$/ do |undergrad_university|
   td2elements = all('table#dtOrderExample tbody tr td:nth-of-type(2)')
   td2elements.each do |td2|
-    expect(td2.text).to has_content(undergrad_university)
+    expect(td2.text).to have_content(undergrad_university)
+  end
+end
+
+When /^I slide (.*?) to range (.*?),(.*?)$/ do |slider, int, int2|
+  page.execute_script("$('#slider-range-"+slider.to_s.downcase+"').slider({values: ["+int.to_s+","+int2.to_s+"]})")
+end
+
+Then /^I can see all applications with (.*?) in range (.*?),(.*?)$/ do |slider, int, int2|
+  col_no = 4 if slider == 'CGPA'
+  col_no = 5 if slider == 'GREQ'
+  col_no = 6 if slider == 'GREV'
+  col_no = 7 if (slider == 'MSOB' or slider == 'PHDO')
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type('+col_no.to_s+')')
+  tdelements.each do |td|
+    if col_no == 7
+      obj = td.text.split("/")
+      if slider == "MSDO"
+        (obj[0]).should be_between(int, int2)
+      else
+        (obj[1]).should be_between(int, int2)
+      end
+    else
+      (td.text).should be_between(int, int2)
+    end
   end
 end

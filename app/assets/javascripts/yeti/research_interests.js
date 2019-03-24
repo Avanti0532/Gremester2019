@@ -348,9 +348,7 @@ $(document).ready(function() {
         var array_interests_ids = [];
         var array_interests_labels = [];
         var no_checked = $("#researchInterestsModal input:checkbox:checked").length;
-        console.log(no_checked);
         if (no_checked == 0){
-            console.log('In IF');
             $("div[role=alert]").text("Please select at least one research interest!");
             $("div[role=alert]").addClass('in');
         }else{

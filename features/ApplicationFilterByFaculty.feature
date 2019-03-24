@@ -14,10 +14,10 @@ Feature: Faculty can look at all applications applied to his university
       | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | http://homepage.cs.uiowa.edu/~hzel/ | true  | 2019-02-15 02:46:01 UTC | 2|
 
     And the following profiles have been added to Profile Database:
-      | id | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major | year_work_exp | resume_data | sop_data | additional_attachment_data |
-      | 1  | 1             | 3.0    | 100     | 5.0            |   140         | 130       | fall            | Computer Science |  1             |            |          |                            |
-      | 2  | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             |              |          |                            |
-      | 3  | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             |             |          |                            |
+      | id | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major | year_work_exp | resume_data | sop_data | additional_attachment_data | degree_objective_phd | degree_objective_master|
+      | 1  | 1             | 3.0    | 100     | 5.0            |   140         | 160       | fall            | Computer Science |  1             |            |          |                            | 5                    | 2                      |
+      | 2  | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             |              |          |                            | 2                  | 5                      |
+      | 3  | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             |             |          |                            | 3                   | 3                      |
 
     And the following research interests have been added to ResearchInterest Database:
       | name  | id |
@@ -82,7 +82,7 @@ Feature: Faculty can look at all applications applied to his university
     When I log in as a faculty
     And I select Artificial Intelligence as research interest
     And I click on Filter button
-    Then I can see all applications with Artificial Intelligence
+    Then I can see all applications with Artificial Intelligence as research interest
 
   @javascript
   Scenario: Faculty can filter applications by undergrad university
@@ -90,6 +90,41 @@ Feature: Faculty can look at all applications applied to his university
     And I select Stanford University as undergrad university
     And I click on Filter button
     Then I can see all applications from Stanford University
+
+  @javascript
+  Scenario: Faculty can filter applications by CGPA
+    When I log in as a faculty
+    And I slide CGPA to range 3,4
+    And I click on Filter button
+    Then I can see all applications with CGPA in range 3,4
+
+  @javascript
+  Scenario: Faculty can filter applications by GREQ
+    When I log in as a faculty
+    And I slide GREQ to range 140,160
+    And I click on Filter button
+    Then I can see all applications with GREQ in range 140,160
+
+  @javascript
+  Scenario: Faculty can filter applications by GREV
+    When I log in as a faculty
+    And I slide GREV to range 135,150
+    And I click on Filter button
+    Then I can see all applications with GREV in range 135,150
+
+  @javascript
+  Scenario: Faculty can filter applications by MSOB
+    When I log in as a faculty
+    And I slide MSOB to range 3,5
+    And I click on Filter button
+    Then I can see all applications with MSOB in range 3,5
+
+  @javascript
+  Scenario: Faculty can filter applications by PHDO
+    When I log in as a faculty
+    And I slide PHDO to range 3,5
+    And I click on Filter button
+    Then I can see all applications with PHDO in range 3,5
 
   @javascript
   Scenario: Faculty can see filter form
