@@ -113,6 +113,13 @@ Feature: Faculty can look at all applications applied to his university
     Then I can see all applications with GREV in range 135,150
 
   @javascript
+  Scenario: Faculty can filter applications by GREV and GREQ
+    When I log in as a faculty
+    And I change sliders GREV and GREQ to ranges 135,150 and 155,165
+    And I click on Filter button
+    Then I can see all applications with GREV and GREQ in ranges 135,150 and 155,165
+
+  @javascript
   Scenario: Faculty can filter applications by MSOB
     When I log in as a faculty
     And I slide MSOB to range 3,5

@@ -263,3 +263,19 @@ Then /^I can see all applications with (.*?) in range (.*?),(.*?)$/ do |slider, 
     end
   end
 end
+
+When("I change sliders GREV and GREQ to ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
+  page.execute_script("$('#slider-range-grev').slider({values: ["+int.to_s+","+int2.to_s+"]})")
+  page.execute_script("$('#slider-range-greq').slider({values: ["+int3.to_s+","+int4.to_s+"]})")
+end
+
+Then("I can see all applications with GREV and GREQ in ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(6)')
+  tdelements.each do |td|
+      (td.text.to_i).should be_between(int, int2)
+  end
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(5)')
+  tdelements.each do |td|
+    (td.text.to_i).should be_between(int3, int4)
+  end
+end
