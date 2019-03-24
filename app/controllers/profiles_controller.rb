@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major, :interested_term, :interested_year)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major)
   end
 
   def index
@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
   end
 
   def new
-    @profile = Profile.new()
+    @profile = Profile.new
   end
 
   def getUndergradUniversityByCountry
@@ -34,26 +34,6 @@ class ProfilesController < ApplicationController
       format.json {
         render json: {undergrad_universities: @undergrad_universities}
       }
-    end
-  end
-
-  def create
-    params = profile_params
-    @profile = Profile.create(:college => params[:college], :cgpa => params[:cgpa], :toefl => params[:toefl],
-                              :gre_quant => params[:gre_quant], :gre_verbal => params[:gre_verbal], :gre_writing => params[:gre_writing],
-                              :interested_major => params[:interested_major], :interested_year => params[:interested_year],
-                              :interested_term => params[:interested_term], :year_work_exp => params[:year_work_exp],
-                              :resume => params[:resume], :sop => params[:sop],
-                              :additional_attachment => params[:additional_attachment], :student_id => current_student.id)
-    if !@profile.errors.full_messages.empty?
-      error = ''
-      @profile.errors.full_messages.each do |message|
-        error = error + message + ' '
-      end
-      flash.now[:notice] = error
-      render :edit
-    else
-      redirect_to root_path
     end
   end
 
@@ -67,8 +47,8 @@ class ProfilesController < ApplicationController
     @gre_quant = profile_params[:gre_quant]
     @gre_verbal = profile_params[:gre_verbal]
     @interested_major = profile_params[:interested_major]
-    @interested_term = profile_params[:interested_term]
-    @interested_year = profile_params[:interested_year]
+    @interested_term = params[:interested_term]
+    @interested_year = params[:interested_year]
     @year_work_exp = params[:year_work_exp]
     @profile = current_student.current_profile
     @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
@@ -103,8 +83,18 @@ class ProfilesController < ApplicationController
     end
 
     if !params[:research_interest].blank?
+      has_interest = false
+      all_student_interests = @profile.research_interests
       params[:research_interest].each  do |interest|
-        @profile.research_interests << ResearchInterest.find_by_id(interest.to_i)
+        all_student_interests.each do |i|
+          if i.id.eql?(interest.to_i)
+            has_interest = true
+          end
+        end
+        if !has_interest
+          all_student_interests << ResearchInterest.find_by_id(interest.to_i)
+        end
+        has_interest = false
       end
     end
     @profile.save(:validate => true)
