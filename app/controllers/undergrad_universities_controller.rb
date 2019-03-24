@@ -48,4 +48,9 @@ class UndergradUniversitiesController < ApplicationController
       }
     end
   end
+
+  def show
+    id = params[:id]
+    @undergrad_university = UndergradUniversity.find(id)
+  end
 end
