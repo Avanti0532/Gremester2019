@@ -95,7 +95,7 @@ $(document).ready(function () {
 
             },
 
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });
         jQuery.noConflict();
         $("#schoolModal").modal(
@@ -106,7 +106,6 @@ $(document).ready(function () {
     });
 
     $('.trash').on('click', function(){
-        console.log('inside trash')
         var app_id = this.id.substr(5).split('_');
         var appn_id = app_id[1]
         $.ajax({
@@ -178,7 +177,7 @@ $(document).ready(function () {
                 },
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                },
+                }
             });
         }
 
@@ -210,9 +209,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {univ_name: university,datepicker: new_date,sel_opt: option},
             datatype:"html",
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });
     });
 });
-
-
