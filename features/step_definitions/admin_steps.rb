@@ -37,7 +37,7 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
       Profile.create(profile)
     end
   when 'Country'
-     user_table.hashes.each do |country|
+    user_table.hashes.each do |country|
       Country.create(country)
     end
   when 'Application'
@@ -56,8 +56,21 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |interest|
       ResearchInterest.create(interest)
     end
+  when 'RankType'
+    user_table.hashes.each do |rank_type|
+      RankType.create(rank_type)
+    end
+  when 'ResearchInterestsProfile'
+    user_table.hashes.each do |research_interests_profile|
+      ResearchInterestsProfile.create(research_interests_profile)
+    end
+  when 'ProfilesUndergradUniversity'
+    user_table.hashes.each do |profiles_undergrad_university|
+      ProfilesUndergradUniversity.create(profiles_undergrad_university)
+    end
   end
 end
+
 
 When(/^I log in as an admin/) do
   create_admin
@@ -227,12 +240,7 @@ end
 Then(/^I can open weblink to validate faculty's credential$/) do
   visit '/admin/dashboard'
   find('tr', text: 'Faculties').click_link 'Faculties'
-  if !page.has_link?('http://homepage.cs.uiowa.edu/~alicem/')
-    find('tr', text: 'alicen@uiowa.edu').click_link('...')
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  else
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  end
+  expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
 end
 
 Then(/^I will go to homepage of Gremester if I click on Home button on the navigation bar$/) do

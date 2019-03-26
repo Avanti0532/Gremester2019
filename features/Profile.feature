@@ -11,8 +11,12 @@ Feature: Allow students to edit their profile
       | name  | id |
       | United States | 1|
 
-    And the following gradiing scale type have been added to GradingScaleType Database:
+    And the following grading scale type have been added to GradingScaleType Database:
       | grading_scale_name  | id |
+      | US News | 1|
+
+    And the following rank types have been added to RankType Database:
+      | name  | id |
       | US News | 1|
 
     And the following research interest have been added to ResearchInterest Database:
@@ -109,4 +113,34 @@ Feature: Allow students to edit their profile
   Scenario: Students can update their research interest
     When I log in as a student
     Then I can update my research interest
+
+  @javascript
+  Scenario: Student can add undergrad university if it's not available on the school list with only school name and country
+    When I log in as a student
+    Then I can add new undergrad university with only school name and country
+
+  @javascript
+  Scenario: Student can add undergrad university if it's not available on the school list with all fields specified
+    When I log in as a student
+    Then I can add new undergrad university with all fields specified
+
+  @wip
+  Scenario: Student cannot add undergrad university if they don't specify school name
+    When I log in as a student
+    Then I cannot add undergrad university if I don't specify school name
+
+  @wip
+  Scenario: Student cannot add undergrad university if I fill in negative acceptance rate
+    When I log in as a student
+    Then I cannot add undergrad university if I fill in negative acceptance rate
+
+  @wip
+  Scenario: Student cannot add undergrad university if I fill in negative ranking
+    When I log in as a student
+    Then I cannot add undergrad university if I fill in negative ranking
+
+  @javascript
+  Scenario: Student can add undergrad university with new rank type if it's not in the list
+    When I log in as a student
+    Then I can add undergrad university with new rank type if it's not in the list
 

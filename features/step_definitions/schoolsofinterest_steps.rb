@@ -13,10 +13,10 @@ Then(/^I should not see (.*?) in list of schools$/) do |university|
   page.should_not have_content(university)
 end
 
-And(/^I visit Schools of Interest page$/) do
+And(/^I visit My Applications page$/) do
   find('a', :class => 'dropdown-toggle', :text=> 'Hi, robin_hood', :visible => false).click
   find('a', :class => 'nav-link', :text=> 'View Profile', :visible => false).click
-  find('a', :class => 'nav-link', :text=> 'Schools of Interest', :visible => false).click
+  find('a', :class => 'nav-link', :text=> 'My Applications', :visible => false).click
 end
 
 Then(/^I click on add school button and add school details$/) do
