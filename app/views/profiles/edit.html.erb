@@ -81,8 +81,8 @@
         <div class="form-group" >
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8" id="undergraduate_edit">
-            <% @profile.undergrad_universities.each  do |university|%>
-              <p><%= university.university_name %></p>
+            <% @all_undergrads.each  do |university|%>
+              <p><%= university[:details] %></p>
             <% end %>
             <b>Add education</b>
             <div style="border: 1px solid; padding: 15px;">
@@ -91,28 +91,29 @@
               <%= select_tag "undergrad_universities",  options_for_select([]), class: "form-control", include_blank: 'University Name'%>
               <br>
               <div class="row">
-                <div class="col-md-4" >
+                <div class="col-md-6" >
                   <%= select_tag "major_undergrad",  options_for_select(['Computer Science', 'Computer Engineering']), class: "form-control", include_blank: 'Major'%>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <%= select_tag "degree_undergrad",  options_for_select(['B.A', 'B.S.', 'M.A.', 'M.S', 'M.C.S', 'M.B.A', 'Ph.D.', 'Other']), class: "form-control", include_blank: 'Degree'%>
                 </div>
               </div>
+              <br>
               <div class="row">
-                <div class="col-md-4" >
+                <div class="col-md-6" >
                   <%= select_tag "undergrad_start_year",  options_for_select(['2019','2020','2021','2022','2023','2024','2025','2026', '2027','2028','2029']), class: "form-control", include_blank: 'Start year'%>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <%= select_tag "undergrad_end_year",  options_for_select(['2019','2020','2021','2022','2023','2024','2025','2026', '2027','2028','2029']), class: "form-control", include_blank: 'Expected graduation year'%>
                 </div>
               </div>
               <br>
               <div class="row">
-                <div class="col-md-4" >
-                  <%= text_area :profile, 'cgpa', class: "form-control", text: @profile.cgpa, id: 'gpa', placeholder: "GPA" %>
+                <div class="col-md-6" >
+                  <%= text_area :profiles_undergrad_university, 'cgpa', class: "form-control", text: '', id: 'gpa', placeholder: "GPA" %>
                 </div>
-                <div class="col-md-4">
-                  <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]}, :selected => @profile.grading_scale_type_id ), include_blank: 'Grading Scale', class: "form-control"%>
+                <div class="col-md-6">
+                  <%= select_tag "grading_scale", options_for_select(GradingScaleType.all.each.collect{ |u| [u.grading_scale_name, u.id]} ), include_blank: 'Grading Scale', class: "form-control"%>
                 </div>
               </div>
             </div>
@@ -287,3 +288,4 @@
 
   </div>
   <hr>
+</div>

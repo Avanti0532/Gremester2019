@@ -42,12 +42,12 @@ describe ProfilesController do
       controller.instance_eval {@profile = @mock_profile}
     end
     it 'should redirect to profile on successful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "grading_scale" => "test", "undergrad_universities" => 1, "research_interest" => [1]}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "undergrad_universities" => 1, "research_interest" => [1]}
       response.should redirect_to(profile_path)
     end
 
     it 'should stay on same page on unsuccessful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1}
       response.should render_template('edit')
     end
 

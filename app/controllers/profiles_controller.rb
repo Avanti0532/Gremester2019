@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
   def index
@@ -14,6 +14,17 @@ class ProfilesController < ApplicationController
       current_student.create_profile()
       @profile = current_student.current_profile
     end
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+    end
   end
 
   def edit
@@ -21,6 +32,17 @@ class ProfilesController < ApplicationController
     if(@profile.nil?)
       current_student.create_profile()
       @profile = current_student.current_profile
+    end
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
     end
   end
 
@@ -40,7 +62,6 @@ class ProfilesController < ApplicationController
   def update
     @first_name = params[:current_student][:first_name]
     @last_name = params[:current_student][:last_name]
-    @gpa = profile_params[:cgpa]
     @college = profile_params[:college]
     @toefl = profile_params[:toefl]
     @gre_writing = profile_params[:gre_writing]
@@ -69,22 +90,20 @@ class ProfilesController < ApplicationController
       @profile.country = country_of_origin
     end
 
-    if !params[:grading_scale].blank?
-      grading_scale = GradingScaleType.find_by_id(params[:grading_scale].to_i)
-      @profile.grading_scale_type = grading_scale
-    end
 
     if !params[:undergrad_universities].blank?
       undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
       @profile.undergrad_universities << undergrad
       undergrad_details = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => undergrad.id).first
-      undergrad_details.cgpa = profile_params[:cgpa].to_i if !profile_params[:cgpa].blank?
-      # undergrad_details.grad = profile_params[:cgpa].to_i if !profile_params[:cgpa].blank?
+      if !params[:profiles_undergrad_university].blank?
+        undergrad_details.cgpa = params[:profiles_undergrad_university][:cgpa].to_f if !params[:profiles_undergrad_university][:cgpa].blank?
+        undergrad_details.grading_scale_type_id = params[:grading_scale].to_i if !params[:grading_scale].blank?
+      end
       undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
       undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
-      # undergrad_details.grading_scale_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
+      undergrad_details.start_year = params[:undergrad_start_year] if !params[:undergrad_start_year].blank?
+      undergrad_details.end_year = params[:undergrad_end_year] if !params[:undergrad_end_year].blank?
       undergrad_details.save
-
     end
 
     if !params[:research_interest].blank?
