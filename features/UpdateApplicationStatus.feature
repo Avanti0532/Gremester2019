@@ -31,7 +31,7 @@ Feature: Allow students to add school to list of potential schools and update st
   @wip
   Scenario: Students can add school to their potential school list
     When I log in as a student
-    And  I visit Schools of Interest page
+    And  I visit My Applications page
     Then I click on add school button and add school details
     Then I should be able to add the school successfully
 
@@ -48,14 +48,14 @@ Feature: Allow students to add school to list of potential schools and update st
   @wip
   Scenario: Students can remove any school from their potential school list
     When I log in as a student
-    And  I visit Schools of Interest page
+    And  I visit My Applications page
     Then I click on delete icon of University of California – Berkeley
     Then I should not see University of California – Berkeley in list of schools
 
   @wip
   Scenario: Students can remove any school from their potential school list
     When I log in as a student
-    And  I visit Schools of Interest page
+    And  I visit My Applications page
     Then I click on delete icon of Stanford University
     Then I should not see Stanford University in list of schools
 

@@ -62,4 +62,12 @@ describe UndergradUniversitiesController do
       response.body.should == @expected
     end
   end
+  describe 'index method' do
+    it 'should sort an array of undergraduate universities in alphabetical order' do
+      undergrad_universities = [double('university1'), double('university2')]
+      expect(UndergradUniversity).to receive(:order).with(:university_name).and_return(undergrad_universities)
+      get :index
+    end
+  end
 end
+

@@ -1,4 +1,11 @@
 class UndergradUniversitiesController < ApplicationController
+  def undergrad_university_params
+    params.require(:undergrad_university).permit(:id, :university_name)
+  end
+  def index
+    @undergrad_universities = UndergradUniversity.order(:university_name)
+  end
+
   def create
     if (!params[:university_name].blank? and !params[:country].blank?)
       new_rank = nil
