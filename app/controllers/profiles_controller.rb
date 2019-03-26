@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major)
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
   def index
@@ -46,17 +46,14 @@ class ProfilesController < ApplicationController
     @gre_writing = profile_params[:gre_writing]
     @gre_quant = profile_params[:gre_quant]
     @gre_verbal = profile_params[:gre_verbal]
-    @interested_major = profile_params[:interested_major]
     @interested_term = params[:interested_term]
     @interested_year = params[:interested_year]
     @year_work_exp = params[:year_work_exp]
     @profile = current_student.current_profile
-    @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?
     @profile.update_gre_writing(@gre_writing.to_f) if !@gre_writing.blank?
     @profile.update_gre_quant(@gre_quant.to_i)  if !@gre_quant.blank?
     @profile.update_gre_verbal(@gre_verbal.to_i) if !@gre_verbal.blank?
-    @profile.update_interested_major(@interested_major) if !@interested_major.blank?
     @profile.update_interested_term(@interested_term)  if !@interested_term.blank?
     @profile.update_interested_year(@interested_year)  if !@interested_year.blank?
     @profile.update_year_work_experience(@year_work_exp)  if !@year_work_exp.blank?
@@ -80,6 +77,14 @@ class ProfilesController < ApplicationController
     if !params[:undergrad_universities].blank?
       undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
       @profile.undergrad_universities << undergrad
+      undergrad_details = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => undergrad.id).first
+      undergrad_details.cgpa = profile_params[:cgpa].to_i if !profile_params[:cgpa].blank?
+      # undergrad_details.grad = profile_params[:cgpa].to_i if !profile_params[:cgpa].blank?
+      undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
+      undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
+      # undergrad_details.grading_scale_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
+      undergrad_details.save
+
     end
 
     if !params[:research_interest].blank?
