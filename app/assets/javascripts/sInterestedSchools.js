@@ -5,38 +5,49 @@ $(document).ready(function () {
         var newRow = $("<tr>");
         var cols = "";
         var options = "";
-        for (var university of gon.universities) {
+        var year = "";
+        for (let university of gon.universities) {
             options += '<option value="' +university.university_name+'" />';
         }
+        for(let i=2019;i<=2030;i++){
 
-        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" />' +
+            year += '"<option value="'+i+'"/>';
+        }
+
+        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" placeholder="select university">' +
             '<datalist id="university-name">' +
             options +
             '</datalist>'+
             '</td>';
 
-        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
-            '<option disabled selected value> -- select an option -- </option>' +
+        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt" >' +
+            '<option disabled selected value>select status</option>' +
             '<option>Applied - Accepted</option>' +
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
         cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
-            '<input type="text" class="form-control" name="datepicker" value="">'+
+            '<input type="text" class="form-control" name="datepicker" placeholder="select date">'+
             '<label class="input-group-addon btn" for="datepicker">'+
             '<span class="glyphicon glyphicon-calendar">' +
             '</span>' +
             '</label>' +
             '</div></td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
-            '<option disabled selected value> -- select an option -- </option>' +
+            '<option disabled selected value>select term</option>' +
             '<option>Fall</option>' +
             '<option>Spring</option>' +
             '<option>Winter</option>' +
             '<option>Summer</option>' +
             '</select></div></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save"></td>';
+        cols += '<td><input class= "form-control" list="int_year" id="year" name="int_year" placeholder="select year">' +
+            '<datalist id="int_year">' +
+            year +
+            '</datalist>'+
+            '</td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="delete"></td>';
+        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
 

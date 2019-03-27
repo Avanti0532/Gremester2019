@@ -40,3 +40,12 @@ div#main {
 h4{
     color:red;
 }
+#delete{
+    position: relative;
+    left: 50px;
+}
+
+
+input::-webkit-calendar-picker-indicator {
+    opacity: 100;
+}
