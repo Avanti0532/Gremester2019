@@ -30,6 +30,8 @@ $(document).ready(function () {
                 $("#undergraduate_edit").append('<button type="button" id="add_new_undergrad">Add your school</button>');
             }
             $('#add_new_undergrad').click(function() {
+                $('#undergrad_country').empty();
+                $('#undergrad_rank_type').empty();
                 $.ajax({
                     url: "/countries",
                     type: 'GET',
