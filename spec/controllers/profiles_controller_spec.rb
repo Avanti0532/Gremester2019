@@ -42,12 +42,12 @@ describe ProfilesController do
       controller.instance_eval {@profile = @mock_profile}
     end
     it 'should redirect to profile on successful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "grading_scale" => "test", "undergrad_universities" => 1, "research_interest" => [1]}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "undergrad_universities" => 1, "research_interest" => [1]}
       response.should redirect_to(profile_path)
     end
 
     it 'should stay on same page on unsuccessful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "cgpa"=>"3.4", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"9.0", "gre_quant"=>"890", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1}
       response.should render_template('edit')
     end
 
@@ -158,17 +158,17 @@ describe ProfilesController do
       @mock_student.save
       @mock_faculty = Faculty.new(id: 1, first_name: 'Michael', last_name: 'Jordan', email: 'michael-jordan@uiowa.edu', university_id: 1)
       @mock_faculty.save
-      @mock_profile = Profile.new(id:1, student_id: 1, cgpa: 2.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile = Profile.new(id:1, student_id: 1, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
       @mock_profile.save
       @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
       @application.save
       @mock_student2 = Student.new(id: 2, first_name: 'Harsha',last_name: 'Pitawela',email: 'harsha@gmail.com', password: '1234567', username: 'harsha')
       @mock_student2.save
-      @mock_profile2 = Profile.new(id:2, student_id: 2, cgpa: 2.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile2 = Profile.new(id:2, student_id: 2, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
       @mock_profile2.save
       @mock_student3 = Student.new(id: 3, first_name: 'Julia',last_name: 'Chaloupka',email: 'julia@gmail.com', password: '1234567', username: 'julia')
       @mock_student3.save
-      @mock_profile3 = Profile.new(id:3, student_id: 3, cgpa: 2.5, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile3 = Profile.new(id:3, student_id: 3,gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
       @mock_profile3.save
       @mock_research_interests_profile1 = ResearchInterestsProfile.new(:id => 1, :research_interest_id => 1, :profile_id => 1)
       @mock_research_interests_profile1.save
