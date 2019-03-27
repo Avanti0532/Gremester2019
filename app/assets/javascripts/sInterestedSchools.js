@@ -9,7 +9,7 @@ $(document).ready(function () {
         for (let university of gon.universities) {
             options += '<option value="' +university.university_name+'" />';
         }
-        for(let i=2019;i<=2030;i++){
+        for(let i=2018;i<=2030;i++){
 
             year += '"<option value="'+i+'"/>';
         }
@@ -222,12 +222,16 @@ $(document).ready(function () {
         var option = $("#sell").val();
         var term = $("#term").val();
         var year = $("input[name='int_year']").val();
-        $.ajax({
-            url: "/profiles/addschools",
-            type: 'POST',
-            data: {univ_name: university,datepicker: new_date,sel_opt: option,term: term,year: year},
-            datatype:"html",
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-        });
+        //var current_year = new Date().getFullYear();
+            $.ajax({
+                url: "/profiles/addschools",
+                type: 'POST',
+                data: {univ_name: university, datepicker: new_date, sel_opt: option, term: term, year: year},
+                datatype: "html",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                }
+            });
+
     });
 });

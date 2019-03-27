@@ -108,7 +108,7 @@ describe ProfilesController do
       post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "term"=>"Fall", "year"=>"2020"}
       expect(flash[:notice]).to eq('University is already present. Please add a new one')
     end
-    it 'shoud render interested school template' do
+    it 'should render interested school template' do
       post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "term"=>"Fall", "year"=>"2020"}
       expect(response).to render_template("profiles/addschools")
     end
