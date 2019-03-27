@@ -115,8 +115,6 @@ ActiveRecord::Schema.define(version: 20190326230555) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "toefl"
-    t.decimal  "cgpa"
-    t.string   "interested_major"
     t.string   "interested_term"
     t.integer  "interested_year"
     t.text     "resume_data"
@@ -130,18 +128,24 @@ ActiveRecord::Schema.define(version: 20190326230555) do
     t.integer  "degree_objective_phd"
     t.integer  "degree_objective_master"
     t.string   "gender"
-    t.integer  "grading_scale_type_id"
     t.string   "year_work_exp"
   end
 
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id"
-  add_index "profiles", ["grading_scale_type_id"], name: "index_profiles_on_grading_scale_type_id"
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
 
   create_table "profiles_undergrad_universities", force: :cascade do |t|
     t.integer "profile_id"
     t.integer "undergrad_university_id"
+    t.float   "cgpa"
+    t.string  "degree_type"
+    t.string  "major"
+    t.integer "start_year"
+    t.integer "end_year"
+    t.integer "grading_scale_type_id"
   end
+
+  add_index "profiles_undergrad_universities", ["grading_scale_type_id"], name: "index_profiles_undergrad_universities_on_grading_scale_type_id"
 
   create_table "rank_types", force: :cascade do |t|
     t.string   "name"
