@@ -81,8 +81,10 @@
         <div class="form-group" >
           <label class="col-md-3 control-label">Undergraduate School:</label>
           <div class="col-md-8" id="undergraduate_edit">
-            <% @all_undergrads.each  do |university|%>
-              <p><%= university[:details] %></p>
+            <% if !@all_undergrads.nil? %>
+              <% @all_undergrads.each  do |university|%>
+                <p><%= university[:details] %></p>
+              <% end %>
             <% end %>
             <b>Add education</b>
             <div style="border: 1px solid; padding: 15px;">

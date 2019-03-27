@@ -171,9 +171,8 @@ $(document).ready(function () {
                     } else {
                         setTimeout(function () {
                             window.location.reload();
-                        });
+                         });
                     }
-
                 },
 
                 beforeSend: function (xhr) {
