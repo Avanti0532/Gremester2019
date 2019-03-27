@@ -231,8 +231,7 @@ class ProfilesController < ApplicationController
     end
     unless params[:undergrad_university].blank?
       if params[:undergrad_university].to_s =~ /^any$/
-        profiles_other = Profile.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                           "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+        profiles_other = Profile.where("profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
                                            "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
                                            "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
                                            "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
@@ -251,9 +250,15 @@ class ProfilesController < ApplicationController
           end
         end
         if profiles.length >= 1
-          applications  = profiles[0].applications
+          applications  = Array.new
           profiles.each do |profile|
-            applications = applications.merge(profile.applications)
+            profile_applications = profile.applications
+            profile_applications.each do |a|
+              undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+              if undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                applications << a
+              end
+            end
           end
           @applications = applications
         else
@@ -263,11 +268,10 @@ class ProfilesController < ApplicationController
       else
 
         undergrad_uni = UndergradUniversity.find_by_id(params[:undergrad_university])
-        profiles_other = undergrad_uni.profiles.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                    "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                    "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                    "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                    "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+        profiles_other = undergrad_uni.profiles.where("profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                          "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                          "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                          "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
         unless params[:research_interests].blank?
           if params[:research_interests].to_s =~ /^any$/
             profiles = profiles_other
@@ -282,15 +286,21 @@ class ProfilesController < ApplicationController
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
           end
-            if profiles.length >= 1
-              applications  = profiles[0].applications
-              profiles.each do |profile|
-                applications = applications.merge(profile.applications)
+          if profiles.length >= 1
+            applications  = Array.new
+            profiles.each do |profile|
+              profile_applications = profile.applications
+              profile_applications.each do |a|
+                undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+                if undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                  applications << a
+                end
               end
-              @applications = applications
-            else
-              @applications = nil
             end
+            @applications = applications
+          else
+            @applications = nil
+          end
         end
       end
     end
