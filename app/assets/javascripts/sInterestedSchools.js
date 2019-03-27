@@ -19,7 +19,6 @@ $(document).ready(function () {
             options +
             '</datalist>'+
             '</td>';
-
         cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt" >' +
             '<option disabled selected value>select status</option>' +
             '<option>Applied - Accepted</option>' +
@@ -221,11 +220,12 @@ $(document).ready(function () {
         var university = $("input[name='univ_name']").val();
         var new_date = $("input[name='datepicker']").val();
         var option = $("#sell").val();
-
+        var term = $("#term").val();
+        var year = $("input[name='int_year']").val();
         $.ajax({
             url: "/profiles/addschools",
             type: 'POST',
-            data: {univ_name: university,datepicker: new_date,sel_opt: option},
+            data: {univ_name: university,datepicker: new_date,sel_opt: option,term: term,year: year},
             datatype:"html",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });

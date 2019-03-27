@@ -123,13 +123,13 @@ class ProfilesController < ApplicationController
 
   def addschools
     profile_id = current_student.current_profile.id
-    if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
+    if params[:univ_name].blank? || params[:sel_opt].blank? || params[:datepicker].blank? || params[:term].blank? || params[:year].blank?
       flash[:notice] = 'Please enter all the fields'
     else
       @university = University.find_by_university_name(params[:univ_name])
       @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
       if @applications_new.blank?
-        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker],params[:term],params[:year])
         if @applications
           flash[:notice] = 'University application successfully added to database'
         else

@@ -15,6 +15,7 @@
       <th>Applied Date</th>
       <th>Admit Date</th>
       <th>Reject Date</th>
+      <th>Interested Term/Year</th>
       <th>Delete Application</th>
       <th>Edit Application</th>
     </tr>
@@ -27,6 +28,7 @@
       <td><%=app.applied_date.try(:strftime,"%m/%d/%Y")%></td>
       <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
       <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%="#{app.term} #{app.year}"%></td>
       <td class="col-md-2"><button type="button" class="btn trash" id="trash_<%=app.id %>"><i class="fa fa-trash"></i></button>
       </td>
       <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
