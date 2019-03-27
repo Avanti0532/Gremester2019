@@ -255,7 +255,7 @@ class ProfilesController < ApplicationController
             profile_applications = profile.applications
             profile_applications.each do |a|
               undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
-              if undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+              if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
                 applications << a
               end
             end
@@ -292,7 +292,7 @@ class ProfilesController < ApplicationController
               profile_applications = profile.applications
               profile_applications.each do |a|
                 undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
-                if undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                if !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
                   applications << a
                 end
               end
