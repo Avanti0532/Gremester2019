@@ -28,6 +28,13 @@ $(document).ready(function () {
             '</span>' +
             '</label>' +
             '</div></td>';
+        cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
+            '<option disabled selected value> -- select an option -- </option>' +
+            '<option>Fall</option>' +
+            '<option>Spring</option>' +
+            '<option>Winter</option>' +
+            '<option>Summer</option>' +
+            '</select></div></td>';
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save"></td>';
         newRow.append(cols);
