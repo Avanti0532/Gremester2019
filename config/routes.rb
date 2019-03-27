@@ -35,6 +35,7 @@ Rails.application.routes.draw do
        match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
      end
      get :sInterestedSchools, on: :collection
+     get :filter, on: :collection
      get :fStudentList, on: :collection
        collection do
          match '/addschools', to: 'profiles#addschools',via: :post
@@ -44,6 +45,11 @@ Rails.application.routes.draw do
        end
    end
 
+  resources :research_interests
+  resources :countries
+  resources :rank_types
+  resources :undergrad_universities
+  resources :applications
 
 
   root to: 'homepage#index'

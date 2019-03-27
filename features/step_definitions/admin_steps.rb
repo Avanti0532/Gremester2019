@@ -15,36 +15,62 @@ def log_in_admin
 end
 
 Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_name, user_table|
-  if table_name.eql?("Admin")
+  case table_name
+  when 'Admin'
     user_table.hashes.each do |admin|
       Admin.create(admin)
     end
-  elsif table_name.eql?("Faculty")
+  when 'Faculty'
     user_table.hashes.each do |faculty|
       Faculty.create(faculty)
     end
-  elsif table_name.eql?("Student")
+  when 'Student'
     user_table.hashes.each do |student|
       Student.create(student)
     end
-  elsif table_name.eql?("University")
+  when 'University'
     user_table.hashes.each do |university|
       University.create(university)
     end
-  elsif table_name.eql?("Profile")
+  when 'Profile'
     user_table.hashes.each do |profile|
       Profile.create(profile)
     end
-  elsif table_name.eql?("Country")
+  when 'Country'
     user_table.hashes.each do |country|
       Country.create(country)
     end
-  elsif table_name.eql?("UndergradUniversity")
-  user_table.hashes.each do |university|
-    UndergradUniversity.create(university)
-  end
+  when 'Application'
+    user_table.hashes.each do |application|
+      Application.create(application)
+    end
+  when 'UndergradUniversity'
+    user_table.hashes.each do |university|
+      UndergradUniversity.create(university)
+    end
+  when 'GradingScaleType'
+    user_table.hashes.each do |grading|
+      GradingScaleType.create(grading)
+    end
+  when 'ResearchInterest'
+    user_table.hashes.each do |interest|
+      ResearchInterest.create(interest)
+    end
+  when 'RankType'
+    user_table.hashes.each do |rank_type|
+      RankType.create(rank_type)
+    end
+  when 'ResearchInterestsProfile'
+    user_table.hashes.each do |research_interests_profile|
+      ResearchInterestsProfile.create(research_interests_profile)
+    end
+  when 'ProfilesUndergradUniversity'
+    user_table.hashes.each do |profiles_undergrad_university|
+      ProfilesUndergradUniversity.create(profiles_undergrad_university)
+    end
   end
 end
+
 
 When(/^I log in as an admin/) do
   create_admin
@@ -214,12 +240,7 @@ end
 Then(/^I can open weblink to validate faculty's credential$/) do
   visit '/admin/dashboard'
   find('tr', text: 'Faculties').click_link 'Faculties'
-  if !page.has_link?('http://homepage.cs.uiowa.edu/~alicem/')
-    find('tr', text: 'alicen@uiowa.edu').click_link('...')
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  else
-    expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
-  end
+  expect(page).to have_content('http://homepage.cs.uiowa.edu/~alicem/')
 end
 
 Then(/^I will go to homepage of Gremester if I click on Home button on the navigation bar$/) do
@@ -247,5 +268,3 @@ Then(/^I cannot delete profile information$/) do
   find('tr', text: 'Profiles').click_link 'Profiles'
   expect(page).to have_no_link('Delete')
 end
-
-

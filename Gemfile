@@ -1,6 +1,5 @@
 ruby '2.4.4'
 source 'https://rubygems.org'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11'
 gem 'jasmine'
@@ -16,7 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use devise for storing password and authentication
-gem 'devise', '~> 3.4.0'
+gem "devise", ">= 4.6.0"
 # Use bcrypt for password encryption
 gem 'bcrypt'
 gem 'bootstrap-datepicker-rails'
@@ -30,6 +29,7 @@ gem 'poltergeist'
 # Use jquery as the JavaScript library
 gem "shrine", "~> 2.0"
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'gon'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

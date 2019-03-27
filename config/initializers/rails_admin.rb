@@ -77,4 +77,25 @@ RailsAdmin.config do |config|
       exclude_fields :current_sign_in_ip, :last_sign_in_ip
     end
   end
-end
+
+  config.excluded_models = ["ResearchInterestsProfile", "ProfilesUndergradUniversity"]
+
+  config.model Faculty do
+    list do
+      include_fields :first_name, :last_name, :email, :weblink, :university, :username
+      field :id_card_data do
+        formatted_value do
+          bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
+        end
+      end
+    end
+      show do
+        include_fields :first_name, :last_name, :email, :weblink, :university, :username
+        field :id_card_data do
+          formatted_value do
+            bindings[:view].render :partial => 'share/image_preview',  locals: {field: self, form: bindings[:form], url: bindings[:object].id_card_url}
+          end
+        end
+      end
+    end
+  end

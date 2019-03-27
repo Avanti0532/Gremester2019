@@ -28,6 +28,7 @@ Feature: Allow students, faculties or admin to log out
     Then I should see a sign out message
     And I should see a log in button
 
+  @javascript
   Scenario: Faculty logs out
     When I log in as a faculty
     And I click on log out as a faculty

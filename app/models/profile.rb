@@ -1,8 +1,13 @@
 
 class Profile < ActiveRecord::Base
+  belongs_to :country
   belongs_to :student
+  belongs_to :grading_scale_type
   has_many :applications
-  has_and_belongs_to_many :undergrad_universities
+  has_many :profiles_undergrad_universities
+  has_many :undergrad_universities, through: :profiles_undergrad_universities
+  has_many :research_interests_profiles
+  has_many :research_interests, through: :research_interests_profiles
   include ImageUploader::Attachment.new(:photo_id)
   include DocumentUploader::Attachment.new(:sop)
   include DocumentUploader::Attachment.new(:resume)
@@ -12,9 +17,8 @@ class Profile < ActiveRecord::Base
   validates_inclusion_of :gre_writing, :in => 0..6, allow_blank: true, message: 'must be within the range from 0 to 6.0'
   validates_inclusion_of :toefl, :in => 0..120, allow_blank: true, message: 'must be within the range from 0 to 120'
   validates_numericality_of :cgpa, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
-  validates_numericality_of :year_work_exp, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
-  validates_numericality_of :month_work_exp, :greater_than_or_equal_to => 0, allow_blank: true, message: 'must be greater than or equal to 0'
   validates_presence_of :student_id
+
 
   def update_gre_quant(score)
     self.gre_quant = score
@@ -53,9 +57,6 @@ class Profile < ActiveRecord::Base
     self.year_work_exp = year_work_exp
   end
 
-  def update_month_work_experience(month_work_exp)
-    self.month_work_exp = month_work_exp
-  end
 
   def update_resume_data(resume_data)
     self.resume_data = resume_data
@@ -67,10 +68,6 @@ class Profile < ActiveRecord::Base
 
   def update_additional_attachment_data(additional_attachment_data)
     self.additional_attachment_data = additional_attachment_data
-  end
-
-  def update_college(college)
-    self.college = college
   end
 
 end
