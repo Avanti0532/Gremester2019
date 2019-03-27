@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326193808) do
+ActiveRecord::Schema.define(version: 20190326230555) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20190326193808) do
     t.datetime "rejected_date"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "term"
+    t.integer  "year"
   end
 
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
