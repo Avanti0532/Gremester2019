@@ -256,9 +256,11 @@ describe ProfilesController do
       @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       @mock_profile = Profile.create(id:1, student_id: 1)
       UndergradUniversity.create(:id => 1, :university_name => 'Test University')
-      ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+      @mock_undergrad_details = ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
     it 'should render fViewProfile template' do
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      expect(Profile).to receive(:find_by_id).and_return(@mock_profile)
       get :fViewProfile, {:id => 1}
       response.should render_template('fViewProfile')
     end
