@@ -54,24 +54,24 @@
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Quantitative range:</label>
-        <input type="text" class="score" id="greq_score" name="greq_score">
+        <input type="text" class="score" id="greq_score" name="greq_score" readonly>
         <div id="slider-range-greq"></div>
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Verbal range:</label>
-        <input type="text" class="score" id="grev_score" name="grev_score">
+        <input type="text" class="score" id="grev_score" name="grev_score" readonly>
         <div id="slider-range-grev"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <label for="score">MS Degree Objective range:</label>
-        <input type="text" class="score" id="msob_score" name="msob_score">
+        <input type="text" class="score" id="msob_score" name="msob_score" readonly>
         <div id="slider-range-msob"></div>
       </div>
       <div class="col-md-4">
         <label for="score">PhD Degree Objective range:</label>
-        <input type="text" class="score" id="phdo_score" name="phdo_score">
+        <input type="text" class="score" id="phdo_score" name="phdo_score" readonly>
         <div id="slider-range-phdo"></div>
       </div>
     </div>
@@ -91,7 +91,7 @@
   <tr>
     <th class="th-sm">Name
     </th>
-    <th class="th-sm">Undergrad College
+    <th class="th-sm">Past Education
     </th>
     <th class="th-sm">Research Area
     </th>
@@ -127,11 +127,19 @@
              ri = ri.gsub('"','')
           %>
           <td><%=ri %></td>
-
-          <td><%="#{applicant.profile.cgpa}"%></td>
+          <% if applicant.profile.undergrad_universities.length > 0 %>
+            <% @undergrad_details = ProfilesUndergradUniversity.where(:profile_id => applicant.profile.id, :undergrad_university_id => applicant.profile.undergrad_universities[0].id).first %>
+            <% if !@undergrad_details.nil? and !@undergrad_details.cgpa.nil?%>
+              <td><%=@undergrad_details.cgpa%></td>
+            <% end %>
+          <% end  %>
           <td><%="#{applicant.profile.gre_quant}" %></td>
           <td><%="#{applicant.profile.gre_verbal}" %></td>
-          <td id = "msphd"><%= "#{applicant.profile.degree_objective_master}/#{applicant.profile.degree_objective_phd}"%></td>
+          <% if !applicant.profile.degree_objective_master.nil? and !applicant.profile.degree_objective_phd.nil?%>
+            <td id = "msphd"><%= "#{applicant.profile.degree_objective_master}/#{applicant.profile.degree_objective_phd}"%></td>
+          <% else %>
+            <td id = "msphd"></td>
+          <% end %>
         </tr>
       <%end %>
     <% end %>

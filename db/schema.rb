@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190320033749) do
+ActiveRecord::Schema.define(version: 20190326230555) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.datetime "rejected_date"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "term"
+    t.integer  "year"
   end
 
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
@@ -113,8 +115,6 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "toefl"
-    t.decimal  "cgpa"
-    t.string   "interested_major"
     t.string   "interested_term"
     t.integer  "interested_year"
     t.text     "resume_data"
@@ -129,18 +129,23 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.integer  "degree_objective_phd"
     t.integer  "degree_objective_master"
     t.string   "gender"
-    t.integer  "grading_scale_type_id"
     t.string   "year_work_exp"
   end
 
-  add_index "profiles", ["grading_scale_type_id"], name: "index_profiles_on_grading_scale_type_id"
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
 
   create_table "profiles_undergrad_universities", id: false, force: :cascade do |t|
     t.integer "profile_id",              null: false
     t.integer "undergrad_university_id", null: false
+    t.float   "cgpa"
+    t.string  "degree_type"
+    t.string  "major"
+    t.integer "start_year"
+    t.integer "end_year"
+    t.integer "grading_scale_type_id"
   end
 
+  add_index "profiles_undergrad_universities", ["grading_scale_type_id"], name: "index_profiles_undergrad_universities_on_grading_scale_type_id"
   add_index "profiles_undergrad_universities", ["profile_id", "undergrad_university_id"], name: "profile_undergrad"
   add_index "profiles_undergrad_universities", ["undergrad_university_id", "profile_id"], name: "undergrad_profile"
 
