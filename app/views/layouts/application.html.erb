@@ -25,7 +25,7 @@
   <% if type == "notice" %>
     <div class="alert alert-info"><%= msg %></div>
   <% elsif type == "alert" %>
-    <div class="alert alert-danger" id="alert"><%= msg %></div>
+    <div class="alert alert-danger"><%= msg %></div>
   <% else %>
     <div class='alert alert-<%= "#{type}" %>'><%= msg %></div>
   <% end %>
