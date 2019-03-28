@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var counter = 1;
-
-    $("#addrow").on("click", function () {
+    $("#addrow").on("click", function (e) {
+        e.stopImmediatePropagation();
         var newRow = $("<tr>");
         var cols = "";
         var options = "";
@@ -9,7 +9,8 @@ $(document).ready(function () {
         for (let university of gon.universities) {
             options += '<option value="' +university.university_name+'" />';
         }
-        for(let i=2018;i<=2030;i++){
+        var current_year = new Date().getFullYear();
+        for(let i=current_year-2;i<=current_year+2;i++){
 
             year += '"<option value="'+i+'"/>';
         }
@@ -46,7 +47,7 @@ $(document).ready(function () {
             '</td>';
 
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>';
-        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"></td>';
+        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
@@ -186,6 +187,7 @@ $(document).ready(function () {
                 success: function (jsonData) {
                     result = JSON.parse(jsonData);
                     if (result.result == 1) {
+                        jQuery.noConflict();
                         $('#schoolsModal').modal('hide');
                         location.reload();
                     } else {
@@ -220,8 +222,8 @@ $(document).ready(function () {
             //document.getElementsByClassName("alert alert-info").innerHTML ='Interested year cannot be less than current year';
            //$('form_id').find('div[role="alert"]').text('Interested year cannot be less than current year')
            console.log("hi");
-           $('div[role="alert"]').addClass('in');
-           $('div[role="alert"]').text('Interested year cannot be less than current year');
+           $('div#add_alert').addClass('in');
+           $('div#add_alert').text('Interested year cannot be less than current year');
         }else {
             $.ajax({
                 url: "/profiles/addschools",
