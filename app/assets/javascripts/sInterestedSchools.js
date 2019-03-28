@@ -45,7 +45,7 @@ $(document).ready(function () {
             '</datalist>'+
             '</td>';
 
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="delete"></td>';
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>';
         cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
@@ -202,15 +202,6 @@ $(document).ready(function () {
     })
 
 
-    var currentDate = new Date();
-
-    $(function() {
-        $("#datetimepicker0").click(function() {
-            $(this).datepicker().datepicker("show")
-        });
-    });
-
-
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
         counter -= 1
@@ -222,7 +213,16 @@ $(document).ready(function () {
         var option = $("#sell").val();
         var term = $("#term").val();
         var year = $("input[name='int_year']").val();
-        //var current_year = new Date().getFullYear();
+        var current_year = new Date().getFullYear();
+        console.log("hi");
+        if(year < current_year){
+            //$("").text('Interested year cannot be less than current year');
+            //document.getElementsByClassName("alert alert-info").innerHTML ='Interested year cannot be less than current year';
+           //$('form_id').find('div[role="alert"]').text('Interested year cannot be less than current year')
+           console.log("hi");
+           $('div[role="alert"]').addClass('in');
+           $('div[role="alert"]').text('Interested year cannot be less than current year');
+        }else {
             $.ajax({
                 url: "/profiles/addschools",
                 type: 'POST',
@@ -232,6 +232,7 @@ $(document).ready(function () {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 }
             });
+        }
 
     });
 });

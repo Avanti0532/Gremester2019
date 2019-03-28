@@ -131,6 +131,8 @@
             <% @undergrad_details = ProfilesUndergradUniversity.where(:profile_id => applicant.profile.id, :undergrad_university_id => applicant.profile.undergrad_universities[0].id).first %>
             <% if !@undergrad_details.nil? and !@undergrad_details.cgpa.nil?%>
               <td><%=@undergrad_details.cgpa%></td>
+            <%else %>
+              <td></td>
             <% end %>
           <% end  %>
           <td><%="#{applicant.profile.gre_quant}" %></td>
