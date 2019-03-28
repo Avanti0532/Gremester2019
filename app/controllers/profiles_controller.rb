@@ -310,7 +310,4 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 
-  def fStudentList
-    @applications = Application.all
-  end
 end
