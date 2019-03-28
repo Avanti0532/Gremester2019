@@ -3,6 +3,13 @@ require 'rails_helper'
 
 describe ProfilesController do
   describe 'show current user profile' do
+    before :each do
+      @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      @mock_profile = Profile.create(id:1, student_id: 1)
+      UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+    end
+
     it 'should render index template' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
@@ -37,12 +44,13 @@ describe ProfilesController do
       mock_student = Student.create(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       @mock_profile = Profile.create(student_id: 1)
       ResearchInterest.create(id:1)
-      UndergradUniversity.create(id:1)
       controller.stub(:current_student).and_return(mock_student)
       controller.instance_eval {@profile = @mock_profile}
+      UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
     it 'should redirect to profile on successful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "undergrad_universities" => 1, "research_interest" => [1]}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "undergrad_universities" => 1, "research_interest" => [1], "profiles_undergrad_university" =>  {"cgpa" => "2.5", "grading_scale" => "Standard"}}
       response.should redirect_to(profile_path)
     end
 
@@ -240,6 +248,27 @@ describe ProfilesController do
       UndergradUniversity.stub_chain(:find_by_id, :profiles, :where, :all, :merge).and_return(profiles)
       get :filter, {"utf8"=>"✓", "research_interests"=>"multiple", "multiple_interests"=>"1,4", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "commit"=>"Filter"}
       expect(response).to render_template('profiles/fStudentList')
+    end
+  end
+
+  describe "Faculty view student's profile" do
+    before :each do
+      @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      @mock_profile = Profile.create(id:1, student_id: 1)
+      UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+    end
+    it 'should render fViewProfile template' do
+      get :fViewProfile, {:id => 1}
+      response.should render_template('fViewProfile')
+    end
+  end
+
+  describe "New profile method" do
+    it 'should create profile' do
+      @profile = [double('profile1'),double('profile2')]
+      expect(Profile).to receive(:new).and_return(@profile)
+      get :new
     end
   end
 

@@ -3,10 +3,6 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
-  def index
-    @profiles = Profile.all
-  end
-
   def show
     @profile = current_student.current_profile
 
