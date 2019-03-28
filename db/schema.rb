@@ -123,8 +123,9 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.integer  "gre_quant"
     t.decimal  "gre_writing"
     t.integer  "gre_verbal"
-    t.integer  "country_id"
+    t.string   "college"
     t.text     "photo_id_data"
+    t.string   "citizenship"
     t.integer  "degree_objective_phd"
     t.integer  "degree_objective_master"
     t.string   "gender"
@@ -132,14 +133,16 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.string   "year_work_exp"
   end
 
-  add_index "profiles", ["country_id"], name: "index_profiles_on_country_id"
   add_index "profiles", ["grading_scale_type_id"], name: "index_profiles_on_grading_scale_type_id"
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
 
-  create_table "profiles_undergrad_universities", force: :cascade do |t|
-    t.integer "profile_id"
-    t.integer "undergrad_university_id"
+  create_table "profiles_undergrad_universities", id: false, force: :cascade do |t|
+    t.integer "profile_id",              null: false
+    t.integer "undergrad_university_id", null: false
   end
+
+  add_index "profiles_undergrad_universities", ["profile_id", "undergrad_university_id"], name: "profile_undergrad"
+  add_index "profiles_undergrad_universities", ["undergrad_university_id", "profile_id"], name: "undergrad_profile"
 
   create_table "rank_types", force: :cascade do |t|
     t.string   "name"
