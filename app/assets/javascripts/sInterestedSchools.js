@@ -1,7 +1,6 @@
 $(document).ready(function () {
     var counter = 1;
-    $("#addrow").on("click", function (e) {
-        e.stopImmediatePropagation();
+    $("#addrow").on("click", function () {
         var newRow = $("<tr>");
         var cols = "";
         var options = "";
@@ -26,7 +25,7 @@ $(document).ready(function () {
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
-        cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date" placeholder="select date">'+
+        cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date">'+
                 '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
             '<option disabled selected value>select term</option>' +
