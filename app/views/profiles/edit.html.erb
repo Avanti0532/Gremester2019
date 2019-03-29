@@ -1,4 +1,5 @@
 <%= javascript_include_tag 'edit_profile' %>
+<%= stylesheet_link_tag 'editProfile' %>
 <%= render "profiles/sProfileNav" %>
 <div class="container">
   <h1>Edit Profile</h1>
@@ -58,8 +59,30 @@
         <div class="form-group">
           <label class="col-md-3 control-label">Degree Objective:</label>
           <div class="col-md-8">
-            <%= select_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5'],  :selected => @profile.degree_objective_phd || nil), include_blank: 'Phd', class: "form-control" %>
-            <%= select_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil), include_blank: 'Master', class: "form-control" %>
+            <p>Level of interest in MS Degree</p>
+            <div class="range">
+            <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <div class="sliderticks">
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+                <p>4</p>
+                <p>5</p>
+              </div>
+            </div>
+            <p>Level of interest in PhD Degree</p>
+            <div class="range">
+              <%= range_field_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_phd || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <div class="sliderticks">
+                <p>0</p>
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+                <p>4</p>
+                <p>5</p>
+              </div>
+            </div>
             <br>
           </div>
         </div>

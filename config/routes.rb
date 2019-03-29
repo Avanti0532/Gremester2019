@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :undergrad_universities
   resources :applications
 
+
   root to: 'homepage#index'
 
 end
