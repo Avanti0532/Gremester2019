@@ -40,6 +40,15 @@ div#main {
 h4{
     color:red;
 }
+#term{
+    width: 100px;
+    padding: 1px;
+}
+#year{
+    width: 100px;
+    padding: 1px;
+}
+
 #uni_delete{
     position: relative;
     left: 30px;

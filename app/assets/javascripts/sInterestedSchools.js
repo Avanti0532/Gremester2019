@@ -10,7 +10,7 @@ $(document).ready(function () {
             options += '<option value="' +university.university_name+'" />';
         }
         var current_year = new Date().getFullYear();
-        for(let i=current_year-2;i<=current_year+2;i++){
+        for(let i=current_year-2;i<=current_year+10;i++){
 
             year += '"<option value="'+i+'"/>';
         }
@@ -26,13 +26,8 @@ $(document).ready(function () {
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
-        cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
-            '<input type="text" class="form-control" name="datepicker" placeholder="select date">'+
-            '<label class="input-group-addon btn" for="datepicker">'+
-            '<span class="glyphicon glyphicon-calendar">' +
-            '</span>' +
-            '</label>' +
-            '</div></td>';
+        cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date" placeholder="select date">'+
+                '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
             '<option disabled selected value>select term</option>' +
             '<option>Fall</option>' +
@@ -51,15 +46,9 @@ $(document).ready(function () {
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
-        $(function() {
-            let pickerID = 'datetimepicker'+ counter;
-            var element = document.getElementById(pickerID);
-            $(element).click(function() {
-                $(this).datepicker().datepicker("show")
-            });
-        });
-        counter++;
     });
+
+
     $('.edit').click(function(){
         edit_btn_id = this.id;
         $('#saveModal').attr('name', edit_btn_id);
@@ -216,14 +205,10 @@ $(document).ready(function () {
         var term = $("#term").val();
         var year = $("input[name='int_year']").val();
         var current_year = new Date().getFullYear();
-        console.log("hi");
+
         if(year < current_year){
-            //$("").text('Interested year cannot be less than current year');
-            //document.getElementsByClassName("alert alert-info").innerHTML ='Interested year cannot be less than current year';
-           //$('form_id').find('div[role="alert"]').text('Interested year cannot be less than current year')
-           console.log("hi");
-           $('div#add_alert').addClass('in');
-           $('div#add_alert').text('Interested year cannot be less than current year');
+            $('div#add_alert').addClass('in');
+            $('div#add_alert').text('Interested year cannot be less than current year');
         }else {
             $.ajax({
                 url: "/profiles/addschools",
