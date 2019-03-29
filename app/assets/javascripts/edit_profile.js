@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.popover').popover({
+        trigger: 'hover',
+        container: 'body'
+
+    })
+    $("[data-toggle=popover]").popover();
+
     $('#country_college_edit_profile').change(function() {
         var country;
         country = $('#country_college_edit_profile :selected').text();
