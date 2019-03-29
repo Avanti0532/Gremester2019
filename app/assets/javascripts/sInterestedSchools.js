@@ -1,4 +1,5 @@
-$(document).ready(function () {
+var sInterestedSchool = function() {
+    testVar = true;
     var counter = 1;
 
     $("#addrow").on("click", function () {
@@ -33,12 +34,10 @@ $(document).ready(function () {
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
-        $(function() {
-            let pickerID = 'datetimepicker'+ counter;
-            var element = document.getElementById(pickerID);
-            $(element).click(function() {
-                $(this).datepicker().datepicker("show")
-            });
+        let pickerID = 'datetimepicker'+ counter;
+        var element = document.getElementById(pickerID);
+        $(element).click(function() {
+            $(this).datepicker().datepicker("show")
         });
         counter++;
     });
@@ -187,11 +186,10 @@ $(document).ready(function () {
 
     var currentDate = new Date();
 
-    $(function() {
-        $("#datetimepicker0").click(function() {
-            $(this).datepicker().datepicker("show")
-        });
+    $("#datetimepicker0").click(function() {
+        $(this).datepicker().datepicker("show")
     });
+
 
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
@@ -212,4 +210,6 @@ $(document).ready(function () {
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
         });
     });
-});
+}
+
+$(document).ready(sInterestedSchool);
