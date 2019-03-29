@@ -3,10 +3,6 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
-  def index
-    @profiles = Profile.all
-  end
-
   def show
     @profile = current_student.current_profile
 
@@ -310,4 +306,19 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 
+  def fViewProfile
+    @profile = Profile.find_by_id(params[:id])
+    @student = @profile.student
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+    end
+  end
 end
