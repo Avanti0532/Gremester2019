@@ -66,7 +66,8 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'shoulda-matchers', '~> 3.1'
-
+  gem "teaspoon-jasmine"
+  gem 'sprockets-rails', '2.3.3'
 end
 
 group :development do

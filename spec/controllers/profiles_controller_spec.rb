@@ -269,7 +269,7 @@ describe ProfilesController do
   describe "New profile method" do
     it 'should create profile' do
       @profile = [double('profile1'),double('profile2')]
-      expect(Profile).to receive(:new).and_return(@profile)
+      expect(Profile).to receive(:new).and_returnsi(@profile)
       get :new
     end
   end

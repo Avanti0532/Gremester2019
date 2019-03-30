@@ -1,4 +1,5 @@
-$(document).ready(function () {
+var sInterestedSchool = function() {
+    testVar = true;
     var counter = 1;
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -44,7 +45,6 @@ $(document).ready(function () {
         cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
-
     });
 
 
@@ -221,4 +221,6 @@ $(document).ready(function () {
         }
 
     });
-});
+}
+
+$(document).ready(sInterestedSchool);
