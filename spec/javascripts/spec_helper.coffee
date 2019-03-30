@@ -4,8 +4,7 @@
 # require support/jasmine-jquery-2.1.0
 # require support/sinon
 # require support/your-support-file
-#= require jquery.js
-#= require jasmine-jquery.js
+#
 # PhantomJS (Teaspoons default driver) doesn't have support for Function.prototype.bind, which has caused confusion.
 # Use this polyfill to avoid the confusion.
 #= require support/phantomjs-shims

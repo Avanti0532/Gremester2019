@@ -10,7 +10,7 @@ Teaspoon.configure do |config|
 
   # Paths that will be appended to the Rails assets paths
   # Note: Relative to `config.root`.
-  config.asset_paths = ["spec/javascripts", "spec/javascripts/stylesheets", "app/assets/javascripts/*.js"]
+  config.asset_paths = ["spec/javascripts", "spec/javascripts/stylesheets","app/assets/javascripts/*.js"]
 
   # Fixtures are rendered through a controller, which allows using HAML, RABL/JBuilder, etc. Files in these paths will
   # be rendered as fixtures.
@@ -41,7 +41,7 @@ Teaspoon.configure do |config|
     suite.matcher = "{spec/javascripts,app/assets}/**/*_spec.{js,js.coffee,coffee}"
 
     # Load additional JS files, but requiring them in your spec helper is the preferred way to do this.
-    # suite.javascripts = ["app/assets/jasmine-jquery.js"]
+    #suite.javascripts = []
 
     # You can include your own stylesheets if you want to change how Teaspoon looks.
     # Note: Spec related CSS can and should be loaded using fixtures.
@@ -157,7 +157,7 @@ Teaspoon.configure do |config|
   # Specify that you always want a coverage configuration to be used. Otherwise, specify that you want coverage
   # on the CLI.
   # Set this to "true" or the name of your coverage config.
-  config.use_coverage = true
+   config.use_coverage = true
 
   # You can have multiple coverage configs by passing a name to config.coverage.
   # e.g. config.coverage :ci do |coverage|
@@ -178,9 +178,9 @@ Teaspoon.configure do |config|
 
     # Various thresholds requirements can be defined, and those thresholds will be checked at the end of a run. If any
     # aren't met the run will fail with a message. Thresholds can be defined as a percentage (0-100), or nil.
-    coverage.statements = nil
-    coverage.functions = nil
-    coverage.branches = nil
-    coverage.lines = nil
+     coverage.statements = nil
+     coverage.functions = nil
+     coverage.branches = nil
+     coverage.lines = nil
   end
 end
