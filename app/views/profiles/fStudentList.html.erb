@@ -75,6 +75,27 @@
         <div id="slider-range-phdo"></div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-4">
+        <%= label_tag 'term','Term'%>
+          <select id="term" name="term">
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+          </select>
+      </div>
+      <div class="col-md-4">
+        <%= label_tag 'year','Year'%>
+          <select id="year" name="year">
+            <% year = Date.today.year
+               year_2 = year.to_i - 2
+               for i in 0..4
+            %>
+            <option value="year">**Any**</option>
+          </select>
+      </div>
+    </div>
     <br/>
     <div class="col-md-2">
       <%= submit_tag "Filter", class: 'btn btn-info btn-block' %>
