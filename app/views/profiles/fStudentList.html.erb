@@ -11,40 +11,40 @@
 <%= stylesheet_link_tag 'research_interests' %>
 
 <%if faculty_signed_in? %>
-  <h4 style = "padding-left: 20px"> <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
+  <h4 style = "padding-left: 20px"> Professor <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
 <%end %>
 <hr>
 <div class="well row">
   <%= form_tag url_for(:controller => 'profiles', :action => 'filter'), :id => 'filterForm', :method => :get do |f| %>
     <div class="row">
-    <div class="col-md-4">
-      <%= label_tag 'research_interests','Research Interests'%>
-      <%if @research_interests then%>
-        <select id="research_interests" name="research_interests">
-          <option id="any-select" value="any">**Any**</option>
-          <%@research_interests.each do |research_interest|%>
-            <option value="<%=research_interest.id %>"><%=research_interest.name %></option>
-          <% end %>
-          <option id="multiple-select" value="multiple">**Multiple**</option>
-        </select>
-      <%end %>
-    </div>
-    <div class="col-md-4" id="interests">
-      <p id="multiple_interests_labels" name="multiple_interests_labels"></p>
-      <div id="buttonDiv" hidden="true"><input type="buttton" id="changeInterests" value="Change Interests" class='btn btn-info btn-block' visible="false"></div>
-      <input type="hidden" id="multiple_interests" name="multiple_interests" value="">
-    </div>
-    <div class="col-md-4">
-      <%= label_tag 'undergrad_college','Undergraduate College'%>
-      <%if @undergrad_universities then%>
-        <select id="undergrad_university" name="undergrad_university">
-          <option value="any">**Any**</option>
-          <%@undergrad_universities.each do |undergrad_university|%>
-            <option value="<%=undergrad_university.id %>"><%=undergrad_university.university_name %></option>
-          <% end %>
-        </select>
-      <%end %>
-    </div>
+      <div class="col-md-4">
+        <%= label_tag 'research_interests','Research Interests'%>
+        <%if @research_interests then%>
+          <select id="research_interests" name="research_interests">
+            <option id="any-select" value="any">**Any**</option>
+            <%@research_interests.each do |research_interest|%>
+              <option value="<%=research_interest.id %>"><%=research_interest.name %></option>
+            <% end %>
+            <option id="multiple-select" value="multiple">**Multiple**</option>
+          </select>
+        <%end %>
+      </div>
+      <div class="col-md-4" id="interests">
+        <p id="multiple_interests_labels" name="multiple_interests_labels"></p>
+        <div id="buttonDiv" hidden="true"><input type="buttton" id="changeInterests" value="Change Interests" class='btn btn-info btn-block' visible="false"></div>
+        <input type="hidden" id="multiple_interests" name="multiple_interests" value="">
+      </div>
+      <div class="col-md-4">
+        <%= label_tag 'undergrad_college','Undergraduate College'%>
+        <%if @undergrad_universities then%>
+          <select id="undergrad_university" name="undergrad_university">
+            <option value="any">**Any**</option>
+            <%@undergrad_universities.each do |undergrad_university|%>
+              <option value="<%=undergrad_university.id %>"><%=undergrad_university.university_name %></option>
+            <% end %>
+          </select>
+        <%end %>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-4">
@@ -54,24 +54,24 @@
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Quantitative range:</label>
-        <input type="text" class="score" id="greq_score" name="greq_score">
+        <input type="text" class="score" id="greq_score" name="greq_score" readonly>
         <div id="slider-range-greq"></div>
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Verbal range:</label>
-        <input type="text" class="score" id="grev_score" name="grev_score">
+        <input type="text" class="score" id="grev_score" name="grev_score" readonly>
         <div id="slider-range-grev"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4">
         <label for="score">MS Degree Objective range:</label>
-        <input type="text" class="score" id="msob_score" name="msob_score">
+        <input type="text" class="score" id="msob_score" name="msob_score" readonly>
         <div id="slider-range-msob"></div>
       </div>
       <div class="col-md-4">
         <label for="score">PhD Degree Objective range:</label>
-        <input type="text" class="score" id="phdo_score" name="phdo_score">
+        <input type="text" class="score" id="phdo_score" name="phdo_score" readonly>
         <div id="slider-range-phdo"></div>
       </div>
     </div>
@@ -91,7 +91,7 @@
   <tr>
     <th class="th-sm">Name
     </th>
-    <th class="th-sm">Undergrad College
+    <th class="th-sm">Past Education
     </th>
     <th class="th-sm">Research Area
     </th>
@@ -107,36 +107,44 @@
   </thead>
   <tbody>
   <% if @applications != nil %>
-  <% @applications.each do |applicant| %>
-    <%if applicant.university_id == current_faculty.university_id %>
-    <tr>
-      <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
-      <% if applicant.profile.undergrad_universities.size >= 1  %>
-      <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
-        <%else %>
-      <td></td>
-        <%end %>
-      <% research_interests = applicant.profile.research_interests
-         ri = []
-         research_interests.each do |interest|
-         ri << interest.name
-         end
-        ri_s = ri.to_s
-        ri = ri_s.gsub("[","")
-        ri = ri.gsub("]","")
-        ri = ri.gsub('"','')
-      %>
-      <td><%=ri %></td>
+    <% @applications.each do |applicant| %>
+      <%if applicant.university_id == current_faculty.university_id %>
+        <tr>
+          <td><%= link_to "#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}", fViewProfile_profiles_path(applicant.profile.id)%></td>
+          <% if applicant.profile.undergrad_universities.size >= 1  %>
+            <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
+          <%else %>
+            <td></td>
+          <%end %>
+          <% research_interests = applicant.profile.research_interests
+             ri = []
+             research_interests.each do |interest|
+               ri << interest.name
+             end
+             ri_s = ri.to_s
+             ri = ri_s.gsub("[","")
+             ri = ri.gsub("]","")
+             ri = ri.gsub('"','')
+          %>
+          <td><%=ri %></td>
+          <% if applicant.profile.undergrad_universities.length > 0 %>
+            <% @undergrad_details = ProfilesUndergradUniversity.where(:profile_id => applicant.profile.id, :undergrad_university_id => applicant.profile.undergrad_universities[0].id).first %>
+            <% if !@undergrad_details.nil? and !@undergrad_details.cgpa.nil?%>
+              <td><%=@undergrad_details.cgpa%></td>
+            <% end %>
+          <% end  %>
+          <td><%="#{applicant.profile.gre_quant}" %></td>
+          <td><%="#{applicant.profile.gre_verbal}" %></td>
+          <% if !applicant.profile.degree_objective_master.nil? and !applicant.profile.degree_objective_phd.nil?%>
+            <td id = "msphd"><%= "#{applicant.profile.degree_objective_master}/#{applicant.profile.degree_objective_phd}"%></td>
+          <% else %>
+            <td id = "msphd"></td>
+          <% end %>
+        </tr>
+      <%end %>
+    <% end %>
 
-      <td><%="#{applicant.profile.cgpa}"%></td>
-      <td><%="#{applicant.profile.gre_quant}" %></td>
-      <td><%="#{applicant.profile.gre_verbal}" %></td>
-      <td id = "msphd"><%= "#{applicant.profile.degree_objective_master}/#{applicant.profile.degree_objective_phd}"%></td>
-    </tr>
-    <%end %>
-  <% end %>
-
-    <%end %>
+  <%end %>
   </tbody>
 </table>
 <!-- Modal -->
@@ -170,4 +178,3 @@
     </div>
   </div>
 </div>
-

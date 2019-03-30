@@ -14,10 +14,10 @@ Feature: Faculty can look at all applications applied to his university
       | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | http://homepage.cs.uiowa.edu/~hzel/ | true  | 2019-02-15 02:46:01 UTC | 2|
 
     And the following profiles have been added to Profile Database:
-      | id | student_id    | cgpa   | toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term | interested_major | year_work_exp | resume_data | sop_data | additional_attachment_data | degree_objective_phd | degree_objective_master|
-      | 1  | 1             | 3.0    | 100     | 5.0            |   140         | 160       | fall            | Computer Science |  1             |            |          |                            | 5                    | 2                      |
-      | 2  | 2             | 3.2    | 110     | 4.0            |   145         | 150       | fall            | Computer Science |  2             |              |          |                            | 2                  | 5                      |
-      | 3  | 3             | 3.4    | 102     | 4.0            |   130         | 155       | fall            | Computer Science |  0             |             |          |                            | 3                   | 3                      |
+      | id | student_id    |toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term |  year_work_exp | resume_data | sop_data | additional_attachment_data | degree_objective_phd | degree_objective_master|
+      | 1  | 1             |  100     | 5.0            |   140         | 160       | fall            |   1             |            |          |                            | 5                    | 2                      |
+      | 2  | 2             |  110     | 4.0            |   145         | 150       | fall            |   2             |              |          |                            | 2                  | 5                      |
+      | 3  | 3             | 102     | 4.0            |   130         | 155       | fall            |   0             |             |          |                            | 3                   | 3                      |
 
     And the following research interests have been added to ResearchInterest Database:
       | name  | id |

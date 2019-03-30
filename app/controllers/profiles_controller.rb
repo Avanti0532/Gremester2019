@@ -1,10 +1,6 @@
 class ProfilesController < ApplicationController
   def profile_params
-    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :cgpa, :toefl, :gre_writing, :gre_verbal, :gre_quant, :interested_major)
-  end
-
-  def index
-    @profiles = Profile.all
+    params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
   def show
@@ -14,6 +10,17 @@ class ProfilesController < ApplicationController
       current_student.create_profile()
       @profile = current_student.current_profile
     end
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+    end
   end
 
   def edit
@@ -21,6 +28,17 @@ class ProfilesController < ApplicationController
     if(@profile.nil?)
       current_student.create_profile()
       @profile = current_student.current_profile
+    end
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
     end
   end
 
@@ -40,23 +58,19 @@ class ProfilesController < ApplicationController
   def update
     @first_name = params[:current_student][:first_name]
     @last_name = params[:current_student][:last_name]
-    @gpa = profile_params[:cgpa]
     @college = profile_params[:college]
     @toefl = profile_params[:toefl]
     @gre_writing = profile_params[:gre_writing]
     @gre_quant = profile_params[:gre_quant]
     @gre_verbal = profile_params[:gre_verbal]
-    @interested_major = profile_params[:interested_major]
     @interested_term = params[:interested_term]
     @interested_year = params[:interested_year]
     @year_work_exp = params[:year_work_exp]
     @profile = current_student.current_profile
-    @profile.update_cgpa(@gpa.to_f) if !@gpa.blank?
     @profile.update_toefl(@toefl.to_i)  if !@toefl.blank?
     @profile.update_gre_writing(@gre_writing.to_f) if !@gre_writing.blank?
     @profile.update_gre_quant(@gre_quant.to_i)  if !@gre_quant.blank?
     @profile.update_gre_verbal(@gre_verbal.to_i) if !@gre_verbal.blank?
-    @profile.update_interested_major(@interested_major) if !@interested_major.blank?
     @profile.update_interested_term(@interested_term)  if !@interested_term.blank?
     @profile.update_interested_year(@interested_year)  if !@interested_year.blank?
     @profile.update_year_work_experience(@year_work_exp)  if !@year_work_exp.blank?
@@ -72,14 +86,20 @@ class ProfilesController < ApplicationController
       @profile.country = country_of_origin
     end
 
-    if !params[:grading_scale].blank?
-      grading_scale = GradingScaleType.find_by_id(params[:grading_scale].to_i)
-      @profile.grading_scale_type = grading_scale
-    end
 
     if !params[:undergrad_universities].blank?
       undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
       @profile.undergrad_universities << undergrad
+      undergrad_details = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => undergrad.id).first
+      if !params[:profiles_undergrad_university].blank?
+        undergrad_details.cgpa = params[:profiles_undergrad_university][:cgpa].to_f if !params[:profiles_undergrad_university][:cgpa].blank?
+        undergrad_details.grading_scale_type_id = params[:grading_scale].to_i if !params[:grading_scale].blank?
+      end
+      undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
+      undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
+      undergrad_details.start_year = params[:undergrad_start_year] if !params[:undergrad_start_year].blank?
+      undergrad_details.end_year = params[:undergrad_end_year] if !params[:undergrad_end_year].blank?
+      undergrad_details.save
     end
 
     if !params[:research_interest].blank?
@@ -207,8 +227,7 @@ class ProfilesController < ApplicationController
     end
     unless params[:undergrad_university].blank?
       if params[:undergrad_university].to_s =~ /^any$/
-        profiles_other = Profile.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                           "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+        profiles_other = Profile.where("profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
                                            "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
                                            "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
                                            "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
@@ -227,9 +246,15 @@ class ProfilesController < ApplicationController
           end
         end
         if profiles.length >= 1
-          applications  = profiles[0].applications
+          applications  = Array.new
           profiles.each do |profile|
-            applications = applications.merge(profile.applications)
+            profile_applications = profile.applications
+            profile_applications.each do |a|
+              undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+              if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                applications << a
+              end
+            end
           end
           @applications = applications
         else
@@ -239,11 +264,10 @@ class ProfilesController < ApplicationController
       else
 
         undergrad_uni = UndergradUniversity.find_by_id(params[:undergrad_university])
-        profiles_other = undergrad_uni.profiles.where("profiles.cgpa >= #{cgpa_low} AND profiles.cgpa <= #{cgpa_high} AND "+
-                                                    "profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
-                                                    "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
-                                                    "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
-                                                    "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+        profiles_other = undergrad_uni.profiles.where("profiles.gre_quant >= #{greq_low} AND profiles.gre_quant <= #{greq_high} AND "+
+                                                          "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
+                                                          "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
+                                                          "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
         unless params[:research_interests].blank?
           if params[:research_interests].to_s =~ /^any$/
             profiles = profiles_other
@@ -258,15 +282,21 @@ class ProfilesController < ApplicationController
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
           end
-            if profiles.length >= 1
-              applications  = profiles[0].applications
-              profiles.each do |profile|
-                applications = applications.merge(profile.applications)
+          if profiles.length >= 1
+            applications  = Array.new
+            profiles.each do |profile|
+              profile_applications = profile.applications
+              profile_applications.each do |a|
+                undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+                if !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                  applications << a
+                end
               end
-              @applications = applications
-            else
-              @applications = nil
             end
+            @applications = applications
+          else
+            @applications = nil
+          end
         end
       end
     end
@@ -274,5 +304,21 @@ class ProfilesController < ApplicationController
     @undergrad_universities = UndergradUniversitiesController.new.index
 
     render 'profiles/fStudentList'
+  end
+
+  def fViewProfile
+    @profile = Profile.find_by_id(params[:id])
+    @student = @profile.student
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+    end
   end
 end
