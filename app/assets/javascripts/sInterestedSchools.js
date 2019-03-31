@@ -201,7 +201,8 @@ $(document).ready(function () {
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
-        counter -= 1
+        $("#addSchoolHeader").remove();
+        counter -= 2
     });
 
     $("table.order-list").on("click", ".save", function (event) {
