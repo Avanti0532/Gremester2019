@@ -1,47 +1,53 @@
 $(document).ready(function () {
     var counter = 1;
-
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
         var cols = "";
         var options = "";
-        for (var university of gon.universities) {
+        var year = "";
+        for (let university of gon.universities) {
             options += '<option value="' +university.university_name+'" />';
         }
+        var current_year = new Date().getFullYear();
+        for(let i=current_year-2;i<=current_year+10;i++){
 
-        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" />' +
+            year += '"<option value="'+i+'"/>';
+        }
+
+        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" placeholder="select university">' +
             '<datalist id="university-name">' +
             options +
             '</datalist>'+
             '</td>';
-
-        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt">' +
-            '<option disabled selected value> -- select an option -- </option>' +
+        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt" >' +
+            '<option disabled selected value>select status</option>' +
             '<option>Applied - Accepted</option>' +
             '<option>Applied - Rejected</option>' +
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
-        cols += '<td><div class="input-group date" id="datetimepicker' + counter +'">' +
-            '<input type="text" class="form-control" name="datepicker" value="">'+
-            '<label class="input-group-addon btn" for="datepicker">'+
-            '<span class="glyphicon glyphicon-calendar">' +
-            '</span>' +
-            '</label>' +
-            '</div></td>';
-        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save"></td>';
+        cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date">'+
+                '</td>';
+        cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
+            '<option disabled selected value>select term</option>' +
+            '<option>Fall</option>' +
+            '<option>Spring</option>' +
+            '<option>Winter</option>' +
+            '<option>Summer</option>' +
+            '</select></div></td>';
+        cols += '<td><input class= "form-control" list="int_year" id="year" name="int_year" placeholder="select year">' +
+            '<datalist id="int_year">' +
+            year +
+            '</datalist>'+
+            '</td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>';
+        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
 
-        $(function() {
-            let pickerID = 'datetimepicker'+ counter;
-            var element = document.getElementById(pickerID);
-            $(element).click(function() {
-                $(this).datepicker().datepicker("show")
-            });
-        });
-        counter++;
     });
+
+
     $('.edit').click(function(){
         edit_btn_id = this.id;
         $('#saveModal').attr('name', edit_btn_id);
@@ -169,6 +175,7 @@ $(document).ready(function () {
                 success: function (jsonData) {
                     result = JSON.parse(jsonData);
                     if (result.result == 1) {
+                        jQuery.noConflict();
                         $('#schoolsModal').modal('hide');
                         location.reload();
                     } else {
@@ -185,15 +192,6 @@ $(document).ready(function () {
     })
 
 
-    var currentDate = new Date();
-
-    $(function() {
-        $("#datetimepicker0").click(function() {
-            $(this).datepicker().datepicker("show")
-        });
-    });
-
-
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();
         counter -= 1
@@ -203,13 +201,24 @@ $(document).ready(function () {
         var university = $("input[name='univ_name']").val();
         var new_date = $("input[name='datepicker']").val();
         var option = $("#sell").val();
+        var term = $("#term").val();
+        var year = $("input[name='int_year']").val();
+        var current_year = new Date().getFullYear();
 
-        $.ajax({
-            url: "/profiles/addschools",
-            type: 'POST',
-            data: {univ_name: university,datepicker: new_date,sel_opt: option},
-            datatype:"html",
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-        });
+        if(year < current_year){
+            $('div#add_alert').addClass('in');
+            $('div#add_alert').text('Interested year cannot be less than current year');
+        }else {
+            $.ajax({
+                url: "/profiles/addschools",
+                type: 'POST',
+                data: {univ_name: university, datepicker: new_date, sel_opt: option, term: term, year: year},
+                datatype: "html",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                }
+            });
+        }
+
     });
 });
