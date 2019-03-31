@@ -6,21 +6,15 @@ RSpec.describe Application, type: :model do
 
   describe 'add_school! method' do
     it 'should update application database with admitted date' do
-      Application.add_school!(1,1,'Applied - Accepted','03/06/2019')
-      new_date = '2019-03-06'
-      allow(Date).to receive(:strptime).with('%m/%d/%Y').and_return(new_date)
+      Application.add_school!(1,1,'Applied - Accepted','2019-03-06','Fall','2019')
       expect(Application.count).to eq(1)
     end
     it 'should update application database with rejected date' do
-      Application.add_school!(1,1,'Applied - Rejected','03/06/2019')
-      new_date = '2019-03-06'
-      allow(Date).to receive(:strptime).with('%m/%d/%Y').and_return(new_date)
+      Application.add_school!(1,1,'Applied - Rejected','2019-03-06','Fall','2020')
       expect(Application.count).to eq(1)
     end
     it 'should update application database with applied date' do
-      Application.add_school!(1,1,'Applied - Pending Decision','03/06/2019')
-      new_date = '2019-03-06'
-      allow(Date).to receive(:strptime).with('%m/%d/%Y').and_return(new_date)
+      Application.add_school!(1,1,'Applied - Pending Decision','2019-03-06', 'Fall','2021')
       expect(Application.count).to eq(1)
     end
   end
