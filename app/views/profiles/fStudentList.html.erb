@@ -108,7 +108,7 @@
   <tbody>
   <% if @applications != nil %>
     <% @applications.each do |applicant| %>
-      <%if applicant.university_id == current_faculty.university_id %>
+      <%if applicant.university_id == current_faculty.university_id and !applicant.rejected and !applicant.admitted %>
         <tr>
           <td><%= link_to "#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}", fViewProfile_profiles_path(applicant.profile.id)%></td>
           <% if applicant.profile.undergrad_universities.size >= 1  %>
