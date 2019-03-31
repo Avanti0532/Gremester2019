@@ -83,7 +83,7 @@ class ProfilesController < ApplicationController
     @profile.additional_attachment = profile_params[:additional_attachment]
     if !params[:citizenship].blank?
       country_of_origin = Country.find_by_id(params[:citizenship].to_i)
-      @profile.country = country_of_origin
+      @profile.citizenship = country_of_origin
     end
 
 
@@ -252,7 +252,47 @@ class ProfilesController < ApplicationController
             profile_applications.each do |a|
               undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
               if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
-                applications << a
+                if params[:term].blank? && params[:year].blank? && params[:and_later].blank?
+                  applications << a
+                else
+                  if params[:term] =~ /^any$/ && params[:year] =~ /^any$/
+                    applications << a
+                  else
+                    if !params[:term] =~ /^any$/ && !params[:year] =~ /^any$/
+                      if params[:and_later] == 'checked'
+                        if params[:term] =~ /Spring/
+                          if (a.term =~ /Spring/ || a.term =~ /Summer/ || a.term =~ /Fall/ || a.term =~ /Winter/) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                            applications << a
+                          end
+                        elsif params[:term] =~ /Summer/
+                          if ((a.term =~ /Summer/ || a.term =~ /Fall/ || a.term =~ /Winter/) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term =~ /Spring/ && a.year.to_s.to_i > params[:year].to_s.to_i)
+                            applications << a
+                          end
+                        elsif params[:term] =~ /Fall/
+                          if ((a.term =~ /Fall/ || a.term =~ /Winter/) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term =~ /Spring/ || a.term =~ /Summer/) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                            applications << a
+                          end
+                        elsif params[:term] =~ /Winter/
+                          if ((a.term =~ /Winter/) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term =~ /Spring/ || a.term =~ /Summer/ || a.term =~ /Fall/) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                            applications << a
+                          end
+                        end
+                      else
+                        if (a.term == params[:term] && a.year == params[:year])
+                          applications << a
+                        end
+                      end
+                    elsif !params[:term] =~ /^any$/
+                      if (a.term == params[:term])
+                        applications << a
+                      end
+                    elsif !params[:year] =~ /^any$/
+                      if (a.year == params[:year])
+                        applications << a
+                      end
+                    end
+                  end
+                end
               end
             end
           end
