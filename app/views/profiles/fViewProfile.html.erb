@@ -1,0 +1,162 @@
+
+<div class="container">
+  <h1> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h1>
+  <hr>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <% if !@profile.photo_id.nil? %>
+          <%= image_tag @profile.photo_id_url, :size => "120x120" %>
+        <% else %>
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <%end %>
+        <br>
+      </div>
+    </div>
+
+    <!-- show form column -->
+    <div class="col-md-9 personal-info">
+
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-md-3 control-label">Gender:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gender %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Citizenship:</label>
+          <div class="col-md-8">
+            <% if !@profile.nil? and !@profile.country.nil?%>
+              <input class="form-control" type="text" value="<%= @profile.country.name %>" readonly>
+            <% else %>
+              <input class="form-control" type="text" value="" readonly>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Degree Objective Phd:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.degree_objective_phd %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Degree Objective Master:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.degree_objective_master %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Research Interest:</label>
+          <div class="col-md-8">
+            <% if @profile.research_interests.nil? or @profile.research_interests.empty?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Undergraduate School:</label>
+          <div class="col-md-8">
+            <% if @profile.undergrad_universities.nil? or @profile.undergrad_universities.empty?%>
+              <input class="form-control" type="text" value="" readonly>
+            <% else %>
+              <% @all_undergrads.each  do |university|%>
+                <p><%= university[:details] %></p>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">TOEFL Score:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.toefl %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Writing:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_writing %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Quantitative:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_quant %>" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 control-label">GRE Verbal:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.gre_verbal %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Graduate Start Term:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value="<%= @profile.interested_term %> <%= @profile.interested_year %>" readonly>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Work Experience:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" value=" <%= @profile.year_work_exp %>" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">SOP:</label>
+          <div class="col-md-8">
+            <%if Rails.env.production?  && !@profile.sop.nil? %>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{@profile.sop_url}" %></td>
+            <%elsif Rails.env.development? && !@profile.sop.nil?  %>
+              <td><%= link_to @profile.sop.metadata['filename'], "#{request.base_url + @profile.sop_url}" %></td>
+            <% elsif !Rails.env.test? && @profile.sop.nil? %>
+              <input class="form-control" type="text" value="" readonly>
+            <% end %>
+            <br>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Resume:</label>
+          <div class="col-md-8">
+            <%if Rails.env.production? &&  !@profile.resume.nil? %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{@profile.resume_url}" %></td>
+            <%elsif Rails.env.development? && !@profile.resume.nil?  %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.resume_url}" %></td>
+            <% elsif !Rails.env.test? && @profile.resume.nil? %>
+              <input class="form-control" type="text" value="" readonly>
+            <% end %>
+            <br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Additional Attachments:</label>
+          <div class="col-md-8">
+            <%if Rails.env.production? && !@profile.additional_attachment.nil? %>
+              <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
+            <%elsif Rails.env.development? && !@profile.additional_attachment.nil? %>
+              <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}"%></td>
+            <% elsif !Rails.env.test? && @profile.additional_attachment.nil? %>
+              <input class="form-control" type="text" value="" readonly>
+            <% end %>
+            <br>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <span></span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr>

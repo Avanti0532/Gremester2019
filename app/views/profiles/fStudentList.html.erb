@@ -11,7 +11,7 @@
 <%= stylesheet_link_tag 'research_interests' %>
 
 <%if faculty_signed_in? %>
-  <h4 style = "padding-left: 20px"> <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
+  <h4 style = "padding-left: 20px"> Professor <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
 <%end %>
 <hr>
 <div class="well row">
@@ -110,7 +110,7 @@
     <% @applications.each do |applicant| %>
       <%if applicant.university_id == current_faculty.university_id %>
         <tr>
-          <td><%="#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}"%></td>
+          <td><%= link_to "#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}", fViewProfile_profiles_path(applicant.profile.id)%></td>
           <% if applicant.profile.undergrad_universities.size >= 1  %>
             <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
           <%else %>
@@ -131,6 +131,8 @@
             <% @undergrad_details = ProfilesUndergradUniversity.where(:profile_id => applicant.profile.id, :undergrad_university_id => applicant.profile.undergrad_universities[0].id).first %>
             <% if !@undergrad_details.nil? and !@undergrad_details.cgpa.nil?%>
               <td><%=@undergrad_details.cgpa%></td>
+            <%else %>
+              <td></td>
             <% end %>
           <% end  %>
           <td><%="#{applicant.profile.gre_quant}" %></td>

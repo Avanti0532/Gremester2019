@@ -3,10 +3,6 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
   end
 
-  def index
-    @profiles = Profile.all
-  end
-
   def show
     @profile = current_student.current_profile
 
@@ -147,13 +143,13 @@ class ProfilesController < ApplicationController
 
   def addschools
     profile_id = current_student.current_profile.id
-    if params[:univ_name].blank? or params[:sel_opt].blank? or params[:datepicker].blank?
+    if params[:univ_name].blank? || params[:sel_opt].blank? || params[:datepicker].blank? || params[:term].blank? || params[:year].blank?
       flash[:notice] = 'Please enter all the fields'
     else
       @university = University.find_by_university_name(params[:univ_name])
       @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
       if @applications_new.blank?
-        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker])
+        @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker],params[:term],params[:year])
         if @applications
           flash[:notice] = 'University application successfully added to database'
         else
@@ -310,4 +306,19 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 
+  def fViewProfile
+    @profile = Profile.find_by_id(params[:id])
+    @student = @profile.student
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      details = university.university_name
+      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+    end
+  end
 end
