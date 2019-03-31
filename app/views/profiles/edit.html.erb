@@ -61,7 +61,7 @@
           <div class="col-md-8">
             <p>Level of interest in MS Degree</p>
             <div class="range">
-            <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
               <div class="sliderticks">
                 <p>0</p>
                 <p>1</p>
@@ -147,19 +147,23 @@
                     GradingScaleType.all.each{ |u|
                       st_grades += u.grading_scale_name+":\n"
                       grades = u.grading_scales.all
-                      for i in 0..2 do
-                        if grades[i].gpa == nil
-                          st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ")\n"
-                        else
-                          st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ") = " + grades[i].gpa.to_s + "\n"
+                      if !grades.nil?
+                        for i in 0..2 do
+                          if !grades[i].nil?
+                            if grades[i].gpa == nil
+                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ")\n"
+                            else
+                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ") = " + grades[i].gpa.to_s + "\n"
+                            end
+                          end
                         end
                       end
                       st_grades += "\n"
                     }
                   %>
                   <span class="glyphicon glyphicon-question-sign"
-                          data-toggle="popover" data-trigger= "hover" title="Example grading scales" data-container="body"
-                          data-content="<%=st_grades %>">
+                        data-toggle="popover" data-trigger= "hover" title="Example grading scales" data-container="body"
+                        data-content="<%=st_grades %>">
                   </span>
                 </div>
               </div>
