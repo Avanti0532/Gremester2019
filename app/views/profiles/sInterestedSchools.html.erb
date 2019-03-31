@@ -12,7 +12,6 @@
       <thead>
       <tr>
         <th>University Name</th>
-        <th></th>
         <th>Applied Date</th>
         <th>Admit Date</th>
         <th>Reject Date</th>
@@ -21,42 +20,37 @@
         <th>Edit Application</th>
       </tr>
       </thead>
-      <tbody>
+    <tbody>
 
 
-      <% @applications.each do |app|%>
-        <tr>
-          <td><%=University.where(:id =>app.university_id).pluck(:university_name)[0]%></td>
-          <td></td>
-          <td><%=app.applied_date.try(:strftime,"%m/%d/%Y")%></td>
-          <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
-          <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
-          <td><%="#{app.term} #{app.year}"%></td>
-          <td class="col-md-2"><button type="button" class="btn trash" id="trash_<%=app.id %>"><i class="fa fa-trash"></i></button>
-          </td>
-          <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="5" style="text-align: left;">
-          <br>
-          <input type="button" class="btn btn-default " id="addrow" value="Add School" />
-          <br>
-        </td>
-      </tr>
-      <tr>
-      </tr>
-      </tfoot>
-    </table>
+    <% @applications.each do |app|%>
+    <tr>
+      <td><%=University.where(:id =>app.university_id).pluck(:university_name)[0]%></td>
+      <td><%=app.applied_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%=app.admitted_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%=app.rejected_date.try(:strftime,"%m/%d/%Y")%></td>
+      <td><%="#{app.term} #{app.year}"%></td>
+      <td class="col-md-2"><button type="button" class="btn trash" id="trash_<%=app.id %>"><i class="fa fa-trash"></i></button>
+      </td>
+      <td class="col-md-2"><button type="button" class="btn edit" id="edit_<%= app.id %>_<%=app.university_id %>"><i class="fa fa-edit"></i></button>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="5" style="text-align: left;">
+        <input type="button" class="btn btn-default " id="addrow" value="Add School" />
+        <br>
+      </td>
+    </tr>
+    <tr>
+    </tr>
+    </tfoot>
+  </table>
   <%end %>
 
-
-
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="schoolModal" role="dialog" >
@@ -76,11 +70,11 @@
             <input type="text" class="form-control" id="uni_name" disabled="true">
           </div>
           <label>Applied Date:</label>
-          <input id="datepickerapp" type="date" class="form-control" value="" />
+            <input id="datepickerapp" type="date" class="form-control" value="" />
           <label>Accepted Date:</label>
-          <input id="datepickeradm" type="date" class="form-control" value="" />
+            <input id="datepickeradm" type="date" class="form-control" value="" />
           <label>Rejected Date:</label>
-          <input id="datepickerrej" type="date" class="form-control" value="" />
+            <input id="datepickerrej" type="date" class="form-control" value="" />
           <input type='hidden' name='_method' value='put' />
         </form>
       </div>

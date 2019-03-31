@@ -43,6 +43,13 @@ $(document).ready(function () {
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>';
         cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
         newRow.append(cols);
+        $("table.order-list").append("<tr id=\"addSchoolHeader\" style = \"\">\n" +
+            "        <th>University Name</th>\n" +
+            "        <th>Application Status</th>\n" +
+            "        <th>Date</th>\n" +
+            "        <th>Interested Term</th>\n" +
+            "        <th>Interested Year</th>\n" +
+            "      </tr>");
         $("table.order-list").append(newRow);
 
     });
