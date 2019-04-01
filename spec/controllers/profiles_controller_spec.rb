@@ -46,6 +46,7 @@ describe ProfilesController do
       ResearchInterest.create(id:1)
       controller.stub(:current_student).and_return(mock_student)
       controller.instance_eval {@profile = @mock_profile}
+      Country.create(:id => 1, :name => 'United States')
       UndergradUniversity.create(:id => 1, :university_name => 'Test University')
       ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
