@@ -179,7 +179,7 @@ class ProfilesController < ApplicationController
   end
 
   def fStudentList
-    @applications = Application.all
+    @applications = Application.where(:applied => true, :rejected => nil, :admitted => nil)
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
   end
@@ -250,6 +250,7 @@ class ProfilesController < ApplicationController
           profiles.each do |profile|
             profile_applications = profile.applications
             profile_applications.each do |a|
+            if a.admitted.nil? and a.rejected.nil?
               undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
               if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
                 if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
@@ -297,6 +298,7 @@ class ProfilesController < ApplicationController
                 end
               end
             end
+            end
           end
           @applications = applications
         else
@@ -329,6 +331,7 @@ class ProfilesController < ApplicationController
             profiles.each do |profile|
               profile_applications = profile.applications
               profile_applications.each do |a|
+              if a.admitted.nil? and a.rejected.nil?
                 undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
                 if !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
                   if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
@@ -375,6 +378,7 @@ class ProfilesController < ApplicationController
                     end
                   end
                 end
+              end
               end
             end
             @applications = applications
