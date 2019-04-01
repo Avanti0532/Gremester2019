@@ -1,5 +1,4 @@
-var sInterestedSchool = function() {
-    testVar = true;
+$(document).ready(function () {
     var counter = 1;
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -27,7 +26,7 @@ var sInterestedSchool = function() {
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
         cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date">'+
-                '</td>';
+            '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
             '<option disabled selected value>select term</option>' +
             '<option>Fall</option>' +
@@ -45,6 +44,7 @@ var sInterestedSchool = function() {
         cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
+
     });
 
 
@@ -111,23 +111,31 @@ var sInterestedSchool = function() {
         return false;
     });
 
-    $('.trash').on('click', function(){
-        var app_id = this.id.substr(5).split('_');
-        var appn_id = app_id[1]
-        $.ajax({
-            url: "/profiles/deleteschools",
-            type: 'POST',
-            datatype:"html",
-            contentType: 'application/json',
-            data: JSON.stringify({
-                application_id: appn_id
-            }),
-            success: function (jsonData) {
-                location.reload();
-            },
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-        });
 
+    let trash = {
+        deleteSchool: function(trashId){
+            var app_id = trashId.substr(5).split('_');
+            var appn_id = app_id[1]
+            $.ajax({
+                url: "/profiles/deleteschools",
+                type: 'POST',
+                datatype:"html",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    application_id: appn_id
+                }),
+                success: function (jsonData) {
+                    location.reload();
+                },
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+            });
+            return(false);
+        }
+
+      };
+
+    $('.trash').click(function () {
+        $(trash.deleteSchool(this.id));
     });
 
     $('#saveModal').click(function(){
@@ -221,6 +229,4 @@ var sInterestedSchool = function() {
         }
 
     });
-}
-
-$(document).ready(sInterestedSchool);
+});

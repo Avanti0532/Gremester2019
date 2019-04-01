@@ -1,0 +1,28 @@
+{
+  "name": "spp300",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "phantomjs": "^2.1.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UIOWA5830SP19/SPP300.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UIOWA5830SP19/SPP300/issues"
+  },
+  "homepage": "https://github.com/UIOWA5830SP19/SPP300#readme"
+}
