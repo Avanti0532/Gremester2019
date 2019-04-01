@@ -155,7 +155,7 @@ describe ProfilesController do
   describe 'Get student list' do
     it 'should return all the applications' do
       @application = [double('application1'),double('application2')]
-      expect(Application).to receive(:all).and_return(@application)
+      Application.stub_chain(:where, :all).and_return(@application)
       get :fStudentList
     end
   end
