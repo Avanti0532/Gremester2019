@@ -83,7 +83,7 @@ class ProfilesController < ApplicationController
     @profile.additional_attachment = profile_params[:additional_attachment]
     if !params[:citizenship].blank?
       country_of_origin = Country.find_by_id(params[:citizenship].to_i)
-      @profile.citizenship = country_of_origin
+      @profile.country = country_of_origin
     end
 
 
