@@ -279,3 +279,8 @@ Then("I can see all applications with GREV and GREQ in ranges {int},{int} and {i
     (td.text.to_i).should be_between(int3, int4)
   end
 end
+
+Then("I can click any student profile if I click on their name in the application table") do
+  click_link('Frank Robert')
+  page.should have_content("Frank Robert's Profile")
+end
