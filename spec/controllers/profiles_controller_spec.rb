@@ -50,7 +50,7 @@ describe ProfilesController do
       ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
     it 'should redirect to profile on successful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "citizenship" => 1, "undergrad_universities" => 1, "research_interest" => [1], "profiles_undergrad_university" =>  {"cgpa" => "2.5", "grading_scale" => "Standard"}}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "country" => 1, "undergrad_universities" => 1, "research_interest" => [1], "profiles_undergrad_university" =>  {"cgpa" => "2.5", "grading_scale" => "Standard"}}
       response.should redirect_to(profile_path)
     end
 
@@ -168,7 +168,7 @@ describe ProfilesController do
       @mock_faculty.save
       @mock_profile = Profile.new(id:1, student_id: 1, gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
       @mock_profile.save
-      @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
+      @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'', :term => 'Fall', :year => '2019')
       @application.save
       @mock_student2 = Student.new(id: 2, first_name: 'Harsha',last_name: 'Pitawela',email: 'harsha@gmail.com', password: '1234567', username: 'harsha')
       @mock_student2.save
@@ -178,6 +178,14 @@ describe ProfilesController do
       @mock_student3.save
       @mock_profile3 = Profile.new(id:3, student_id: 3,gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
       @mock_profile3.save
+      @mock_student4 = Student.new(id: 4, first_name: 'Kumar',last_name: 'Sangakkara',email: 'kumar@gmail.com', password: '1234567', username: 'kumar')
+      @mock_student4.save
+      @mock_profile4 = Profile.new(id:4, student_id: 4,gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile4.save
+      @mock_student5 = Student.new(id: 5, first_name: 'Mahela',last_name: 'Jayawardane',email: 'mahela@gmail.com', password: '1234567', username: 'mahela')
+      @mock_student5.save
+      @mock_profile5 = Profile.new(id:5, student_id: 5,gre_quant: 160, gre_verbal: 150, degree_objective_master: 4, degree_objective_phd: 2)
+      @mock_profile5.save
       @mock_research_interests_profile1 = ResearchInterestsProfile.new(:id => 1, :research_interest_id => 1, :profile_id => 1)
       @mock_research_interests_profile1.save
       @mock_research_interests_profile2 = ResearchInterestsProfile.new(:id => 2, :research_interest_id => 2, :profile_id => 1)
@@ -198,23 +206,38 @@ describe ProfilesController do
       @mock_research_interest3.save
       @mock_research_interest4 = ResearchInterest.new(:id => 4, :name => 'Machine Learning')
       @mock_research_interest4.save
-      @application2 = Application.new(:id => 2, :profile_id=> 2, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
+      @application2 = Application.new(:id => 2, :profile_id=> 2, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'', :term => 'Winter', :year => '2019')
       @application2.save
-      @application3 = Application.new(:id => 3, :profile_id=> 3, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
+      @application3 = Application.new(:id => 3, :profile_id=> 3, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'', :term => 'Spring', :year => '2020')
       @application3.save
+      @application4 = Application.new(:id => 4, :profile_id=> 4, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'', :term => 'Summer', :year => '2020')
+      @application4.save
+      @application5 = Application.new(:id => 5, :profile_id=> 5, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'', :term => 'Fall', :year => '2020')
+      @application5.save
       @mock_undergrad_university1 = UndergradUniversity.new(:id => 1, :university_name => 'University of Iowa')
       @mock_undergrad_university1.save
       @mock_undergrad_university2 = UndergradUniversity.new(:id => 2, :university_name => 'Arizona State University')
       @mock_undergrad_university2.save
-      @mock_profiles_undergrad_university1 = ProfilesUndergradUniversity.new(:profile_id => 1, :undergrad_university_id => 1)
+      @mock_profiles_undergrad_university1 = ProfilesUndergradUniversity.new(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
       @mock_profiles_undergrad_university1.save
-      @mock_profiles_undergrad_university2 = ProfilesUndergradUniversity.new(:profile_id => 2, :undergrad_university_id => 1)
+      @mock_profiles_undergrad_university2 = ProfilesUndergradUniversity.new(:profile_id => 2, :undergrad_university_id => 1, :cgpa => '3.8', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
       @mock_profiles_undergrad_university2.save
-      @mock_profiles_undergrad_university3 = ProfilesUndergradUniversity.new(:profile_id => 3, :undergrad_university_id => 2)
+      @mock_profiles_undergrad_university3 = ProfilesUndergradUniversity.new(:profile_id => 3, :undergrad_university_id => 2, :cgpa => '3.0', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
       @mock_profiles_undergrad_university3.save
+      @mock_profiles_undergrad_university4 = ProfilesUndergradUniversity.new(:profile_id => 4, :undergrad_university_id => 1, :cgpa => '2.5', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+      @mock_profiles_undergrad_university4.save
+      @mock_profiles_undergrad_university5 = ProfilesUndergradUniversity.new(:profile_id => 5, :undergrad_university_id => 1, :cgpa => '2.8', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+      @mock_profiles_undergrad_university5.save
+      @mock_undergrad_details = ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+    end
+    it 'should return applications in the full score ranges when score ranges are empty' do
+      profiles = [@mock_profile, @mock_profile2, @mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"", "greq_score"=>"", "grev_score"=>"", "msob_score"=>"", "phdo_score"=>"", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
     end
     it 'should return applications whose profile has cgpa within the requested range' do
-      profiles = [@mock_profile]
+      profiles = [@mock_profile, @mock_profile4, @mock_profile5]
       Profile.stub_chain(:where, :all).and_return(profiles)
       get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"2 - 3", "greq_score"=>"130 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "commit"=>"Filter"}
       expect(response).to render_template('profiles/fStudentList')
@@ -249,6 +272,133 @@ describe ProfilesController do
       get :filter, {"utf8"=>"✓", "research_interests"=>"multiple", "multiple_interests"=>"1,4", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "commit"=>"Filter"}
       expect(response).to render_template('profiles/fStudentList')
     end
+    it 'should return all applications when term, year or and_later params are empty' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile3,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"", "year"=>"", "and_later"=>"", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications when any is selected' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile3,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"any", "year"=>"any", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for a term when a term is selected' do
+      profiles = [@mock_profile, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"any", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for a year when a year is selected' do
+      profiles = [@mock_profile, @mock_profile2]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"any", "year"=>"2019", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for a year and a term when year and term are selected without and_later' do
+      profiles = [@mock_profile]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"2019", "and_later"=>"off", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for year-term and later when year and term are selected with and_later-Fall 2019' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile3,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"2019", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for year-term and later when year and term are selected with and_later-Winter 2019' do
+      profiles = [@mock_profile2,@mock_profile3,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"winter", "year"=>"2019", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for year-term and later when year and term are selected with and_later-Spring 2020' do
+      profiles = [@mock_profile3,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"spring", "year"=>"2020", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications for year-term and later when year and term are selected with and_later-Summer 2020' do
+      profiles = [@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"any", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"summer", "year"=>"2020", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+
+    it 'should return all applications from selected undergrad uni when term, year or and_later params are empty' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"", "year"=>"", "and_later"=>"", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni when any is selected' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"any", "year"=>"any", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for a term when a term is selected' do
+      profiles = [@mock_profile, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"any", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for a year when a year is selected' do
+      profiles = [@mock_profile, @mock_profile2]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"any", "year"=>"2019", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for a year and a term when year and term are selected without and_later' do
+      profiles = [@mock_profile]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"2019", "and_later"=>"off", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for year-term and later when year and term are selected with and_later-Fall 2019' do
+      profiles = [@mock_profile,@mock_profile2,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"fall", "year"=>"2019", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for year-term and later when year and term are selected with and_later-Winter 2019' do
+      profiles = [@mock_profile2,@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"winter", "year"=>"2019", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for year-term and later when year and term are selected with and_later-Spring 2020' do
+      profiles = [@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"spring", "year"=>"2020", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
+    it 'should return all applications from selected undergrad uni for year-term and later when year and term are selected with and_later-Summer 2020' do
+      profiles = [@mock_profile4, @mock_profile5]
+      Profile.stub_chain(:where, :all).and_return(profiles)
+      ProfilesUndergradUniversity.stub_chain(:where, :first).and_return(@mock_undergrad_details)
+      get :filter, {"utf8"=>"✓", "research_interests"=>"any", "multiple_interests"=>"", "undergrad_university"=>"1", "cgpa_score"=>"0 - 5", "greq_score"=>"150 - 170", "grev_score"=>"130 - 170", "msob_score"=>"0 - 5", "phdo_score"=>"0 - 5", "term"=>"summer", "year"=>"2020", "and_later"=>"on", "commit"=>"Filter"}
+      expect(response).to render_template('profiles/fStudentList')
+    end
   end
 
   describe "Faculty view student's profile" do
@@ -273,5 +423,5 @@ describe ProfilesController do
       get :new
     end
   end
-
 end
+

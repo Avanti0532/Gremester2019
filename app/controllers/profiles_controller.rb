@@ -259,8 +259,10 @@ class ProfilesController < ApplicationController
                   if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
                     applications << a
                   else
-                    if (!params[:term].to_s =~ /^any$/ and !params[:year].to_s =~ /^any$/)
-                      if params[:and_later] == 'on'
+                    if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                      puts "checkbox"
+                      puts params[:and_later]
+                      if params[:and_later] =~ /^on$/
                         if params[:term].to_s =~ /Spring/i
                           if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
                             applications << a
@@ -340,8 +342,10 @@ class ProfilesController < ApplicationController
                     if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
                       applications << a
                     else
-                      if (!params[:term].to_s =~ /^any$/ and !params[:year].to_s =~ /^any$/)
-                        if params[:and_later] == 'on'
+                      if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                        puts "checkbox"
+                        puts params[:and_later]
+                        if params[:and_later] =~ /^on$/
                           if params[:term].to_s =~ /Spring/i
                             if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
                               applications << a
