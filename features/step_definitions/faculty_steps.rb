@@ -161,12 +161,13 @@ Then /^I can see all research interests$/ do
   end
 end
 
-Then /^I can see all applications to my university$/ do
+Then /^I can see all applications to my university that do not have admitted or rejected date$/ do
   Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id])
+    if (application.university_id == @save_faculty[:university_id] && (application.admitted.blank? and application.rejected.blank?))
       page.should have_content(application.profile.student.first_name)
     end
   end
+  page.should_not have_content("Alex Robert")
 end
 
 When /^I select (.*?) as undergrad university$/ do |option|

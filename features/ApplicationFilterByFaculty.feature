@@ -6,6 +6,7 @@ Feature: Faculty can look at all applications applied to his university
       | Robin       | Hood       | robin@gmail.com  | 12345678    |   robin_hood        | 1  |
       | Thomas      | Edison     | thomas@gmail.com  | 23456789    |   thomas_edison    | 2  |
       | Frank       | Robert     | frank@gmail.com | 34567890    |   frank_robert       | 3  |
+      | Alex        | Robert     | robert@gmail.com | 34567890    |   robert       | 4  |
 
     And the following faculties have been added to Faculty Database:
       | first_name  | last_name   | email             | password    |   username          | weblink | approved | confirmed_at | university_id |
@@ -18,6 +19,7 @@ Feature: Faculty can look at all applications applied to his university
       | 1  | 1             |  100     | 5.0            |   140         | 160       | fall            |   1             |            |          |                            | 5                    | 2                      |
       | 2  | 2             |  110     | 4.0            |   145         | 150       | fall            |   2             |              |          |                            | 2                  | 5                      |
       | 3  | 3             | 102     | 4.0            |   130         | 155       | fall            |   0             |             |          |                            | 3                   | 3                      |
+      | 4  | 4             | 102     | 4.0            |   130         | 155       | fall            |   0             |             |          |                            | 3                   | 3                      |
 
     And the following research interests have been added to ResearchInterest Database:
       | name  | id |
@@ -51,13 +53,15 @@ Feature: Faculty can look at all applications applied to his university
       |2 |2       |Stanford University|Public|17|$16,900|Located 35 miles south of San Francisco and 20 miles north of San Jose, Stanford University is in the heart of Northern California’s dynamic Silicon Valley.|Most students are of the common opinion that the weather at Stanford is pretty good. Apart from the winter months, when it’s slightly cold and wet, the rest of the year is sunny and pleasant. Stanford University area doesn’t receive snowfall and fortunately doesn’t experience extremes of temperature. It’s pretty normal to see people roaming around in shorts and tshirts.|http://www.stanford.edu/|The very famous Stanford University is a private research university with a high output, located in Stanford, California. Simply, if anyone gets into Stanford, she/he takes it blindly, as the acceptance rate is a mere 4.8% and financial aids are among the most generous ones. To get an idea of exactly how competitive Stanford is, you don’t have to look further than the long list of prominent companies founded by Stanford alumni- Google, Hewlett-Packard, LinkedIn, Yahoo, and Sun Microsystems. And that’s not even one tenth of the list. Also, it ranks #3 according to U.S. News' 'Best Global Universities Ranking' list.|
 
     And the following applications have been added to Application Database:
-      |id | university_id | profile_id |applied | applied_date |
-      | 1 | 1                    | 1          | t | 2019-03-12 |
-      | 2 | 2                    | 1          | t | 2019-03-12 |
-      | 3 | 1                    | 2          | t | 2019-03-12 |
-      | 4 | 2                    | 2          | t | 2019-03-12 |
-      | 5 | 1                    | 3          | t | 2019-03-12 |
-      | 6 | 2                    | 3          | t | 2019-03-12 |
+      |id | university_id | profile_id |applied | applied_date | admitted | admitted_date | rejected | rejected_date |
+      | 1 | 1                    | 1          | t | 2019-03-12 |          |               |          |               |
+      | 2 | 2                    | 1          | t | 2019-03-12 |          |               |          |               |
+      | 3 | 1                    | 2          | t | 2019-03-12 |          |               |          |               |
+      | 4 | 2                    | 2          | t | 2019-03-12 |          |               |          |               |
+      | 5 | 1                    | 3          | t | 2019-03-12 |          |               |          |               |
+      | 6 | 2                    | 3          | t | 2019-03-12 |          |               |          |               |
+      | 7 | 1                    | 4          | t | 2018-03-12 | true     | 2018-04-12    |          |               |
+      | 8 | 1                    | 4          | t | 2018-03-12 |          |               |  true    |  2018-05-01   |
 
   Scenario: Faculty can see all undergrad universities
     When I log in as a faculty
@@ -75,7 +79,7 @@ Feature: Faculty can look at all applications applied to his university
   @javascript
   Scenario: Faculty can see all applications to his university
     When I log in as a faculty
-    Then I can see all applications to my university
+    Then I can see all applications to my university that do not have admitted or rejected date
 
   @javascript
   Scenario: Faculty can filter applications by research interest
