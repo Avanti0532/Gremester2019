@@ -251,7 +251,7 @@ class ProfilesController < ApplicationController
             profile_applications = profile.applications
             profile_applications.each do |a|
             if a.admitted.nil? and a.rejected.nil?
-              undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+              undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.profile_id).first
               if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
                 if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
                   applications << a
