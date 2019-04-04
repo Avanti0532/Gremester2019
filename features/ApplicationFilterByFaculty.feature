@@ -163,3 +163,8 @@ Feature: Faculty can look at all applications applied to his university
     And I can see research interests modal
     And I click on x button
     And modal should close
+
+  @javascript
+  Scenario: Faculty can view student profile
+    When I log in as a faculty
+    And I can click any student profile if I click on their name in the application table

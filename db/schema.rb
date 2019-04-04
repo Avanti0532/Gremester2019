@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326230555) do
+ActiveRecord::Schema.define(version: 20190401015502) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -92,6 +92,17 @@ ActiveRecord::Schema.define(version: 20190326230555) do
   add_index "faculties", ["reset_password_token"], name: "index_faculties_on_reset_password_token", unique: true
   add_index "faculties", ["university_id"], name: "index_faculties_on_university_id"
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
+
+  create_table "faculty_evaluations", force: :cascade do |t|
+    t.integer  "faculty_id"
+    t.integer  "score"
+    t.integer  "ee_background"
+    t.string   "comment"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "faculty_evaluations", ["faculty_id"], name: "index_faculty_evaluations_on_faculty_id"
 
   create_table "grading_scale_types", force: :cascade do |t|
     t.string   "grading_scale_name"
