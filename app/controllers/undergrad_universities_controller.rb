@@ -52,5 +52,7 @@ class UndergradUniversitiesController < ApplicationController
   def show
     id = params[:id]
     @undergrad_university = UndergradUniversity.find(id)
+    puts @undergrad_university.rankings.length
+    puts 'here'
   end
 end
