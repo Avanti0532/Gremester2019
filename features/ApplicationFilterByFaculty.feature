@@ -204,3 +204,7 @@ Feature: Faculty can look at all applications applied to his university
     And I check and_later
     And I click on Filter button
     Then I can see all applications to my university for Fall 2019 and later terms
+
+  Scenario: Faculty can view student profile
+    When I log in as a faculty
+    And I can click any student profile if I click on their name in the application table

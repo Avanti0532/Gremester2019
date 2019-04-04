@@ -438,4 +438,7 @@ Then("I can see all applications to my university for Fall {int} and later terms
   end
 end
 
-
+Then("I can click any student profile if I click on their name in the application table") do
+  click_link('Frank Robert')
+  page.should have_content("Frank Robert's Profile")
+end
