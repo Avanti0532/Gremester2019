@@ -40,10 +40,10 @@ Feature: Faculty can look at all applications applied to his university
       | 2  |1          |Stanford University|Public|17|Located 35 miles south of San Francisco and 20 miles north of San Jose, Stanford University is in the heart of Northern California’s dynamic Silicon Valley.|http://www.stanford.edu/|The very famous Stanford University is a private research university with a high output, located in Stanford, California. Simply, if anyone gets into Stanford, she/he takes it blindly, as the acceptance rate is a mere 4.8% and financial aids are among the most generous ones. To get an idea of exactly how competitive Stanford is, you don’t have to look further than the long list of prominent companies founded by Stanford alumni- Google, Hewlett-Packard, LinkedIn, Yahoo, and Sun Microsystems. And that’s not even one tenth of the list. Also, it ranks #3 according to U.S. News' 'Best Global Universities Ranking' list.|
 
     And the following profiles_undergrad_universities have been added to ProfilesUndergradUniversity Database:
-      | profile_id | undergrad_university_id |
-      | 1          | 1                       |
-      | 2          | 2                       |
-      | 3          | 1                       |
+      | profile_id | undergrad_university_id |cgpa|degree_type|major|start_year|end_year|grading_scale_type_id|
+      | 1          | 1                       |3.5 |M.S        |Computer Science|2010|2014|1                   |
+      | 2          | 2                       |2.8 |B.S        |Computer Engineering|2012|2016|1               |
+      | 3          | 1                       |3.1 |B.S        |Computer Science    |2011|2015|1               |
 
     And the following universities have been added to University Database:
       |id| rank   | university_name  | university_type | acceptance_rate | tuition |location|weather|university_link|university_desc|
@@ -51,13 +51,13 @@ Feature: Faculty can look at all applications applied to his university
       |2 |2       |Stanford University|Public|17|$16,900|Located 35 miles south of San Francisco and 20 miles north of San Jose, Stanford University is in the heart of Northern California’s dynamic Silicon Valley.|Most students are of the common opinion that the weather at Stanford is pretty good. Apart from the winter months, when it’s slightly cold and wet, the rest of the year is sunny and pleasant. Stanford University area doesn’t receive snowfall and fortunately doesn’t experience extremes of temperature. It’s pretty normal to see people roaming around in shorts and tshirts.|http://www.stanford.edu/|The very famous Stanford University is a private research university with a high output, located in Stanford, California. Simply, if anyone gets into Stanford, she/he takes it blindly, as the acceptance rate is a mere 4.8% and financial aids are among the most generous ones. To get an idea of exactly how competitive Stanford is, you don’t have to look further than the long list of prominent companies founded by Stanford alumni- Google, Hewlett-Packard, LinkedIn, Yahoo, and Sun Microsystems. And that’s not even one tenth of the list. Also, it ranks #3 according to U.S. News' 'Best Global Universities Ranking' list.|
 
     And the following applications have been added to Application Database:
-      |id | university_id | profile_id |applied | applied_date |
-      | 1 | 1                    | 1          | t | 2019-03-12 |
-      | 2 | 2                    | 1          | t | 2019-03-12 |
-      | 3 | 1                    | 2          | t | 2019-03-12 |
-      | 4 | 2                    | 2          | t | 2019-03-12 |
-      | 5 | 1                    | 3          | t | 2019-03-12 |
-      | 6 | 2                    | 3          | t | 2019-03-12 |
+      |id | university_id | profile_id |applied | applied_date |term|year|
+      | 1 | 1                    | 1          | t | 2019-03-12 |Fall|2019|
+      | 2 | 2                    | 1          | t | 2019-03-12 |Fall|2019|
+      | 3 | 1                    | 2          | t | 2019-03-12 |Spring|2020|
+      | 4 | 2                    | 2          | t | 2019-03-12 |Spring|2020|
+      | 5 | 1                    | 3          | t | 2019-03-12 |Fall  |2020|
+      | 6 | 2                    | 3          | t | 2019-03-12 |Fall  |2020|
 
   Scenario: Faculty can see all undergrad universities
     When I log in as a faculty
@@ -115,7 +115,8 @@ Feature: Faculty can look at all applications applied to his university
   @javascript
   Scenario: Faculty can filter applications by GREV and GREQ
     When I log in as a faculty
-    And I change sliders GREV and GREQ to ranges 135,150 and 155,165
+    And I slide GREV to range 135,150
+    And I slide GREQ to range 155,165
     And I click on Filter button
     Then I can see all applications with GREV and GREQ in ranges 135,150 and 155,165
 
@@ -165,6 +166,45 @@ Feature: Faculty can look at all applications applied to his university
     And modal should close
 
   @javascript
+  Scenario: Faculty can see all applications by selecting any
+    When I log in as a faculty
+    And I select any in term
+    And I select any in year
+    And I click on Filter button
+    Then I can see all applications to my university
+
+  @javascript
+  Scenario: Faculty can filter applications by selecting term
+    When I log in as a faculty
+    And I select Fall in term
+    And I click on Filter button
+    Then I can see all applications to my university for Fall
+
+  @javascript
+  Scenario: Faculty can filter applications by selecting year
+    When I log in as a faculty
+    And I select 2020 in year
+    And I click on Filter button
+    Then I can see all applications to my university for 2020
+
+  @javascript
+  Scenario: Faculty can filter applications by selecting year and term without and_later
+    When I log in as a faculty
+    And I select Fall in term
+    And I select 2020 in year
+    And I uncheck and_later
+    And I click on Filter button
+    Then I can see all applications to my university for Fall 2020
+
+  @javascript
+  Scenario: Faculty can filter applications by selecting year and term with and_later
+    When I log in as a faculty
+    And I select Fall in term
+    And I select 2019 in year
+    And I check and_later
+    And I click on Filter button
+    Then I can see all applications to my university for Fall 2019 and later terms
+
   Scenario: Faculty can view student profile
     When I log in as a faculty
     And I can click any student profile if I click on their name in the application table

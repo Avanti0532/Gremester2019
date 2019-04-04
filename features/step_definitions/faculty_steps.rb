@@ -240,43 +240,201 @@ Then /^I can see all applications from (.*?)$/ do |undergrad_university|
   end
 end
 
-When /^I slide (.*?) to range (.*?),(.*?)$/ do |slider, int, int2|
-  page.execute_script("$('#slider-range-"+slider.to_s.downcase+"').slider({values: ["+int.to_s+","+int2.to_s+"]})")
+When("I slide CGPA to range {int},{int}") do |int, int2|
+  page.execute_script("$('#slider-range-cgpa').slider({
+  range: true,
+      min: 0,
+      max: 5,
+      step: 0.1,
+      values: ["+int.to_s+", "+int2.to_s+"],
+      slide: function(event, ui) {
+    $( '#cgpa_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+  }
+  });
+
+$( '#cgpa_score' ).val($( '#slider-range-cgpa' ).slider( 'values', 0 ) +
+  ' - ' + $( '#slider-range-cgpa' ).slider( 'values', 1 ) );");
 end
 
-Then /^I can see all applications with (.*?) in range (.*?),(.*?)$/ do |slider, int, int2|
-  col_no = 4 if slider == 'CGPA'
-  col_no = 5 if slider == 'GREQ'
-  col_no = 6 if slider == 'GREV'
-  col_no = 7 if (slider == 'MSOB' or slider == 'PHDO')
-  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type('+col_no.to_s+')')
+When("I slide GREQ to range {int},{int}") do |int, int2|
+  page.execute_script("$('#slider-range-greq').slider({
+  range: true,
+      min: 130,
+      max: 170,
+      step: 1,
+      values: ["+int.to_s+", "+int2.to_s+"],
+      slide: function(event, ui) {
+    $( '#greq_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+  }
+  });
+
+$( '#greq_score' ).val($( '#slider-range-greq' ).slider( 'values', 0 ) +
+  ' - ' + $( '#slider-range-greq' ).slider( 'values', 1 ) );");
+end
+
+When("I slide GREV to range {int},{int}") do |int, int2|
+  page.execute_script("$('#slider-range-grev').slider({
+  range: true,
+      min: 130,
+      max: 170,
+      step: 1,
+      values: ["+int.to_s+", "+int2.to_s+"],
+      slide: function(event, ui) {
+    $( '#grev_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+  }
+  });
+
+$( '#grev_score' ).val($( '#slider-range-grev' ).slider( 'values', 0 ) +
+  ' - ' + $( '#slider-range-grev' ).slider( 'values', 1 ) );");
+end
+
+When("I slide PHDO to range {int},{int}") do |int, int2|
+  page.execute_script("$('#slider-range-phdo').slider({
+  range: true,
+      min: 0,
+      max: 5,
+      step: 1,
+      values: ["+int.to_s+", "+int2.to_s+"],
+      slide: function(event, ui) {
+    $( '#phdo_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+  }
+  });
+
+$( '#phdo_score' ).val($( '#slider-range-phdo' ).slider( 'values', 0 ) +
+  ' - ' + $( '#slider-range-phdo' ).slider( 'values', 1 ) );");
+end
+
+When("I slide MSOB to range {int},{int}") do |int, int2|
+  page.execute_script("$('#slider-range-msob').slider({
+  range: true,
+      min: 0,
+      max: 5,
+      step: 1,
+      values: ["+int.to_s+", "+int2.to_s+"],
+      slide: function(event, ui) {
+    $( '#msob_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
+  }
+  });
+
+$( '#msob_score' ).val($( '#slider-range-msob' ).slider( 'values', 0 ) +
+  ' - ' + $( '#slider-range-msob' ).slider( 'values', 1 ) );");
+end
+
+Then("I can see all applications with CGPA in range {int},{int}") do |int, int2|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(4)')
   tdelements.each do |td|
-    if col_no == 7
-      obj = td.text.split("/")
-      if slider == "MSDO"
-        (obj[0]).should be_between(int, int2)
-      else
-        (obj[1]).should be_between(int, int2)
-      end
-    else
-      (td.text).should be_between(int, int2)
-    end
+    (td.text.to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
   end
 end
 
-When("I change sliders GREV and GREQ to ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
-  page.execute_script("$('#slider-range-grev').slider({values: ["+int.to_s+","+int2.to_s+"]})")
-  page.execute_script("$('#slider-range-greq').slider({values: ["+int3.to_s+","+int4.to_s+"]})")
+Then("I can see all applications with GREQ in range {int},{int}") do |int, int2|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(5)')
+  tdelements.each do |td|
+    (td.text.to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
+  end
+end
+
+Then("I can see all applications with GREV in range {int},{int}") do |int, int2|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(6)')
+  tdelements.each do |td|
+    (td.text.to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
+  end
+end
+
+Then("I can see all applications with MSOB in range {int},{int}") do |int, int2|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(7)')
+  tdelements.each do |td|
+    obj = td.text.split("/")
+    (obj[0].to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
+  end
+end
+
+Then("I can see all applications with PHDO in range {int},{int}") do |int, int2|
+  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(7)')
+  tdelements.each do |td|
+    obj = td.text.split("/")
+    (obj[1].to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
+  end
 end
 
 Then("I can see all applications with GREV and GREQ in ranges {int},{int} and {int},{int}") do |int, int2, int3, int4|
   tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(6)')
   tdelements.each do |td|
-      (td.text.to_i).should be_between(int, int2)
+      (td.text.to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
   end
   tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(5)')
   tdelements.each do |td|
-    (td.text.to_i).should be_between(int3, int4)
+    (td.text.to_s.to_f).should be_between(int3.to_s.to_f, int4.to_s.to_f)
+  end
+end
+
+When("I select any in term") do
+  find('#term').find(:css, 'option[value="any"]').select_option
+end
+
+When("I select any in year") do
+  find('#year').find(:css, 'option[value="any"]').select_option
+end
+
+When("I select Fall in term") do
+  find('#term').find(:css, 'option[value="fall"]').select_option
+end
+
+Then("I can see all applications to my university for Fall") do
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id] and application.term == 'Fall')
+      page.should have_content(application.profile.student.first_name)
+    end
+    if (application.university_id == @save_faculty[:university_id] and application.term != 'Fall')
+      page.should have_no_content(application.profile.student.first_name)
+    end
+  end
+end
+
+When("I select {int} in year") do |int|
+  find('#year').find(:css, 'option[value="'+int.to_s+'"]').select_option
+end
+
+Then("I can see all applications to my university for {int}") do |int|
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id] and application.year == int)
+      page.should have_content(application.profile.student.first_name)
+    end
+    if (application.university_id == @save_faculty[:university_id] and application.year != int)
+      page.should have_no_content(application.profile.student.first_name)
+    end
+  end
+end
+
+When("I uncheck and_later") do
+  uncheck 'And later terms'
+end
+
+Then("I can see all applications to my university for Fall {int}") do |int|
+  Application.all.each do |application|
+    if (application.university_id == @save_faculty[:university_id] and application.year == int and application.term == 'Fall')
+      page.should have_content(application.profile.student.first_name)
+    end
+    if (application.university_id == @save_faculty[:university_id] and (application.year != int or application.term != 'Fall'))
+      page.should have_no_content(application.profile.student.first_name)
+    end
+  end
+end
+
+When("I check and_later") do
+  check 'And later terms'
+end
+
+Then("I can see all applications to my university for Fall {int} and later terms") do |int|
+  Application.all.each do |application|
+    if ((application.university_id == @save_faculty[:university_id] and application.year >= int and (application.term == 'Fall' or application.term == 'Winter')) or
+        (application.university_id == @save_faculty[:university_id] and application.year > int and (application.term == 'Spring' or application.term == 'Summer')))
+      page.should have_content(application.profile.student.first_name)
+    end
+    if ((application.university_id == @save_faculty[:university_id] and application.year == int and (application.term == 'Summer' or application.term == 'Spring')) or
+        (application.university_id == @save_faculty[:university_id] and application.year < int))
+      page.should have_no_content(application.profile.student.first_name)
+    end
   end
 end
 

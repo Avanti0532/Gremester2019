@@ -74,6 +74,27 @@
         <input type="text" class="score" id="phdo_score" name="phdo_score" readonly>
         <div id="slider-range-phdo"></div>
       </div>
+      <div class="col-md-4">
+        <br/>
+        <%= label_tag 'term','Term'%>
+        <select id="term" name="term">
+          <option value="any">**Any**</option>
+          <option value="fall">Fall</option>
+          <option value="winter">Winter</option>
+          <option value="spring">Spring</option>
+          <option value="summer">Summer</option>
+        </select>
+        <%= label_tag 'year','Year'%>
+        <select id="year" name="year">
+          <option value="any">**Any**</option>
+          <% year = Date.today.year
+             year_2 = year.to_i - 2
+             for i in 0..4 do %>
+            <option value="<%=year_2+i %>"><%=year_2+i %></option>
+          <% end %>
+        </select>
+        <label class="checkbox-inline"><input type="checkbox" checked="true" name="and_later" id="and_later" disabled>And later terms</label>
+      </div>
     </div>
     <br/>
     <div class="col-md-2">
