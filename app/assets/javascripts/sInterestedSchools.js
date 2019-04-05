@@ -267,6 +267,7 @@ deleteSchoolFunc = function() {
 };
 
 editSchoolFunc = function(){
+
     $('.edit').click(function(){
         var edit_btn_id = this.id;
         $('#saveModal').attr('name', edit_btn_id);
@@ -330,5 +331,13 @@ editSchoolFunc = function(){
         return false;
     });
 };
-$(document).ready(deleteSchoolFunc);
-$(document).ready(editSchoolFunc);
+
+//(function($) {
+  $(document).ready(deleteSchoolFunc);
+  $(document).ready(editSchoolFunc);
+//})(jQuery);
+
+//jQuery(document).on('ready', function(){
+  //  deleteSchoolFunc();
+   // editSchoolFunc();
+//});
