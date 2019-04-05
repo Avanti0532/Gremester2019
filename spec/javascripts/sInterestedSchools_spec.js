@@ -29,16 +29,28 @@
 // });
 it("university should not exist when delete is clicked", function() {
     loadFixtures('sInterestedSchools.html');
-    var spyEvent = spyOnEvent('.trash', 'click');
+    //var spyEvent = spyOnEvent('.trash', 'click');
+    //var app = ('trash_3').substr(5).split('_');
+    //var substr = new S;
+    var app = ('trash_3').substr(5).split('_');
+
+    var spyEvent = spyOn($('.trash'), 'click').and.callThrough();
+    //var spyEvent = spyOn($('.trash'), 'click').and.callFake(function(){
+      //  return false;
+    //});
+    // noinspection JSAnnotator
+    //('trash_3').substr(5).split('_') = ['trash',"3"]
+     //var app = ('trash_3').substr(5).split('_');
+    //let this = 'trash_3'
+    //var app = spyOn(substr,'split').and.returnValue(['trash','3'])
     //this = 'trash_3'
     let htmlResponse;
 
     //this.substr(5).split('_') = ['trash',"3"]
     deleteSchoolFunc();
      $('#trash_3').trigger('click');
-    // noinspection JSAnnotator
-    this.substr(5).split('_') = ['trash',"3"]
-    //var app = spyOn($(this.substr),'split').and.returnValue(['trash','3'])
+     //this.substr(5).split('_') = ['trash',"3"]
+
     spyOn($,'ajax').and.callFake(function(ajaxArgs) {
         ajaxArgs.success(htmlResponse, '200');
     });
