@@ -161,12 +161,13 @@ Then /^I can see all research interests$/ do
   end
 end
 
-Then /^I can see all applications to my university$/ do
+Then /^I can see all applications to my university that do not have admitted or rejected date$/ do
   Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id])
+    if (application.university_id == @save_faculty[:university_id] && (application.admitted.blank? and application.rejected.blank?))
       page.should have_content(application.profile.student.first_name)
     end
   end
+  page.should_not have_content("Alex Robert")
 end
 
 When /^I select (.*?) as undergrad university$/ do |option|
@@ -382,10 +383,10 @@ end
 
 Then("I can see all applications to my university for Fall") do
   Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id] and application.term == 'Fall')
+    if (application.university_id == @save_faculty[:university_id] and application.term == 'Fall'  and (application.admitted.blank? and application.rejected.blank?))
       page.should have_content(application.profile.student.first_name)
     end
-    if (application.university_id == @save_faculty[:university_id] and application.term != 'Fall')
+    if (application.university_id == @save_faculty[:university_id] and application.term != 'Fall' and (application.admitted.blank? and application.rejected.blank?))
       page.should have_no_content(application.profile.student.first_name)
     end
   end
@@ -397,10 +398,10 @@ end
 
 Then("I can see all applications to my university for {int}") do |int|
   Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id] and application.year == int)
+    if (application.university_id == @save_faculty[:university_id] and application.year == int and (application.admitted.blank? and application.rejected.blank?))
       page.should have_content(application.profile.student.first_name)
     end
-    if (application.university_id == @save_faculty[:university_id] and application.year != int)
+    if (application.university_id == @save_faculty[:university_id] and application.year != int and (application.admitted.blank? and application.rejected.blank?))
       page.should have_no_content(application.profile.student.first_name)
     end
   end
@@ -412,10 +413,10 @@ end
 
 Then("I can see all applications to my university for Fall {int}") do |int|
   Application.all.each do |application|
-    if (application.university_id == @save_faculty[:university_id] and application.year == int and application.term == 'Fall')
+    if (application.university_id == @save_faculty[:university_id] and application.year == int and application.term == 'Fall' and (application.admitted.blank? and application.rejected.blank?))
       page.should have_content(application.profile.student.first_name)
     end
-    if (application.university_id == @save_faculty[:university_id] and (application.year != int or application.term != 'Fall'))
+    if (application.university_id == @save_faculty[:university_id] and (application.year != int or application.term != 'Fall') and (application.admitted.blank? and application.rejected.blank?))
       page.should have_no_content(application.profile.student.first_name)
     end
   end
@@ -427,12 +428,12 @@ end
 
 Then("I can see all applications to my university for Fall {int} and later terms") do |int|
   Application.all.each do |application|
-    if ((application.university_id == @save_faculty[:university_id] and application.year >= int and (application.term == 'Fall' or application.term == 'Winter')) or
-        (application.university_id == @save_faculty[:university_id] and application.year > int and (application.term == 'Spring' or application.term == 'Summer')))
+    if ((application.university_id == @save_faculty[:university_id] and application.year >= int and (application.term == 'Fall' or application.term == 'Winter') and (application.admitted.blank? and application.rejected.blank?)) or
+        (application.university_id == @save_faculty[:university_id] and application.year > int and (application.term == 'Spring' or application.term == 'Summer') and (application.admitted.blank? and application.rejected.blank?)))
       page.should have_content(application.profile.student.first_name)
     end
-    if ((application.university_id == @save_faculty[:university_id] and application.year == int and (application.term == 'Summer' or application.term == 'Spring')) or
-        (application.university_id == @save_faculty[:university_id] and application.year < int))
+    if ((application.university_id == @save_faculty[:university_id] and application.year == int and (application.term == 'Summer' or application.term == 'Spring') and (application.admitted.blank? and application.rejected.blank?)) or
+        (application.university_id == @save_faculty[:university_id] and application.year < int and (application.admitted.blank? and application.rejected.blank?)))
       page.should have_no_content(application.profile.student.first_name)
     end
   end
