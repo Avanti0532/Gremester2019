@@ -10,6 +10,6 @@
     <%= select_tag "ee_background", options_for_select(['0 - No EE background', '1 - Has EE background -'],  :selected => :ee_background || nil), include_blank: '-- EE Background --', class: "form-control" %>
     <label>Comments</label><br>
     <%= text_area_tag :comment, nil, :size =>"60x5" %> <br>
-    <%= f.submit "Submit", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Submit",  class: "btn btn-large btn-primary" %>
   <% end %>
 </div>

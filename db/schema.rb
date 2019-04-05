@@ -95,14 +95,18 @@ ActiveRecord::Schema.define(version: 20190401015502) do
 
   create_table "faculty_evaluations", force: :cascade do |t|
     t.integer  "faculty_id"
+    t.integer  "profile_id"
+    t.integer  "application_id"
     t.integer  "score"
     t.integer  "ee_background"
     t.string   "comment"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
+  add_index "faculty_evaluations", ["application_id"], name: "index_faculty_evaluations_on_application_id"
   add_index "faculty_evaluations", ["faculty_id"], name: "index_faculty_evaluations_on_faculty_id"
+  add_index "faculty_evaluations", ["profile_id"], name: "index_faculty_evaluations_on_profile_id"
 
   create_table "grading_scale_types", force: :cascade do |t|
     t.string   "grading_scale_name"
