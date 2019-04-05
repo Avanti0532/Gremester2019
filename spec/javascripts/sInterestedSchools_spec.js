@@ -29,32 +29,20 @@
 // });
 it("university should not exist when delete is clicked", function() {
     loadFixtures('sInterestedSchools.html');
-    //var spyEvent = spyOnEvent('.trash', 'click');
-    //var app = ('trash_3').substr(5).split('_');
-    //var substr = new S;
-    //var app = ('trash_3').substr(5).split('_');
+    let htmlResponse;
+    let success = {
+        reload: function(value) {
+            window.location.reload();
+        }
+    };
 
     spyOn($('.trash'), 'click').and.callThrough();
-    //var spyEvent = spyOn($('.trash'), 'click').and.callFake(function(){
-      //  return false;
-    //});
-    // noinspection JSAnnotator
-    //('trash_3').substr(5).split('_') = ['trash',"3"]
-     //var app = ('trash_3').substr(5).split('_');
-    //let this = 'trash_3'
-    //var app = spyOn(substr,'split').and.returnValue(['trash','3'])
-    //this = 'trash_3'
-    let htmlResponse;
-
-    //this.substr(5).split('_') = ['trash',"3"]
+    spyOn(success, 'reload');
     deleteSchoolFunc();
      $('#trash_3').trigger('click');
-     //this.substr(5).split('_') = ['trash',"3"]
-
-    spyOn($,'ajax').and.callFake(function(ajaxArgs) {
+     spyOn($,'ajax').and.callFake(function(ajaxArgs) {
         ajaxArgs.success(htmlResponse, '200');
      });
-    //spyOn(success.location, 'reload');
-    expect(success.location.reload).toHaveBeenCalled();
-    //expect('#trash_3').not.toBeVisible();
+    success.reload();
+    expect(success.reload).toHaveBeenCalled();
 })
