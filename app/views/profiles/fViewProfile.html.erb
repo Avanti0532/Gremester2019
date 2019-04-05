@@ -1,6 +1,8 @@
 
 <div class="container">
   <h1> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h1>
+  <%= link_to "Add Review", new_faculty_evaluation_path(@profile.id)%>
+
   <hr>
   <div class="row">
     <!-- left column -->

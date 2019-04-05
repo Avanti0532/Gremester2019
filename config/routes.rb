@@ -30,7 +30,8 @@ Rails.application.routes.draw do
   }
 
   resources :universities
-   resources :profiles do
+  resources :faculty_evaluations
+  resources :profiles do
      collection do
        match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
        match 'faculty/:id', to: 'profiles#fViewProfile', via: :get, :as => 'fViewProfile'
