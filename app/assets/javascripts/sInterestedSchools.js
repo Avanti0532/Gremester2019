@@ -245,7 +245,7 @@
 deleteSchoolFunc = function() {
 
     $('.trash').click(function () {
-        var app_id = $(this).substr(5).split('_');
+        var app_id = this.id.substr(5).split('_');
         var appn_id = app_id[1]
         $.ajax({
             url: "/profiles/deleteschools",

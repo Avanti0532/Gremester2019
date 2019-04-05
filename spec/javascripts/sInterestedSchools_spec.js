@@ -32,9 +32,9 @@ it("university should not exist when delete is clicked", function() {
     //var spyEvent = spyOnEvent('.trash', 'click');
     //var app = ('trash_3').substr(5).split('_');
     //var substr = new S;
-    var app = ('trash_3').substr(5).split('_');
+    //var app = ('trash_3').substr(5).split('_');
 
-    var spyEvent = spyOn($('.trash'), 'click').and.callThrough();
+    spyOn($('.trash'), 'click').and.callThrough();
     //var spyEvent = spyOn($('.trash'), 'click').and.callFake(function(){
       //  return false;
     //});
@@ -53,6 +53,8 @@ it("university should not exist when delete is clicked", function() {
 
     spyOn($,'ajax').and.callFake(function(ajaxArgs) {
         ajaxArgs.success(htmlResponse, '200');
-    });
-    expect('#trash_3').not.toBeVisible();
+     });
+    //spyOn(success.location, 'reload');
+    expect(success.location.reload).toHaveBeenCalled();
+    //expect('#trash_3').not.toBeVisible();
 })
