@@ -1,7 +1,7 @@
 
 <div class="container">
   <h1> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h1>
-  <%= link_to "Add Review", faculty_evaluation_path(@application.id)%>
+  <%= link_to "Add Review", faculty_evaluation_path(@application.id), class: "btn btn-large btn-primary"%>
 
   <hr>
   <div class="row">
