@@ -131,7 +131,7 @@
     <% @applications.each do |applicant| %>
       <%if applicant.university_id == current_faculty.university_id%>
         <tr>
-          <td><%= link_to "#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}", fViewProfile_profiles_path(applicant.profile.id)%></td>
+          <td><%= link_to "#{applicant.profile.student.first_name} #{applicant.profile.student.last_name}", fViewProfile_profiles_path(applicant.id)%></td>
           <% if applicant.profile.undergrad_universities.size >= 1  %>
             <td><%="#{applicant.profile.undergrad_universities[0].university_name}" %></td>
           <%else %>
