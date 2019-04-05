@@ -147,7 +147,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = 'Please enter all the fields'
     else
       @university = University.find_by_university_name(params[:univ_name])
-      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
+      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id, term: params[:term],year: params[:year])
       if @applications_new.blank?
         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker],params[:term],params[:year])
         if @applications
@@ -156,7 +156,7 @@ class ProfilesController < ApplicationController
           flash[:notice] = 'Error while saving application to database'
         end
       else
-        flash[:notice] = 'University is already present. Please add a new one'
+        flash[:notice] = 'University is already present for the selected term and year. Please add a new one'
       end
     end
     @applications = Application.where(profile_id: profile_id)
