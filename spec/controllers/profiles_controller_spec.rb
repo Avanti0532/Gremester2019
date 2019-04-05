@@ -63,7 +63,7 @@ describe ProfilesController do
   end
   describe 'show list of schools' do
     it 'should show list of schools added by a student' do
-      application = Application.new(id: 1, profile_id: 1, university_id: 1, applied: 't', applied_date: '2019-01-02', admitted: 't', admitted_date: '2019-03-05', rejected: '', rejected_date:'')
+      application = Application.new(id: 1, profile_id: 1, university_id: 1, applied: 't', applied_date: '2019-01-02', admitted: 't', admitted_date: '2019-03-05', rejected: '', rejected_date:'',:term => 'Fall', :year => '2020')
       application.save
       expect(Application).to receive(:where).with(profile_id: '1').and_return(application)
       get :showschools, {:id => '1'}
@@ -79,9 +79,9 @@ describe ProfilesController do
       controller.instance_eval {@profile = @mock_profile}
       @university = University.new(id: 1, rank: 1, university_name: 'Stanford University')
       @university.save
-      @application_new = Application.new(:id => 2, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'t',:admitted_date=>'2019-04-23',:rejected=>'',:rejected_date=>'')
+      @application_new = Application.new(:id => 2, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'t',:admitted_date=>'2019-04-23',:rejected=>'',:rejected_date=>'', :term => 'Fall', :year => '2020')
       @application_new.save
-      @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'')
+      @application = Application.new(:id => 1, :profile_id=> 1, :university_id => 1, :applied=>'t', :applied_date => '2019-03-06', :admitted=>'',:admitted_date=>'',:rejected=>'',:rejected_date=>'',:term => 'Fall', :year => '2020')
       @application.save
       format = double("format")
       format.should_receive(:js).and_return("location.reload();")
@@ -115,7 +115,7 @@ describe ProfilesController do
       expect(University).to receive(:find_by_university_name).with("Stanford University").and_return(@university)
       allow(Application).to receive(:where).and_return(@application_new)
       post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "term"=>"Fall", "year"=>"2020"}
-      expect(flash[:notice]).to eq('University is already present. Please add a new one')
+      expect(flash[:notice]).to eq('University is already present for the selected term and year. Please add a new one')
     end
     it 'should render interested school template' do
       post :addschools, {"univ_name"=>"Stanford University", "datepicker"=>"03/06/2019", "sel_opt"=>"Applied - Accepted", "term"=>"Fall", "year"=>"2020"}
