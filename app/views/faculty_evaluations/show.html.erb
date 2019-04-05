@@ -1,6 +1,8 @@
 <div class="container">
-
-  <%= form_for :faculty_evaluation do |f| %>
+  <br>
+  <br>
+  <%= link_to "Back to profile", fViewProfile_profiles_path(@student.id)%>
+  <%= form_for :faculty_evaluation, :html => {:id => "fEval_form"} do |f|  %>
     <h1> <%= 'Application Review for ' + @student.first_name + ' ' + @student.last_name %> </h1>
     <hr>
 
@@ -13,3 +15,11 @@
     <%= f.submit "Submit",  class: "btn btn-large btn-primary" %>
   <% end %>
 </div>
+
+<script>
+    $('#fEval_form').submit(function() {
+        var c = confirm("This action cannot be undone, confirm all information is correct. Click OK to submit ");
+        return c; //you can just return c because it will be true or false
+    });
+
+</script>
