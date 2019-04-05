@@ -27,22 +27,39 @@
 //     })
 //
 // });
-it("university should not exist when delete is clicked", function() {
-    loadFixtures('sInterestedSchools.html');
-    let htmlResponse;
-    let success = {
-        reload: function(value) {
-            window.location.reload();
-        }
-    };
+describe('Delete Applications', function() {
+    it("successful server call when deletion is called", function () {
+        loadFixtures('sInterestedSchools.html');
+        let htmlResponse;
+        let success = {
+            reload: function (value) {
+                window.location.reload();
+            }
+        };
 
-    spyOn($('.trash'), 'click').and.callThrough();
-    spyOn(success, 'reload');
-    deleteSchoolFunc();
-     $('#trash_3').trigger('click');
-     spyOn($,'ajax').and.callFake(function(ajaxArgs) {
-        ajaxArgs.success(htmlResponse, '200');
-     });
-    success.reload();
-    expect(success.reload).toHaveBeenCalled();
-})
+        spyOn($('.trash'), 'click').and.callThrough();
+        spyOn(success, 'reload');
+        deleteSchoolFunc();
+        $('#trash_3').trigger('click');
+        spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
+            ajaxArgs.success(htmlResponse, '200');
+        });
+        success.reload();
+        expect(success.reload).toHaveBeenCalled();
+    });
+});
+
+describe('Edit Applications', function(){
+    it('successful server call when edit is clicked', function(){
+        loadFixtures('sInterestedSchools.html');
+        let jsonData = [];
+        spyOn($('#edit_4_4'), 'click').and.callThrough();
+        editSchoolFunc();
+        $('.edit').trigger('click');
+        spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
+            ajaxArgs.success(jsonData);
+        });
+
+    })
+
+});

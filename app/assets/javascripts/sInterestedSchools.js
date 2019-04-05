@@ -264,7 +264,71 @@ deleteSchoolFunc = function() {
         });
         return (false);
     });
+};
 
+editSchoolFunc = function(){
+    $('.edit').click(function(){
+        var edit_btn_id = this.id;
+        $('#saveModal').attr('name', edit_btn_id);
+        var app_id_uni_id = edit_btn_id.substr(5).split('_');
+        var app_id = app_id_uni_id[0];
+        var uni_id = app_id_uni_id[1];
+        $.ajax({
+            url: "/applications/"+app_id,
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'html',
+            success: function(jsonData) {
+                var data = JSON.parse(jsonData)
+                $('#uni_name').val(data.uni_name);
+                var applied_date = new Date(data.applied_date);
+                if(applied_date.getUTCFullYear() == '1970'){
+                    applied_date = '';
+                }else{
+                    var app_month = (applied_date.getUTCMonth()+1);
+                    var app_date =  applied_date.getUTCDate();
+                    if (app_month < 10) app_month = "0" + app_month;
+                    if (app_date < 10) app_date = "0" + app_date;
+                    applied_date = applied_date.getUTCFullYear()+'-'+app_month+'-'+app_date;
+                }
+                var admitted_date = new Date(data.admitted_date);
+                if(admitted_date.getUTCFullYear() == '1970'){
+                    admitted_date = '';
+                }else{
+                    var adm_month = (admitted_date.getUTCMonth()+1);
+                    var adm_date =  admitted_date.getUTCDate();
+                    if (adm_month < 10) adm_month = "0" + adm_month;
+                    if (adm_date < 10) adm_date = "0" + adm_date;
+                    admitted_date = admitted_date.getUTCFullYear()+'-'+adm_month+'-'+adm_date;
+                }
+                var rejected_date = new Date(data.rejected_date);
+                if(rejected_date.getUTCFullYear() == '1970'){
+                    rejected_date = '';
+                }else{
+                    var rej_month = (rejected_date.getUTCMonth()+1);
+                    var rej_date =  rejected_date.getUTCDate();
+                    if (rej_month < 10) rej_month = "0" + rej_month;
+                    if (rej_date < 10) rej_date = "0" + rej_date;
+                    rejected_date = rejected_date.getUTCFullYear()+'-'+rej_month+'-'+rej_date;
+                }
+                $('#datepickerapp').val(applied_date);
+                $('#datepickeradm').val(admitted_date);
+                $('#datepickerrej').val(rejected_date);
+                $('div[role=alert]').text('');
+                $('div[role=alert]').addClass('in');
+                $('div[role=alert]').hide();
 
+            },
+
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+        });
+        jQuery.noConflict();
+        $("#schoolModal").modal(
+            {backdrop: true}
+        );
+
+        return false;
+    });
 };
 $(document).ready(deleteSchoolFunc);
+$(document).ready(editSchoolFunc);
