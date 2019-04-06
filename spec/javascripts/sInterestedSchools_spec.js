@@ -52,13 +52,27 @@ describe('Delete Applications', function() {
 describe('Edit Applications', function(){
     it('successful server call when edit is clicked', function(){
         loadFixtures('sInterestedSchools.html');
-        let jsonData = {"id":2,"profile_id":1,"university_id":65,"applied":true,"applied_date":"2019-04-17T00:00:00.000Z","admitted":null,"admitted_date":null,"rejected":null,"rejected_date":null,"created_at":"2019-04-05T21:15:11.712Z","updated_at":"2019-04-05T21:15:11.712Z","term":"Fall","year":2019,"uni_name":"California Institute Of Technology"};
+        let htmlResponse;
+        //let jsonData = {"id":2,"profile_id":1,"university_id":65,"applied":true,"applied_date":"2019-04-17T00:00:00.000Z","admitted":null,"admitted_date":null,"rejected":null,"rejected_date":null,"created_at":"2019-04-05T21:15:11.712Z","updated_at":"2019-04-05T21:15:11.712Z","term":"Fall","year":2019,"uni_name":"California Institute Of Technology"};
+        //var spy = spyOn(window, "editSchoolFunc");
+        //$("#schoolModal").modal();
+        //var spy = spyon($("#schoolModal"),'modal');
+        //var modalSpy = spyOn($("#schoolModal").modal(),'backdrop').and.callFake(function(){
+            //return true;
+        //});
+
+        //$("#schoolModal").modal();
         spyOn($('.edit'), 'click').and.callThrough();
-        editSchoolFunc();
-        $('#edit_4_4').trigger('click');
-        spyOn($, 'ajax').and.callFake(function(ajaxArgs) {
-             ajaxArgs.success(jsonData);
-        });
+        //var modalSpy = spyOn(modal(),'backdrop');
+         var modalSpy = jasmine.createSpyObj('modal',['backdrop']);
+        //$("#schoolModal").modal();
+         editSchoolFunc();
+         $('#edit_4_4').trigger('click');
+         spyOn($, 'ajax').and.callFake(function(ajaxArgs) {
+             ajaxArgs.success(htmlResponse, '200');
+         });
+        //$("#schoolModal").modal();
+         expect(modalSpy).toHaveBeenCalled();
 
     });
 
