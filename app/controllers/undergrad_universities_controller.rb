@@ -50,9 +50,9 @@ class UndergradUniversitiesController < ApplicationController
   end
 
   def show
+    google_map_key = ENV['GOOGLE_MAP']
+    @google_url = 'https://maps.googleapis.com/maps/api/js?key=' << google_map_key << '&libraries=places&callback=initialize'
     id = params[:id]
     @undergrad_university = UndergradUniversity.find(id)
-    puts @undergrad_university.rankings.length
-    puts 'here'
   end
 end
