@@ -172,10 +172,6 @@ Then /^I can update my (.*?)$/ do |field|
       end
     end
     contain.should eq(true)
-  when 'cgpa'
-    fill_in 'gpa', with: '2.7'
-    click_button 'Save Changes'
-    current_student.current_profile.cgpa.should eq(2.7)
   when 'major'
     fill_in 'interested_major', with: 'Computer Security'
     click_button 'Save Changes'
@@ -230,8 +226,8 @@ Then /^I can update my (.*?)$/ do |field|
     click_button 'Save Changes'
     current_student.current_profile.gender.should eq('Female')
   when 'degree objective'
-    select('2', from: 'degree_objective_phd')
-    select('3', from: 'degree_objective_master')
+    find(:xpath, "//input[@id='degree_objective_phd']").set 2
+    find(:xpath, "//input[@id='degree_objective_master']").set 3
     click_button 'Save Changes'
     current_student.current_profile.degree_objective_phd.should eq(2)
     current_student.current_profile.degree_objective_master.should eq(3)

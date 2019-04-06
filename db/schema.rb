@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190320033749) do
+ActiveRecord::Schema.define(version: 20190401015502) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.datetime "rejected_date"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "term"
+    t.integer  "year"
   end
 
   add_index "applications", ["profile_id"], name: "index_applications_on_profile_id"
@@ -91,6 +93,21 @@ ActiveRecord::Schema.define(version: 20190320033749) do
   add_index "faculties", ["university_id"], name: "index_faculties_on_university_id"
   add_index "faculties", ["username"], name: "index_faculties_on_username", unique: true
 
+  create_table "faculty_evaluations", force: :cascade do |t|
+    t.integer  "faculty_id"
+    t.integer  "profile_id"
+    t.integer  "application_id"
+    t.integer  "score"
+    t.integer  "ee_background"
+    t.string   "comment"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "faculty_evaluations", ["application_id"], name: "index_faculty_evaluations_on_application_id"
+  add_index "faculty_evaluations", ["faculty_id"], name: "index_faculty_evaluations_on_faculty_id"
+  add_index "faculty_evaluations", ["profile_id"], name: "index_faculty_evaluations_on_profile_id"
+
   create_table "grading_scale_types", force: :cascade do |t|
     t.string   "grading_scale_name"
     t.datetime "created_at",         null: false
@@ -113,8 +130,6 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.integer  "toefl"
-    t.decimal  "cgpa"
-    t.string   "interested_major"
     t.string   "interested_term"
     t.integer  "interested_year"
     t.text     "resume_data"
@@ -128,18 +143,24 @@ ActiveRecord::Schema.define(version: 20190320033749) do
     t.integer  "degree_objective_phd"
     t.integer  "degree_objective_master"
     t.string   "gender"
-    t.integer  "grading_scale_type_id"
     t.string   "year_work_exp"
   end
 
   add_index "profiles", ["country_id"], name: "index_profiles_on_country_id"
-  add_index "profiles", ["grading_scale_type_id"], name: "index_profiles_on_grading_scale_type_id"
   add_index "profiles", ["student_id"], name: "index_profiles_on_student_id"
 
   create_table "profiles_undergrad_universities", force: :cascade do |t|
     t.integer "profile_id"
     t.integer "undergrad_university_id"
+    t.float   "cgpa"
+    t.string  "degree_type"
+    t.string  "major"
+    t.integer "start_year"
+    t.integer "end_year"
+    t.integer "grading_scale_type_id"
   end
+
+  add_index "profiles_undergrad_universities", ["grading_scale_type_id"], name: "index_profiles_undergrad_universities_on_grading_scale_type_id"
 
   create_table "rank_types", force: :cascade do |t|
     t.string   "name"

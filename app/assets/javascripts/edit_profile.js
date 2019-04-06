@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.popover').popover({
+        trigger: 'hover',
+        container: 'body'
+
+    })
+    $("[data-toggle=popover]").popover();
+
     $('#country_college_edit_profile').change(function() {
         var country;
         country = $('#country_college_edit_profile :selected').text();
@@ -30,6 +38,8 @@ $(document).ready(function () {
                 $("#undergraduate_edit").append('<button type="button" id="add_new_undergrad">Add your school</button>');
             }
             $('#add_new_undergrad').click(function() {
+                $('#undergrad_country').empty();
+                $('#undergrad_rank_type').empty();
                 $.ajax({
                     url: "/countries",
                     type: 'GET',
@@ -171,9 +181,8 @@ $(document).ready(function () {
                     } else {
                         setTimeout(function () {
                             window.location.reload();
-                        });
+                         });
                     }
-
                 },
 
                 beforeSend: function (xhr) {

@@ -62,4 +62,23 @@ describe UndergradUniversitiesController do
       response.body.should == @expected
     end
   end
+  describe 'index method' do
+    it 'should sort an array of undergraduate universities in alphabetical order' do
+      undergrad_universities = [double('university1'), double('university2')]
+      expect(UndergradUniversity).to receive(:order).with(:university_name).and_return(undergrad_universities)
+      get :index
+    end
+  end
+
+  describe 'show method' do
+    before :each do
+      UndergradUniversity.create(id: 1, country_id: 2, university_name: 'University of Iowa')
+    end
+    it 'should find the university by id'do
+      undergrad_universities = UndergradUniversity.find_by_id(1)
+      expect(UndergradUniversity).to receive(:find_by_id).with("1").and_return(undergrad_universities)
+      get :show, {:id => 1}
+    end
+  end
 end
+

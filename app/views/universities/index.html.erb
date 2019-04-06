@@ -1,6 +1,6 @@
 <% if student_signed_in? then %>
   <div class="container">
-    <h1>Universities</h1>
+    <h1>Graduate Schools and Programs</h1>
     <div class="well row">
       <%= form_tag({:action => 'index'},{:method => :get}) do %>
 
@@ -46,7 +46,7 @@
         <th>Public/Private</th>
         <th>Acceptance Rate</th>
         <th>Tuition</th>
-        <th>University Link</th>
+        <th>Website</th>
         <th>Action</th>
       </tr>
       </thead>

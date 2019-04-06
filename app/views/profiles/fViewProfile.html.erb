@@ -1,6 +1,6 @@
-<%= render "profiles/sProfileNav" %>
+
 <div class="container">
-  <h1>Profile</h1>
+  <h1> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h1>
   <hr>
   <div class="row">
     <!-- left column -->
@@ -13,24 +13,12 @@
         <%end %>
         <br>
       </div>
-      <div class="text-center">
-        <br>
-        <%= button_to "Edit Profile", edit_profile_path(@current_student.id), :method => "get", :class=>"btn btn-primary"  %>
-      </div>
     </div>
 
     <!-- show form column -->
     <div class="col-md-9 personal-info">
 
-      <h3>Personal info</h3>
-
       <form class="form-horizontal" role="form">
-        <div class="form-group">
-          <label class="col-md-3 control-label">Name:</label>
-          <div class="col-md-8">
-            <input class="form-control" type="text" value="<%= @current_student.first_name + ' ' + @current_student.last_name%>" readonly>
-          </div>
-        </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Gender:</label>
           <div class="col-md-8">
@@ -65,7 +53,7 @@
             <% if @profile.research_interests.nil? or @profile.research_interests.empty?%>
               <input class="form-control" type="text" value="" readonly>
             <% else %>
-                <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
+              <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
             <% end %>
           </div>
         </div>
@@ -76,7 +64,8 @@
               <input class="form-control" type="text" value="" readonly>
             <% else %>
               <% @all_undergrads.each  do |university|%>
-                <p><%= university[:details] %></p>
+                <%= link_to university[:university_name], undergrad_university_path(university[:id])%>
+                <p><%=university[:details]%></p>
               <% end %>
             <% end %>
           </div>

@@ -10,12 +10,15 @@ Rails.application.config.assets.precompile += %w( fstudentList.css )
 Rails.application.config.assets.precompile += %w( sInterestedSchools.js )
 Rails.application.config.assets.precompile += %w( file_upload.js )
 Rails.application.config.assets.precompile += %w( university.css )
+Rails.application.config.assets.precompile += %w( editProfile.css )
 Rails.application.config.assets.precompile += %w( sProfileNav.css )
 Rails.application.config.assets.precompile += %w( jasmine-jquery.js)
 Rails.application.config.assets.precompile += %w( sInterestedSchools.css)
 Rails.application.config.assets.precompile += %w( edit_profile.js)
 Rails.application.config.assets.precompile += %w( undergrad_universities.css )
 Rails.application.config.assets.precompile += %w( undergrad_universities.js )
+Rails.application.config.assets.precompile += %w( yeti/research_interests.js )
+Rails.application.config.assets.precompile += %w( research_interests.css )
 
 
 # Add additional assets to the asset load path

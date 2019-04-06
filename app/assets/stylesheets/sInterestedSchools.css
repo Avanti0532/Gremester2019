@@ -30,7 +30,6 @@ div#main {
 }
 .trash{
     position: absolute;
-    right: 410px;
     padding: 6px;
     background-color:wheat;
 }
@@ -40,4 +39,22 @@ div#main {
 }
 h4{
     color:red;
+}
+#term{
+    width: 100px;
+    padding: 1px;
+}
+#year{
+    width: 100px;
+    padding: 1px;
+}
+
+#uni_delete{
+    position: relative;
+    margin-left: 50px;
+}
+
+
+input::-webkit-calendar-picker-indicator {
+    opacity: 100;
 }

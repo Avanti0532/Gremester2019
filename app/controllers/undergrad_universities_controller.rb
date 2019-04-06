@@ -1,4 +1,8 @@
 class UndergradUniversitiesController < ApplicationController
+  def index
+    @undergrad_universities = UndergradUniversity.order(:university_name)
+  end
+
   def create
     if (!params[:university_name].blank? and !params[:country].blank?)
       new_rank = nil
@@ -20,7 +24,6 @@ class UndergradUniversitiesController < ApplicationController
         new_rank = Ranking.new(:rank => params[:ranking])
         rank_type.rankings << new_rank
       end
-      begin
         new_undergrad_university = UndergradUniversity.new()
         new_undergrad_university.university_desc = params[:university_desc]
         new_undergrad_university.acceptance_rate = params[:acceptance_rate]
@@ -31,8 +34,8 @@ class UndergradUniversitiesController < ApplicationController
         if !new_rank.nil?
           new_undergrad_university.rankings << new_rank
         end
-        current_student.current_profile.undergrad_universities << new_undergrad_university
-      rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid => e
+        new_undergrad_university.save(:validate => true)
+      if !new_undergrad_university.errors.full_messages.empty?
         respond_to do |format|
           format.json {
             render json: {errors: "University name has been added"}
@@ -53,6 +56,6 @@ class UndergradUniversitiesController < ApplicationController
     google_map_key = ENV['GOOGLE_MAP']
     @google_url = 'https://maps.googleapis.com/maps/api/js?key=' << google_map_key << '&libraries=places&callback=initialize'
     id = params[:id]
-    @undergrad_university = UndergradUniversity.find(id)
+    @undergrad_university = UndergradUniversity.find_by_id(id)
   end
 end

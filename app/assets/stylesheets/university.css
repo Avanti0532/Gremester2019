@@ -28,3 +28,7 @@ div {
 #university_banner {
     transform: translateY(-23.5182px);
 }
+
+.alert {
+    margin-bottom: 0px;
+}
