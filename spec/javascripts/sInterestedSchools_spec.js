@@ -50,10 +50,19 @@ describe('Delete Applications', function() {
 });
 
 describe('Edit Applications', function(){
-    it('successful server call when edit is clicked', function(){
+    beforeEach(function() {
         loadFixtures('sInterestedSchools.html');
-        let htmlResponse;
-        //let jsonData = {"id":2,"profile_id":1,"university_id":65,"applied":true,"applied_date":"2019-04-17T00:00:00.000Z","admitted":null,"admitted_date":null,"rejected":null,"rejected_date":null,"created_at":"2019-04-05T21:15:11.712Z","updated_at":"2019-04-05T21:15:11.712Z","term":"Fall","year":2019,"uni_name":"California Institute Of Technology"};
+    });
+    it("should trigger an event when edit is clicked", function(){
+        var spyEvent = spyOnEvent('#edit_4_4', 'click')
+        $("#edit_4_4").click()
+        expect('click').toHaveBeenTriggeredOn('#edit_4_4')
+        expect(spyEvent).toHaveBeenTriggered()
+    });
+
+    it('successful server call when edit is clicked', function(){
+        //let htmlResponse;
+        let jsonData = {"id":2,"profile_id":1,"university_id":65,"applied":true,"applied_date":"2019-04-17T00:00:00.000Z","admitted":null,"admitted_date":null,"rejected":null,"rejected_date":null,"created_at":"2019-04-05T21:15:11.712Z","updated_at":"2019-04-05T21:15:11.712Z","term":"Fall","year":2019,"uni_name":"California Institute Of Technology"};
         //var spy = spyOn(window, "editSchoolFunc");
         //$("#schoolModal").modal();
         //var spy = spyon($("#schoolModal"),'modal');
@@ -63,17 +72,45 @@ describe('Edit Applications', function(){
 
         //$("#schoolModal").modal();
         spyOn($('.edit'), 'click').and.callThrough();
-        //var modalSpy = spyOn(modal(),'backdrop');
-         var modalSpy = jasmine.createSpyObj('modal',['backdrop']);
+        //let modal = {
+         //   editPopup: function(){
+               // {backdrop: true}
+            //}
+        //}
+        //var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
+         //var modalSpy = jasmine.createSpyObj('modal',['backdrop']);
         //$("#schoolModal").modal();
+        //var modalSpy = spyOn($("#schoolModal"), 'modal').and.callThrough();
+         var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
          editSchoolFunc();
          $('#edit_4_4').trigger('click');
          spyOn($, 'ajax').and.callFake(function(ajaxArgs) {
-             ajaxArgs.success(htmlResponse, '200');
+             ajaxArgs.success(jsonData);
          });
-        //$("#schoolModal").modal();
+         //modal.editPopup();
+         //expect(modal.editPopup).toHaveBeenCalled();
+         //$("#schoolModal").modal();
          expect(modalSpy).toHaveBeenCalled();
+        //expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/applications/3');
 
     });
+
+});
+
+describe('Add applications', function() {
+    beforeEach(function() {
+        loadFixtures('sInterestedSchools.html');
+    });
+    it("should trigger an event add school is clicked", function() {
+        var spyEvent = spyOnEvent('#addrow', 'click')
+        $("#addrow").click()
+        expect('click').toHaveBeenTriggeredOn('#addrow')
+        expect(spyEvent).toHaveBeenTriggered()
+    });
+
+ it('append rows when add is clicked', function(){
+     spyOn($("#addrow"), 'click').and.callThrough();
+     expect(jQuery(document).ready(jQuery("#myTableId")).length).toBe(1);
+ });
 
 });

@@ -241,6 +241,61 @@
 // // }
 // //
 // //$(document).ready(interestSchool);
+addSchoolFunc = function(){
+    $("#addrow").click(function () {
+        var newRow = $("<tr>");
+        var cols = "";
+        var options = "";
+        var year = "";
+        for (let university of gon.universities) {
+            options += '<option value="' +university.university_name+'" />';
+        }
+        var current_year = new Date().getFullYear();
+        for(let i=current_year-2;i<=current_year+10;i++){
+
+            year += '"<option value="'+i+'"/>';
+        }
+
+        cols += '<td><input class= "form-control" list="university-name" id="univ_name" name="univ_name" placeholder="select university">' +
+            '<datalist id="university-name">' +
+            options +
+            '</datalist>'+
+            '</td>';
+        cols += '<td><div class="form-group"> <select class="form-control" id="sell" name="sel_opt" >' +
+            '<option disabled selected value>select status</option>' +
+            '<option>Applied - Accepted</option>' +
+            '<option>Applied - Rejected</option>' +
+            '<option>Applied - Pending Decision</option>' +
+            '</select></div></td>';
+        cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date">'+
+            '</td>';
+        cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
+            '<option disabled selected value>select term</option>' +
+            '<option>Fall</option>' +
+            '<option>Spring</option>' +
+            '<option>Winter</option>' +
+            '<option>Summer</option>' +
+            '</select></div></td>';
+        cols += '<td><input class= "form-control" list="int_year" id="year" name="int_year" placeholder="select year">' +
+            '<datalist id="int_year">' +
+            year +
+            '</datalist>'+
+            '</td>';
+
+        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>';
+        cols += '<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>';
+        newRow.append(cols);
+        $("table.order-list").append("<tr id=\"addSchoolHeader\" style = \"\">\n" +
+            "        <th>University Name</th>\n" +
+            "        <th>Application Status</th>\n" +
+            "        <th>Date</th>\n" +
+            "        <th>Interested Term</th>\n" +
+            "        <th>Interested Year</th>\n" +
+            "      </tr>");
+        $("table.order-list").append(newRow);
+
+    });
+};
 
 deleteSchoolFunc = function() {
 
@@ -332,12 +387,8 @@ editSchoolFunc = function(){
     });
 };
 
-//(function($) {
-  $(document).ready(deleteSchoolFunc);
-  $(document).ready(editSchoolFunc);
-//})(jQuery);
 
-//jQuery(document).on('ready', function(){
-  //  deleteSchoolFunc();
-   // editSchoolFunc();
-//});
+$(document).ready(deleteSchoolFunc);
+$(document).ready(editSchoolFunc);
+$(document).ready(addSchoolFunc);
+
