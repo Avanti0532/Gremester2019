@@ -1,4 +1,4 @@
-$(document).ready(function () {
+fStudentList = function() {
     $('#dtOrderExample').DataTable({
 
         "order": [[ 4, "desc" ]],
@@ -7,4 +7,6 @@ $(document).ready(function () {
         ]
     });
     $('.dataTables_length').addClass('bs-select');
-});
+}
+
+$(document).ready(fStudentList);

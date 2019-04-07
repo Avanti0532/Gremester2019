@@ -174,7 +174,7 @@ describe('Save Modal applications', function(){
         expect($("div[role=alert]")).toContainText('Both admitted date and rejected date cannot be selected!')
     });
 
-    it('should return an error if applied date is later than admitted date',function(){
+    it('should return an error if applied date is later than rejected date',function(){
         setFixtures('<div class="modal-body">\n' +
             '                <form role="form">\n' +
             '                    <div class="alert alert-danger fade" role="alert"></div>\n' +
@@ -224,4 +224,30 @@ describe('Save Modal applications', function(){
         $("#saveModal").click();
         expect($("div[role=alert]")).toContainText('Applied date cannot be empty')
     });
+
+    it('should return an error if applied date is later than admitted date',function(){
+        setFixtures('<div class="modal-body">\n' +
+            '                <form role="form">\n' +
+            '                    <div class="alert alert-danger fade" role="alert"></div>\n' +
+            '                    <div class="form-group">\n' +
+            '                        <label>University Name:</label>\n' +
+            '                        <input type="text" class="form-control" id="uni_name" disabled="true">\n' +
+            '                    </div>\n' +
+            '                    <label>Applied Date:</label>\n' +
+            '                    <input id="datepickerapp" type="date" class="form-control" value="2019-05-17" />\n' +
+            '                    <label>Accepted Date:</label>\n' +
+            '                    <input id="datepickeradm" type="date" class="form-control" value="2018-05-11" />\n' +
+            '                    <label>Rejected Date:</label>\n' +
+            '                    <input id="datepickerrej" type="date" class="form-control" value="" />\n' +
+            '                    <input type=\'hidden\' name=\'_method\' value=\'put\' />\n' +
+            '                </form>\n' +
+            '            </div>\n' +
+            '            <div class="modal-footer">\n' +
+            '                <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>\n' +
+            '                <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>\n' +
+            '            </div>');
+        saveModalFunc();
+        $("#saveModal").click();
+        expect($("div[role=alert]")).toContainText('Applied date cannot be later than admitted date!')
+    })
 });

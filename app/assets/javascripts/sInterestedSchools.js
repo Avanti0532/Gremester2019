@@ -56,8 +56,6 @@ addSchoolFunc = function(){
 saveSchoolFunc = function(){
 
      $("table.order-list").on("click", ".save", function () {
-    //$("table.order-list").click(".save",function(){
-     //$('.save').click(function () {
         var university = $("input[name='univ_name']").val();
         var new_date = $("input[name='datepicker']").val();
         var option = $("#sell").val();
