@@ -400,13 +400,13 @@ class ProfilesController < ApplicationController
     @all_undergrads = Array.new
     @profile.undergrad_universities.each do |university|
       university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
-      details = university.university_name
-      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      university_name = university.university_name
+      details = university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
       details << university_detail.major if !university_detail.major.nil?
       details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
       details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
       details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
-      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
     end
   end
 end

@@ -64,7 +64,8 @@
               <input class="form-control" type="text" value="" readonly>
             <% else %>
               <% @all_undergrads.each  do |university|%>
-                <p><%= university[:details] %></p>
+                <%= link_to university[:university_name], undergrad_university_path(university[:id])%>
+                <p><%=university[:details]%></p>
               <% end %>
             <% end %>
           </div>
