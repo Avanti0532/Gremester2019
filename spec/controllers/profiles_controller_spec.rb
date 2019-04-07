@@ -25,6 +25,12 @@ describe ProfilesController do
     end
   end
   describe 'edit current user profile' do
+    before :each do
+      @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      @mock_profile = Profile.create(id:1, student_id: 1)
+      UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+    end
     it 'should render edit template when profile is created' do
       mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       controller.stub(:current_student).and_return(mock_student)
@@ -407,6 +413,7 @@ describe ProfilesController do
       @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
       @mock_profile = Profile.create(id:1, student_id: 1)
       UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      Application.create(:id => 1, :profile_id => 1)
       @mock_undergrad_details = ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
     it 'should render fViewProfile template' do
