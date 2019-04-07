@@ -358,3 +358,27 @@ Then (/^I can add undergrad university with new rank type if it's not in the lis
   new_undergrad.rankings[0].rank.should eq(40)
 end
 
+Then(/^I can add undergrad university together with gpa, degree type, grading scale/) do
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  expect(page).to have_current_path(edit_profile_path(current_student.id))
+
+  select('United States', from: 'country_id')
+  select('Stanford University', from: 'undergrad_universities')
+  select('Computer Science', from: 'major_undergrad')
+  select('B.A', from: 'degree_undergrad')
+  select('2010', from: 'undergrad_start_year')
+  select('2015', from: 'undergrad_end_year')
+  fill_in 'gpa', with: '3.4'
+  select('Standard', from: 'grading_scale')
+  click_button 'Save Changes'
+  contains = false
+  current_student.current_profile.undergrad_universities.each do |uni|
+    if uni.university_name.eql?('Stanford University')
+      contains = true
+    end
+    contains.should eq(true)
+  end
+
+end
