@@ -97,6 +97,7 @@ describe('Save applications', function() {
     it('should trigger save school event', function () {
         var spyEvent = spyOnEvent('#add_save', 'click');
         $("#add_save").click();
+        saveSchoolFunc();
         expect('click').toHaveBeenTriggeredOn('#add_save');
         expect(spyEvent).toHaveBeenTriggered();
     });
@@ -104,7 +105,9 @@ describe('Save applications', function() {
         let htmlResponse;
         var success = jasmine.createSpy('success');
         spyOn($("table.order-list"), 'on').and.callThrough();
+        var spy = spyOn(window, "saveSchoolFunc");
         $("#add_save").trigger('click');
+        saveSchoolFunc();
         spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
             ajaxArgs.success(htmlResponse, '200');
         });
@@ -124,6 +127,7 @@ describe('Save Modal applications', function(){
         it('should trigger save edit school changes event', function(){
             var spyEvent = spyOnEvent('#saveModal', 'click');
             $("#saveModal").click();
+            saveModalFunc();
             expect('click').toHaveBeenTriggeredOn('#saveModal');
             expect(spyEvent).toHaveBeenTriggered();
         });
