@@ -1,32 +1,3 @@
-//
-// describe('Delete Applications', function() {
-//     //let htmlResponse;
-//     //beforeEach(function() {
-//
-//     let htmlResponse = loadFixtures('sInterestedSchools.html');
-//     //spyOn($,'ajax').and.callFake(function(ajaxArgs) {
-//     //  ajaxArgs.success(htmlResponse, '200');
-//     //});
-//     //});
-//
-//     it("university should not exist when delete is clicked", function() {
-//
-//          let trash = {
-//                deleteSchool: function(value) {
-//             }
-//          };
-//          spyOn(trash, 'deleteSchool').and.callThrough();
-//         trash.deleteSchool('trash_3');
-//         $('#trash_3').click();
-//          expect(trash.deleteSchool).toHaveBeenCalledWith('trash_3');
-//     })
-//
-//     it("should not contain university text when deleted", function(){
-//         $('#trash_3').trigger('click');
-//         expect($(document)).not.toContain('Boston University');
-//     })
-//
-// });
 describe('Delete Applications', function() {
     it("successful server call when deletion is called", function () {
         loadFixtures('sInterestedSchools.html');
@@ -100,6 +71,8 @@ describe('Edit Applications', function(){
 describe('Add applications', function() {
     beforeEach(function() {
         loadFixtures('sInterestedSchools.html');
+        window.gon = {}
+        gon.universities = "Auburn University"
     });
     it("should trigger an event add school is clicked", function() {
         var spyEvent = spyOnEvent('#addrow', 'click')
@@ -110,7 +83,64 @@ describe('Add applications', function() {
 
  it('append rows when add is clicked', function(){
      spyOn($("#addrow"), 'click').and.callThrough();
+     addSchoolFunc();
+     $("#addrow").click();
      expect(jQuery(document).ready(jQuery("#myTableId")).length).toBe(1);
  });
 
+});
+
+describe('Save applications', function() {
+    beforeEach(function () {
+        setFixtures('<td><input type="button" class="save btn btn-md btn-success " value="Save" id="add_save"><div id="add_alert" class="alert alert-danger fade" role="alert"></div></td>');
+    });
+    it('should trigger save school event', function () {
+        var spyEvent = spyOnEvent('#add_save', 'click');
+        $("#add_save").click();
+        expect('click').toHaveBeenTriggeredOn('#add_save');
+        expect(spyEvent).toHaveBeenTriggered();
+    });
+    it('should call success when successful server call', function () {
+        let htmlResponse;
+        var success = jasmine.createSpy('success');
+        spyOn($("table.order-list"), 'click').and.callThrough();
+        $("#add_save").click();
+        spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
+            ajaxArgs.success(htmlResponse, '200');
+        });
+        success.and.callFake(function(jsonData)
+        {
+            expect(success).toHaveBeenCalled();
+
+        });
+
+    });
+});
+
+describe('Save Modal applications', function(){
+        beforeEach(function() {
+            loadFixtures('sInterestedSchools.html');
+        });
+        it('should trigger save edit school changes event', function(){
+            var spyEvent = spyOnEvent('#saveModal', 'click');
+            $("#saveModal").click();
+            expect('click').toHaveBeenTriggeredOn('#saveModal');
+            expect(spyEvent).toHaveBeenTriggered();
+        });
+        it('should hide modal when successful server call',function(){
+            var success = jasmine.createSpy('success');
+            var htmlResponse;
+            spyOn($("#saveModal"), 'click').and.callThrough();
+            saveModalFunc();
+            $("#saveModal").click();
+            spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
+                ajaxArgs.success(htmlResponse, '200');
+            });
+            success.and.callFake(function(jsonData)
+            {
+                expect(success).toHaveBeenCalled();
+                expect($("#schoolModal")).toBeHidden();
+
+            });
+        });
 });
