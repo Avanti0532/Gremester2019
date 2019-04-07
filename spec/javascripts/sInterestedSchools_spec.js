@@ -48,11 +48,11 @@ describe('Edit Applications', function(){
                // {backdrop: true}
             //}
         //}
-        //var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
+         var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
          //var modalSpy = jasmine.createSpyObj('modal',['backdrop']);
         //$("#schoolModal").modal();
         //var modalSpy = spyOn($("#schoolModal"), 'modal').and.callThrough();
-         var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
+         //var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
          editSchoolFunc();
          $('#edit_4_4').trigger('click');
          spyOn($, 'ajax').and.callFake(function(ajaxArgs) {
@@ -103,8 +103,8 @@ describe('Save applications', function() {
     it('should call success when successful server call', function () {
         let htmlResponse;
         var success = jasmine.createSpy('success');
-        spyOn($("table.order-list"), 'click').and.callThrough();
-        $("#add_save").click();
+        spyOn($("table.order-list"), 'on').and.callThrough();
+        $("#add_save").trigger('click');
         spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
             ajaxArgs.success(htmlResponse, '200');
         });
@@ -143,4 +143,81 @@ describe('Save Modal applications', function(){
 
             });
         });
+
+    it('should gave error message if both admitted date and rejected date are selected',function(){
+        setFixtures('<div class="modal-body">\n' +
+            '                <form role="form">\n' +
+            '                    <div class="alert alert-danger fade" role="alert"></div>\n' +
+            '                    <div class="form-group">\n' +
+            '                        <label>University Name:</label>\n' +
+            '                        <input type="text" class="form-control" id="uni_name" disabled="true">\n' +
+            '                    </div>\n' +
+            '                    <label>Applied Date:</label>\n' +
+            '                    <input id="datepickerapp" type="date" class="form-control" value="2018-05-11" />\n' +
+            '                    <label>Accepted Date:</label>\n' +
+            '                    <input id="datepickeradm" type="date" class="form-control" value="2018-05-11" />\n' +
+            '                    <label>Rejected Date:</label>\n' +
+            '                    <input id="datepickerrej" type="date" class="form-control" value="2019-03-11" />\n' +
+            '                    <input type=\'hidden\' name=\'_method\' value=\'put\' />\n' +
+            '                </form>\n' +
+            '            </div>\n' +
+            '            <div class="modal-footer">\n' +
+            '                <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>\n' +
+            '                <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>\n' +
+            '            </div>');
+        saveModalFunc();
+        $("#saveModal").click();
+        expect($("div[role=alert]")).toContainText('Both admitted date and rejected date cannot be selected!')
+    });
+
+    it('should return an error if applied date is later than admitted date',function(){
+        setFixtures('<div class="modal-body">\n' +
+            '                <form role="form">\n' +
+            '                    <div class="alert alert-danger fade" role="alert"></div>\n' +
+            '                    <div class="form-group">\n' +
+            '                        <label>University Name:</label>\n' +
+            '                        <input type="text" class="form-control" id="uni_name" disabled="true">\n' +
+            '                    </div>\n' +
+            '                    <label>Applied Date:</label>\n' +
+            '                    <input id="datepickerapp" type="date" class="form-control" value="2019-05-17" />\n' +
+            '                    <label>Accepted Date:</label>\n' +
+            '                    <input id="datepickeradm" type="date" class="form-control" value="" />\n' +
+            '                    <label>Rejected Date:</label>\n' +
+            '                    <input id="datepickerrej" type="date" class="form-control" value="2018-05-11" />\n' +
+            '                    <input type=\'hidden\' name=\'_method\' value=\'put\' />\n' +
+            '                </form>\n' +
+            '            </div>\n' +
+            '            <div class="modal-footer">\n' +
+            '                <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>\n' +
+            '                <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>\n' +
+            '            </div>');
+        saveModalFunc();
+        $("#saveModal").click();
+        expect($("div[role=alert]")).toContainText('Applied date cannot be later than rejected date!')
+    })
+    it('should return an error if applied date is empty',function(){
+        setFixtures('<div class="modal-body">\n' +
+            '                <form role="form">\n' +
+            '                    <div class="alert alert-danger fade" role="alert"></div>\n' +
+            '                    <div class="form-group">\n' +
+            '                        <label>University Name:</label>\n' +
+            '                        <input type="text" class="form-control" id="uni_name" disabled="true">\n' +
+            '                    </div>\n' +
+            '                    <label>Applied Date:</label>\n' +
+            '                    <input id="datepickerapp" type="date" class="form-control" value="" />\n' +
+            '                    <label>Accepted Date:</label>\n' +
+            '                    <input id="datepickeradm" type="date" class="form-control" value="" />\n' +
+            '                    <label>Rejected Date:</label>\n' +
+            '                    <input id="datepickerrej" type="date" class="form-control" value="2018-05-11" />\n' +
+            '                    <input type=\'hidden\' name=\'_method\' value=\'put\' />\n' +
+            '                </form>\n' +
+            '            </div>\n' +
+            '            <div class="modal-footer">\n' +
+            '                <button type="button" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>\n' +
+            '                <button type="button" class="btn btn-default btn-success pull-right" id="saveModal"><span class="glyphicon glyphicon-upload"></span>Save</button>\n' +
+            '            </div>');
+        saveModalFunc();
+        $("#saveModal").click();
+        expect($("div[role=alert]")).toContainText('Applied date cannot be empty')
+    });
 });

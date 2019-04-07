@@ -55,7 +55,9 @@ addSchoolFunc = function(){
 };
 saveSchoolFunc = function(){
 
-    $("table.order-list").on("click", ".save", function (event) {
+     $("table.order-list").on("click", ".save", function () {
+    //$("table.order-list").click(".save",function(){
+     //$('.save').click(function () {
         var university = $("input[name='univ_name']").val();
         var new_date = $("input[name='datepicker']").val();
         var option = $("#sell").val();
@@ -235,11 +237,22 @@ saveModalFunc = function(){
     });
 };
 
+delRowFunc = function(){
+
+    $("table.order-list").on("click", ".ibtnDel", function () {
+        $("#addSchoolHeader").remove();
+        $(this).closest("tr").remove();
+    });
+
+};
+
 
 $(document).ready(deleteSchoolFunc);
 $(document).ready(addSchoolFunc);
 $(document).ready(saveSchoolFunc);
 $(document).ready(editSchoolFunc);
 $(document).ready(saveModalFunc);
+$(document).ready(delRowFunc);
+
 
 
