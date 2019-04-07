@@ -72,11 +72,10 @@ describe UndergradUniversitiesController do
 
   describe 'show method' do
     before :each do
-      UndergradUniversity.create(id: 1, country_id: 2, university_name: 'University of Iowa')
+      @undergrad_universities = UndergradUniversity.create(id: 1, country_id: 2, university_name: 'University of Iowa')
     end
     it 'should find the university by id'do
-      undergrad_universities = UndergradUniversity.find_by_id(1)
-      expect(UndergradUniversity).to receive(:find_by_id).with("1").and_return(undergrad_universities)
+      expect(UndergradUniversity).to receive(:find_by_id).with("1").and_return(@undergrad_universities)
       get :show, {:id => 1}
     end
   end
