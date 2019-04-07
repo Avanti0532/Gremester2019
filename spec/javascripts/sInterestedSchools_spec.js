@@ -76,7 +76,8 @@ describe('Add applications', function() {
     });
     it("should trigger an event add school is clicked", function() {
         var spyEvent = spyOnEvent('#addrow', 'click')
-        $("#addrow").click()
+        $("#addrow").click();
+        addSchoolFunc();
         expect('click').toHaveBeenTriggeredOn('#addrow')
         expect(spyEvent).toHaveBeenTriggered()
     });
@@ -104,9 +105,7 @@ describe('Save applications', function() {
     it('should call success when successful server call', function () {
         let htmlResponse;
         var success = jasmine.createSpy('success');
-        spyOn($("table.order-list"), 'on').and.callThrough();
-        var spy = spyOn(window, "saveSchoolFunc");
-        $("#add_save").trigger('click');
+        $("table.order-list").trigger('click');
         saveSchoolFunc();
         spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
             ajaxArgs.success(htmlResponse, '200');
@@ -249,5 +248,24 @@ describe('Save Modal applications', function(){
         saveModalFunc();
         $("#saveModal").click();
         expect($("div[role=alert]")).toContainText('Applied date cannot be later than admitted date!')
-    })
+    });
 });
+
+describe('Delete School Row', function(){
+
+    it('should delete row',function(){
+        setFixtures("<tr id=\"addSchoolHeader\" style = \"\">\n" +
+            "        <th>University Name</th>\n" +
+            "        <th>Application Status</th>\n" +
+            "        <th>Date</th>\n" +
+            "        <th>Interested Term</th>\n" +
+            "        <th>Interested Year</th>\n" +
+            "      </tr>");
+        var removeAdd = spyOn($("#addSchoolHeader"),'remove');
+        delRowFunc();
+        $("table.order-list").trigger('click');
+        $("#addSchoolHeader").remove();
+        //expect(removeAdd).toHaveBeenCalled();
+    });
+});
+
