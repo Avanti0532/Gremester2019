@@ -395,7 +395,8 @@ class ProfilesController < ApplicationController
   end
 
   def fViewProfile
-    @profile = Profile.find_by_id(params[:id])
+    @application = Application.find_by_id(params[:id])
+    @profile = Profile.find_by_id(@application.profile.id)
     @student = @profile.student
     @all_undergrads = Array.new
     @profile.undergrad_universities.each do |university|

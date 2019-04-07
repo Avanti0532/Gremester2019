@@ -1,0 +1,25 @@
+<div class="container">
+  <br>
+  <br>
+  <%= link_to "Back to profile", fViewProfile_profiles_path(@student.id)%>
+  <%= form_for :faculty_evaluation, :html => {:id => "fEval_form"} do |f|  %>
+    <h1> <%= 'Application Review for ' + @student.first_name + ' ' + @student.last_name %> </h1>
+    <hr>
+
+    <label>Applicant Score</label>
+    <%= select_tag "application_score", options_for_select(['1 - Reject', '2 - Good -', '3 - Good', '4 - Good +', '5 - Excellent'],  :selected => :score || nil), include_blank: '-- Score --', class: "form-control" %>
+    <label> EE Background</label>
+    <%= select_tag "ee_background", options_for_select(['0 - No EE background', '1 - Has EE background -'],  :selected => :ee_background || nil), include_blank: '-- EE Background --', class: "form-control" %>
+    <label>Comments</label><br>
+    <%= text_area_tag :comment, nil, :size =>"60x5" %> <br>
+    <%= f.submit "Submit",  class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
+
+<script>
+    $('#fEval_form').submit(function() {
+        var c = confirm("This action cannot be undone, confirm all information is correct. Click OK to submit ");
+        return c; //you can just return c because it will be true or false
+    });
+
+</script>
