@@ -105,7 +105,7 @@ describe('Save applications', function() {
     it('should call success when successful server call', function () {
         let htmlResponse;
         var success = jasmine.createSpy('success');
-        $("table.order-list").trigger('click');
+        $("table.order-list").trigger('click',".save");
         saveSchoolFunc();
         spyOn($, 'ajax').and.callFake(function (ajaxArgs) {
             ajaxArgs.success(htmlResponse, '200');
