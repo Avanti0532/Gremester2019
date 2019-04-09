@@ -13,7 +13,7 @@
 <%if faculty_signed_in? %>
   <h4 style = "padding-left: 20px"> Professor <%= "#{current_faculty.first_name} #{current_faculty.last_name}, #{current_faculty.university.university_name}" %></h4>
 <%end %>
-<hr>
+<br>
 <div class="well row">
   <%= form_tag url_for(:controller => 'profiles', :action => 'filter'), :id => 'filterForm', :method => :get do |f| %>
     <div class="row">

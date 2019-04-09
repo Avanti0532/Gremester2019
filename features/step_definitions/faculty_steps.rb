@@ -138,7 +138,8 @@ Then /^I should see an invalid password message/ do
 end
 
 And /^I click on log out as a faculty/ do
-  page.find_link("Log Out", visible: false).click
+  find('a', :text=> 'Hi, alice_may', :visible => false).click
+  find('a', :class => 'nav-link', :text=> 'Log Out', :visible => false).click
 end
 
 Then(/^I should see a sign out message/) do

@@ -19,6 +19,8 @@ Rails.application.config.assets.precompile += %w( undergrad_universities.css )
 Rails.application.config.assets.precompile += %w( undergrad_universities.js )
 Rails.application.config.assets.precompile += %w( yeti/research_interests.js )
 Rails.application.config.assets.precompile += %w( research_interests.css )
+Rails.application.config.assets.precompile += %w( faculty_evaluation.js )
+Rails.application.config.assets.precompile += %w( faculty_evaluations.css )
 
 
 # Add additional assets to the asset load path
