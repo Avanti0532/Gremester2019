@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag 'sProfileNav' %>
 <nav style= "margin-bottom: 0px;" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -36,6 +37,7 @@
           </li>
         <%else %>
           <%if(student_signed_in?) %>
+            <li class= "navbar-text" aria-expanded="false" id="dicussion_forum_button"><%=link_to "Discussion Forum", thredded_path %> </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%="Hi, #{current_student.username}" %><span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -50,6 +52,7 @@
             <li ><%= link_to "Log Out", destroy_faculty_session_path, :method => :delete, class: "nav-link"%></li>
           <%elsif admin_signed_in? %>
             <li class= "navbar-text"><%="Hi, #{current_admin.first_name}" %> </li>
+            <li class= "navbar-text"><%=link_to "Admin Dashboard", rails_admin_path  %> </li>
             <li ><%= link_to "Log Out", destroy_admin_session_path, :method => :delete, class: "nav-link"%></li>
           <%end %>
           <%end %>

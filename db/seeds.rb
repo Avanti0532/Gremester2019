@@ -448,4 +448,4 @@ csv.each do |row|
   grading_scale.save
 end
 
-
+ Student.create(first_name: 'Moderator',last_name: 'Gremester',email: 'moderator@gremester.com', password: '12345678', username: 'moderator', isModerator: true, confirmed_at: '2018-08-10')
