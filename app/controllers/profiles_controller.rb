@@ -231,6 +231,7 @@ class ProfilesController < ApplicationController
                                            "profiles.gre_verbal >= #{grev_low} AND profiles.gre_verbal <= #{grev_high} AND "+
                                            "profiles.degree_objective_phd >= #{phdo_low} AND profiles.degree_objective_phd <= #{phdo_high} AND "+
                                            "profiles.degree_objective_master >= #{msob_low} AND profiles.degree_objective_master <= #{msob_high}").all
+
         unless params[:research_interests].blank?
           if params[:research_interests].to_s =~ /^any$/
             profiles = profiles_other
