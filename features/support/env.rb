@@ -57,7 +57,9 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 require 'simplecov'
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  add_filter 'lib/rails_admin_approve_faculty.rb'
+end
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist
