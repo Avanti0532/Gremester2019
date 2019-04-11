@@ -27,4 +27,8 @@ class FacultyEvaluationsController < ApplicationController
   def index
     @evaluations = FacultyEvaluation.where(faculty_id: current_faculty)
   end
+
+  def showEvaluations
+   @evaluations = FacultyEvaluation.where("faculty_id!= #{current_faculty.id} AND application_id = #{params[:id]}")
+  end
 end

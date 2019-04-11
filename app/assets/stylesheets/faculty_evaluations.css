@@ -1,5 +1,11 @@
 #evaluationTable{
     max-width: 1300px;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+}
+
+#fevaluationTable{
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
 }
