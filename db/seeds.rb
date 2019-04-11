@@ -442,7 +442,8 @@ csv.each do |row|
   end
   grading_scale = GradingScale.new
   grading_scale.gpa = row['GPA']
-  grading_scale.percentage = row['Percentage']
+  grading_scale.low_percent = row['Low_Percent']
+  grading_scale.high_percent = row['High_Percent']
   grading_scale.letter_grade = row['Letter grade']
   grading_scale.grading_scale_type_id = grading_type.id
   grading_scale.save
