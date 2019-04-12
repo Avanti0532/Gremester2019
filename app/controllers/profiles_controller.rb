@@ -186,8 +186,8 @@ class ProfilesController < ApplicationController
 
   def filter
     if params[:cgpa_score].blank?
-      cgpa_low = '0'
-      cgpa_high = '5'
+      cgpa_low = 0
+      cgpa_high = 100
     else
       cgpa_values = params[:cgpa_score].to_s.split(" - ");
       cgpa_low = cgpa_values[0]
