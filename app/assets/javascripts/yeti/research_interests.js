@@ -2,9 +2,9 @@ $(document).ready(function() {
     var slidercgpa = $("#slider-range-cgpa").slider({
         range: true,
         min: 0,
-        max: 5,
-        step: 0.1,
-        values: [0, 5],
+        max: 100,
+        step: 1,
+        values: [0, 100],
         slide: function(event, ui) {
             $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
         }
@@ -122,8 +122,8 @@ $(document).ready(function() {
         var slidercgpa = $("#slider-range-cgpa").slider({
             range: true,
             min: 0,
-            max: 5,
-            step: 0.1,
+            max: 100,
+            step: 1,
             values: [cgpa_low, cgpa_high],
             slide: function(event, ui) {
                 $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
@@ -221,9 +221,9 @@ $(document).ready(function() {
         var slidercgpa = $("#slider-range-cgpa").slider({
             range: true,
             min: 0,
-            max: 5,
-            step: 0.1,
-            values: [0, 5],
+            max: 100,
+            step: 1,
+            values: [0, 100],
             slide: function(event, ui) {
                 $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
             }
