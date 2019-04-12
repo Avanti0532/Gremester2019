@@ -1,7 +1,7 @@
 facultyEvaluation = function() {
     $('#facultyEvaluationTable').DataTable({
 
-        "order": [[ 4, "desc" ]],
+        "order": [[ 0, "desc" ]],
         "columnDefs": [
             { "orderable": false, "targets": 5 }
         ]
