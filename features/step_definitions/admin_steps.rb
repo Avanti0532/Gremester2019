@@ -79,6 +79,9 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
   when 'Posts'
     user_table.hashes.each do |post|
       ThreddedPost.create(post)
+  when 'FacultyEvaluation'
+    user_table.hashes.each do |faculty_evaluation|
+      FacultyEvaluation.create(faculty_evaluation)
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190410012702) do
+ActiveRecord::Schema.define(version: 20190411041434) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -129,11 +129,12 @@ ActiveRecord::Schema.define(version: 20190410012702) do
 
   create_table "grading_scales", force: :cascade do |t|
     t.integer  "grading_scale_type_id"
-    t.string   "percentage"
     t.string   "letter_grade"
     t.decimal  "gpa"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "low_percent"
+    t.integer  "high_percent"
   end
 
   create_table "profiles", force: :cascade do |t|
