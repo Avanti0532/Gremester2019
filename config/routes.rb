@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+  mount Thredded::Engine => '/discussion_forum'
   mount RailsAdmin::Engine => '/admin/dashboard', as: 'rails_admin'
   mount ImageUploader.upload_endpoint(:cache) => "/upload"
   devise_for :students, controllers: {

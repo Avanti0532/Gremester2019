@@ -41,6 +41,18 @@ When /^I log in as a faculty/ do
   saved_faculty_data
   log_in_faculty
 end
+When /^I log_in as a faculty as (.*?)$/ do |name|
+  visit new_faculty_session_path
+  case name
+  when 'Alice'
+    fill_in 'Email', with: 'alicen@uiowa.edu'
+    fill_in 'Password', with: '12345689'
+  when 'Lily'
+    fill_in 'Email', with: 'lilys@uiowa.edu '
+    fill_in 'Password', with: '23456789'
+  end
+  click_button 'Log in'
+end
 
 When /^I sign up with valid faculties details/ do
   create_faculty
@@ -138,7 +150,8 @@ Then /^I should see an invalid password message/ do
 end
 
 And /^I click on log out as a faculty/ do
-  page.find_link("Log Out", visible: false).click
+  find('a', :text=> 'Hi, alice_may', :visible => false).click
+  find('a', :class => 'nav-link', :text=> 'Log Out', :visible => false).click
 end
 
 Then(/^I should see a sign out message/) do
@@ -443,3 +456,5 @@ Then("I can click any student profile if I click on their name in the applicatio
   click_link('Frank Robert')
   page.should have_content("Frank Robert's Profile")
 end
+
+

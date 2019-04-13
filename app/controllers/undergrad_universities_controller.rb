@@ -1,7 +1,4 @@
 class UndergradUniversitiesController < ApplicationController
-  def undergrad_university_params
-    params.require(:undergrad_university).permit(:id, :university_name)
-  end
   def index
     @undergrad_universities = UndergradUniversity.order(:university_name)
   end
@@ -53,5 +50,12 @@ class UndergradUniversitiesController < ApplicationController
         return
       }
     end
+  end
+
+  def show
+    google_map_key = ENV['GOOGLE_MAP'].nil? ? '' : ENV['GOOGLE_MAP']
+    @google_url = 'https://maps.googleapis.com/maps/api/js?key=' << google_map_key << '&libraries=places&callback=initialize'
+    id = params[:id]
+    @undergrad_university = UndergradUniversity.find_by_id(id)
   end
 end
