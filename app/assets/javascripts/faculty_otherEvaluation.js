@@ -11,9 +11,21 @@ facultyOEvaluation = function() {
 }
 
 function alignBackButton(){
-    $("<br/><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a>").insertAfter("div#facultyOEvaluationTable_info");
-    // $("<div class='row'><div class='col-md-12 col-sm-12'><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter("div#facultyOEvaluationTable_info");
-    // $("<div class='row'><div class='col-md-12 col-sm-12'><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter($("div#facultyOEvaluationTable_info").parent().parent());
+    backBtn = $('#backeval').parent().children()[0];
+    $('#divBack').text('');
+
+    //Option 1
+    $(backBtn).insertAfter("div#facultyOEvaluationTable_info");
+    $("<br/><br/>").insertBefore("a#backeval");
+
+    //Option 2
+    // $("<div class='row'><div class='col-md-12 col-sm-12' id='divBackEval'><br/></div></div>").insertAfter("div#facultyOEvaluationTable_info");
+    // $("#divBackEval").append(backBtn);
+
+    //Option 3
+    // $("<div class='row'><div class='col-md-12 col-sm-12' id='divBackEval'></div></div>").insertAfter($("div#facultyOEvaluationTable_info").parent().parent());
+    // $("#divBackEval").append(backBtn);
+
 }
 
 $(document).ready(facultyOEvaluation);
