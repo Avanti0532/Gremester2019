@@ -68,6 +68,17 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |profiles_undergrad_university|
       ProfilesUndergradUniversity.create(profiles_undergrad_university)
     end
+  when 'Messageboards'
+    user_table.hashes.each do |message_board|
+      ThreddedMessageboard.create(message_board)
+    end
+  when 'Topics'
+    user_table.hashes.each do |topic|
+      ThreddedTopic.create(topic)
+    end
+  when 'Posts'
+    user_table.hashes.each do |post|
+      ThreddedPost.create(post)
   when 'FacultyEvaluation'
     user_table.hashes.each do |faculty_evaluation|
       FacultyEvaluation.create(faculty_evaluation)
