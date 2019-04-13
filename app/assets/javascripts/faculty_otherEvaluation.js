@@ -13,7 +13,7 @@ facultyOEvaluation = function() {
 function alignBackButton(){
     $("<br/><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a>").insertAfter("div#facultyOEvaluationTable_info");
     // $("<div class='row'><div class='col-md-12 col-sm-12'><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter("div#facultyOEvaluationTable_info");
-    // $("<div class='row'><div class='col-md-12 col-sm-12'><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter($("div#facultyOEvaluationTable_info").parent().parent());
+    //$("<div class='row'><div class='col-md-12 col-sm-12'><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter($("div#facultyOEvaluationTable_info").parent().parent());
 }
 
 $(document).ready(facultyOEvaluation);
