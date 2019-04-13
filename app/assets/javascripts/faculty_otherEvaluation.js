@@ -10,15 +10,16 @@ facultyOEvaluation = function() {
     $('.dataTables_length').addClass('bs-select');
 }
 
-function alignBackButton(){
-    $("<br/><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a>").insertAfter("div#facultyOEvaluationTable_info");
-    // $("<div class='row'><div class='col-md-12 col-sm-12'><br/><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter("div#facultyOEvaluationTable_info");
-    //$("<div class='row'><div class='col-md-12 col-sm-12'><a class='btn btn-primary' id='backeval' href='faculty_evaluations'>Back</a></div></div>").insertAfter($("div#facultyOEvaluationTable_info").parent().parent());
+
+alignBackButton = function(){
+    if ($('#facultyOEvaluationTable_info').length > 0) {
+        backBtn = $('#backeval').parent().children()[0];
+        $('#divBack').text('');
+
+        $(backBtn).insertAfter("div#facultyOEvaluationTable_info");
+        $("<br/><br/>").insertBefore("a#backeval");
+    }
 }
 
 $(document).ready(facultyOEvaluation);
-$(document).ready(function() {
-    if ($('#facultyOEvaluationTable_info').length > 0) {
-        alignBackButton();
-    }
-});
+$(document).ready(alignBackButton);
