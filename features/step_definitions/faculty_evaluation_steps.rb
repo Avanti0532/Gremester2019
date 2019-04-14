@@ -34,3 +34,21 @@ Then(/^I should see entry only for (.*?)$/) do |search_field|
   td1elements = all('table tbody tr td:nth-of-type(1)')
   expect(td1elements.count).to eq(1)
 end
+
+And(/^I click on view other evaluations of (.*?)$/) do |name|
+  find(:xpath, "//tr[contains(.,\"#{name}\")]/td/a", :text => 'View other evaluations').click
+end
+
+Then(/^I should see all the evaluations of other faculty members$/) do
+  td1elements = all('table tbody tr td:nth-of-type(1)')
+  @evaluations = FacultyEvaluation.where("faculty_id!= 1 AND application_id = 5")
+  expect(@evaluations.count).to eq(td1elements.count)
+end
+
+Then(/^I should not see any evaluations of other faculty members$/) do
+   page.should have_content('No data available in table')
+end
+
+Then(/^I should be on faculty evaluation page$/) do
+  expect(current_path).to eq(faculty_evaluations_path)
+end

@@ -1,4 +1,4 @@
-Feature: Faculty can view their own evaluations
+Feature: Faculty can view their own evaluations as well as other evaluations
 
   Background: I am on the Welcome to Gremester page
     Given the following students have been added to Student Database:
@@ -13,6 +13,7 @@ Feature: Faculty can view their own evaluations
       | Alice       | May         | alicen@uiowa.edu  | 12345689    |   alice_may         | http://homepage.cs.uiowa.edu/~alicem/ | true | 2019-02-15 02:46:01 UTC | 1|
       | Lily        | Edison      | lilys@uiowa.edu   | 23456789    |   lily12            | http://homepage.cs.uiowa.edu/~lily12/ | true | 2019-02-15 02:46:01 UTC | 1|
       | Hazel       | Robert      | hazel@uiowa.edu   | 34567890    |   hazel_robert      | http://homepage.cs.uiowa.edu/~hzel/ | true  | 2019-02-15 02:46:01 UTC | 2|
+      | James       | Gordon      | james@uiowa.edu   | 23456789    |   james12            | http://homepage.cs.uiowa.edu/~james12/ | true | 2019-04-04 02:46:01 UTC | 1|
 
     And the following profiles have been added to Profile Database:
       | student_id    |toefl   | gre_writing    |   gre_verbal  | gre_quant | interested_term |  year_work_exp | resume_data | sop_data | additional_attachment_data | degree_objective_phd | degree_objective_master|
@@ -70,6 +71,7 @@ Feature: Faculty can view their own evaluations
       |1         |5             |5    |1            |Excellent Profile|2018-03-11|
       |2         |5             |4    |1            |Good to admit|2018-03-10|
       |2         |7             |1    |0            |Requirements not met|2018-03-10|
+      |4         |5             |4    |1            |Good Profile. Requirements are met|2018-03-11|
 
 
 
@@ -93,4 +95,33 @@ Feature: Faculty can view their own evaluations
   Scenario: Faculty can search students
     When I log_in as a faculty as Alice
     And I search student name with Frank
-    Then I should see entry only for Frank  
+    Then I should see entry only for Frank
+
+  Scenario: Faculty can view other evaluations for a student
+    When I log_in as a faculty as Alice
+    And I click on View Evaluations
+    And I click on view other evaluations of Frank Robert
+    Then I should see all the evaluations of other faculty members
+
+  @javascript
+  Scenario: Faculty can view other evaluations for a student
+    When I log_in as a faculty as Alice
+    And I click on View Evaluations
+    And I click on view other evaluations of Thomas Edison
+    Then I should not see any evaluations of other faculty members
+
+  @javascript
+  Scenario: Faculty can go back to view evaluations when back button is clicked
+    When I log_in as a faculty as Alice
+    And I click on View Evaluations
+    And I click on view other evaluations of Frank Robert
+    And I click on Back button
+    Then I should be on faculty evaluation page
+
+  @javascript
+  Scenario: Faculty can search with professor name
+    When I log_in as a faculty as Alice
+    And I click on View Evaluations
+    And I click on view other evaluations of Frank Robert
+    And I search student name with James
+    Then I should see entry only for James

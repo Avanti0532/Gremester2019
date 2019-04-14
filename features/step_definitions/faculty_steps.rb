@@ -230,6 +230,8 @@ end
 When /^I click on (.*?) button$/ do |btn|
   if btn == 'x'
     find('#x_btn').click
+  elsif btn == 'Back'
+    click_on btn
   else
     click_button btn
   end
