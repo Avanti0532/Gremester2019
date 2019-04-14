@@ -230,7 +230,7 @@ end
 When /^I click on (.*?) button$/ do |btn|
   if btn == 'x'
     find('#x_btn').click
-  elsif btn == 'Back'
+  elsif btn == 'Back' || 'Add Evaluation' || 'Back to profile'
     click_on btn
   else
     click_button btn

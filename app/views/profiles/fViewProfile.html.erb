@@ -6,7 +6,7 @@
   <br>
   <%if !FacultyEvaluation.exists?(faculty_id: current_faculty, application_id: @application.id ) %>
     <i>Evaluation for this application has not been submitted</i><br>
-    <%= link_to "Add Evaluation", faculty_evaluation_path(@application.id), class: "btn btn-large btn-success"%>
+    <%= link_to "Add Evaluation", faculty_evaluation_path(@application.id), class: "btn btn-large btn-success", id: 'addevaluation'%>
   <%else %>
     <% evaluation = FacultyEvaluation.where(faculty_id: current_faculty,application_id: @application.id).first %>
     <i id="icon_evaluation_submit" class="glyphicon glyphicon-ok"></i>
