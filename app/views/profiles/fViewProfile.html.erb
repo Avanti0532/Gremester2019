@@ -4,11 +4,11 @@
   <%= link_to "Back", root_path, class: "btn btn-primary"%>
   <br>
   <br>
-  <%if !FacultyEvaluation.exists?(application_id: @application.id ) %>
+  <%if !FacultyEvaluation.exists?(faculty_id: current_faculty, application_id: @application.id ) %>
     <i>Evaluation for this application has not been submitted</i><br>
     <%= link_to "Add Evaluation", faculty_evaluation_path(@application.id), class: "btn btn-large btn-success"%>
   <%else %>
-    <% evaluation = FacultyEvaluation.where(:application_id => @application.id).first %>
+    <% evaluation = FacultyEvaluation.where(faculty_id: current_faculty,application_id: @application.id).first %>
     <i id="icon_evaluation_submit" class="glyphicon glyphicon-ok"></i>
     <i id="text_evauluation_submit"><%= 'Evaluation submitted on ' + evaluation.created_at.strftime("%m-%d-%Y")%> </i><br>
     <i><%=  'Score: ' + evaluation.score.to_s%></i><br>

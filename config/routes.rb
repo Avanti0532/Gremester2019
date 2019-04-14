@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :faculty_evaluations do
     collection do
       match '/:id' => 'faculty_evaluations#create',   via: :post,  :as => :create_faculty_evaluation
+      match '/showEvaluations/:id', to: 'faculty_evaluations#showEvaluations',via: :get, :as => 'showEvaluations'
     end
   end
   resources :profiles do
