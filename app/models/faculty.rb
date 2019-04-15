@@ -10,6 +10,7 @@ class Faculty < ActiveRecord::Base
   validate :id_or_link
   belongs_to :university
   before_create :skip_confirmation_notification!
+  has_many :faculty_evaluations
 
   def id_or_link
     if id_card_data.blank? && weblink.blank?

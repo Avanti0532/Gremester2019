@@ -13,7 +13,7 @@ Feature: Allow students to edit their profile
 
     And the following grading scale type have been added to GradingScaleType Database:
       | grading_scale_name  | id |
-      | US News | 1|
+      | Standard | 1|
 
     And the following rank types have been added to RankType Database:
       | name  | id |
@@ -101,6 +101,11 @@ Feature: Allow students to edit their profile
   Scenario: Students can update their research interest
     When I log in as a student
     Then I can update my research interest
+
+  @javascript
+  Scenario: Student can add undergrad university together with gpa, degree type, grading scale
+    When I log in as a student
+    Then I can add undergrad university together with gpa, degree type, grading scale
 
   @javascript
   Scenario: Student can add undergrad university if it's not available on the school list with only school name and country

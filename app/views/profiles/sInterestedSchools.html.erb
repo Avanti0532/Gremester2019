@@ -8,19 +8,20 @@
 <div class="container">
   <h2> My Applications</h2>
   <%= form_tag show_profiles_path,:method => :get do %>
-  <table id="myTable" class=" table order-list">
-    <thead>
-    <tr>
-      <th>University Name</th>
-      <th>Applied Date</th>
-      <th>Admit Date</th>
-      <th>Reject Date</th>
-      <th>Interested Term/Year</th>
-      <th>Delete Application</th>
-      <th>Edit Application</th>
-    </tr>
-    </thead>
+    <table id="myTable" class=" table order-list">
+      <thead>
+      <tr>
+        <th>University Name</th>
+        <th>Applied Date</th>
+        <th>Admit Date</th>
+        <th>Reject Date</th>
+        <th>Interested Term/Year</th>
+        <th>Delete Application</th>
+        <th>Edit Application</th>
+      </tr>
+      </thead>
     <tbody>
+
 
     <% @applications.each do |app|%>
     <tr>

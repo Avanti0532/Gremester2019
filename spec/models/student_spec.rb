@@ -45,4 +45,9 @@ RSpec.describe Student, type: :model do
     assert(student.current_profile.interested_year).eql?(mock_profile.interested_year)
   end
 
+  it 'return moderator if isModerator is true' do
+    student = Student.new(id: 1, first_name: 'John', last_name: 'Doe', email: 'john@example.com', password: 'test12345', username: 'test', isModerator: true)
+    assert(student.moderator).eql?(student)
+  end
+
 end

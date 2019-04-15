@@ -12,3 +12,7 @@
 .navbar-fixed-left + .container {
     padding-left: 120px;
 }
+
+#icon_evaluation_submit, #text_evauluation_submit {
+    color: #2fb471
+}

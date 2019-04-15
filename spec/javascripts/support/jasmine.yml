@@ -15,6 +15,7 @@ src_files:
   - assets/jasmine-jquery.js
   - assets/sInterestedSchools.js
   - assets/fstudentList.js
+  - assets/faculty_evaluation.js
 # stylesheets
 #
 # Return an array of stylesheet filepaths relative to src_dir to include before jasmine specs.

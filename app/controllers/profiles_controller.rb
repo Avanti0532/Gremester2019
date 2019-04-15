@@ -147,7 +147,7 @@ class ProfilesController < ApplicationController
       flash[:notice] = 'Please enter all the fields'
     else
       @university = University.find_by_university_name(params[:univ_name])
-      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id)
+      @applications_new = Application.where(profile_id:profile_id, university_id: @university.id, term: params[:term],year: params[:year])
       if @applications_new.blank?
         @applications = Application.add_school!(profile_id,@university.id ,params[:sel_opt], params[:datepicker],params[:term],params[:year])
         if @applications
@@ -156,7 +156,7 @@ class ProfilesController < ApplicationController
           flash[:notice] = 'Error while saving application to database'
         end
       else
-        flash[:notice] = 'University is already present. Please add a new one'
+        flash[:notice] = 'University is already present for the selected term and year. Please add a new one'
       end
     end
     @applications = Application.where(profile_id: profile_id)
@@ -251,9 +251,51 @@ class ProfilesController < ApplicationController
             profile_applications = profile.applications
             profile_applications.each do |a|
               if a.admitted.nil? and a.rejected.nil?
-                undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
+                undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.profile_id).first
                 if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
-                  applications << a
+                  if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                    applications << a
+                  else
+                    if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                      applications << a
+                    else
+                      if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                        if params[:and_later] =~ /^on$/
+                          if params[:term].to_s =~ /Spring/i
+                            if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                              applications << a
+                            end
+                          elsif params[:term].to_s =~ /Summer/i
+                            if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                              applications << a
+                            end
+                          elsif params[:term].to_s =~ /Fall/i
+                            if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                              applications << a
+                            end
+                          elsif params[:term].to_s =~ /Winter/i
+                            if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                              applications << a
+                            end
+                          end
+                        else
+                          if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                            applications << a
+                          end
+                        end
+                      else
+                        if !(params[:term].to_s =~ /^any$/)
+                          if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                            applications << a
+                          end
+                        elsif !(params[:year].to_s =~ /^any$/)
+                          if (a.year.to_s == params[:year].to_s)
+                            applications << a
+                          end
+                        end
+                      end
+                    end
+                  end
                 end
               end
             end
@@ -292,7 +334,49 @@ class ProfilesController < ApplicationController
                 if a.admitted.nil? and a.rejected.nil?
                   undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
                   if !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
-                    applications << a
+                    if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                      applications << a
+                    else
+                      if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                        applications << a
+                      else
+                        if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                          if params[:and_later] =~ /^on$/
+                            if params[:term].to_s =~ /Spring/i
+                              if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                applications << a
+                              end
+                            elsif params[:term].to_s =~ /Summer/i
+                              if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                applications << a
+                              end
+                            elsif params[:term].to_s =~ /Fall/i
+                              if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                applications << a
+                              end
+                            elsif params[:term].to_s =~ /Winter/i
+                              if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                applications << a
+                              end
+                            end
+                          else
+                            if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                              applications << a
+                            end
+                          end
+                        else
+                          if !(params[:term].to_s =~ /^any$/)
+                            if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                              applications << a
+                            end
+                          elsif !(params[:year].to_s =~ /^any$/)
+                            if (a.year.to_s == params[:year].to_s)
+                              applications << a
+                            end
+                          end
+                        end
+                      end
+                    end
                   end
                 end
               end
@@ -311,18 +395,19 @@ class ProfilesController < ApplicationController
   end
 
   def fViewProfile
-    @profile = Profile.find_by_id(params[:id])
+    @application = Application.find_by_id(params[:id])
+    @profile = Profile.find_by_id(@application.profile.id)
     @student = @profile.student
     @all_undergrads = Array.new
     @profile.undergrad_universities.each do |university|
       university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
-      details = university.university_name
-      details << ', ' << university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      university_name = university.university_name
+      details = university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
       details << university_detail.major if !university_detail.major.nil?
       details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
       details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
       details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
-      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
     end
   end
 end

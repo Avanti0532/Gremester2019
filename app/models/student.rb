@@ -8,4 +8,12 @@ class Student < ActiveRecord::Base
   def current_profile
     self.profile
   end
+
+  def moderator
+    if self.isModerator == true
+      self
+    else
+      nil
+    end
+  end
 end

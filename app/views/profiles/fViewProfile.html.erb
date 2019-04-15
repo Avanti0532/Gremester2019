@@ -1,7 +1,21 @@
-
+<%= stylesheet_link_tag 'sProfileNav' %>
 <div class="container">
-  <h1> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h1>
+  <br>
+  <%= link_to "Back", root_path, class: "btn btn-primary"%>
+  <br>
+  <br>
+  <%if !FacultyEvaluation.exists?(faculty_id: current_faculty, application_id: @application.id ) %>
+    <i>Evaluation for this application has not been submitted</i><br>
+    <%= link_to "Add Evaluation", faculty_evaluation_path(@application.id), class: "btn btn-large btn-success", id: 'addevaluation'%>
+  <%else %>
+    <% evaluation = FacultyEvaluation.where(faculty_id: current_faculty,application_id: @application.id).first %>
+    <i id="icon_evaluation_submit" class="glyphicon glyphicon-ok"></i>
+    <i id="text_evauluation_submit"><%= 'Evaluation submitted on ' + evaluation.created_at.strftime("%m-%d-%Y")%> </i><br>
+    <i><%=  'Score: ' + evaluation.score.to_s%></i><br>
+    <i><%=  'Comments: ' + evaluation.comment.to_s%></i>
+  <%end %>
   <hr>
+  <h2> <%= @student.first_name + ' ' + @student.last_name + "'s Profile"%> </h2>
   <div class="row">
     <!-- left column -->
     <div class="col-md-3">
@@ -64,7 +78,8 @@
               <input class="form-control" type="text" value="" readonly>
             <% else %>
               <% @all_undergrads.each  do |university|%>
-                <p><%= university[:details] %></p>
+                <%= link_to university[:university_name], undergrad_university_path(university[:id])%>
+                <p><%=university[:details]%></p>
               <% end %>
             <% end %>
           </div>
