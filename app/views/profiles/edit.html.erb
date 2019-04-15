@@ -61,7 +61,7 @@
           <div class="col-md-8">
             <p>Level of interest in MS Degree</p>
             <div class="range">
-              <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']),  :type=> "range", class: "slider", :value=> 0, :min => @profile.degree_objective_master || nil, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
               <div class="sliderticks">
                 <p>0</p>
                 <p>1</p>
@@ -73,7 +73,7 @@
             </div>
             <p>Level of interest in PhD Degree</p>
             <div class="range">
-              <%= range_field_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_phd || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <%= range_field_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']),  :type=> "range", class: "slider", :value=> @profile.degree_objective_master || nil, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
               <div class="sliderticks">
                 <p>0</p>
                 <p>1</p>
