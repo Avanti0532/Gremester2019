@@ -285,6 +285,7 @@ describe('My applications', function() {
             setFixtures('<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>');
             var input = $('.ibtnDel');
             var spyEvent = spyOnEvent(input, 'click' );
+            spyOn(input, 'click' ).and.callThrough();
             //var removeAdd = spyOn($("#addSchoolHeader"), 'remove');
             delRowFunc();
             //$("table.order-list").trigger('click');

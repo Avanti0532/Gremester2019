@@ -48,22 +48,24 @@ describe('Year and Term Select', function(){
         fYearSelect();
         expect(spyEvent).toHaveBeenTriggered();
     });
-    it('should call stop propagation',function(){
-        var spyEvent = spyOnEvent('#year', 'change');
-        $('#year').change(function (event){event.stopPropagation();})
-        $("#year").change();
-        fYearSelect();
-        expect('change').toHaveBeenStoppedOn('#year');
-        expect(spyEvent).toHaveBeenStopped();
-
-    });
     it('should check if the triggered event is stopped for year selection',function(){
         var spyEvent = spyOnEvent('#year', 'change');
-        $('#year').change(function (event){event.stopPropagation();})
+        $('#year').change(function (event){event.stopPropagation();});
+        //spyOn($("#year"), 'change' ).and.callThrough();
         $("#year").change();
         fYearSelect();
         expect('change').toHaveBeenStoppedOn('#year');
         expect(spyEvent).toHaveBeenStopped();
+    });
+
+    it('should call year select function',function(){
+        spyOn($(this.id),"find").and.returnValue("**Any**");
+        var checkprop = spyOn($('#and_later'),'prop');
+        var spy = spyOn($("#year"), 'change' ).and.callThrough();
+        $("#year").change();
+        fYearSelect();
+        //expect($('#and_later').prop).toBeFalsy();
+
     });
 
     it('should check if the triggered event is stopped for term selection',function(){
