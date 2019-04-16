@@ -1,7 +1,6 @@
-describe('Faculty Evaluation', function() {
+describe('Faculty to see other Evaluation', function() {
     beforeEach(function() {
-        //setFixtures('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>')
-        setFixtures('<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>table#facultyEvaluationTable tbody tr td:nth-of-type(6)');
+        setFixtures('<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>table#facultyOEvaluationTable tbody tr td:nth-of-type(3)');
     });
 
     it('should call data-table function', function(){
@@ -11,7 +10,7 @@ describe('Faculty Evaluation', function() {
             ),
             addClass:jasmine.createSpy('$').and.returnValue(true)
         });
-        facultyEvaluation();
+        facultyOEvaluation();
         expect(mock$).toHaveBeenCalled();
 
     });
