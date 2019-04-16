@@ -1,4 +1,4 @@
-Feature: Faculty can view their own evaluations as well as other evaluations
+Feature: Faculty can submit evaluations for students
 
   Background: I am on the Welcome to Gremester page
     Given the following students have been added to Student Database:
@@ -66,62 +66,40 @@ Feature: Faculty can view their own evaluations as well as other evaluations
 
     And the following evaluations have been added to FacultyEvaluation Database:
       |faculty_id|application_id|score|ee_background|comment|created_at|
-      |1         |1             |3    |1            |Average Profile|2018-04-10|
       |1         |3             |4    |1            |Good Profile   |2018-04-07|
-      |1         |5             |5    |1            |Excellent Profile|2018-03-11|
-      |2         |5             |4    |1            |Good to admit|2018-03-10|
-      |2         |7             |1    |0            |Requirements not met|2018-03-10|
-      |4         |5             |4    |1            |Good Profile. Requirements are met|2018-03-11|
-
-
-
-  Scenario: Faculty can view their own evaluations
-    When I log_in as a faculty as Alice
-    And I click on View Evaluations
-    Then I should see all evaluations for Alice
-
-  Scenario: Faculty can view their own evaluations
-    When I log_in as a faculty as Lily
-    And I click on View Evaluations
-    Then I should see all evaluations for Lily
 
   @javascript
-  Scenario: Faculty can search students
+  Scenario: Faculty can submit evaluations for students
     When I log_in as a faculty as Alice
-    And I search student name with Thomas Edison
-    Then I should see entry only for Thomas Edison
+    And I click on Robin Hood link
+    And I click on Add Evaluation button
+    And I fill in evaluations and click submit
+    Then I should see a successful evaluation message
 
   @javascript
-  Scenario: Faculty can search students
+  Scenario: Faculty can cancel evaluations for students by clicking on cancel
     When I log_in as a faculty as Alice
-    And I search student name with Frank
-    Then I should see entry only for Frank
+    And I click on Robin Hood link
+    And I click on Add Evaluation button
+    And I fill in evaluations and click submit and then cancel
+    Then I should be on submit evaluation page
 
-  Scenario: Faculty can view other evaluations for a student
+  Scenario: Faculty cannot submit evaluation again once done
     When I log_in as a faculty as Alice
-    And I click on View Evaluations
-    And I click on view other evaluations of Frank Robert
-    Then I should see all the evaluations of other faculty members
+    And I click on Thomas Edison link
+    Then I should not see Add Evaluation button
 
-  @javascript
-  Scenario: Faculty can view other evaluations for a student
+  Scenario: Faculty can go back to view profile by clicking on back to profile
     When I log_in as a faculty as Alice
-    And I click on View Evaluations
-    And I click on view other evaluations of Thomas Edison
-    Then I should not see any evaluations of other faculty members
+    And I click on Robin Hood link
+    And I click on Add Evaluation button
+    And I click on Back to profile button
+    Then I should be on profile view page
 
-  @javascript
-  Scenario: Faculty can go back to view evaluations when back button is clicked
+  Scenario: Faculty can go back to applications profile filter page by clicking on back button
     When I log_in as a faculty as Alice
-    And I click on View Evaluations
-    And I click on view other evaluations of Frank Robert
+    And I click on Robin Hood link
     And I click on Back button
-    Then I should be on faculty evaluation page
+    Then I should be on application filtering page
 
-  @javascript
-  Scenario: Faculty can search with professor name
-    When I log_in as a faculty as Alice
-    And I click on View Evaluations
-    And I click on view other evaluations of Frank Robert
-    And I search student name with James
-    Then I should see entry only for James
+

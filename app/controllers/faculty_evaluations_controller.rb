@@ -17,14 +17,16 @@ class FacultyEvaluationsController < ApplicationController
       comment = params[:comment]
     end
     @student = Application.find_by_id(id.to_i).profile.student
-    @faculty_evaluation = FacultyEvaluation.create(application_id: id, score: score, ee_background: ee_background, comment: comment)
-    @faculty_evaluation.faculty = current_faculty
-    @faculty_evaluation.save
+    @faculty_evaluation = FacultyEvaluation.create(faculty_id: current_faculty.id, application_id: id, score: score, ee_background: ee_background, comment: comment)
     flash[:notice] = 'Your evaluation has been submitted!'
     redirect_to fViewProfile_profiles_path(id)
   end
 
   def index
     @evaluations = FacultyEvaluation.where(faculty_id: current_faculty)
+  end
+
+  def showEvaluations
+   @evaluations = FacultyEvaluation.where("faculty_id!= #{current_faculty.id} AND application_id = #{params[:id]}")
   end
 end

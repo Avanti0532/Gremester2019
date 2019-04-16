@@ -3,8 +3,9 @@ facultyEvaluation = function() {
 
         "order": [[ 0, "desc" ]],
         "columnDefs": [
-            { "orderable": false, "targets": 5 }
+            { "orderable": false, "targets": 6 }
         ]
+
     });
     $('.dataTables_length').addClass('bs-select');
 }
