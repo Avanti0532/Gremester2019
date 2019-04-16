@@ -97,7 +97,10 @@
               <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
             <% end %>
             <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]}), :multiple => true, class: "form-control"%>
-            <br><br>
+            <br>
+            <button type="button" class="btn btn-default btn-default pull-left" id="add_new_research_interest">Add new research interest</button>
+            <input type="hidden" id="research_interests"  value="">
+            <br>
           </div>
         </div>
 
@@ -151,9 +154,9 @@
                         for i in 0..2 do
                           if !grades[i].nil?
                             if grades[i].gpa == nil
-                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ")\n"
+                              st_grades += grades[i].letter_grade + " (" + ")\n"
                             else
-                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ") = " + grades[i].gpa.to_s + "\n"
+                              st_grades += grades[i].letter_grade + " (" +  ") = " + grades[i].gpa.to_s + "\n"
                             end
                           end
                         end
