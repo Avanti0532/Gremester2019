@@ -85,6 +85,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
   gem 'faker'
+  gem 'regressor', '~> 0.6.2'
 end
 
 group :production do
