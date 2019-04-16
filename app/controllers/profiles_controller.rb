@@ -117,6 +117,14 @@ class ProfilesController < ApplicationController
         has_interest = false
       end
     end
+
+    if !params[:additional_research_interest].blank?
+      additional_research_interests = params[:additional_research_interest].split(';')
+      additional_research_interests.each do |interest|
+        temp = ResearchInterest.where(:name => interest).first_or_create
+        @profile.research_interests << temp
+      end
+    end
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?

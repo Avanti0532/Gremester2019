@@ -197,15 +197,7 @@ $(document).ready(function () {
 var add_new_research_interest = function() {
 
     $('#add_new_research_interest').click(function() {
-        console.log('hi');
         $('#research_interests').attr('hidden', false);
-        // $("#add_new_research_interest").replaceWith($('<input>', {
-        //     type: 'text',
-        //     placeholder: 'Please separate different research interest by semicolon',
-        //     id: 'research_interest_content',
-        //     class: 'form-control',
-        //     val: ''
-        // }));
     })
 }
 

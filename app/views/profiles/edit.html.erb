@@ -98,9 +98,12 @@
             <% end %>
             <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]}), :multiple => true, class: "form-control"%>
             <br>
+            <div>
             <button type="button" class="btn btn-default btn-default pull-left" id="add_new_research_interest">Add new research interest</button>
-            <input type="hidden" id="research_interests"  value="">
+            <br><br>
+            <input type="text" hidden="true" id="additional_research_interest" name="additional_research_interest"  value="" placeholder="Separate multiple research interests by semicolon" style="width: 100%">
             <br>
+            </div>
           </div>
         </div>
 
