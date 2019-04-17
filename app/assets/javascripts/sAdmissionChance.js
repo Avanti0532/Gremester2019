@@ -23,7 +23,7 @@ $(document).ready(function () {
             return;
         }
         document.getElementById("univ_name").value = '';
-        var table = document.getElementById("myTable");
+        var table = document.getElementById("chanceTable");
 
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0);
