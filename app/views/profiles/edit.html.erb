@@ -99,10 +99,10 @@
             <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]}), :multiple => true, class: "form-control"%>
             <br>
             <div>
-            <button type="button" class="btn btn-default btn-default pull-left" id="add_new_research_interest">Add new research interest</button>
-            <br><br>
-            <input type="text" hidden="true" id="additional_research_interest" name="additional_research_interest"  value="" placeholder="Separate multiple research interests by semicolon" style="width: 100%">
-            <br>
+              <button type="button" class="btn btn-default btn-default pull-left" id="add_new_research_interest">Add new research interest</button>
+              <br><br>
+              <input type="text" hidden="true" id="additional_research_interest" name="additional_research_interest"  value="" placeholder="Separate multiple research interests by semicolon" style="width: 100%">
+              <br>
             </div>
           </div>
         </div>
@@ -112,7 +112,16 @@
           <div class="col-md-8" id="undergraduate_edit">
             <% if !@all_undergrads.nil? %>
               <% @all_undergrads.each  do |university|%>
-                <p><%= university[:details] %></p>
+                <div class="row">
+                  <div class="col-md-10">
+                    <p><%= university[:details] %></p>
+                  </div>
+                  <div class="col-md-2">
+                    <%= link_to university, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash-o" do %>
+                      <span class="glyphicon glyphicon-remove"></span>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
             <% end %>
             <b>Add education</b>

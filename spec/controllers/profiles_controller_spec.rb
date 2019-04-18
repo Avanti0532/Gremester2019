@@ -57,7 +57,7 @@ describe ProfilesController do
       ProfilesUndergradUniversity.create(:profile_id => 1, :undergrad_university_id => 1, :cgpa => '3.4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
     end
     it 'should redirect to profile on successful update' do
-      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "country" => 1, "undergrad_universities" => 1, "research_interest" => [1], "profiles_undergrad_university" =>  {"cgpa" => "2.5", "grading_scale" => "Standard"}}
+      post :update, {"profile"=>{"photo_id"=>"", "college"=>"uiowa", "toefl"=>"110", "gre_writing"=>"4.0", "gre_quant"=>"130", "gre_verbal"=>"140", "interested_major"=>"", "interested_term"=>"", "interested_year"=>"", "year_work_exp"=>"", "sop"=>"", "resume"=>"", "additional_attachment"=>""}, "current_student"=>{"first_name"=>"Avanti", "last_name"=>"Deshmukh"}, "id"=>1, "country" => 1, "undergrad_universities" => 1, "research_interest" => [1], "profiles_undergrad_university" =>  {"cgpa" => "2.5", "grading_scale" => "Standard"}, "additional_research_interest" => "testing interest"}
       response.should redirect_to(profile_path)
     end
 

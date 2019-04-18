@@ -88,20 +88,25 @@ class ProfilesController < ApplicationController
 
 
     if !params[:undergrad_universities].blank?
-      undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
-      @profile.undergrad_universities << undergrad
-      undergrad_details = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => undergrad.id).first
-      if !params[:profiles_undergrad_university].blank?
-        undergrad_details.cgpa = params[:profiles_undergrad_university][:cgpa].to_f if !params[:profiles_undergrad_university][:cgpa].blank?
-        undergrad_details.grading_scale_type_id = params[:grading_scale].to_i if !params[:grading_scale].blank?
+      if params[:profiles_undergrad_university].blank? or params[:profiles_undergrad_university][:cgpa].blank? or params[:grading_scale].blank? or params[:major_undergrad].blank? or params[:degree_undergrad].blank? or params[:undergrad_start_year].blank? or params[:undergrad_end_year].blank?
+        flash[:notice] = 'Please enter all the fields for your education'
+        render :edit
+        return
+      else
+        undergrad = UndergradUniversity.find_by_id(params[:undergrad_universities].to_i)
+        @profile.undergrad_universities << undergrad
+        undergrad_details = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => undergrad.id).first
+        if !params[:profiles_undergrad_university].blank?
+          undergrad_details.cgpa = params[:profiles_undergrad_university][:cgpa].to_f if !params[:profiles_undergrad_university][:cgpa].blank?
+          undergrad_details.grading_scale_type_id = params[:grading_scale].to_i if !params[:grading_scale].blank?
+        end
+        undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
+        undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
+        undergrad_details.start_year = params[:undergrad_start_year] if !params[:undergrad_start_year].blank?
+        undergrad_details.end_year = params[:undergrad_end_year] if !params[:undergrad_end_year].blank?
+        undergrad_details.save
       end
-      undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
-      undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
-      undergrad_details.start_year = params[:undergrad_start_year] if !params[:undergrad_start_year].blank?
-      undergrad_details.end_year = params[:undergrad_end_year] if !params[:undergrad_end_year].blank?
-      undergrad_details.save
     end
-
     if !params[:research_interest].blank?
       has_interest = false
       all_student_interests = @profile.research_interests
@@ -119,11 +124,22 @@ class ProfilesController < ApplicationController
     end
 
     if !params[:additional_research_interest].blank?
-      additional_research_interests = params[:additional_research_interest].split(';')
+      additional_research_interests = params[:additional_research_interest].split(';').map(&:lstrip)
+      has_interest = false
       additional_research_interests.each do |interest|
         temp = ResearchInterest.where(:name => interest).first_or_create
-        @profile.research_interests << temp
+        all_student_interests = @profile.research_interests
+        all_student_interests.each do |i|
+          if i.name.eql?(temp.name)
+            has_interest = true
+          end
+        end
+        if !has_interest
+          all_student_interests << temp
+        end
+        has_interest = false
       end
+
     end
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?

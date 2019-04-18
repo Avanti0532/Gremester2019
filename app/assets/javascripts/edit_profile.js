@@ -197,7 +197,8 @@ $(document).ready(function () {
 var add_new_research_interest = function() {
 
     $('#add_new_research_interest').click(function() {
-        $('#research_interests').attr('hidden', false);
+        console.log('here');
+        $('#additional_research_interest').attr('hidden', false);
     })
 }
 
