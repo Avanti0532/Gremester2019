@@ -98,3 +98,18 @@ Then(/^I should not see Add Evaluation button$/) do
   expect(page).not_to have_selector "#addevaluation"
   page.should have_content(' Evaluation submitted on 04-07-2018')
 end
+
+And(/^I do not fill in (.*?) for the student and click on submit$/) do |option|
+  case option
+  when 'score'
+    select('1 - Has EE background -', from:'ee_background')
+  when 'ee_background'
+    select('4 - Good +', from: 'application_score')
+  end
+  fill_in 'comment', with: 'Good Profile'
+  click_on 'Submit'
+end
+
+Then(/^I should get an error message$/) do
+  page.should have_content('Score/EE Background cannot be blank. Please select the fields.')
+end

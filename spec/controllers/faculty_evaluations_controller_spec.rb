@@ -39,16 +39,16 @@ describe FacultyEvaluationsController do
       get :create, {"utf8"=>"✓", "application_score"=>"5 - Excellent", "ee_background"=>"1 - Has EE background -", "comment"=>"test comment", "commit"=>"Submit", "id"=>"1"}
     end
 
-    it 'should create evaluation of student when score is not present' do
-      mock_evaluation = {id:1 ,faculty_id: 1, application_id: "1", score: nil, ee_background: 1, comment: "test comment"}
-      expect(FacultyEvaluation).to receive(:create).with(faculty_id: 1, application_id: "1",score: nil, ee_background: 1, comment: "test comment").and_return(mock_evaluation)
+    it 'should flash notice when score is not present' do
       get :create, {"utf8"=>"✓", "application_score"=>"", "ee_background"=>"1 - Has EE background -", "comment"=>"test comment", "commit"=>"Submit", "id"=>"1"}
+      expect(flash[:notice]).to eq('Score/EE Background cannot be blank. Please select the fields.')
+      response.should redirect_to(faculty_evaluation_path)
     end
 
-    it 'should create evaluation of student when ee background is not present' do
-      mock_evaluation = {id:1 ,faculty_id: 1, application_id: "1", score: 4, ee_background: nil, comment: "test comment"}
-      expect(FacultyEvaluation).to receive(:create).with(faculty_id: 1, application_id: "1",score: 4, ee_background: nil, comment: "test comment").and_return(mock_evaluation)
+    it 'should flash notice when ee background is not present' do
       get :create, {"utf8"=>"✓", "application_score"=>"4", "ee_background"=>"", "comment"=>"test comment", "commit"=>"Submit", "id"=>"1"}
+      expect(flash[:notice]).to eq('Score/EE Background cannot be blank. Please select the fields.')
+      response.should redirect_to(faculty_evaluation_path)
     end
 
     it 'should create evaluation of student when comment is not present' do
