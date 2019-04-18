@@ -55,7 +55,7 @@
           </div>
           <div class="col-md-6">
             <label for="scale_type">Scale:</label>
-            <select id="scale_type">
+            <select id="scale_type" name="scale_type">
               <option value="all">**All**</option>
               <%GradingScaleType.all.each do |scale_type|%>
                 <option value="<%=scale_type.id %>"><%=scale_type.grading_scale_name %></option>
