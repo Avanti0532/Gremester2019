@@ -178,6 +178,12 @@ Then /^I can update my (.*?)$/ do |field|
   when 'undergraduate college'
     select('United States', from: 'country_id')
     select('Massachusetts Institute of Technology', from: 'undergrad_universities')
+    select('Computer Science', from: 'major_undergrad')
+    select('B.A', from: 'degree_undergrad')
+    select('2010', from: 'undergrad_start_year')
+    select('2014', from: 'undergrad_end_year')
+    select('Standard', from: "grading_scale")
+    fill_in "profiles_undergrad_university[cgpa]", with: 3.2
     click_button 'Save Changes'
     undergrad_school = current_student.current_profile.undergrad_universities
     contain = false
