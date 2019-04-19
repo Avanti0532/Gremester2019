@@ -151,9 +151,9 @@
                         for i in 0..2 do
                           if !grades[i].nil?
                             if grades[i].gpa == nil
-                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ")\n"
+                              st_grades += grades[i].letter_grade + " (" + grades[i].low_percent.to_s + "-"+grades[i].high_percent.to_s+"%)\n"
                             else
-                              st_grades += grades[i].letter_grade + " (" + grades[i].percentage + ") = " + grades[i].gpa.to_s + "\n"
+                              st_grades += grades[i].letter_grade + " (" + grades[i].low_percent.to_s + "-"+grades[i].high_percent.to_s+ "%) = " + grades[i].gpa.to_s + "\n"
                             end
                           end
                         end

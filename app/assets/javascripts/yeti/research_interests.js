@@ -2,9 +2,9 @@ $(document).ready(function() {
     var slidercgpa = $("#slider-range-cgpa").slider({
         range: true,
         min: 0,
-        max: 5,
-        step: 0.1,
-        values: [0, 5],
+        max: 100,
+        step: 1,
+        values: [0, 100],
         slide: function(event, ui) {
             $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
         }
@@ -112,6 +112,28 @@ $(document).ready(function() {
         var undergrad_university = getUrlParameter('undergrad_university');
         $("#undergrad_university").find('option[value='+undergrad_university+']').prop('selected', 'true');
 
+        var term = getUrlParameter('term');
+        $("#term").find('option[value='+term+']').prop('selected', true);
+
+        var year = getUrlParameter('year');
+        $("#year").find('option[value='+year+']').prop('selected', true);
+
+        var scale_type = getUrlParameter('scale_type');
+        $("#scale_type").find('option[value='+scale_type+']').prop('selected', true);
+
+        var and_later = getUrlParameter('and_later');
+        if(and_later == 'on'){
+            $('#and_later').prop('checked',true);
+        }else{
+            $('#and_later').prop('checked',false);
+        }
+        if( term == 'any' || year == 'any' ){
+            $('#and_later').attr('disabled',true);
+        }else{
+            $('#and_later').attr('disabled',false);
+        }
+
+
         var cgpa_score = getUrlParameter('cgpa_score');
         cgpa_score_replaced = cgpa_score.replace("+"," ")
         $("#cgpa_score").val(cgpa_score_replaced);
@@ -122,8 +144,8 @@ $(document).ready(function() {
         var slidercgpa = $("#slider-range-cgpa").slider({
             range: true,
             min: 0,
-            max: 5,
-            step: 0.1,
+            max: 100,
+            step: 1,
             values: [cgpa_low, cgpa_high],
             slide: function(event, ui) {
                 $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
@@ -221,9 +243,9 @@ $(document).ready(function() {
         var slidercgpa = $("#slider-range-cgpa").slider({
             range: true,
             min: 0,
-            max: 5,
-            step: 0.1,
-            values: [0, 5],
+            max: 100,
+            step: 1,
+            values: [0, 100],
             slide: function(event, ui) {
                 $( "#cgpa_score" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
             }
