@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     end
     get :sInterestedSchools, on: :collection
     get :filter, on: :collection
+    get :sAdmissionChance, on: :collection
     get :fStudentList, on: :collection
     collection do
       match '/addschools', to: 'profiles#addschools',via: :post

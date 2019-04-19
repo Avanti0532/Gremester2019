@@ -102,4 +102,19 @@ Feature: Faculty can submit evaluations for students
     And I click on Back button
     Then I should be on application filtering page
 
+  Scenario: Faculty should get error message when score field is empty
+    When I log_in as a faculty as Alice
+    And I click on Robin Hood link
+    And I click on Add Evaluation button
+    And I do not fill in score for the student and click on submit
+    Then I should get an error message
+
+  Scenario: Faculty should get error message when ee background field is empty
+    When I log_in as a faculty as Alice
+    And I click on Robin Hood link
+    And I click on Add Evaluation button
+    And I do not fill in ee_background for the student and click on submit
+    Then I should get an error message
+
+
 

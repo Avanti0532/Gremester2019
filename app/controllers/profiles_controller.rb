@@ -212,12 +212,17 @@ class ProfilesController < ApplicationController
 
   def filter
     if params[:cgpa_score].blank?
-      cgpa_low = '0'
-      cgpa_high = '5'
+      cgpa_low = 0
+      cgpa_high = 100
     else
       cgpa_values = params[:cgpa_score].to_s.split(" - ");
       cgpa_low = cgpa_values[0]
       cgpa_high = cgpa_values[1]
+    end
+    if params[:scale_type].blank?
+      scale_type = 'all'
+    else
+      scale_type = params[:scale_type].to_s
     end
     if params[:greq_score].blank?
       greq_low = 130
@@ -276,9 +281,8 @@ class ProfilesController < ApplicationController
           profiles.each do |profile|
             profile_applications = profile.applications
             profile_applications.each do |a|
-              if a.admitted.nil? and a.rejected.nil?
-                undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.profile_id).first
-                if  !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+              if scale_type.to_s == 'all' and cgpa_high.to_s.to_i == 100 and cgpa_low.to_s.to_i == 0
+                if a.admitted.nil? and a.rejected.nil?
                   if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
                     applications << a
                   else
@@ -305,7 +309,7 @@ class ProfilesController < ApplicationController
                             end
                           end
                         else
-                          if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                          if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s.to_i == params[:year].to_s.to_i)
                             applications << a
                           end
                         end
@@ -315,7 +319,7 @@ class ProfilesController < ApplicationController
                             applications << a
                           end
                         elsif !(params[:year].to_s =~ /^any$/)
-                          if (a.year.to_s == params[:year].to_s)
+                          if (a.year.to_s.to_i == params[:year].to_s.to_i)
                             applications << a
                           end
                         end
@@ -323,9 +327,133 @@ class ProfilesController < ApplicationController
                     end
                   end
                 end
+              else
+                if a.admitted.nil? and a.rejected.nil?
+                  undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.profile_id).first
+                  if  !undergrad_details.nil? and !undergrad_details.cgpa.nil?
+                    scalesCount = GradingScaleType.all.size
+                    low_score = 0
+                    high_score = 100
+                    if scale_type == 'all'
+                      scales = Array.new(scalesCount, Array.new(3, 0))
+                      GradingScaleType.all.each do |type|
+                        if !(type.id == 5)
+                          low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+                          high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+                        else
+                          high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+                          low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+                        end
+                        scales[type.id-1] = [type.id, low_score, high_score]
+                      end
+                    elsif scale_type.to_s.to_i == 5
+                      high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, scale_type).first.gpa
+                      low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, scale_type).first.gpa
+                    else
+                      low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, scale_type).first.gpa
+                      high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, scale_type).first.gpa
+                    end
+
+                    if scale_type=='all'
+                      if ((undergrad_details.grading_scale_type_id == scales[0][0].to_s.to_i and undergrad_details.cgpa <= scales[0][2].to_s.to_f and undergrad_details.cgpa >= scales[0][1].to_s.to_f) or (undergrad_details.grading_scale_type_id == scales[1][0].to_s.to_i and undergrad_details.cgpa <= scales[1][2].to_s.to_f and undergrad_details.cgpa >= scales[1][1].to_s.to_f) or (undergrad_details.grading_scale_type_id == scales[2][0].to_s.to_i and undergrad_details.cgpa <= scales[2][2].to_s.to_f and undergrad_details.cgpa >= scales[2][1].to_s.to_f) or (undergrad_details.grading_scale_type_id == scales[3][0].to_s.to_i and undergrad_details.cgpa <= scales[3][2].to_s.to_f and undergrad_details.cgpa >= scales[3][1].to_s.to_f) or (undergrad_details.grading_scale_type_id == scales[4][0].to_s.to_i and undergrad_details.cgpa <= scales[4][1].to_s.to_f and undergrad_details.cgpa >= scales[4][2].to_s.to_f))
+                        if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                          applications << a
+                        else
+                          if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                            applications << a
+                          else
+                            if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                              if params[:and_later] =~ /^on$/
+                                if params[:term].to_s =~ /Spring/i
+                                  if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Summer/i
+                                  if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Fall/i
+                                  if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Winter/i
+                                  if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                end
+                              else
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            else
+                              if !(params[:term].to_s =~ /^any$/)
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                                  applications << a
+                                end
+                              elsif !(params[:year].to_s =~ /^any$/)
+                                if (a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    else
+                      if (undergrad_details.grading_scale_type_id == scale_type.to_s.to_i and undergrad_details.cgpa <= high_score.to_s.to_f and undergrad_details.cgpa >= low_score.to_s.to_f)
+                        if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                          applications << a
+                        else
+                          if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                            applications << a
+                          else
+                            if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                              if params[:and_later] =~ /^on$/
+                                if params[:term].to_s =~ /Spring/i
+                                  if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Summer/i
+                                  if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Fall/i
+                                  if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Winter/i
+                                  if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                end
+                              else
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            else
+                              if !(params[:term].to_s =~ /^any$/)
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                                  applications << a
+                                end
+                              elsif !(params[:year].to_s =~ /^any$/)
+                                if (a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
               end
+
             end
           end
+
           @applications = applications
         else
           @applications = nil
@@ -346,7 +474,6 @@ class ProfilesController < ApplicationController
             interests = params[:multiple_interests].to_s.split(",")
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
-
           else
             interests = params[:research_interests].to_s
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
@@ -357,9 +484,8 @@ class ProfilesController < ApplicationController
             profiles.each do |profile|
               profile_applications = profile.applications
               profile_applications.each do |a|
-                if a.admitted.nil? and a.rejected.nil?
-                  undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.id).first
-                  if !undergrad_details.nil? and !undergrad_details.cgpa.nil? and undergrad_details.cgpa <= cgpa_high.to_f and undergrad_details.cgpa >= cgpa_low.to_f
+                if scale_type.to_s == 'all' and cgpa_high.to_s.to_i == 100 and cgpa_low.to_s.to_i == 0
+                  if a.admitted.nil? and a.rejected.nil?
                     if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
                       applications << a
                     else
@@ -392,12 +518,134 @@ class ProfilesController < ApplicationController
                           end
                         else
                           if !(params[:term].to_s =~ /^any$/)
+
                             if (a.term.to_s.downcase == params[:term].to_s.downcase)
                               applications << a
                             end
                           elsif !(params[:year].to_s =~ /^any$/)
                             if (a.year.to_s == params[:year].to_s)
                               applications << a
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                else
+                  if a.admitted.nil? and a.rejected.nil?
+                    undergrad_details = ProfilesUndergradUniversity.where(:profile_id => a.profile_id).first
+                    if  !undergrad_details.nil? and !undergrad_details.cgpa.nil?
+                      scalesCount = GradingScaleType.all.size
+                      low_score = 0
+                      high_score = 100
+                      if scale_type == 'all'
+                        scales = Array.new(scalesCount, Array.new(3, 0))
+                        GradingScaleType.all.each do |type|
+                          if !(type.id == 5)
+                            low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+                            high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+                          else
+                            high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+                            low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+                          end
+                          scales[type.id-1] = [type.id, low_score, high_score]
+                        end
+                      elsif scale_type.to_s.to_i == 5
+                        high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, scale_type).first.gpa
+                        low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, scale_type).first.gpa
+                      else
+                        low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, scale_type).first.gpa
+                        high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, scale_type).first.gpa
+                      end
+                      if scale_type=='all'
+                        if ((undergrad_details.grading_scale_type_id == scales[0][0] and undergrad_details.cgpa <= scales[0][2].to_f and undergrad_details.cgpa >= scales[0][1].to_f) or (undergrad_details.grading_scale_type_id == scales[1][0] and undergrad_details.cgpa <= scales[1][2].to_f and undergrad_details.cgpa >= scales[1][1].to_f) or (undergrad_details.grading_scale_type_id == scales[2][0] and undergrad_details.cgpa <= scales[2][2].to_f and undergrad_details.cgpa >= scales[2][1].to_f) or (undergrad_details.grading_scale_type_id == scales[3][0] and undergrad_details.cgpa <= scales[3][2].to_f and undergrad_details.cgpa >= scales[3][1].to_f) or (undergrad_details.grading_scale_type_id == scales[4][0] and undergrad_details.cgpa <= scales[4][1].to_f and undergrad_details.cgpa >= scales[4][2].to_f))
+                          if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                            applications << a
+                          else
+                            if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                              applications << a
+                            else
+                              if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                                if params[:and_later] =~ /^on$/
+                                  if params[:term].to_s =~ /Spring/i
+                                    if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Summer/i
+                                    if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Fall/i
+                                    if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Winter/i
+                                    if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  end
+                                else
+                                  if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                                    applications << a
+                                  end
+                                end
+                              else
+                                if !(params[:term].to_s =~ /^any$/)
+                                  if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                                    applications << a
+                                  end
+                                elsif !(params[:year].to_s =~ /^any$/)
+                                  if (a.year.to_s == params[:year].to_s)
+                                    applications << a
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      else
+                        if (undergrad_details.grading_scale_type_id == scale_type.to_s.to_i and undergrad_details.cgpa <= high_score.to_s.to_f and undergrad_details.cgpa >= low_score.to_s.to_f)
+                          if params[:term].blank? and params[:year].blank? and params[:and_later].blank?
+                            applications << a
+                          else
+                            if params[:term].to_s =~ /^any$/ and params[:year].to_s =~ /^any$/
+                              applications << a
+                            else
+                              if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                                if params[:and_later] =~ /^on$/
+                                  if params[:term].to_s =~ /Spring/i
+                                    if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Summer/i
+                                    if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Fall/i
+                                    if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  elsif params[:term].to_s =~ /Winter/i
+                                    if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                      applications << a
+                                    end
+                                  end
+                                else
+                                  if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                                    applications << a
+                                  end
+                                end
+                              else
+                                if !(params[:term].to_s =~ /^any$/)
+                                  if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                                    applications << a
+                                  end
+                                elsif !(params[:year].to_s =~ /^any$/)
+                                  if (a.year.to_s == params[:year].to_s)
+                                    applications << a
+                                  end
+                                end
+                              end
                             end
                           end
                         end
@@ -435,13 +683,15 @@ class ProfilesController < ApplicationController
       details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
       @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
     end
-  end
 
-  def deleteUndergradUniversity
-    id = params[:id]
-    ProfilesUndergradUniversity.where(:id => id).destroy_all
-    redirect_to profile_path
+    def sAdmissionChance
+      gon.universities = University.select('id, university_name').order("university_name")
+    end
+
+    def deleteUndergradUniversity
+      id = params[:id]
+      ProfilesUndergradUniversity.where(:id => id).destroy_all
+      redirect_to profile_path
+    end
   end
 end
-
-
