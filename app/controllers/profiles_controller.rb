@@ -89,7 +89,7 @@ class ProfilesController < ApplicationController
 
     if !params[:undergrad_universities].blank?
       if params[:profiles_undergrad_university].blank? or params[:profiles_undergrad_university][:cgpa].blank? or params[:grading_scale].blank? or params[:major_undergrad].blank? or params[:degree_undergrad].blank? or params[:undergrad_start_year].blank? or params[:undergrad_end_year].blank?
-        flash[:notice] = 'Please enter all the fields for your education'
+        flash.now[:notice] = 'Please enter all the fields for your education'
         render :edit
         return
       else
@@ -100,6 +100,7 @@ class ProfilesController < ApplicationController
           undergrad_details.cgpa = params[:profiles_undergrad_university][:cgpa].to_f if !params[:profiles_undergrad_university][:cgpa].blank?
           undergrad_details.grading_scale_type_id = params[:grading_scale].to_i if !params[:grading_scale].blank?
         end
+
         undergrad_details.major = params[:major_undergrad] if !params[:major_undergrad].blank?
         undergrad_details.degree_type = params[:degree_undergrad] if !params[:degree_undergrad].blank?
         undergrad_details.start_year = params[:undergrad_start_year] if !params[:undergrad_start_year].blank?
