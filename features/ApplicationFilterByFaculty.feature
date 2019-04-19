@@ -97,13 +97,6 @@ Feature: Faculty can look at all applications applied to his university
     Then I can see all applications from Stanford University
 
   @javascript
-  Scenario: Faculty can filter applications by CGPA
-    When I log in as a faculty
-    And I slide CGPA to range 3,4
-    And I click on Filter button
-    Then I can see all applications with CGPA in range 3,4
-
-  @javascript
   Scenario: Faculty can filter applications by GREQ
     When I log in as a faculty
     And I slide GREQ to range 140,160
