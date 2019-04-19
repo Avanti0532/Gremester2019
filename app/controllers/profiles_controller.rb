@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
       details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
       details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
       details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
-      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe}
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university_detail.id}
     end
   end
 
@@ -107,6 +107,7 @@ class ProfilesController < ApplicationController
         undergrad_details.save
       end
     end
+
     if !params[:research_interest].blank?
       has_interest = false
       all_student_interests = @profile.research_interests
@@ -122,6 +123,7 @@ class ProfilesController < ApplicationController
         has_interest = false
       end
     end
+
 
     if !params[:additional_research_interest].blank?
       additional_research_interests = params[:additional_research_interest].split(';').map(&:lstrip)
@@ -139,8 +141,8 @@ class ProfilesController < ApplicationController
         end
         has_interest = false
       end
-
     end
+
     @profile.save(:validate => true)
     current_student.update_attribute(:first_name, @first_name) if !@first_name.blank?
     current_student.update_attribute(:last_name, @last_name) if !@last_name.blank?
@@ -434,4 +436,12 @@ class ProfilesController < ApplicationController
       @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
     end
   end
+
+  def deleteUndergradUniversity
+    id = params[:id]
+    ProfilesUndergradUniversity.where(:id => id).destroy_all
+    redirect_to profile_path
+  end
 end
+
+

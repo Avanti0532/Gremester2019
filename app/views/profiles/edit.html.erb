@@ -117,7 +117,7 @@
                     <p><%= university[:details] %></p>
                   </div>
                   <div class="col-md-2">
-                    <%= link_to university, method: :delete, data: { confirm: 'Are you sure?' }, class: "fa-trash-o" do %>
+                    <%= link_to deleteUndergradUniversity_profiles_path(university[:id].to_i), data: { confirm: 'Are you sure?' }, class: "fa-trash-o" do %>
                       <span class="glyphicon glyphicon-remove"></span>
                     <% end %>
                   </div>
