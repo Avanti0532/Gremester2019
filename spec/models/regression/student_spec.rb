@@ -86,12 +86,4 @@ RSpec.describe Student, regressor: true do
     it { is_expected.to validate_presence_of :password }
   end
 
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

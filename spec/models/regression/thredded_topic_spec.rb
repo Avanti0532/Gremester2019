@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ThreddedTopic, regressor: true do
 
-  # === Relations ===
-  
-  
-  
-
-  # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -34,17 +27,4 @@ RSpec.describe ThreddedTopic, regressor: true do
   it { is_expected.to have_db_index ["last_post_at"] }
   it { is_expected.to have_db_index ["hash_id"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

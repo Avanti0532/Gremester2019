@@ -5,11 +5,6 @@ RSpec.describe Application, regressor: true do
   # === Relations ===
   it { is_expected.to belong_to :profile }
   it { is_expected.to belong_to :university }
-  
-  
-
-  # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -30,17 +25,4 @@ RSpec.describe Application, regressor: true do
   it { is_expected.to have_db_index ["university_id"] }
   it { is_expected.to have_db_index ["profile_id"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

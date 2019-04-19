@@ -4,11 +4,6 @@ RSpec.describe GradingScale, regressor: true do
 
   # === Relations ===
   it { is_expected.to belong_to :grading_scale_type }
-  
-  
-
-  # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -20,20 +15,4 @@ RSpec.describe GradingScale, regressor: true do
   it { is_expected.to have_db_column :low_percent }
   it { is_expected.to have_db_column :high_percent }
 
-  # === Database (Indexes) ===
-  
-
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

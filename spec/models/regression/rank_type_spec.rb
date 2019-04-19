@@ -19,17 +19,4 @@ RSpec.describe RankType, regressor: true do
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ["name"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

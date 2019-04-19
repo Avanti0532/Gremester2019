@@ -26,17 +26,4 @@ RSpec.describe ProfilesUndergradUniversity, regressor: true do
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ["grading_scale_type_id"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

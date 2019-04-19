@@ -46,11 +46,4 @@ RSpec.describe Profile, regressor: true do
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :student_id }
 
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

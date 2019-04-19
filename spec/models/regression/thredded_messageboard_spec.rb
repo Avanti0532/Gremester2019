@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ThreddedMessageboard, regressor: true do
 
-  # === Relations ===
-  
-  
-  
-
-  # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -28,17 +21,4 @@ RSpec.describe ThreddedMessageboard, regressor: true do
   it { is_expected.to have_db_index ["slug"] }
   it { is_expected.to have_db_index ["messageboard_group_id"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

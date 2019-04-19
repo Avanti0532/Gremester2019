@@ -7,9 +7,6 @@ RSpec.describe Faculty, regressor: true do
   
   it { is_expected.to have_many :faculty_evaluations }
 
-  # === Nested Attributes ===
-  
-
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
   it { is_expected.to have_db_column :email }
@@ -74,12 +71,4 @@ RSpec.describe Faculty, regressor: true do
     it { is_expected.to validate_presence_of :password }
   end
 
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

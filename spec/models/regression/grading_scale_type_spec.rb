@@ -20,17 +20,4 @@ RSpec.describe GradingScaleType, regressor: true do
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ["grading_scale_name"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

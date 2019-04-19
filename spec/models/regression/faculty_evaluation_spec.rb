@@ -5,11 +5,6 @@ RSpec.describe FacultyEvaluation, regressor: true do
   # === Relations ===
   it { is_expected.to belong_to :faculty }
   it { is_expected.to belong_to :application }
-  
-  
-
-  # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -25,17 +20,4 @@ RSpec.describe FacultyEvaluation, regressor: true do
   it { is_expected.to have_db_index ["faculty_id"] }
   it { is_expected.to have_db_index ["application_id"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

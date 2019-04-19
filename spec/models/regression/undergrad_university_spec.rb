@@ -29,17 +29,5 @@ RSpec.describe UndergradUniversity, regressor: true do
   it { is_expected.to have_db_index ["country_id"] }
   it { is_expected.to have_db_index ["country_id", "university_name"] }
 
-  # === Validations (Length) ===
-  
 
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end

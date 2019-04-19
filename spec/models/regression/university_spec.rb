@@ -26,17 +26,4 @@ RSpec.describe University, regressor: true do
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ["university_name"] }
 
-  # === Validations (Length) ===
-  
-
-  # === Validations (Presence) ===
-  
-
-  # === Validations (Numericality) ===
-  
-
-  
-  # === Enums ===
-  
-  
 end
