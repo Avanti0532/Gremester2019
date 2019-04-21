@@ -1,10 +1,4 @@
 describe('My applications', function() {
-    beforeEach(function () {
-        //setFixtures('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>');
-        //setFixtures('<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>');
-        //setFixtures('<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>');
-        //setFixtures('<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>');
-    });
     describe('Delete Applications', function () {
         it("successful server call when deletion is called", function () {
             loadFixtures('sInterestedSchools.html');
@@ -40,60 +34,12 @@ describe('My applications', function() {
             expect(spyEvent).toHaveBeenTriggered();
         });
 
-        //it('successful server call when edit is clicked', function(){
-        //     //let htmlResponse;
-        //     loadFixtures('sInterestedSchools.html');
-        //       let jsonData = {"id":2,"profile_id":1,"university_id":65,"applied":true,"applied_date":"2019-04-17T00:00:00.000Z","admitted":null,"admitted_date":null,"rejected":null,"rejected_date":null,"created_at":"2019-04-05T21:15:11.712Z","updated_at":"2019-04-05T21:15:11.712Z","term":"Fall","year":2019,"uni_name":"California Institute Of Technology"};
-        //     //var spy = spyOn(window, "editSchoolFunc");
-        //     //$("#schoolModal").modal();
-        //     //var spy = spyon($("#schoolModal"),'modal');
-        //     //var modalSpy = spyOn($("#schoolModal").modal(),'backdrop').and.callFake(function(){
-        //         //return true;
-        //     //});
-        //
-        //     //$("#schoolModal").modal();
-        //     $("#schoolModal").modal(
-        //         {backdrop: true}
-        //     );
-
-        //     spyOn($('.edit'), 'click').and.callThrough();
-
-        //     //let modal = {
-        //      //   editPopup: function(){
-        //            // {backdrop: true}
-        //         //}
-        //     //}
-        //      //var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
-        //      //var modalSpy = jasmine.createSpyObj('modal',['backdrop']);
-        //     //$("#schoolModal").modal();
-        //     //var modalSpy = spyOn($("#schoolModal"), 'modal').and.callThrough();
-        //      //var modalSpy = spyOn(modal(),'backdrop').andReturn(true);
-        // var options = {
-        //  "backdrop" :true
-
-        //}
-        //$('#schoolModal').modal(options);
-        //editSchoolFunc();
-        //   $('#edit_4_4').trigger('click');
-        //        spyOn($, 'ajax').and.callFake(function(ajaxArgs) {
-        //           ajaxArgs.success(jsonData);
-        //        });
-
-        //
-        //      //modal.editPopup();
-        //      //expect(modal.editPopup).toHaveBeenCalled();
-        //      //$("#schoolModal").modal();
-        //      //expect(modalSpy).toHaveBeenCalled();
-        //     //expect($.ajax.mostRecentCall.args[0]['url']).toEqual('/applications/3');
-        //
-        //});
-
     });
 
     describe('Add applications', function () {
         beforeEach(function () {
             loadFixtures('sInterestedSchools.html');
-            window.gon = {}
+            window.gon = {};
             gon.universities = "Auburn University"
         });
         it("should trigger an event add school is clicked", function () {
@@ -274,25 +220,13 @@ describe('My applications', function() {
     describe('Delete School Row', function () {
 
         it('should delete row', function () {
-            // setFixtures("<tr id=\"addSchoolHeader\" style = \"\">\n" +
-            //     "        <th>University Name</th>\n" +
-            //     "        <th>Application Status</th>\n" +
-            //     "        <th>Date</th>\n" +
-            //     "        <th>Interested Term</th>\n" +
-            //     "        <th>Interested Year</th>\n" +
-            //     "      </tr>");
-
             setFixtures('<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete" id="uni_delete"></td>');
             var input = $('.ibtnDel');
             var spyEvent = spyOnEvent(input, 'click' );
             spyOn(input, 'click' ).and.callThrough();
-            //var removeAdd = spyOn($("#addSchoolHeader"), 'remove');
             delRowFunc();
-            //$("table.order-list").trigger('click');
             $( input ).click();
             expect( spyEvent ).toHaveBeenTriggered();
-            //$("#addSchoolHeader").remove();
-            //expect(removeAdd).toHaveBeenCalled();
         });
     });
 });

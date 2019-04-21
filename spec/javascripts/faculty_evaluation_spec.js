@@ -1,6 +1,5 @@
 describe('Faculty Evaluation', function() {
     beforeEach(function() {
-        //setFixtures('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>')
         setFixtures('<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>table#facultyEvaluationTable tbody tr td:nth-of-type(6)');
     });
 
