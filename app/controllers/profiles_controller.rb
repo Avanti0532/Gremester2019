@@ -295,6 +295,42 @@ class ProfilesController < ApplicationController
                         elsif !(params[:year].to_s =~ /^any$/)
                           if (a.year.to_s.to_i == params[:year].to_s.to_i)
                             applications << a
+                          else
+                            if !(params[:term].to_s == 'any') and !(params[:year].to_s == 'any')
+                              if params[:and_later] =~ /^on$/
+                                if params[:term].to_s =~ /Spring/i
+                                  if (a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Summer/i
+                                  if ((a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || (a.term.to_s =~ /Spring/i && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Fall/i
+                                  if ((a.term.to_s =~ /Fall/i || a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                elsif params[:term].to_s =~ /Winter/i
+                                  if ((a.term.to_s =~ /Winter/i) && a.year.to_s.to_i >= params[:year].to_s.to_i) || ((a.term.to_s =~ /Spring/i || a.term.to_s =~ /Summer/i || a.term.to_s =~ /Fall/i) && a.year.to_s.to_i > params[:year].to_s.to_i)
+                                    applications << a
+                                  end
+                                end
+                              else
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase and a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            else
+                              if !(params[:term].to_s =~ /^any$/)
+                                if (a.term.to_s.downcase == params[:term].to_s.downcase)
+                                  applications << a
+                                end
+                              elsif !(params[:year].to_s =~ /^any$/)
+                                if (a.year.to_s == params[:year].to_s)
+                                  applications << a
+                                end
+                              end
+                            end
                           end
                         end
                       end
@@ -642,24 +678,25 @@ class ProfilesController < ApplicationController
   render 'profiles/fStudentList'
 end
 
-def fViewProfile
-  @application = Application.find_by_id(params[:id])
-  @profile = Profile.find_by_id(@application.profile.id)
-  @student = @profile.student
-  @all_undergrads = Array.new
-  @profile.undergrad_universities.each do |university|
-    university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
-    university_name = university.university_name
-    details = university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
-    details << university_detail.major if !university_detail.major.nil?
-    details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
-    details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
-    details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
-    @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
+  def fViewProfile
+    @application = Application.find_by_id(params[:id])
+    @profile = Profile.find_by_id(@application.profile.id)
+    @student = @profile.student
+    @all_undergrads = Array.new
+    @profile.undergrad_universities.each do |university|
+      university_detail = ProfilesUndergradUniversity.where(:profile_id => @profile.id, :undergrad_university_id => university.id).first
+      university_name = university.university_name
+      details = university_detail.degree_type << ' ' if !university_detail.degree_type.nil?
+      details << university_detail.major if !university_detail.major.nil?
+      details << "\n" << university_detail.start_year.to_s << ' - ' << university_detail.end_year.to_s if !university_detail.start_year.nil? and !university_detail.end_year.nil?
+      details << "\n GPA: " << university_detail.cgpa.to_s if !university_detail.cgpa.nil?
+      details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
+      @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
+    end
   end
 
   def sAdmissionChance
     gon.universities = University.select('id, university_name').order("university_name")
+    render 'profiles/fStudentList'
   end
-end
 end
