@@ -51,7 +51,6 @@ describe('Year and Term Select', function(){
     it('should check if the triggered event is stopped for year selection',function(){
         var spyEvent = spyOnEvent('#year', 'change');
         $('#year').change(function (event){event.stopPropagation();});
-        //spyOn($("#year"), 'change' ).and.callThrough();
         $("#year").change();
         fYearSelect();
         expect('change').toHaveBeenStoppedOn('#year');
@@ -64,8 +63,6 @@ describe('Year and Term Select', function(){
         var spy = spyOn($("#year"), 'change' ).and.callThrough();
         $("#year").change();
         fYearSelect();
-        //expect($('#and_later').prop).toBeFalsy();
-
     });
 
     it('should check if the triggered event is stopped for term selection',function(){

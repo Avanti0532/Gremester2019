@@ -16,10 +16,10 @@ fYearSelect = function() {
         var theYear = $(this.id).find('option:selected').text();
         var theTerm = $('#term').find('option:selected').text();
         if (theYear == "**Any**" || theTerm == "**Any**") {
-            $('#and_later').prop('checked', false);
-            $('#and_later').attr('disabled', true);
+            $('#and_later').prop('checked',false);
+            $('#and_later').attr('disabled',true);
         } else {
-            $('#and_later').attr('disabled', false);
+            $('#and_later').attr('disabled',false);
         }
     });
 };
@@ -29,10 +29,10 @@ fTermSelect = function() {
         var theTerm = $(this.id).find('option:selected').text();
         var theYear = $('#year').find('option:selected').text();
         if (theYear == "**Any**" || theTerm == "**Any**") {
-            $('#and_later').prop('checked', false);
-            $('#and_later').attr('disabled', true);
+            $('#and_later').prop('checked',false);
+            $('#and_later').attr('disabled',true);
         } else {
-            $('#and_later').attr('disabled', false);
+            $('#and_later').attr('disabled',false);
         }
     });
 };
