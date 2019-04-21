@@ -410,9 +410,6 @@ Then("I can see all applications with CGPA in range {int},{int}") do |int, int2|
     undegrad_scales[counter] = ProfilesUndergradUniversity.where("profile_id = ? AND undergrad_university_id = ?", profiles_arr[counter], college_gpa[counter][0]).first.grading_scale_type_id
     counter += 1
   end
-  # puts undegrad_scales
-  # puts "scales"
-  # puts scales
   counter = 0
   college_gpa.each do |gpa|
     gpa[1].to_s.to_f.should be_between(scales[undegrad_scales[counter]][1].to_s.to_f, scales[undegrad_scales[counter]][2].to_s.to_f)
