@@ -337,6 +337,7 @@ $( '#msob_score' ).val($( '#slider-range-msob' ).slider( 'values', 0 ) +
 end
 
 When("I select all as scale") do
+  # puts page.body
   find('#scale_type').find(:css, 'option[value="all"]').select_option
 end
 
@@ -401,7 +402,8 @@ Then("I can see all applications with CGPA in range {int},{int}") do |int, int2|
   counter = 0
   td1elements.each do|td1|
     names = td1.text.to_s.split(' ')
-    profiles_arr[counter] = Profile.joins(:student).where('students.first_name = ? AND students.last_name = ?', names[0], names[1]).first.id
+    student_id = Student.where("first_name = ? AND last_name = ?", names[0], names[1]).first.id
+    profiles_arr[counter] = Profile.where('student_id = ?', student_id).first.id
     counter += 1
   end
   undegrad_scales = Array.new(profiles_arr.size, 0)
