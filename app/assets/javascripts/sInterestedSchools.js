@@ -1,6 +1,5 @@
-$(document).ready(function () {
-    var counter = 1;
-    $("#addrow").on("click", function () {
+addSchoolFunc = function(){
+    $("#addrow").click(function () {
         var newRow = $("<tr>");
         var cols = "";
         var options = "";
@@ -26,7 +25,7 @@ $(document).ready(function () {
             '<option>Applied - Pending Decision</option>' +
             '</select></div></td>';
         cols += '<td><input type="date" class="form-control" name="datepicker" id="add_date">'+
-                '</td>';
+            '</td>';
         cols += '<td><div class="form-group"> <select class="form-control" id="term" name="sel_term">' +
             '<option disabled selected value>select term</option>' +
             '<option>Fall</option>' +
@@ -53,48 +52,102 @@ $(document).ready(function () {
         $("table.order-list").append(newRow);
 
     });
+};
+saveSchoolFunc = function(){
 
+     $("table.order-list").on("click", ".save", function () {
+        var university = $("input[name='univ_name']").val();
+        var new_date = $("input[name='datepicker']").val();
+        var option = $("#sell").val();
+        var term = $("#term").val();
+        var year = $("input[name='int_year']").val();
+        var current_year = new Date().getFullYear();
+
+        if(year < current_year){
+            $('div#add_alert').addClass('in');
+            $('div#add_alert').text('Interested year cannot be less than current year');
+        }else {
+            $.ajax({
+                url: "/profiles/addschools",
+                type: 'POST',
+                data: {univ_name: university, datepicker: new_date, sel_opt: option, term: term, year: year},
+                datatype: "html",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                }
+            });
+        }
+
+    });
+
+};
+
+deleteSchoolFunc = function() {
+
+    $('.trash').click(function () {
+        var app_id = this.id.substr(5).split('_');
+        var appn_id = app_id[1]
+        $.ajax({
+            url: "/profiles/deleteschools",
+            type: 'POST',
+            datatype: "html",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                application_id: appn_id
+            }),
+            success: function (jsonData) {
+                location.reload();
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            }
+        });
+        return (false);
+    });
+};
+
+editSchoolFunc = function(){
 
     $('.edit').click(function(){
-        edit_btn_id = this.id;
+        var edit_btn_id = this.id;
         $('#saveModal').attr('name', edit_btn_id);
-        app_id_uni_id = edit_btn_id.substr(5).split('_');
-        app_id = app_id_uni_id[0];
-        uni_id = app_id_uni_id[1];
+        var app_id_uni_id = edit_btn_id.substr(5).split('_');
+        var app_id = app_id_uni_id[0];
+        var uni_id = app_id_uni_id[1];
         $.ajax({
             url: "/applications/"+app_id,
             type: 'GET',
             contentType: "application/json",
             dataType: 'html',
             success: function(jsonData) {
-                data = JSON.parse(jsonData);
+                var data = JSON.parse(jsonData)
                 $('#uni_name').val(data.uni_name);
-                applied_date = new Date(data.applied_date);
+                var applied_date = new Date(data.applied_date);
                 if(applied_date.getUTCFullYear() == '1970'){
                     applied_date = '';
                 }else{
-                    app_month = (applied_date.getUTCMonth()+1);
-                    app_date =  applied_date.getUTCDate();
+                    var app_month = (applied_date.getUTCMonth()+1);
+                    var app_date =  applied_date.getUTCDate();
                     if (app_month < 10) app_month = "0" + app_month;
                     if (app_date < 10) app_date = "0" + app_date;
                     applied_date = applied_date.getUTCFullYear()+'-'+app_month+'-'+app_date;
                 }
-                admitted_date = new Date(data.admitted_date);
+                var admitted_date = new Date(data.admitted_date);
                 if(admitted_date.getUTCFullYear() == '1970'){
                     admitted_date = '';
                 }else{
-                    adm_month = (admitted_date.getUTCMonth()+1);
-                    adm_date =  admitted_date.getUTCDate();
+                    var adm_month = (admitted_date.getUTCMonth()+1);
+                    var adm_date =  admitted_date.getUTCDate();
                     if (adm_month < 10) adm_month = "0" + adm_month;
                     if (adm_date < 10) adm_date = "0" + adm_date;
                     admitted_date = admitted_date.getUTCFullYear()+'-'+adm_month+'-'+adm_date;
                 }
-                rejected_date = new Date(data.rejected_date);
+                var rejected_date = new Date(data.rejected_date);
                 if(rejected_date.getUTCFullYear() == '1970'){
                     rejected_date = '';
                 }else{
-                    rej_month = (rejected_date.getUTCMonth()+1);
-                    rej_date =  rejected_date.getUTCDate();
+                    var rej_month = (rejected_date.getUTCMonth()+1);
+                    var rej_date =  rejected_date.getUTCDate();
                     if (rej_month < 10) rej_month = "0" + rej_month;
                     if (rej_date < 10) rej_date = "0" + rej_date;
                     rejected_date = rejected_date.getUTCFullYear()+'-'+rej_month+'-'+rej_date;
@@ -117,37 +170,20 @@ $(document).ready(function () {
 
         return false;
     });
+};
 
-    $('.trash').on('click', function(){
-        var app_id = this.id.substr(5).split('_');
-        var appn_id = app_id[1]
-        $.ajax({
-            url: "/profiles/deleteschools",
-            type: 'POST',
-            datatype:"html",
-            contentType: 'application/json',
-            data: JSON.stringify({
-                application_id: appn_id
-            }),
-            success: function (jsonData) {
-                location.reload();
-            },
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-        });
-
-    });
-
+saveModalFunc = function(){
     $('#saveModal').click(function(){
-        edit_btn_id = this.name;
-        app_id_uni_id = edit_btn_id.substr(5).split('_');
-        app_id = app_id_uni_id[0];
-        uni_id = app_id_uni_id[1];
-        applied_date = $('#datepickerapp').val();
-        admitted_date = $('#datepickeradm').val();
-        rejected_date = $('#datepickerrej').val();
-        dt_app = new Date(applied_date);
-        dt_adm = new Date(admitted_date);
-        dt_rej = new Date(rejected_date);
+        var edit_btn_id = this.name;
+        var app_id_uni_id = edit_btn_id.substr(5).split('_');
+        var app_id = app_id_uni_id[0];
+        var uni_id = app_id_uni_id[1];
+        var applied_date = $('#datepickerapp').val();
+        var admitted_date = $('#datepickeradm').val();
+        var rejected_date = $('#datepickerrej').val();
+        var dt_app = new Date(applied_date);
+        var dt_adm = new Date(admitted_date);
+        var dt_rej = new Date(rejected_date);
 
         if (applied_date == '') {
             $("div[role=alert]").text('Applied date cannot be empty!');
@@ -180,7 +216,7 @@ $(document).ready(function () {
                     rejected_date: rejected_date
                 }),
                 success: function (jsonData) {
-                    result = JSON.parse(jsonData);
+                    var result = JSON.parse(jsonData);
                     if (result.result == 1) {
                         jQuery.noConflict();
                         $('#schoolsModal').modal('hide');
@@ -193,40 +229,28 @@ $(document).ready(function () {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
                 }
             });
-        }
+        };
 
 
-    })
+    });
+};
 
+delRowFunc = function(){
 
-    $("table.order-list").on("click", ".ibtnDel", function (event) {
-        $(this).closest("tr").remove();
+    $("table.order-list").on("click", ".ibtnDel", function () {
         $("#addSchoolHeader").remove();
-        counter -= 2
+        $(this).closest("tr").remove();
     });
 
-    $("table.order-list").on("click", ".save", function (event) {
-        var university = $("input[name='univ_name']").val();
-        var new_date = $("input[name='datepicker']").val();
-        var option = $("#sell").val();
-        var term = $("#term").val();
-        var year = $("input[name='int_year']").val();
-        var current_year = new Date().getFullYear();
+};
 
-        if(year < current_year){
-            $('div#add_alert').addClass('in');
-            $('div#add_alert').text('Interested year cannot be less than current year');
-        }else {
-            $.ajax({
-                url: "/profiles/addschools",
-                type: 'POST',
-                data: {univ_name: university, datepicker: new_date, sel_opt: option, term: term, year: year},
-                datatype: "html",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-                }
-            });
-        }
 
-    });
-});
+$(document).ready(deleteSchoolFunc);
+$(document).ready(addSchoolFunc);
+$(document).ready(saveSchoolFunc);
+$(document).ready(editSchoolFunc);
+$(document).ready(saveModalFunc);
+$(document).ready(delRowFunc);
+
+
+
