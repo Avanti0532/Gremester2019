@@ -337,7 +337,6 @@ $( '#msob_score' ).val($( '#slider-range-msob' ).slider( 'values', 0 ) +
 end
 
 When("I select all as scale") do
-  # puts page.body
   find('#scale_type').find(:css, 'option[value="all"]').select_option
 end
 
