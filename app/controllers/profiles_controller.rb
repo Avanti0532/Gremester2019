@@ -669,6 +669,10 @@ class ProfilesController < ApplicationController
     render 'profiles/fStudentList'
   end
 
+  def sAdmissionChance
+    gon.universities = University.select('id, university_name').order("university_name")
+  end
+
   def fViewProfile
     @application = Application.find_by_id(params[:id])
     @profile = Profile.find_by_id(@application.profile.id)
@@ -684,15 +688,13 @@ class ProfilesController < ApplicationController
       details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
       @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
     end
+  end
 
-    def sAdmissionChance
-      gon.universities = University.select('id, university_name').order("university_name")
-    end
 
-    def deleteUndergradUniversity
-      id = params[:id]
-      ProfilesUndergradUniversity.where(:id => id).destroy_all
-      redirect_to profile_path
-    end
+  def deleteUndergradUniversity
+    id = params[:id]
+    ProfilesUndergradUniversity.where(:id => id).destroy_all
+    redirect_to profile_path
   end
 end
+

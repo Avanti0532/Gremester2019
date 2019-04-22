@@ -52,6 +52,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |grading|
       GradingScaleType.create(grading)
     end
+  when 'GradingScale'
+    user_table.hashes.each do |gradingscale|
+      GradingScale.create(gradingscale)
+    end
   when 'ResearchInterest'
     user_table.hashes.each do |interest|
       ResearchInterest.create(interest)
