@@ -657,9 +657,9 @@ def fViewProfile
     details << ", " << university_detail.grading_scale_type.grading_scale_name if !university_detail.grading_scale_type.nil?
     @all_undergrads << {:details => details.gsub(/\n/, '<br/>').html_safe, :id => university.id, :university_name => university_name}
   end
+  end
 
   def sAdmissionChance
     gon.universities = University.select('id, university_name').order("university_name")
   end
-end
 end
