@@ -192,3 +192,13 @@ $(document).ready(function () {
         }
     });
 });
+
+
+var add_new_research_interest = function() {
+
+    $('#add_new_research_interest').click(function() {
+        $('#additional_research_interest').attr('hidden', false);
+    })
+}
+
+$(document).ready(add_new_research_interest);

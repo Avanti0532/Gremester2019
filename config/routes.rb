@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     collection do
       match '/getUndergradUniversityByCountry', to: 'profiles#getUndergradUniversityByCountry',via: :get
       match 'faculty/:id', to: 'profiles#fViewProfile', via: :get, :as => 'fViewProfile'
+      match '/deleteUndergradUniversity/:id', to: 'profiles#deleteUndergradUniversity', via: :get, :as => 'deleteUndergradUniversity'
     end
     get :sInterestedSchools, on: :collection
     get :filter, on: :collection

@@ -61,7 +61,7 @@
           <div class="col-md-8">
             <p>Level of interest in MS Degree</p>
             <div class="range">
-              <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_master || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <%= range_field_tag "degree_objective_master", options_for_select(['1', '2', '3', '4', '5']),  :type=> "range", class: "slider", :value=> 0, :min => @profile.degree_objective_master || nil, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
               <div class="sliderticks">
                 <p>0</p>
                 <p>1</p>
@@ -73,7 +73,7 @@
             </div>
             <p>Level of interest in PhD Degree</p>
             <div class="range">
-              <%= range_field_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5'], :selected => @profile.degree_objective_phd || nil),  :type=> "range", class: "slider", :value=> 0, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
+              <%= range_field_tag "degree_objective_phd", options_for_select(['1', '2', '3', '4', '5']),  :type=> "range", class: "slider", :value=> @profile.degree_objective_master || nil, :min => 0, :max=> 5, :step=> 1, :onchange=>"rangevalue.value=value"  %>
               <div class="sliderticks">
                 <p>0</p>
                 <p>1</p>
@@ -97,7 +97,13 @@
               <input class="form-control" type="text" value="<%= @profile.research_interests.pluck(:name).map(&:inspect).join(', ').gsub(/"/, '') %>" readonly>
             <% end %>
             <%= select_tag :research_interest, options_for_select(ResearchInterest.all.each.collect{ |u| [u.name, u.id]}), :multiple => true, class: "form-control"%>
-            <br><br>
+            <br>
+            <div>
+              <button type="button" class="btn btn-default btn-default pull-left" id="add_new_research_interest">Add new research interest</button>
+              <br><br>
+              <input type="text" hidden="true" id="additional_research_interest" name="additional_research_interest"  value="" placeholder="Separate multiple research interests by semicolon" style="width: 100%">
+              <br>
+            </div>
           </div>
         </div>
 
@@ -106,7 +112,16 @@
           <div class="col-md-8" id="undergraduate_edit">
             <% if !@all_undergrads.nil? %>
               <% @all_undergrads.each  do |university|%>
-                <p><%= university[:details] %></p>
+                <div class="row">
+                  <div class="col-md-10">
+                    <p><%= university[:details] %></p>
+                  </div>
+                  <div class="col-md-2">
+                    <%= link_to deleteUndergradUniversity_profiles_path(university[:id].to_i), data: { confirm: 'Are you sure?' }, class: "fa-trash-o" do %>
+                      <span class="glyphicon glyphicon-remove"></span>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
             <% end %>
             <b>Add education</b>
