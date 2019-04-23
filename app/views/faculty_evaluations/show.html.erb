@@ -1,7 +1,7 @@
 <div class="container">
   <br>
   <br>
-  <%= link_to "Back to profile", fViewProfile_profiles_path(@student.id)%>
+  <%= link_to "Back to profile", fViewProfile_profiles_path(@application_id)%>
   <%= form_for :faculty_evaluation, :html => {:id => "fEval_form"} do |f|  %>
     <h1> <%= 'Application Review for ' + @student.first_name + ' ' + @student.last_name %> </h1>
     <hr>

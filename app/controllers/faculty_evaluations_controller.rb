@@ -1,6 +1,7 @@
 class FacultyEvaluationsController < ApplicationController
   def show
     @student = Application.find_by_id(params[:id].to_i).profile.student
+    @application_id = params[:id].to_i
   end
   def create
     id = params[:id]
