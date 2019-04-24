@@ -263,6 +263,18 @@ Then /^I can update my (.*?)$/ do |field|
   end
 end
 
+Then(/I can add new interest interest if it's not available in the database$/) do
+  count = ResearchInterest.count
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  expect(page).to have_current_path(edit_profile_path(current_student.id))
+  click_button 'Add new research interest'
+  fill_in 'additional_research_interest', with: 'Research 1; Research 2'
+  click_button 'Save Changes'
+  ResearchInterest.count.should eq(count + 2)
+end
+
 Then(/I can add new undergrad university with only school name and country$/) do
   undergrad_universities = UndergradUniversity.count
   current_student = Student.find_by_email(@saved_student_data[:email])
