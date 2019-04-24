@@ -273,7 +273,6 @@ Then(/I can add new interest interest if it's not available in the database$/) d
   fill_in 'additional_research_interest', with: 'Research 1; Research 2'
   click_button 'Save Changes'
   ResearchInterest.count.should eq(count + 2)
-    # current_student.current_profile.research_interests.first.name.should eq("Machine Learning")
 end
 
 Then(/I can add new undergrad university with only school name and country$/) do
