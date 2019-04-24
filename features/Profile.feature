@@ -103,6 +103,11 @@ Feature: Allow students to edit their profile
     Then I can update my research interest
 
   @javascript
+  Scenario: Students can add new research interest if it's not available in the database
+    When I log in as a student
+    Then I can add new interest interest if it's not available in the database
+
+  @javascript
   Scenario: Student can add undergrad university together with gpa, degree type, grading scale
     When I log in as a student
     Then I can add undergrad university together with gpa, degree type, grading scale
