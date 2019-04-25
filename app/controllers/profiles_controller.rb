@@ -674,28 +674,40 @@ class ProfilesController < ApplicationController
 
   def getAdmissionChance
     @final = []
-    @final << params[:univ_name]
-    @cur_profile = current_student.current_profile
-    gre_q = (1.25 * @cur_profile.gre_quant)/170
-    gre_v = (1.25 * @cur_profile.gre_verbal)/170
-    toefl = @cur_profile.toefl.nil? ? 0 : (1.25 * @cur_profile.toefl)/120
-    gre_w = (1.25 * @cur_profile.gre_writing)/6
-    @rank = University.find_by_university_name(params[:univ_name])
-    gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
-    @result_1 = (gre_q + gre_v + toefl+ gre_w + gpa)
-    @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
-    @result_3 = (Math.sqrt(@result_2))* 100
-    @final << @result_3
-    if @result_3 > 80
-      @final << 'Safe'
-    elsif @result_3 > 60 and @result_3 <= 80
-      @final << 'Target'
+    if params[:univ_name].blank?
+      flash[:notice] = 'Please select the university'
+      render :json => {'error' => flash[:notice]}
     else
-      @final << 'Dream'
+       @final << params[:univ_name]
+       @cur_profile = current_student.current_profile
+       gre_quant = @cur_profile.gre_quant
+       gre_verbal = @cur_profile.gre_verbal
+       toefl = @cur_profile.toefl
+       gre_writing = @cur_profile.gre_writing
+       if gre_quant.blank? || gre_verbal.blank? || toefl.blank? || gre_writing.blank?
+         flash[:notice] = 'Please complete your profile with GRE scores'
+         render :json => {'error' => flash[:notice]}
+       else
+         gre_q = (1.25 * gre_quant)/170
+         gre_v = (1.25 * gre_verbal)/170
+         toefl = (1.25 * toefl)/120
+         gre_w = (1.25 * gre_writing)/6
+         @rank = University.find_by_university_name(params[:univ_name])
+         gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
+         @result_1 = (gre_q + gre_v + toefl+ gre_w + gpa)
+         @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
+         @result_3 = (Math.sqrt(@result_2))* 100
+         @final << @result_3.round(2)
+         if @result_3 > 80
+           @final << 'Safe'
+         elsif @result_3 > 60 and @result_3 <= 80
+           @final << 'Target'
+         else
+           @final << 'Dream'
+         end
+         render :json => {'result' => @final}
+       end
     end
-    puts @final
-    render :json => {'result' => @final}
-    # render 'profiles/sAdmissionChance'
   end
 
   def fViewProfile

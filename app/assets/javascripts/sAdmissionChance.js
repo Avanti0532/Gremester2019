@@ -27,26 +27,18 @@ $(document).ready(function () {
                 univ_name: university
             }),
             success: function (jsonData) {
-                console.log(jsonData);
-                var table = document.getElementById("chanceTable");
-                var row = table.insertRow(-1);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = university
-                var randomNum = jsonData['result'][1];
-                cell3.innerHTML = randomNum + "%";
-                if(randomNum > 39 && randomNum < 75)
-                {
-                    cell2.innerHTML = "Target"
-                }
-                if(randomNum < 39)
-                {
-                    cell2.innerHTML = "Dream"
-                }
-                if(randomNum > 75)
-                {
-                    cell2.innerHTML = "Safety"
+                if(jsonData['error']){
+                    location.reload();
+                }else {
+                    var table = document.getElementById("chanceTable");
+                    var row = table.insertRow(-1);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    cell1.innerHTML = university;
+                    var randomNum = jsonData['result'][1];
+                    cell2.innerHTML = jsonData['result'][2];
+                    cell3.innerHTML = randomNum + "%";
                 }
             },
             beforeSend: function (xhr) {
