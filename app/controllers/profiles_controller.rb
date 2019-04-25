@@ -678,7 +678,7 @@ class ProfilesController < ApplicationController
     @cur_profile = current_student.current_profile
     gre_q = (1.25 * @cur_profile.gre_quant)/170
     gre_v = (1.25 * @cur_profile.gre_verbal)/170
-    toefl = (1.25 * @cur_profile.toefl)/120
+    toefl = @cur_profile.toefl.nil? ? 0 : (1.25 * @cur_profile.toefl)/120
     gre_w = (1.25 * @cur_profile.gre_writing)/6
     @rank = University.find_by_university_name(params[:univ_name])
     gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
@@ -694,7 +694,8 @@ class ProfilesController < ApplicationController
       @final << 'Dream'
     end
     puts @final
-    render 'profiles/sAdmissionChance'
+    render :json => {'result' => @final}
+    # render 'profiles/sAdmissionChance'
   end
 
   def fViewProfile
