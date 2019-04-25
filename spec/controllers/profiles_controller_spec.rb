@@ -893,5 +893,12 @@ describe ProfilesController do
       post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
       expect(JSON.parse(response.body)['result']).to eq(final)
     end
+    it 'should render result in json format when university rank is greater than 50' do
+      final = [66.91,'Target']
+      mock_university = University.create(:id => 2,:rank => 69, :university_name => 'University of Iowa')
+      expect(University).to receive(:find_by_university_name).with('University of Iowa').and_return(mock_university)
+      post :getAdmissionChance, {"univ_name"=>"University of Iowa", "profile"=>{}}
+      expect(JSON.parse(response.body)['result']).to eq(final)
+    end
   end
 end
