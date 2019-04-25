@@ -16,7 +16,13 @@
       </tr>
       </thead>
       <tbody>
-
+      <%if @final %>
+        <tr>
+          <td><%=@final[0] %></td>
+          <td><%=@final[2]%></td>
+          <td><%=@final[1]%></td>
+        </tr>
+      <%end %>
       </tbody>
       <tfoot>
       <tr>

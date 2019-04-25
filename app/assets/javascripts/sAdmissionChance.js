@@ -18,37 +18,22 @@ $(document).ready(function () {
 
     $("table.order-list").on("click", ".save", function (event) {
         var university = $("input[name='univ_name']").val();
-        if(university == '')
-        {
-            return;
-        }
-        document.getElementById("univ_name").value = '';
-        var table = document.getElementById("chanceTable");
 
-        var row = table.insertRow(-1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        cell1.innerHTML = university
-        var randomNum = Math.floor(Math.random() * 100);
-        cell3.innerHTML = randomNum + "%";
-        if(randomNum > 39 && randomNum < 75)
-        {
-            cell2.innerHTML = "Target"
-        }
-        if(randomNum < 39)
-        {
-            cell2.innerHTML = "Dream"
-        }
-        if(randomNum > 75)
-        {
-            cell2.innerHTML = "Safety"
-        }
-
-
-
-
-
+        $.ajax({
+            url: "/profiles/getAdmissionChance",
+            type: 'POST',
+            datatype: "html",
+            contentType: 'application/json',
+            data: JSON.stringify({
+            univ_name: university
+            }),
+            success: function (jsonData) {
+                location.reload();
+            },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            }
+        });
     });
 
 });

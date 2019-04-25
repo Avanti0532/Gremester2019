@@ -158,7 +158,6 @@ class ProfilesController < ApplicationController
     else
       redirect_to profile_path
     end
-
   end
 
   def showschools
@@ -671,6 +670,31 @@ class ProfilesController < ApplicationController
 
   def sAdmissionChance
     gon.universities = University.select('id, university_name').order("university_name")
+  end
+
+  def getAdmissionChance
+    @final = []
+    @final << params[:univ_name]
+    @cur_profile = current_student.current_profile
+    gre_q = (1.25 * @cur_profile.gre_quant)/170
+    gre_v = (1.25 * @cur_profile.gre_verbal)/170
+    toefl = (1.25 * @cur_profile.toefl)/120
+    gre_w = (1.25 * @cur_profile.gre_writing)/6
+    @rank = University.find_by_university_name(params[:univ_name])
+    gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
+    @result_1 = (gre_q + gre_v + toefl+ gre_w + gpa)
+    @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
+    @result_3 = (Math.sqrt(@result_2))* 100
+    @final << @result_3
+    if @result_3 > 80
+      @final << 'Safe'
+    elsif @result_3 > 60 and @result_3 <= 80
+      @final << 'Target'
+    else
+      @final << 'Dream'
+    end
+    puts @final
+    render 'profiles/sAdmissionChance'
   end
 
   def fViewProfile
