@@ -678,7 +678,6 @@ class ProfilesController < ApplicationController
       flash[:notice] = 'Please select the university'
       render :json => {'error' => flash[:notice]}
     else
-       @final << params[:univ_name]
        @cur_profile = current_student.current_profile
        gre_quant = @cur_profile.gre_quant
        gre_verbal = @cur_profile.gre_verbal
@@ -695,12 +694,16 @@ class ProfilesController < ApplicationController
          @rank = University.find_by_university_name(params[:univ_name])
          gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
          @result_1 = (gre_q + gre_v + toefl+ gre_w + gpa)
-         @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
+         if @rank.rank < 50
+           @result_2 = (@result_1 * @result_1)/(@rank.rank)
+         else
+           @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
+         end
          @result_3 = (Math.sqrt(@result_2))* 100
          @final << @result_3.round(2)
          if @result_3 > 80
            @final << 'Safe'
-         elsif @result_3 > 60 and @result_3 <= 80
+         elsif @result_3 > 60 and @result_3 < 80
            @final << 'Target'
          else
            @final << 'Dream'

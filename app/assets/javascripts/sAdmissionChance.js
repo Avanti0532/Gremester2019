@@ -36,8 +36,8 @@ $(document).ready(function () {
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2);
                     cell1.innerHTML = university;
-                    var randomNum = jsonData['result'][1];
-                    cell2.innerHTML = jsonData['result'][2];
+                    var randomNum = jsonData['result'][0];
+                    cell2.innerHTML = jsonData['result'][1];
                     cell3.innerHTML = randomNum + "%";
                 }
             },
