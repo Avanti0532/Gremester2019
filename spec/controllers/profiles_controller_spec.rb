@@ -860,7 +860,7 @@ describe ProfilesController do
       mock_profile = Profile.create(id:2, student_id: 2,toefl: 100, gre_quant: nil, gre_verbal: 145, gre_writing:3.5)
       controller.instance_eval {@profile = mock_profile}
       post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
-      expect(flash[:notice]).to eq('Please complete your profile with GRE scores')
+      expect(flash[:notice]).to eq('Please complete your profile with GRE and TOEFL scores')
     end
 
     it 'should render result in json format for Dream University' do

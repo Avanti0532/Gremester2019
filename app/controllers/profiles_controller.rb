@@ -684,7 +684,7 @@ class ProfilesController < ApplicationController
        toefl = @cur_profile.toefl
        gre_writing = @cur_profile.gre_writing
        if gre_quant.blank? || gre_verbal.blank? || toefl.blank? || gre_writing.blank?
-         flash[:notice] = 'Please complete your profile with GRE scores'
+         flash[:notice] = 'Please complete your profile with GRE and TOEFL scores'
          render :json => {'error' => flash[:notice]}
        else
          gre_q = (1.25 * gre_quant)/170
