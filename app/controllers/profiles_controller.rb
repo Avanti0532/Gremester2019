@@ -694,7 +694,7 @@ class ProfilesController < ApplicationController
          @rank = University.find_by_university_name(params[:univ_name])
          gpa = (1.25 * @cur_profile.profiles_undergrad_universities[0].cgpa)/10
          @result_1 = (gre_q + gre_v + toefl+ gre_w + gpa)
-         if @rank.rank < 50
+         if @rank.rank < 50 and @rank.rank > 30
            @result_2 = (@result_1 * @result_1)/(@rank.rank)
          else
            @result_2 = (@result_1 * @result_1)/(100 - @rank.rank)
