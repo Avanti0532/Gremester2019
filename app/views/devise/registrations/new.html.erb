@@ -39,8 +39,11 @@
 
       <div class="field">
         <%= f.label :university_id %><br />
-        <%= f.select :university_id, options_for_select(University.all.order(:university_name).map {|obj| [obj.university_name, obj.id]}), class: 'form-control form-control-lg'  %>
+        <%= f.select :university_id, options_for_select(University.all.order(:university_name).map {|obj| [obj.university_name, obj.id]}), class: 'form-control form-control-lg', include_blank: ''  %>
       </div>
+
+      <br>
+      <i>Please upload your University ID or link to your university website to verify your identity</i>
 
       <div class="field">
         <%= f.label :id_card %><br />
@@ -53,6 +56,7 @@
       <label>Link to Faculty Website</label></br>
       <%= f.text_field :weblink %>
     </div>
+      <br>
 
     <div class="actions">
       <%= f.submit "Sign up" , :class=>"btn btn-primary"%>
