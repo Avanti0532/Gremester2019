@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     collection do
       match '/addschools', to: 'profiles#addschools',via: :post
       match '/deleteschools', to: 'profiles#deleteschools',via: :post
+      match '/getAdmissionChance', to: 'profiles#getAdmissionChance', via: :post
       post  ":id"  => "profiles#update",  :as => 'update'
       match '/showSchools/:id', to: 'profiles#showschools',via: :get, :as => 'show'
     end

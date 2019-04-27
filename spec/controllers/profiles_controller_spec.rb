@@ -837,4 +837,68 @@ describe ProfilesController do
       response.should redirect_to(profile_path)
     end
   end
+
+  describe 'Get Admission Chance' do
+    before :each do
+      @mock_student = Student.new(id: 1, first_name: 'Avanti',last_name: 'Deshmukh',email: 'avanti532@gmail.com', password: '1234567', username: 'avanti')
+      controller.stub(:current_student).and_return(@mock_student)
+      @mock_profile = Profile.create(id:1, student_id: 1,toefl: 90, gre_quant: 140, gre_verbal: 140, gre_writing:2)
+      controller.instance_eval {@profile = @mock_profile}
+      @mock_university = University.create(:id => 1,:rank => 42, :university_name => 'Iowa State University')
+      UndergradUniversity.create(:id => 1, :university_name => 'Test University')
+      Application.create(:id => 1, :profile_id => 1)
+      @mock_undergrad_details = ProfilesUndergradUniversity.create(:id => 1, :profile_id => 1, :undergrad_university_id => 1, :cgpa => '2.5', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+    end
+    it 'should flash an error message when university name is blank' do
+       post :getAdmissionChance, {"univ_name"=>"", "profile"=>{}}
+       expect(flash[:notice]).to eq('Please select the university')
+    end
+
+    it 'should flash an error message when GRE Quantitative is blank' do
+      mock_student = Student.new(id: 2, first_name: 'Lily',last_name: 'James',email: 'lily532@gmail.com', password: '1234567', username: 'lily123')
+      controller.stub(:current_student).and_return(mock_student)
+      mock_profile = Profile.create(id:2, student_id: 2,toefl: 100, gre_quant: nil, gre_verbal: 145, gre_writing:3.5)
+      controller.instance_eval {@profile = mock_profile}
+      post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
+      expect(flash[:notice]).to eq('Please complete your profile with GRE and TOEFL scores')
+    end
+
+    it 'should render result in json format for Dream University' do
+      final = [57.49,'Dream']
+      expect(University).to receive(:find_by_university_name).with('Iowa State University').and_return(@mock_university)
+      post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
+      expect(JSON.parse(response.body)['result']).to eq(final)
+    end
+
+    it 'should render result in json format for Target University' do
+      mock_student = Student.new(id: 2, first_name: 'Lily',last_name: 'James',email: 'lily532@gmail.com', password: '1234567', username: 'lily123')
+      controller.stub(:current_student).and_return(mock_student)
+      mock_profile = Profile.create(id:2, student_id: 2,toefl: 112, gre_quant: 165, gre_verbal: 150, gre_writing:3.8)
+      controller.instance_eval {@profile = mock_profile}
+      ProfilesUndergradUniversity.create(:id => 2, :profile_id => 2, :undergrad_university_id => 1, :cgpa => '3.7', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+      final = [73.09,'Target']
+      expect(University).to receive(:find_by_university_name).with('Iowa State University').and_return(@mock_university)
+      post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
+      expect(JSON.parse(response.body)['result']).to eq(final)
+    end
+
+    it 'should render result in json format for Safe University' do
+      mock_student = Student.new(id: 2, first_name: 'Lily',last_name: 'James',email: 'lily532@gmail.com', password: '1234567', username: 'lily123')
+      controller.stub(:current_student).and_return(mock_student)
+      mock_profile = Profile.create(id: 2, student_id: 2,toefl: 118, gre_quant: 165, gre_verbal: 166, gre_writing:5)
+      controller.instance_eval {@profile = mock_profile}
+      ProfilesUndergradUniversity.create(:id => 2, :profile_id => 2, :undergrad_university_id => 1, :cgpa => '4', :degree_type => 'B.A', :start_year => '2012', :end_year => '2016')
+      final = [80.31,'Safe']
+      expect(University).to receive(:find_by_university_name).with('Iowa State University').and_return(@mock_university)
+      post :getAdmissionChance, {"univ_name"=>"Iowa State University", "profile"=>{}}
+      expect(JSON.parse(response.body)['result']).to eq(final)
+    end
+    it 'should render result in json format when university rank is greater than 50' do
+      final = [66.91,'Target']
+      mock_university = University.create(:id => 2,:rank => 69, :university_name => 'University of Iowa')
+      expect(University).to receive(:find_by_university_name).with('University of Iowa').and_return(mock_university)
+      post :getAdmissionChance, {"univ_name"=>"University of Iowa", "profile"=>{}}
+      expect(JSON.parse(response.body)['result']).to eq(final)
+    end
+  end
 end
