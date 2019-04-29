@@ -14,3 +14,14 @@ table.dataTable thead .sorting_desc_disabled:before {
 table.dataTable  {
     padding-left: 10px;
 }
+
+
+.tooltip-inner {
+    width: 150px; /* the minimum width */
+}
+
+.glyphicon {
+    font-size: 18px;
+}
+.popover { max-width: 100% !important;
+    white-space: pre-wrap;  }

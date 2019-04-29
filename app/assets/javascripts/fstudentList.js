@@ -37,9 +37,21 @@ fTermSelect = function() {
     });
 };
 
+fPopoverView = function () {
+
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.popover').popover({
+        trigger: 'hover',
+        container: 'body'
+
+    });
+    $("[data-toggle=popover]").popover();
+};
+
 $(document).ready(fStudentList);
 $(document).ready(fYearSelect);
 $(document).ready(fTermSelect);
+$(document).ready(fPopoverView);
 
 
 
