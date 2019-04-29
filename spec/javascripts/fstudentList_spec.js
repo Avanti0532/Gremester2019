@@ -76,28 +76,4 @@ describe('Year and Term Select', function(){
 
 });
 
-describe('FstudentList Popover', function() {
-    beforeEach(function() {
-        setFixtures('<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"> </script>');
-        setFixtures('<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"> </script>');
-    });
-    it('should trigger popover on hover', function(){
-        var mock1$ = spyOn(window.getElementsByClassName('glyphicon-question-sign'), '$').and.returnValue({
-            tooltip:jasmine.createSpy('$').and.returnValue(
-                true
-            ),
-            popover:jasmine.createSpy('$').and.returnValue(
-                true
-            ),
-            popover:jasmine.createSpy('$').and.returnValue(
-                true
-            )
-        });
-        fPopoverView();
-        expect(mock1$).toHaveBeenTriggered();
-
-
-    });
-});
-
 
