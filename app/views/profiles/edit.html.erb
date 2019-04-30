@@ -267,7 +267,7 @@
               <%if !@profile.additional_attachment.nil? && Rails.env.production? %>
                 <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{@profile.additional_attachment_url}" %></td>
               <%elsif !@profile.additional_attachment.nil? && Rails.env.development?  %>
-                <td><%= link_to @profile.resume.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
+                <td><%= link_to @profile.additional_attachment.metadata['filename'], "#{request.base_url + @profile.additional_attachment_url}" %></td>
               <% end %>
               <%= f.hidden_field :additional_attachment, value: f.object.cached_additional_attachment_data %>
               <%= f.file_field :additional_attachment, autocomplete: "off", class: "form-control" %>
