@@ -268,6 +268,7 @@ class ProfilesController < ApplicationController
             profiles = profiles_other
           elsif params[:research_interests].to_s =~ /^multiple$/
             interests = params[:multiple_interests].to_s.split(",")
+            interests.shift()
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
           else
@@ -472,6 +473,7 @@ class ProfilesController < ApplicationController
 
           elsif params[:research_interests].to_s =~ /^multiple$/
             interests = params[:multiple_interests].to_s.split(",")
+            interests.shift()
             profiles_research_interests = Profile.joins(:research_interests).where("research_interest_id IN (?)", interests)
             profiles = profiles_other.merge(profiles_research_interests)
           else
