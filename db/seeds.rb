@@ -425,6 +425,22 @@ csv.each do |row|
   research_interest.save
 end
 
+Student.create(first_name: 'Moderator',last_name: 'Gremester',email: 'moderator@gremester.com', password: '12345678', username: 'moderator', isModerator: true, confirmed_at: '2018-08-10')
+
+csv_student = File.read(Rails.root.join('lib', 'seeds', 'student.csv'))
+csv = CSV.parse(csv_student, :headers => true, :encoding => 'ISO-8859-1')
+counter = 1
+csv.each do |row|
+  Student.create!(first_name: 'Harsha'+counter.to_s,last_name: 'Pitawela'+counter.to_s,email: 'harshainfo'+counter.to_s+'@gmail.com', password: '12345678', username: 'harsha'+counter.to_s, isModerator: false, confirmed_at: '2018-08-10')
+  counter = counter + 1
+end
+
+csv_profile = File.read(Rails.root.join('lib', 'seeds', 'profile.csv'))
+csv = CSV.parse(csv_profile, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  Profile.create!(student_id:row[0], toefl:row[3], interested_term:row[4], interested_year:row[5], resume_data:row[6], sop_data:row[7], additional_attachment_data:row[8], gre_quant:row[9],gre_writing:row[10], gre_verbal:row[11],country_id:row[12],photo_id_data:row[13],degree_objective_phd:row[14],degree_objective_master:row[15],gender:row[16],year_work_exp:row[17])
+end
+
 RankType.create(:name => 'US News')
 universities.each do |university|
   temp = UndergradUniversity.create!(:university_name => university[:university_name], :university_desc => university[:university_desc], :location => university[:location])
@@ -449,4 +465,28 @@ csv.each do |row|
   grading_scale.save
 end
 
- Student.create(first_name: 'Moderator',last_name: 'Gremester',email: 'moderator@gremester.com', password: '12345678', username: 'moderator', isModerator: true, confirmed_at: '2018-08-10')
+
+
+csv_profile_undergrad_university = File.read(Rails.root.join('lib', 'seeds', 'profiles_undergrad_universities.csv'))
+csv = CSV.parse(csv_profile_undergrad_university, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  ProfilesUndergradUniversity.create!(profile_id:row[0],undergrad_university_id:row[1],cgpa:row[2],degree_type:row[3],major:row[4],start_year:row[5],end_year:row[6],grading_scale_type_id:row[7])
+end
+
+csv_research_interest_profile = File.read(Rails.root.join('lib', 'seeds', 'research_interests_profiles.csv'))
+csv = CSV.parse(csv_research_interest_profile, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  ResearchInterestsProfile.create!(research_interest_id:row[0], profile_id:row[1])
+end
+#
+csv_application = File.read(Rails.root.join('lib', 'seeds', 'application.csv'))
+csv = CSV.parse(csv_application, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  Application.create!(profile_id:row[0],university_id:row[1],applied:true,applied_date:row[3],term:row[10],year:row[11])
+end
+
+csv_faculty = File.read(Rails.root.join('lib', 'seeds', 'faculty.csv'))
+csv = CSV.parse(csv_faculty, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  Faculty.create!(email:row[0],password:'12345678',username:row[1],first_name:row[2],last_name:row[3],weblink:row[4],university_id:row[5],approved:true)
+end
