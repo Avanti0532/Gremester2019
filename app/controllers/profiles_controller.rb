@@ -1,3 +1,5 @@
+logger = Logger.new(STDOUT)
+logger.level = Logger::DEBUG
 class ProfilesController < ApplicationController
   def profile_params
     params.require(:profile).permit(:id, :photo_id, :sop, :resume, :additional_attachment, :toefl, :gre_writing, :gre_verbal, :gre_quant)
@@ -56,6 +58,8 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    no = Random.rand(1000)
+    logger.debug "Update starts"+no.to_s+"***************************************************************"+Time.now.strftime("%Y-%m-%dT%H:%M:%S.%L")
     @first_name = params[:current_student][:first_name]
     @last_name = params[:current_student][:last_name]
     @college = profile_params[:college]
@@ -154,8 +158,10 @@ class ProfilesController < ApplicationController
         error = error + message + ' '
       end
       flash.now[:notice] = error
+      logger.debug "Update ends***************************************************************"+no.to_s+"***************************************************************"+Time.now.strftime("%Y-%m-%dT%H:%M:%S.%L")
       render :edit
     else
+      logger.debug "Update ends***************************************************************"+no.to_s+"***************************************************************"+Time.now.strftime("%Y-%m-%dT%H:%M:%S.%L")
       redirect_to profile_path
     end
   end
@@ -211,6 +217,8 @@ class ProfilesController < ApplicationController
   end
 
   def filter
+    no = Random.rand(1000)
+    logger.debug "Filter starts"+no.to_s+"***************************************************************"+Time.now.strftime("%Y-%m-%dT%H:%M:%S.%L")
     if params[:cgpa_score].blank?
       cgpa_low = 0
       cgpa_high = 100
@@ -666,7 +674,7 @@ class ProfilesController < ApplicationController
     end
     @research_interests = ResearchInterestsController.new.index
     @undergrad_universities = UndergradUniversitiesController.new.index
-
+    logger.debug "Filter ends"+no.to_s+"***************************************************************"+Time.now.strftime("%Y-%m-%dT%H:%M:%S.%L")
     render 'profiles/fStudentList'
   end
 
