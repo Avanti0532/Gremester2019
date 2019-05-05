@@ -1,5 +1,9 @@
 ruby '2.4.4'
 source 'https://rubygems.org'
+gem 'thredded', '~> 0.16.10'
+gem 'where-or'
+gem 'autoprefixer-rails', '8.6.5'
+gem 'rails-ujs', '~> 5.1.0.beta1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11'
 gem 'jasmine'
@@ -81,6 +85,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
   gem 'faker'
+  gem 'regressor', '~> 0.6.2'
 end
 
 group :production do

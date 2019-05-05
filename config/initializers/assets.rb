@@ -6,6 +6,7 @@ Rails.application.config.assets.precompile += %w( yeti.css )
 Rails.application.config.assets.precompile += %w( banner.css )
 Rails.application.config.assets.precompile += %w( yeti.js )
 Rails.application.config.assets.precompile += %w( fstudentList.js )
+Rails.application.config.assets.precompile += %w( sAdmissionChance.js )
 Rails.application.config.assets.precompile += %w( fstudentList.css )
 Rails.application.config.assets.precompile += %w( sInterestedSchools.js )
 Rails.application.config.assets.precompile += %w( file_upload.js )
@@ -21,6 +22,7 @@ Rails.application.config.assets.precompile += %w( yeti/research_interests.js )
 Rails.application.config.assets.precompile += %w( research_interests.css )
 Rails.application.config.assets.precompile += %w( faculty_evaluation.js )
 Rails.application.config.assets.precompile += %w( faculty_evaluations.css )
+Rails.application.config.assets.precompile += %w( faculty_otherEvaluation.js )
 
 
 # Add additional assets to the asset load path

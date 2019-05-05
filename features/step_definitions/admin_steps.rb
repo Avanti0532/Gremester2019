@@ -52,6 +52,10 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
     user_table.hashes.each do |grading|
       GradingScaleType.create(grading)
     end
+  when 'GradingScale'
+    user_table.hashes.each do |gradingscale|
+      GradingScale.create(gradingscale)
+    end
   when 'ResearchInterest'
     user_table.hashes.each do |interest|
       ResearchInterest.create(interest)
@@ -67,6 +71,22 @@ Given(/the following (.*?) have been added to (.*?) Database:/) do |user, table_
   when 'ProfilesUndergradUniversity'
     user_table.hashes.each do |profiles_undergrad_university|
       ProfilesUndergradUniversity.create(profiles_undergrad_university)
+    end
+  when 'Messageboards'
+    user_table.hashes.each do |message_board|
+      ThreddedMessageboard.create(message_board)
+    end
+  when 'Topics'
+    user_table.hashes.each do |topic|
+      ThreddedTopic.create(topic)
+    end
+  when 'Posts'
+    user_table.hashes.each do |post|
+      ThreddedPost.create(post)
+    end
+  when 'FacultyEvaluation'
+    user_table.hashes.each do |faculty_evaluation|
+      FacultyEvaluation.create(faculty_evaluation)
     end
   end
 end

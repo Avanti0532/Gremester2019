@@ -6,8 +6,11 @@
     <li><%= link_to "My Profile", profile_path(current_student.id), class: "nav-link"%></li>
     <% if !current_student.current_profile.blank? %>
       <li><%= link_to "My Applications", show_profiles_path(current_student.current_profile.id), :method => :get, class: "nav-link"%></li>
-    <%end %>
-    <li><%= link_to "Account Settings",  profile_path(current_student.id), :method => :get, class: "nav-link"%></li>
+      <li><%= link_to "Admission Predictions",  sAdmissionChance_profiles_path, :method => :get, class: "nav-link"%></li>
+
+  <%end %>
+
+
   </ul>
 </div>
 <!--end navigation-->

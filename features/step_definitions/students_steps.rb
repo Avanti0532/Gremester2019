@@ -8,6 +8,10 @@ def create_another_student
                 password: 'mike1234', password_confirmation: 'mike1234'}
 end
 
+def moderator
+  @moderator = {email: "frank@gmail.com", password: '34567890'}
+end
+
 
 def saved_student_data
   @saved_student_data = {email: 'robin@gmail.com', password: '12345678'}
@@ -20,6 +24,13 @@ def log_in_student
   click_button 'Log in'
 end
 
+
+def log_in_moderator
+  visit new_student_session_path
+  fill_in 'Email', with: @moderator[:email]
+  fill_in 'Password', with: @moderator[:password]
+  click_button 'Log in'
+end
 def sign_up
   visit '/students/sign_up'
   fill_in 'student_username', with: @student[:username]
@@ -104,6 +115,10 @@ When /^I log in as a student/ do
   log_in_student
 end
 
+When /^I login as a student moderator/ do
+  moderator
+  log_in_moderator
+end
 Then /^I should see a successful login message/ do
   page.should have_content "You are logged in"
 end
@@ -163,6 +178,12 @@ Then /^I can update my (.*?)$/ do |field|
   when 'undergraduate college'
     select('United States', from: 'country_id')
     select('Massachusetts Institute of Technology', from: 'undergrad_universities')
+    select('Computer Science', from: 'major_undergrad')
+    select('B.A', from: 'degree_undergrad')
+    select('2010', from: 'undergrad_start_year')
+    select('2014', from: 'undergrad_end_year')
+    select('Standard', from: "grading_scale")
+    fill_in "profiles_undergrad_university[cgpa]", with: 3.2
     click_button 'Save Changes'
     undergrad_school = current_student.current_profile.undergrad_universities
     contain = false
@@ -240,6 +261,18 @@ Then /^I can update my (.*?)$/ do |field|
     click_button 'Save Changes'
     current_student.current_profile.research_interests.first.name.should eq("Machine Learning")
   end
+end
+
+Then(/I can add new interest interest if it's not available in the database$/) do
+  count = ResearchInterest.count
+  current_student = Student.find_by_email(@saved_student_data[:email])
+  visit profile_path(current_student.id)
+  click_button 'Edit Profile'
+  expect(page).to have_current_path(edit_profile_path(current_student.id))
+  click_button 'Add new research interest'
+  fill_in 'additional_research_interest', with: 'Research 1; Research 2'
+  click_button 'Save Changes'
+  ResearchInterest.count.should eq(count + 2)
 end
 
 Then(/I can add new undergrad university with only school name and country$/) do
@@ -381,4 +414,49 @@ Then(/^I can add undergrad university together with gpa, degree type, grading sc
     contains.should eq(true)
   end
 
+end
+
+Then(/^I can log out of my account from the forum page/) do
+  visit thredded_path
+  page.find_link("Sign Out").click
+  page.should have_content 'Signed out successfully.'
+end
+
+
+Then(/^I can go to the main page from the forum page/) do
+  visit thredded_path
+  page.find_link("Main Page").click
+  expect(page).to have_current_path(root_path)
+end
+
+Then(/^I can post my question if I go to any message board/) do
+  visit thredded_path
+  visit "/discussion_forum/test"
+  page.should have_content 'Title'
+end
+
+Then(/^I can look at unread message/) do
+  visit thredded_path
+  visit "/discussion_forum/test"
+  page.should have_content 'Unread'
+end
+
+Then(/^I can search for topic by keyword/) do
+  visit thredded_path
+  visit "/discussion_forum/test"
+  fill_in "q", with: "First"
+  page.should have_content "First Topic"
+end
+
+Then(/^I can reply to any post/) do
+  visit thredded_path
+  visit "/discussion_forum/test/first_topic"
+  page.should have_content "Submit Reply"
+end
+
+Then(/^I can approve or disapprove message/) do
+  visit thredded_path
+  click_link "Moderation"
+  expect(page).to have_selector(:link_or_button, 'Approve')
+  expect(page).to have_selector(:link_or_button, 'Block')
 end

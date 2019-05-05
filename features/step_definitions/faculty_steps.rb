@@ -41,6 +41,18 @@ When /^I log in as a faculty/ do
   saved_faculty_data
   log_in_faculty
 end
+When /^I log_in as a faculty as (.*?)$/ do |name|
+  visit new_faculty_session_path
+  case name
+  when 'Alice'
+    fill_in 'Email', with: 'alicen@uiowa.edu'
+    fill_in 'Password', with: '12345689'
+  when 'Lily'
+    fill_in 'Email', with: 'lilys@uiowa.edu '
+    fill_in 'Password', with: '23456789'
+  end
+  click_button 'Log in'
+end
 
 When /^I sign up with valid faculties details/ do
   create_faculty
@@ -218,6 +230,8 @@ end
 When /^I click on (.*?) button$/ do |btn|
   if btn == 'x'
     find('#x_btn').click
+  elsif btn == 'Back' || 'Add Evaluation' || 'Back to profile'
+    click_on btn
   else
     click_button btn
   end
@@ -246,8 +260,8 @@ When("I slide CGPA to range {int},{int}") do |int, int2|
   page.execute_script("$('#slider-range-cgpa').slider({
   range: true,
       min: 0,
-      max: 5,
-      step: 0.1,
+      max: 100,
+      step: 1,
       values: ["+int.to_s+", "+int2.to_s+"],
       slide: function(event, ui) {
     $( '#cgpa_score' ).val( ui.values[ 0 ] + ' - ' + ui.values[ 1 ] );
@@ -322,10 +336,84 @@ $( '#msob_score' ).val($( '#slider-range-msob' ).slider( 'values', 0 ) +
   ' - ' + $( '#slider-range-msob' ).slider( 'values', 1 ) );");
 end
 
+When("I select all as scale") do
+  find('#scale_type').find(:css, 'option[value="all"]').select_option
+end
+
+When("I select Standard with A+ as scale") do
+  find('#scale_type').find(:css, 'option[value="1"]').select_option
+end
+
+When("I select German scale as scale") do
+  find('#scale_type').find(:css, 'option[value="5"]').select_option
+end
+
+Then("I can see all applications with CGPA in range {int},{int} in German scale") do |int, int2|
+  high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", int, int, 1).first.gpa
+  low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", int2, int2, 1).first.gpa
+  td4elements = all('table#dtOrderExample tbody tr td:nth-of-type(4)')
+  td4elements.each do |td4|
+    (td4.text.to_s.to_f).should be_between(low_score.to_s.to_f, high_score.to_s.to_f)
+  end
+end
+
+
+Then("I can see all applications with CGPA in range {int},{int} in Standard with A+ scale") do |int, int2|
+  low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", int, int, 1).first.gpa
+  high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", int2, int2, 1).first.gpa
+  td4elements = all('table#dtOrderExample tbody tr td:nth-of-type(4)')
+  td4elements.each do |td4|
+    (td4.text.to_s.to_f).should be_between(low_score.to_s.to_f, high_score.to_s.to_f)
+  end
+end
+
 Then("I can see all applications with CGPA in range {int},{int}") do |int, int2|
-  tdelements = all('table#dtOrderExample tbody tr td:nth-of-type(4)')
-  tdelements.each do |td|
-    (td.text.to_s.to_f).should be_between(int.to_s.to_f, int2.to_s.to_f)
+  scalesCount = GradingScaleType.all.size
+  cgpa_low = int
+  cgpa_high = int2
+    scales = Array.new(scalesCount, Array.new(3, 0))
+    GradingScaleType.all.each do |type|
+      if !(type.id == 5)
+        low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+        high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+      else
+        high_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_low, cgpa_low, type.id.to_s).first.gpa
+        low_score = GradingScale.where("low_percent <= ? AND high_percent >= ? AND grading_scale_type_id = ?", cgpa_high, cgpa_high, type.id.to_s).first.gpa
+      end
+      scales[type.id-1] = [type.id, low_score, high_score]
+    end
+  td2elements = all('table#dtOrderExample tbody tr td:nth-of-type(2)')
+  college_gpa = Array.new(td2elements.size, Array.new(2, 0))
+  counter = 0
+  td2elements.each do |td2|
+    undergrad_university_id = UndergradUniversity.where("university_name = ?", td2.text).first.id
+    college_gpa[counter] = [undergrad_university_id,0]
+    counter += 1
+  end
+  td4elements = all('table#dtOrderExample tbody tr td:nth-of-type(4)')
+  counter = 0
+  td4elements.each do |td4|
+    college_gpa[counter][1] = td4.text.to_s
+    counter += 1
+  end
+  td1elements = all('table#dtOrderExample tbody tr td:nth-of-type(1)')
+  profiles_arr = Array.new(td1elements.size, 0)
+  counter = 0
+  td1elements.each do|td1|
+    names = td1.text.to_s.split(' ')
+    student_id = Student.where("first_name = ? AND last_name = ?", names[0], names[1]).first.id
+    profiles_arr[counter] = Profile.where('student_id = ?', student_id).first.id
+    counter += 1
+  end
+  undegrad_scales = Array.new(profiles_arr.size, 0)
+  counter = 0
+  college_gpa.each do |college|
+    undegrad_scales[counter] = ProfilesUndergradUniversity.where("profile_id = ? AND undergrad_university_id = ?", profiles_arr[counter], college_gpa[counter][0]).first.grading_scale_type_id
+    counter += 1
+  end
+  counter = 0
+  college_gpa.each do |gpa|
+    gpa[1].to_s.to_f.should be_between(scales[undegrad_scales[counter]][1].to_s.to_f, scales[undegrad_scales[counter]][2].to_s.to_f)
   end
 end
 
@@ -444,3 +532,5 @@ Then("I can click any student profile if I click on their name in the applicatio
   click_link('Frank Robert')
   page.should have_content("Frank Robert's Profile")
 end
+
+

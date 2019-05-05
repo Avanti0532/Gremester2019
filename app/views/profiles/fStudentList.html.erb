@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag 'sProfileNav' %>
+<%= stylesheet_link_tag 'fstudentList' %>
 <%= javascript_include_tag 'fstudentList' %>
 
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -48,9 +49,51 @@
     </div>
     <div class="row">
       <div class="col-md-4">
-        <label for="score">Cumulative GPA range:</label>
-        <input type="text" class="score" id="cgpa_score" name="cgpa_score" readonly>
-        <div id="slider-range-cgpa"></div>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="score">Cumulative GPA:</label>
+            <input type="text" class="score" id="cgpa_score" name="cgpa_score" size="6" readonly>%
+          </div>
+          <div class="col-md-7">
+            <label for="scale_type">Scale:</label>
+            <%
+              st_grades = ""
+              GradingScaleType.all.each{ |u|
+                st_grades += u.grading_scale_name+":\n"
+                grades = u.grading_scales.all
+                if !grades.nil?
+                  for i in 0..2 do
+                    if !grades[i].nil?
+                      if grades[i].gpa == nil
+                        st_grades += grades[i].letter_grade + " (" + grades[i].low_percent.to_s + "-"+grades[i].high_percent.to_s+"%)\n"
+                      else
+                        st_grades += grades[i].letter_grade + " (" + grades[i].low_percent.to_s + "-"+grades[i].high_percent.to_s+ "%) = " + grades[i].gpa.to_s + "\n"
+                      end
+                    end
+                  end
+                end
+                st_grades += "\n"
+              }
+            %>
+
+            <select id="scale_type" name="scale_type">
+              <option value="all">**All**</option>
+              <%GradingScaleType.all.each do |scale_type|%>
+                <option value="<%=scale_type.id %>"><%=scale_type.grading_scale_name %></option>
+              <% end %>
+            </select>
+            <span class="glyphicon glyphicon-question-sign"
+                  data-toggle="popover" data-trigger= "hover" title="Example grading scales" data-container="body"
+                  data-content="<%=st_grades %>">
+                  </span>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+          <div id="slider-range-cgpa"></div>
+          </div>
+        </div>
       </div>
       <div class="col-md-4">
         <label for="score">GRE-Quantitative range:</label>

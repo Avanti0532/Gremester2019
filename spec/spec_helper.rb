@@ -94,5 +94,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
   require 'simplecov'
-  SimpleCov.start 'rails'
+  SimpleCov.start 'rails' do
+    add_filter 'lib/rails_admin_approve_faculty.rb'
+  end
 end
