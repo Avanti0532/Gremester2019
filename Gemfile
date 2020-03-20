@@ -6,6 +6,7 @@ gem 'autoprefixer-rails', '8.6.5'
 gem 'rails-ujs', '~> 5.1.0.beta1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11'
+gem 'mysql2'
 gem 'jasmine'
 gem 'jasmine-jquery-rails'
 # Added haml file
