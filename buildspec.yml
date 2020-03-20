@@ -4,7 +4,7 @@ phases:
     install:
       commands:
         - pip install --upgrade awscli
-        - bundle install
+        - bundle install --with test
     pre_build:
       commands:
         - DATABASE_URL=$DATABASE_URL RAILS_ENV=$RAILS_ENV bundle exec rake db:migrate
