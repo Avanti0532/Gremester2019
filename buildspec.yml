@@ -3,7 +3,7 @@ version: 0.2
 phases:
     install:
       commands:
-        - gem install bundler
+        - pip install --upgrade awscli
         - bundle install
     pre_build:
       commands:
