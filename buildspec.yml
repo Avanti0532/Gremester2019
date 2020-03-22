@@ -5,7 +5,7 @@ phases:
       commands:
         - echo "Installing Bundler"
         - gem install bundler
-        - bundle install --deployment
+        - bundle install --system
     pre_build:
       commands:
         - DATABASE_URL=$DATABASE_URL RAILS_ENV=$RAILS_ENV bundle exec rake db:migrate
