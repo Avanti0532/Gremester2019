@@ -4,7 +4,7 @@ phases:
     install:
       commands:
         - echo "Installing Bundler"
-        - gem install bundler
+        - sudo gem install bundler
         - sudo bundle install
     pre_build:
       commands:
