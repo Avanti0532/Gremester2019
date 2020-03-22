@@ -4,6 +4,7 @@ phases:
     install:
       commands:
         - echo Installing Bundler...
+        - pip3 install awscli --upgrade --user
         - gem install bundler
         - bundle install
     pre_build:
