@@ -46,3 +46,8 @@ db/development.sqlite3
 coverage
 public/uploads
 
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
