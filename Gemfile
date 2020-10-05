@@ -32,7 +32,7 @@ gem "therubyracer"
 gem 'rails_admin'
 gem 'poltergeist'
 # Use jquery as the JavaScript library
-gem "shrine", "~> 2.0"
+gem "shrine", "~> 3.3"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'gon'
