@@ -522,7 +522,7 @@ GEM
       twitter-bootswatch-rails (~> 3.3, >= 3.3.2)
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
-    tzinfo (1.2.6)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uber (0.1.0)
     uglifier (4.2.0)
